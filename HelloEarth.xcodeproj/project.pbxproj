@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EEE41E491B6743A700752EC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E481B6743A700752EC6 /* main.m */; };
+		EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4B1B6743A700752EC6 /* AppDelegate.m */; };
+		EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4E1B6743A700752EC6 /* ViewController.m */; };
+		EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E501B6743A700752EC6 /* Main.storyboard */; };
+		EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E531B6743A700752EC6 /* Images.xcassets */; };
+		EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E551B6743A700752EC6 /* LaunchScreen.xib */; };
+		EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E621B6743A700752EC6 /* HelloEarthTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EEE41E5D1B6743A700752EC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEE41E3B1B6743A700752EC6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EEE41E421B6743A700752EC6;
+			remoteInfo = HelloEarth;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EEE41E431B6743A700752EC6 /* HelloEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE41E471B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEE41E481B6743A700752EC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EEE41E4A1B6743A700752EC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EEE41E4B1B6743A700752EC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EEE41E4D1B6743A700752EC6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EEE41E4E1B6743A700752EC6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EEE41E511B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EEE41E531B6743A700752EC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EEE41E561B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloEarthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE41E611B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEE41E621B6743A700752EC6 /* HelloEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloEarthTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EEE41E401B6743A700752EC6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE41E591B6743A700752EC6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EEE41E3A1B6743A700752EC6 = {
+			isa = PBXGroup;
+			children = (
+				EEE41E451B6743A700752EC6 /* HelloEarth */,
+				EEE41E5F1B6743A700752EC6 /* HelloEarthTests */,
+				EEE41E441B6743A700752EC6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EEE41E441B6743A700752EC6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EEE41E431B6743A700752EC6 /* HelloEarth.app */,
+				EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EEE41E451B6743A700752EC6 /* HelloEarth */ = {
+			isa = PBXGroup;
+			children = (
+				EEE41E4A1B6743A700752EC6 /* AppDelegate.h */,
+				EEE41E4B1B6743A700752EC6 /* AppDelegate.m */,
+				EEE41E4D1B6743A700752EC6 /* ViewController.h */,
+				EEE41E4E1B6743A700752EC6 /* ViewController.m */,
+				EEE41E501B6743A700752EC6 /* Main.storyboard */,
+				EEE41E531B6743A700752EC6 /* Images.xcassets */,
+				EEE41E551B6743A700752EC6 /* LaunchScreen.xib */,
+				EEE41E461B6743A700752EC6 /* Supporting Files */,
+			);
+			path = HelloEarth;
+			sourceTree = "<group>";
+		};
+		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EEE41E471B6743A700752EC6 /* Info.plist */,
+				EEE41E481B6743A700752EC6 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EEE41E5F1B6743A700752EC6 /* HelloEarthTests */ = {
+			isa = PBXGroup;
+			children = (
+				EEE41E621B6743A700752EC6 /* HelloEarthTests.m */,
+				EEE41E601B6743A700752EC6 /* Supporting Files */,
+			);
+			path = HelloEarthTests;
+			sourceTree = "<group>";
+		};
+		EEE41E601B6743A700752EC6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EEE41E611B6743A700752EC6 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EEE41E421B6743A700752EC6 /* HelloEarth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE41E661B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarth" */;
+			buildPhases = (
+				EEE41E3F1B6743A700752EC6 /* Sources */,
+				EEE41E401B6743A700752EC6 /* Frameworks */,
+				EEE41E411B6743A700752EC6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloEarth;
+			productName = HelloEarth;
+			productReference = EEE41E431B6743A700752EC6 /* HelloEarth.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EEE41E5B1B6743A700752EC6 /* HelloEarthTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE41E691B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarthTests" */;
+			buildPhases = (
+				EEE41E581B6743A700752EC6 /* Sources */,
+				EEE41E591B6743A700752EC6 /* Frameworks */,
+				EEE41E5A1B6743A700752EC6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EEE41E5E1B6743A700752EC6 /* PBXTargetDependency */,
+			);
+			name = HelloEarthTests;
+			productName = HelloEarthTests;
+			productReference = EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EEE41E3B1B6743A700752EC6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = weather;
+				TargetAttributes = {
+					EEE41E421B6743A700752EC6 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					EEE41E5B1B6743A700752EC6 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = EEE41E421B6743A700752EC6;
+					};
+				};
+			};
+			buildConfigurationList = EEE41E3E1B6743A700752EC6 /* Build configuration list for PBXProject "HelloEarth" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EEE41E3A1B6743A700752EC6;
+			productRefGroup = EEE41E441B6743A700752EC6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EEE41E421B6743A700752EC6 /* HelloEarth */,
+				EEE41E5B1B6743A700752EC6 /* HelloEarthTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EEE41E411B6743A700752EC6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
+				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
+				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE41E5A1B6743A700752EC6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EEE41E3F1B6743A700752EC6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */,
+				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
+				EEE41E491B6743A700752EC6 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE41E581B6743A700752EC6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EEE41E5E1B6743A700752EC6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EEE41E421B6743A700752EC6 /* HelloEarth */;
+			targetProxy = EEE41E5D1B6743A700752EC6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EEE41E501B6743A700752EC6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EEE41E511B6743A700752EC6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EEE41E551B6743A700752EC6 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EEE41E561B6743A700752EC6 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EEE41E641B6743A700752EC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EEE41E651B6743A700752EC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EEE41E671B6743A700752EC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HelloEarth/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EEE41E681B6743A700752EC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HelloEarth/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EEE41E6A1B6743A700752EC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HelloEarthTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloEarth.app/HelloEarth";
+			};
+			name = Debug;
+		};
+		EEE41E6B1B6743A700752EC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HelloEarthTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloEarth.app/HelloEarth";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EEE41E3E1B6743A700752EC6 /* Build configuration list for PBXProject "HelloEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE41E641B6743A700752EC6 /* Debug */,
+				EEE41E651B6743A700752EC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEE41E661B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE41E671B6743A700752EC6 /* Debug */,
+				EEE41E681B6743A700752EC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EEE41E691B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarthTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE41E6A1B6743A700752EC6 /* Debug */,
+				EEE41E6B1B6743A700752EC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EEE41E3B1B6743A700752EC6 /* Project object */;
+}
