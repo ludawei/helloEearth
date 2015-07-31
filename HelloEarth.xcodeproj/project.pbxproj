@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
 		EEE41E491B6743A700752EC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E481B6743A700752EC6 /* main.m */; };
 		EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4B1B6743A700752EC6 /* AppDelegate.m */; };
 		EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4E1B6743A700752EC6 /* ViewController.m */; };
@@ -14,6 +15,62 @@
 		EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E531B6743A700752EC6 /* Images.xcassets */; };
 		EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E551B6743A700752EC6 /* LaunchScreen.xib */; };
 		EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E621B6743A700752EC6 /* HelloEarthTests.m */; };
+		EEE420331B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE420321B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework */; };
+		EEE4220B1B6865B200752EC6 /* .cocoadocs.yml in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */; };
+		EEE4220C1B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CB1B6865B200752EC6 /* .gitignore */; };
+		EEE4220D1B6865B200752EC6 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CC1B6865B200752EC6 /* .travis.yml */; };
+		EEE4220E1B6865B200752EC6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421CF1B6865B200752EC6 /* AFHTTPRequestOperation.m */; };
+		EEE4220F1B6865B200752EC6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D11B6865B200752EC6 /* AFHTTPRequestOperationManager.m */; };
+		EEE422101B6865B200752EC6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D31B6865B200752EC6 /* AFHTTPSessionManager.m */; };
+		EEE422111B6865B200752EC6 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D61B6865B200752EC6 /* AFNetworkReachabilityManager.m */; };
+		EEE422121B6865B200752EC6 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D81B6865B200752EC6 /* AFSecurityPolicy.m */; };
+		EEE422131B6865B200752EC6 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421DA1B6865B200752EC6 /* AFURLConnectionOperation.m */; };
+		EEE422141B6865B200752EC6 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421DC1B6865B200752EC6 /* AFURLRequestSerialization.m */; };
+		EEE422151B6865B200752EC6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421DE1B6865B200752EC6 /* AFURLResponseSerialization.m */; };
+		EEE422161B6865B200752EC6 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421E01B6865B200752EC6 /* AFURLSessionManager.m */; };
+		EEE422171B6865B200752EC6 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421E31B6865B200752EC6 /* AFNetworkActivityIndicatorManager.m */; };
+		EEE422181B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421E51B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.m */; };
+		EEE422191B6865B200752EC6 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421E71B6865B200752EC6 /* UIAlertView+AFNetworking.m */; };
+		EEE4221A1B6865B200752EC6 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421E91B6865B200752EC6 /* UIButton+AFNetworking.m */; };
+		EEE4221B1B6865B200752EC6 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421EB1B6865B200752EC6 /* UIImageView+AFNetworking.m */; };
+		EEE4221C1B6865B200752EC6 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421EE1B6865B200752EC6 /* UIProgressView+AFNetworking.m */; };
+		EEE4221D1B6865B200752EC6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F01B6865B200752EC6 /* UIRefreshControl+AFNetworking.m */; };
+		EEE4221E1B6865B200752EC6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F21B6865B200752EC6 /* UIWebView+AFNetworking.m */; };
+		EEE4221F1B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421F41B6865B200752EC6 /* .gitignore */; };
+		EEE422201B6865B200752EC6 /* .hgignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421F51B6865B200752EC6 /* .hgignore */; };
+		EEE422211B6865B200752EC6 /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F81B6865B200752EC6 /* DDXMLElementAdditions.m */; };
+		EEE422221B6865B200752EC6 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421FB1B6865B200752EC6 /* NSString+DDXML.m */; };
+		EEE422231B6865B200752EC6 /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421FE1B6865B200752EC6 /* DDXMLDocument.m */; };
+		EEE422241B6865B200752EC6 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422001B6865B200752EC6 /* DDXMLElement.m */; };
+		EEE422251B6865B200752EC6 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422021B6865B200752EC6 /* DDXMLNode.m */; };
+		EEE422261B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE422061B6865B200752EC6 /* .gitignore */; };
+		EEE422271B6865B200752EC6 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422081B6865B200752EC6 /* SMCalloutView.m */; };
+		EEE422281B6865B200752EC6 /* SMClassicCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4220A1B6865B200752EC6 /* SMClassicCalloutView.m */; };
+		EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */; };
+		EEE4222F1B68672700752EC6 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4222E1B68672700752EC6 /* libsqlite3.dylib */; };
+		EEE422311B68673600752EC6 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422301B68673600752EC6 /* libxml2.dylib */; };
+		EEE422331B68673D00752EC6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422321B68673D00752EC6 /* libz.dylib */; };
+		EEE422351B68674500752EC6 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422341B68674500752EC6 /* libc++.dylib */; };
+		EEE422371B68680400752EC6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422361B68680400752EC6 /* OpenGLES.framework */; };
+		EEE422391B68681000752EC6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422381B68681000752EC6 /* MobileCoreServices.framework */; };
+		EEE4223B1B68681700752EC6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4223A1B68681700752EC6 /* CFNetwork.framework */; };
+		EEE4223D1B68682100752EC6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4223C1B68682100752EC6 /* SystemConfiguration.framework */; };
+		EEE4223F1B686B0700752EC6 /* CHN.geojson in Resources */ = {isa = PBXBuildFile; fileRef = EEE4223E1B686B0700752EC6 /* CHN.geojson */; };
+		EEE422521B6882FE00752EC6 /* 24小时变温实况.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422431B6882FE00752EC6 /* 24小时变温实况.json */; };
+		EEE422531B6882FE00752EC6 /* 全国地质灾害气象预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422441B6882FE00752EC6 /* 全国地质灾害气象预报.json */; };
+		EEE422541B6882FE00752EC6 /* 全国大雾落区预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422451B6882FE00752EC6 /* 全国大雾落区预报.json */; };
+		EEE422551B6882FE00752EC6 /* 全国大风降温预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422461B6882FE00752EC6 /* 全国大风降温预报.json */; };
+		EEE422561B6882FE00752EC6 /* 全国强对流落区预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422471B6882FE00752EC6 /* 全国强对流落区预报.json */; };
+		EEE422571B6882FE00752EC6 /* 全国强降雪落区预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422481B6882FE00752EC6 /* 全国强降雪落区预报.json */; };
+		EEE422581B6882FE00752EC6 /* 全国最高气温预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422491B6882FE00752EC6 /* 全国最高气温预报.json */; };
+		EEE422591B6882FE00752EC6 /* 全国沙尘落区预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224A1B6882FE00752EC6 /* 全国沙尘落区预报.json */; };
+		EEE4225A1B6882FE00752EC6 /* 全国烟花爆竹燃放气象指数预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224B1B6882FE00752EC6 /* 全国烟花爆竹燃放气象指数预报.json */; };
+		EEE4225B1B6882FE00752EC6 /* 全国空气污染气象预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224C1B6882FE00752EC6 /* 全国空气污染气象预报.json */; };
+		EEE4225C1B6882FE00752EC6 /* 全国降水量预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224D1B6882FE00752EC6 /* 全国降水量预报.json */; };
+		EEE4225D1B6882FE00752EC6 /* 全国霾区预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224E1B6882FE00752EC6 /* 全国霾区预报.json */; };
+		EEE4225E1B6882FE00752EC6 /* 全国高温区域预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE4224F1B6882FE00752EC6 /* 全国高温区域预报.json */; };
+		EEE4225F1B6882FE00752EC6 /* 渍涝气象风险预报.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422501B6882FE00752EC6 /* 渍涝气象风险预报.json */; };
+		EEE422601B6882FE00752EC6 /* 逐小时极大风速.json in Resources */ = {isa = PBXBuildFile; fileRef = EEE422511B6882FE00752EC6 /* 逐小时极大风速.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemoteTileInfo.h; sourceTree = "<group>"; };
+		EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTileInfo.m; sourceTree = "<group>"; };
 		EEE41E431B6743A700752EC6 /* HelloEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEE41E471B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E481B6743A700752EC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +99,90 @@
 		EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloEarthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEE41E611B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E621B6743A700752EC6 /* HelloEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloEarthTests.m; sourceTree = "<group>"; };
+		EEE420321B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhirlyGlobeMaplyComponent.framework; sourceTree = "<group>"; };
+		EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .cocoadocs.yml; sourceTree = "<group>"; };
+		EEE421CB1B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		EEE421CC1B6865B200752EC6 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		EEE421CE1B6865B200752EC6 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		EEE421CF1B6865B200752EC6 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		EEE421D01B6865B200752EC6 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		EEE421D11B6865B200752EC6 /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		EEE421D21B6865B200752EC6 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		EEE421D31B6865B200752EC6 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		EEE421D41B6865B200752EC6 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		EEE421D51B6865B200752EC6 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		EEE421D61B6865B200752EC6 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		EEE421D71B6865B200752EC6 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		EEE421D81B6865B200752EC6 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		EEE421D91B6865B200752EC6 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		EEE421DA1B6865B200752EC6 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		EEE421DB1B6865B200752EC6 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		EEE421DC1B6865B200752EC6 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		EEE421DD1B6865B200752EC6 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		EEE421DE1B6865B200752EC6 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		EEE421DF1B6865B200752EC6 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		EEE421E01B6865B200752EC6 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		EEE421E21B6865B200752EC6 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		EEE421E31B6865B200752EC6 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		EEE421E41B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421E51B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421E61B6865B200752EC6 /* UIAlertView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421E71B6865B200752EC6 /* UIAlertView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421E81B6865B200752EC6 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421E91B6865B200752EC6 /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421EA1B6865B200752EC6 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421EB1B6865B200752EC6 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421EC1B6865B200752EC6 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421ED1B6865B200752EC6 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421EE1B6865B200752EC6 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421EF1B6865B200752EC6 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421F01B6865B200752EC6 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421F11B6865B200752EC6 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
+		EEE421F21B6865B200752EC6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		EEE421F41B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		EEE421F51B6865B200752EC6 /* .hgignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .hgignore; sourceTree = "<group>"; };
+		EEE421F71B6865B200752EC6 /* DDXMLElementAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElementAdditions.h; sourceTree = "<group>"; };
+		EEE421F81B6865B200752EC6 /* DDXMLElementAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElementAdditions.m; sourceTree = "<group>"; };
+		EEE421FA1B6865B200752EC6 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
+		EEE421FB1B6865B200752EC6 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
+		EEE421FC1B6865B200752EC6 /* DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXML.h; sourceTree = "<group>"; };
+		EEE421FD1B6865B200752EC6 /* DDXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLDocument.h; sourceTree = "<group>"; };
+		EEE421FE1B6865B200752EC6 /* DDXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLDocument.m; sourceTree = "<group>"; };
+		EEE421FF1B6865B200752EC6 /* DDXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElement.h; sourceTree = "<group>"; };
+		EEE422001B6865B200752EC6 /* DDXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElement.m; sourceTree = "<group>"; };
+		EEE422011B6865B200752EC6 /* DDXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLNode.h; sourceTree = "<group>"; };
+		EEE422021B6865B200752EC6 /* DDXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLNode.m; sourceTree = "<group>"; };
+		EEE422041B6865B200752EC6 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLPrivate.h; sourceTree = "<group>"; };
+		EEE422061B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		EEE422071B6865B200752EC6 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
+		EEE422081B6865B200752EC6 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
+		EEE422091B6865B200752EC6 /* SMClassicCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMClassicCalloutView.h; sourceTree = "<group>"; };
+		EEE4220A1B6865B200752EC6 /* SMClassicCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMClassicCalloutView.m; sourceTree = "<group>"; };
+		EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		EEE4222E1B68672700752EC6 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		EEE422301B68673600752EC6 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		EEE422321B68673D00752EC6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EEE422341B68674500752EC6 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		EEE422361B68680400752EC6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		EEE422381B68681000752EC6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EEE4223A1B68681700752EC6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EEE4223C1B68682100752EC6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EEE4223E1B686B0700752EC6 /* CHN.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHN.geojson; sourceTree = "<group>"; };
+		EEE422431B6882FE00752EC6 /* 24小时变温实况.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "24小时变温实况.json"; sourceTree = "<group>"; };
+		EEE422441B6882FE00752EC6 /* 全国地质灾害气象预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国地质灾害气象预报.json"; sourceTree = "<group>"; };
+		EEE422451B6882FE00752EC6 /* 全国大雾落区预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国大雾落区预报.json"; sourceTree = "<group>"; };
+		EEE422461B6882FE00752EC6 /* 全国大风降温预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国大风降温预报.json"; sourceTree = "<group>"; };
+		EEE422471B6882FE00752EC6 /* 全国强对流落区预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国强对流落区预报.json"; sourceTree = "<group>"; };
+		EEE422481B6882FE00752EC6 /* 全国强降雪落区预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国强降雪落区预报.json"; sourceTree = "<group>"; };
+		EEE422491B6882FE00752EC6 /* 全国最高气温预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国最高气温预报.json"; sourceTree = "<group>"; };
+		EEE4224A1B6882FE00752EC6 /* 全国沙尘落区预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国沙尘落区预报.json"; sourceTree = "<group>"; };
+		EEE4224B1B6882FE00752EC6 /* 全国烟花爆竹燃放气象指数预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国烟花爆竹燃放气象指数预报.json"; sourceTree = "<group>"; };
+		EEE4224C1B6882FE00752EC6 /* 全国空气污染气象预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国空气污染气象预报.json"; sourceTree = "<group>"; };
+		EEE4224D1B6882FE00752EC6 /* 全国降水量预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国降水量预报.json"; sourceTree = "<group>"; };
+		EEE4224E1B6882FE00752EC6 /* 全国霾区预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国霾区预报.json"; sourceTree = "<group>"; };
+		EEE4224F1B6882FE00752EC6 /* 全国高温区域预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "全国高温区域预报.json"; sourceTree = "<group>"; };
+		EEE422501B6882FE00752EC6 /* 渍涝气象风险预报.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "渍涝气象风险预报.json"; sourceTree = "<group>"; };
+		EEE422511B6882FE00752EC6 /* 逐小时极大风速.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "逐小时极大风速.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +190,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE4223D1B68682100752EC6 /* SystemConfiguration.framework in Frameworks */,
+				EEE4223B1B68681700752EC6 /* CFNetwork.framework in Frameworks */,
+				EEE422391B68681000752EC6 /* MobileCoreServices.framework in Frameworks */,
+				EEE422371B68680400752EC6 /* OpenGLES.framework in Frameworks */,
+				EEE422351B68674500752EC6 /* libc++.dylib in Frameworks */,
+				EEE422331B68673D00752EC6 /* libz.dylib in Frameworks */,
+				EEE422311B68673600752EC6 /* libxml2.dylib in Frameworks */,
+				EEE4222F1B68672700752EC6 /* libsqlite3.dylib in Frameworks */,
+				EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */,
+				EEE420331B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +216,19 @@
 		EEE41E3A1B6743A700752EC6 = {
 			isa = PBXGroup;
 			children = (
+				EEE422421B6882FE00752EC6 /* 图形样例数据数据 */,
+				EEE4223E1B686B0700752EC6 /* CHN.geojson */,
+				EEE4223C1B68682100752EC6 /* SystemConfiguration.framework */,
+				EEE4223A1B68681700752EC6 /* CFNetwork.framework */,
+				EEE422381B68681000752EC6 /* MobileCoreServices.framework */,
+				EEE422361B68680400752EC6 /* OpenGLES.framework */,
+				EEE422341B68674500752EC6 /* libc++.dylib */,
+				EEE422321B68673D00752EC6 /* libz.dylib */,
+				EEE422301B68673600752EC6 /* libxml2.dylib */,
+				EEE4222E1B68672700752EC6 /* libsqlite3.dylib */,
+				EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */,
+				EEE421C81B6865B200752EC6 /* third-party */,
+				EEE420321B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework */,
 				EEE41E451B6743A700752EC6 /* HelloEarth */,
 				EEE41E5F1B6743A700752EC6 /* HelloEarthTests */,
 				EEE41E441B6743A700752EC6 /* Products */,
@@ -85,6 +251,8 @@
 				EEE41E4B1B6743A700752EC6 /* AppDelegate.m */,
 				EEE41E4D1B6743A700752EC6 /* ViewController.h */,
 				EEE41E4E1B6743A700752EC6 /* ViewController.m */,
+				EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */,
+				EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */,
 				EEE41E501B6743A700752EC6 /* Main.storyboard */,
 				EEE41E531B6743A700752EC6 /* Images.xcassets */,
 				EEE41E551B6743A700752EC6 /* LaunchScreen.xib */,
@@ -117,6 +285,157 @@
 				EEE41E611B6743A700752EC6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EEE421C81B6865B200752EC6 /* third-party */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421C91B6865B200752EC6 /* AFNetworking */,
+				EEE421F31B6865B200752EC6 /* KissXML */,
+				EEE422051B6865B200752EC6 /* SMCalloutView */,
+			);
+			path = "third-party";
+			sourceTree = "<group>";
+		};
+		EEE421C91B6865B200752EC6 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */,
+				EEE421CB1B6865B200752EC6 /* .gitignore */,
+				EEE421CC1B6865B200752EC6 /* .travis.yml */,
+				EEE421CD1B6865B200752EC6 /* AFNetworking */,
+				EEE421E11B6865B200752EC6 /* UIKit+AFNetworking */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		EEE421CD1B6865B200752EC6 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421CE1B6865B200752EC6 /* AFHTTPRequestOperation.h */,
+				EEE421CF1B6865B200752EC6 /* AFHTTPRequestOperation.m */,
+				EEE421D01B6865B200752EC6 /* AFHTTPRequestOperationManager.h */,
+				EEE421D11B6865B200752EC6 /* AFHTTPRequestOperationManager.m */,
+				EEE421D21B6865B200752EC6 /* AFHTTPSessionManager.h */,
+				EEE421D31B6865B200752EC6 /* AFHTTPSessionManager.m */,
+				EEE421D41B6865B200752EC6 /* AFNetworking.h */,
+				EEE421D51B6865B200752EC6 /* AFNetworkReachabilityManager.h */,
+				EEE421D61B6865B200752EC6 /* AFNetworkReachabilityManager.m */,
+				EEE421D71B6865B200752EC6 /* AFSecurityPolicy.h */,
+				EEE421D81B6865B200752EC6 /* AFSecurityPolicy.m */,
+				EEE421D91B6865B200752EC6 /* AFURLConnectionOperation.h */,
+				EEE421DA1B6865B200752EC6 /* AFURLConnectionOperation.m */,
+				EEE421DB1B6865B200752EC6 /* AFURLRequestSerialization.h */,
+				EEE421DC1B6865B200752EC6 /* AFURLRequestSerialization.m */,
+				EEE421DD1B6865B200752EC6 /* AFURLResponseSerialization.h */,
+				EEE421DE1B6865B200752EC6 /* AFURLResponseSerialization.m */,
+				EEE421DF1B6865B200752EC6 /* AFURLSessionManager.h */,
+				EEE421E01B6865B200752EC6 /* AFURLSessionManager.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		EEE421E11B6865B200752EC6 /* UIKit+AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421E21B6865B200752EC6 /* AFNetworkActivityIndicatorManager.h */,
+				EEE421E31B6865B200752EC6 /* AFNetworkActivityIndicatorManager.m */,
+				EEE421E41B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.h */,
+				EEE421E51B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.m */,
+				EEE421E61B6865B200752EC6 /* UIAlertView+AFNetworking.h */,
+				EEE421E71B6865B200752EC6 /* UIAlertView+AFNetworking.m */,
+				EEE421E81B6865B200752EC6 /* UIButton+AFNetworking.h */,
+				EEE421E91B6865B200752EC6 /* UIButton+AFNetworking.m */,
+				EEE421EA1B6865B200752EC6 /* UIImageView+AFNetworking.h */,
+				EEE421EB1B6865B200752EC6 /* UIImageView+AFNetworking.m */,
+				EEE421EC1B6865B200752EC6 /* UIKit+AFNetworking.h */,
+				EEE421ED1B6865B200752EC6 /* UIProgressView+AFNetworking.h */,
+				EEE421EE1B6865B200752EC6 /* UIProgressView+AFNetworking.m */,
+				EEE421EF1B6865B200752EC6 /* UIRefreshControl+AFNetworking.h */,
+				EEE421F01B6865B200752EC6 /* UIRefreshControl+AFNetworking.m */,
+				EEE421F11B6865B200752EC6 /* UIWebView+AFNetworking.h */,
+				EEE421F21B6865B200752EC6 /* UIWebView+AFNetworking.m */,
+			);
+			path = "UIKit+AFNetworking";
+			sourceTree = "<group>";
+		};
+		EEE421F31B6865B200752EC6 /* KissXML */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421F41B6865B200752EC6 /* .gitignore */,
+				EEE421F51B6865B200752EC6 /* .hgignore */,
+				EEE421F61B6865B200752EC6 /* Additions */,
+				EEE421F91B6865B200752EC6 /* Categories */,
+				EEE421FC1B6865B200752EC6 /* DDXML.h */,
+				EEE421FD1B6865B200752EC6 /* DDXMLDocument.h */,
+				EEE421FE1B6865B200752EC6 /* DDXMLDocument.m */,
+				EEE421FF1B6865B200752EC6 /* DDXMLElement.h */,
+				EEE422001B6865B200752EC6 /* DDXMLElement.m */,
+				EEE422011B6865B200752EC6 /* DDXMLNode.h */,
+				EEE422021B6865B200752EC6 /* DDXMLNode.m */,
+				EEE422031B6865B200752EC6 /* Private */,
+			);
+			path = KissXML;
+			sourceTree = "<group>";
+		};
+		EEE421F61B6865B200752EC6 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421F71B6865B200752EC6 /* DDXMLElementAdditions.h */,
+				EEE421F81B6865B200752EC6 /* DDXMLElementAdditions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		EEE421F91B6865B200752EC6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EEE421FA1B6865B200752EC6 /* NSString+DDXML.h */,
+				EEE421FB1B6865B200752EC6 /* NSString+DDXML.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		EEE422031B6865B200752EC6 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				EEE422041B6865B200752EC6 /* DDXMLPrivate.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		EEE422051B6865B200752EC6 /* SMCalloutView */ = {
+			isa = PBXGroup;
+			children = (
+				EEE422061B6865B200752EC6 /* .gitignore */,
+				EEE422071B6865B200752EC6 /* SMCalloutView.h */,
+				EEE422081B6865B200752EC6 /* SMCalloutView.m */,
+				EEE422091B6865B200752EC6 /* SMClassicCalloutView.h */,
+				EEE4220A1B6865B200752EC6 /* SMClassicCalloutView.m */,
+			);
+			path = SMCalloutView;
+			sourceTree = "<group>";
+		};
+		EEE422421B6882FE00752EC6 /* 图形样例数据数据 */ = {
+			isa = PBXGroup;
+			children = (
+				EEE422431B6882FE00752EC6 /* 24小时变温实况.json */,
+				EEE422441B6882FE00752EC6 /* 全国地质灾害气象预报.json */,
+				EEE422451B6882FE00752EC6 /* 全国大雾落区预报.json */,
+				EEE422461B6882FE00752EC6 /* 全国大风降温预报.json */,
+				EEE422471B6882FE00752EC6 /* 全国强对流落区预报.json */,
+				EEE422481B6882FE00752EC6 /* 全国强降雪落区预报.json */,
+				EEE422491B6882FE00752EC6 /* 全国最高气温预报.json */,
+				EEE4224A1B6882FE00752EC6 /* 全国沙尘落区预报.json */,
+				EEE4224B1B6882FE00752EC6 /* 全国烟花爆竹燃放气象指数预报.json */,
+				EEE4224C1B6882FE00752EC6 /* 全国空气污染气象预报.json */,
+				EEE4224D1B6882FE00752EC6 /* 全国降水量预报.json */,
+				EEE4224E1B6882FE00752EC6 /* 全国霾区预报.json */,
+				EEE4224F1B6882FE00752EC6 /* 全国高温区域预报.json */,
+				EEE422501B6882FE00752EC6 /* 渍涝气象风险预报.json */,
+				EEE422511B6882FE00752EC6 /* 逐小时极大风速.json */,
+			);
+			path = "图形样例数据数据";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +501,7 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = EEE41E3A1B6743A700752EC6;
 			productRefGroup = EEE41E441B6743A700752EC6 /* Products */;
@@ -199,9 +519,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE4220D1B6865B200752EC6 /* .travis.yml in Resources */,
+				EEE4221F1B6865B200752EC6 /* .gitignore in Resources */,
+				EEE422571B6882FE00752EC6 /* 全国强降雪落区预报.json in Resources */,
+				EEE422201B6865B200752EC6 /* .hgignore in Resources */,
+				EEE422601B6882FE00752EC6 /* 逐小时极大风速.json in Resources */,
+				EEE4225E1B6882FE00752EC6 /* 全国高温区域预报.json in Resources */,
+				EEE4220C1B6865B200752EC6 /* .gitignore in Resources */,
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
+				EEE422551B6882FE00752EC6 /* 全国大风降温预报.json in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
+				EEE4220B1B6865B200752EC6 /* .cocoadocs.yml in Resources */,
+				EEE422531B6882FE00752EC6 /* 全国地质灾害气象预报.json in Resources */,
+				EEE422541B6882FE00752EC6 /* 全国大雾落区预报.json in Resources */,
+				EEE422581B6882FE00752EC6 /* 全国最高气温预报.json in Resources */,
+				EEE422521B6882FE00752EC6 /* 24小时变温实况.json in Resources */,
+				EEE422261B6865B200752EC6 /* .gitignore in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
+				EEE4225C1B6882FE00752EC6 /* 全国降水量预报.json in Resources */,
+				EEE4223F1B686B0700752EC6 /* CHN.geojson in Resources */,
+				EEE4225A1B6882FE00752EC6 /* 全国烟花爆竹燃放气象指数预报.json in Resources */,
+				EEE4225B1B6882FE00752EC6 /* 全国空气污染气象预报.json in Resources */,
+				EEE4225D1B6882FE00752EC6 /* 全国霾区预报.json in Resources */,
+				EEE4225F1B6882FE00752EC6 /* 渍涝气象风险预报.json in Resources */,
+				EEE422561B6882FE00752EC6 /* 全国强对流落区预报.json in Resources */,
+				EEE422591B6882FE00752EC6 /* 全国沙尘落区预报.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +561,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE4220E1B6865B200752EC6 /* AFHTTPRequestOperation.m in Sources */,
+				EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */,
+				EEE4221B1B6865B200752EC6 /* UIImageView+AFNetworking.m in Sources */,
 				EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */,
+				EEE4220F1B6865B200752EC6 /* AFHTTPRequestOperationManager.m in Sources */,
+				EEE4221C1B6865B200752EC6 /* UIProgressView+AFNetworking.m in Sources */,
+				EEE422271B6865B200752EC6 /* SMCalloutView.m in Sources */,
+				EEE422281B6865B200752EC6 /* SMClassicCalloutView.m in Sources */,
+				EEE422111B6865B200752EC6 /* AFNetworkReachabilityManager.m in Sources */,
+				EEE422151B6865B200752EC6 /* AFURLResponseSerialization.m in Sources */,
+				EEE422131B6865B200752EC6 /* AFURLConnectionOperation.m in Sources */,
+				EEE4221A1B6865B200752EC6 /* UIButton+AFNetworking.m in Sources */,
+				EEE422181B6865B200752EC6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				EEE422121B6865B200752EC6 /* AFSecurityPolicy.m in Sources */,
+				EEE422251B6865B200752EC6 /* DDXMLNode.m in Sources */,
+				EEE422211B6865B200752EC6 /* DDXMLElementAdditions.m in Sources */,
+				EEE4221D1B6865B200752EC6 /* UIRefreshControl+AFNetworking.m in Sources */,
+				EEE4221E1B6865B200752EC6 /* UIWebView+AFNetworking.m in Sources */,
+				EEE422101B6865B200752EC6 /* AFHTTPSessionManager.m in Sources */,
+				EEE422231B6865B200752EC6 /* DDXMLDocument.m in Sources */,
+				EEE422191B6865B200752EC6 /* UIAlertView+AFNetworking.m in Sources */,
+				EEE422141B6865B200752EC6 /* AFURLRequestSerialization.m in Sources */,
+				EEE422171B6865B200752EC6 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				EEE422161B6865B200752EC6 /* AFURLSessionManager.m in Sources */,
+				EEE422241B6865B200752EC6 /* DDXMLElement.m in Sources */,
+				EEE422221B6865B200752EC6 /* NSString+DDXML.m in Sources */,
 				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
 				EEE41E491B6743A700752EC6 /* main.m in Sources */,
 			);
@@ -349,6 +716,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third-party",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/WhirlyGlobeMaplyComponent.framework/Headers/\"",
+					/usr/include/libxml2/,
+				);
 				INFOPLIST_FILE = HelloEarth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -359,6 +737,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third-party",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/WhirlyGlobeMaplyComponent.framework/Headers/\"",
+					/usr/include/libxml2/,
+				);
 				INFOPLIST_FILE = HelloEarth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -418,6 +807,7 @@
 				EEE41E681B6743A700752EC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EEE41E691B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarthTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +816,7 @@
 				EEE41E6B1B6743A700752EC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
