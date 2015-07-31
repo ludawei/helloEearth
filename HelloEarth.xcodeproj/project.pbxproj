@@ -16,9 +16,6 @@
 		EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E551B6743A700752EC6 /* LaunchScreen.xib */; };
 		EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E621B6743A700752EC6 /* HelloEarthTests.m */; };
 		EEE420331B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE420321B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework */; };
-		EEE4220B1B6865B200752EC6 /* .cocoadocs.yml in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */; };
-		EEE4220C1B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CB1B6865B200752EC6 /* .gitignore */; };
-		EEE4220D1B6865B200752EC6 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = EEE421CC1B6865B200752EC6 /* .travis.yml */; };
 		EEE4220E1B6865B200752EC6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421CF1B6865B200752EC6 /* AFHTTPRequestOperation.m */; };
 		EEE4220F1B6865B200752EC6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D11B6865B200752EC6 /* AFHTTPRequestOperationManager.m */; };
 		EEE422101B6865B200752EC6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421D31B6865B200752EC6 /* AFHTTPSessionManager.m */; };
@@ -36,14 +33,12 @@
 		EEE4221C1B6865B200752EC6 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421EE1B6865B200752EC6 /* UIProgressView+AFNetworking.m */; };
 		EEE4221D1B6865B200752EC6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F01B6865B200752EC6 /* UIRefreshControl+AFNetworking.m */; };
 		EEE4221E1B6865B200752EC6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F21B6865B200752EC6 /* UIWebView+AFNetworking.m */; };
-		EEE4221F1B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421F41B6865B200752EC6 /* .gitignore */; };
 		EEE422201B6865B200752EC6 /* .hgignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE421F51B6865B200752EC6 /* .hgignore */; };
 		EEE422211B6865B200752EC6 /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421F81B6865B200752EC6 /* DDXMLElementAdditions.m */; };
 		EEE422221B6865B200752EC6 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421FB1B6865B200752EC6 /* NSString+DDXML.m */; };
 		EEE422231B6865B200752EC6 /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE421FE1B6865B200752EC6 /* DDXMLDocument.m */; };
 		EEE422241B6865B200752EC6 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422001B6865B200752EC6 /* DDXMLElement.m */; };
 		EEE422251B6865B200752EC6 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422021B6865B200752EC6 /* DDXMLNode.m */; };
-		EEE422261B6865B200752EC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EEE422061B6865B200752EC6 /* .gitignore */; };
 		EEE422271B6865B200752EC6 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE422081B6865B200752EC6 /* SMCalloutView.m */; };
 		EEE422281B6865B200752EC6 /* SMClassicCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4220A1B6865B200752EC6 /* SMClassicCalloutView.m */; };
 		EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */; };
@@ -100,9 +95,6 @@
 		EEE41E611B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E621B6743A700752EC6 /* HelloEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloEarthTests.m; sourceTree = "<group>"; };
 		EEE420321B68654400752EC6 /* WhirlyGlobeMaplyComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhirlyGlobeMaplyComponent.framework; sourceTree = "<group>"; };
-		EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .cocoadocs.yml; sourceTree = "<group>"; };
-		EEE421CB1B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		EEE421CC1B6865B200752EC6 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		EEE421CE1B6865B200752EC6 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		EEE421CF1B6865B200752EC6 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		EEE421D01B6865B200752EC6 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -139,7 +131,6 @@
 		EEE421F01B6865B200752EC6 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		EEE421F11B6865B200752EC6 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		EEE421F21B6865B200752EC6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		EEE421F41B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EEE421F51B6865B200752EC6 /* .hgignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .hgignore; sourceTree = "<group>"; };
 		EEE421F71B6865B200752EC6 /* DDXMLElementAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElementAdditions.h; sourceTree = "<group>"; };
 		EEE421F81B6865B200752EC6 /* DDXMLElementAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElementAdditions.m; sourceTree = "<group>"; };
@@ -153,7 +144,6 @@
 		EEE422011B6865B200752EC6 /* DDXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLNode.h; sourceTree = "<group>"; };
 		EEE422021B6865B200752EC6 /* DDXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLNode.m; sourceTree = "<group>"; };
 		EEE422041B6865B200752EC6 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLPrivate.h; sourceTree = "<group>"; };
-		EEE422061B6865B200752EC6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EEE422071B6865B200752EC6 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		EEE422081B6865B200752EC6 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		EEE422091B6865B200752EC6 /* SMClassicCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMClassicCalloutView.h; sourceTree = "<group>"; };
@@ -300,9 +290,6 @@
 		EEE421C91B6865B200752EC6 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				EEE421CA1B6865B200752EC6 /* .cocoadocs.yml */,
-				EEE421CB1B6865B200752EC6 /* .gitignore */,
-				EEE421CC1B6865B200752EC6 /* .travis.yml */,
 				EEE421CD1B6865B200752EC6 /* AFNetworking */,
 				EEE421E11B6865B200752EC6 /* UIKit+AFNetworking */,
 			);
@@ -362,7 +349,6 @@
 		EEE421F31B6865B200752EC6 /* KissXML */ = {
 			isa = PBXGroup;
 			children = (
-				EEE421F41B6865B200752EC6 /* .gitignore */,
 				EEE421F51B6865B200752EC6 /* .hgignore */,
 				EEE421F61B6865B200752EC6 /* Additions */,
 				EEE421F91B6865B200752EC6 /* Categories */,
@@ -407,7 +393,6 @@
 		EEE422051B6865B200752EC6 /* SMCalloutView */ = {
 			isa = PBXGroup;
 			children = (
-				EEE422061B6865B200752EC6 /* .gitignore */,
 				EEE422071B6865B200752EC6 /* SMCalloutView.h */,
 				EEE422081B6865B200752EC6 /* SMCalloutView.m */,
 				EEE422091B6865B200752EC6 /* SMClassicCalloutView.h */,
@@ -519,22 +504,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEE4220D1B6865B200752EC6 /* .travis.yml in Resources */,
-				EEE4221F1B6865B200752EC6 /* .gitignore in Resources */,
 				EEE422571B6882FE00752EC6 /* 全国强降雪落区预报.json in Resources */,
 				EEE422201B6865B200752EC6 /* .hgignore in Resources */,
 				EEE422601B6882FE00752EC6 /* 逐小时极大风速.json in Resources */,
 				EEE4225E1B6882FE00752EC6 /* 全国高温区域预报.json in Resources */,
-				EEE4220C1B6865B200752EC6 /* .gitignore in Resources */,
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
 				EEE422551B6882FE00752EC6 /* 全国大风降温预报.json in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
-				EEE4220B1B6865B200752EC6 /* .cocoadocs.yml in Resources */,
 				EEE422531B6882FE00752EC6 /* 全国地质灾害气象预报.json in Resources */,
 				EEE422541B6882FE00752EC6 /* 全国大雾落区预报.json in Resources */,
 				EEE422581B6882FE00752EC6 /* 全国最高气温预报.json in Resources */,
 				EEE422521B6882FE00752EC6 /* 24小时变温实况.json in Resources */,
-				EEE422261B6865B200752EC6 /* .gitignore in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
 				EEE4225C1B6882FE00752EC6 /* 全国降水量预报.json in Resources */,
 				EEE4223F1B686B0700752EC6 /* CHN.geojson in Resources */,

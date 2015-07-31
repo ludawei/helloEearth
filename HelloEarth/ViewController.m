@@ -47,6 +47,8 @@
     self.theViewC.delegate = self;
     [self.view addSubview:self.theViewC.view];
     self.theViewC.view.frame = self.view.bounds;
+    self.theViewC.view.layer.shadowOffset = CGSizeMake(1, 1);
+    self.theViewC.view.layer.shadowColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
     [self addChildViewController:self.theViewC];
     
     NSString *baseCacheDir =
@@ -55,7 +57,7 @@
     NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/osmtiles/",baseCacheDir];
     int maxZoom = 6;
     
-    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.mn69agep/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.n1ppo21a/" ext:@"png" minZoom:0 maxZoom:maxZoom];
     
     MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
     
@@ -176,7 +178,15 @@
         self.theViewC.keepNorthUp = true;
         [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
         [self.theViewC setAutoRotateInterval:0.2 degrees:20];
+        
+//        MaplyLight *light = [[MaplyLight alloc] init];
+//        light.pos = MaplyCoordinate3dMake(10, 10, 100);
+//        light.viewDependent = true;
+//        light.diffuse = [[UIColor greenColor] colorWithAlphaComponent:0.3];
+//        [self.theViewC addLight:light];
     });
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -314,11 +324,11 @@
         for (NSInteger i=0; i<items.count; i++) {
             NSDictionary *point = [items objectAtIndex:i];
             
-            points[i] = MaplyCoordinateMake([[point objectForKey:@"lat"] doubleValue], [[point objectForKey:@"lng"] doubleValue]);
+            points[i] = MaplyCoordinateMake([[point objectForKey:@"lng"] doubleValue], [[point objectForKey:@"lat"] doubleValue]);
         }
         
         NSDictionary *vectorDict = nil;
-        if ([area objectForKey:@"c"]) {
+        if ([area objectForKey:@"color"]) {
             vectorDict = @{
                            kMaplyColor: [self colorFromRGBString:[area objectForKey:@"color"]],
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
