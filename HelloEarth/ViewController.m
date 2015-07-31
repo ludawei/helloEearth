@@ -184,6 +184,22 @@
 //        light.viewDependent = true;
 //        light.diffuse = [[UIColor greenColor] colorWithAlphaComponent:0.3];
 //        [self.theViewC addLight:light];
+
+        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
+        sphere.center = MaplyCoordinateMake(0, 0);
+        sphere.radius = 0.2;
+        sphere.height = 4.0;
+        [self.theViewC addShapes:@[sphere] desc:
+                  @{kMaplyColor: [UIColor yellowColor],
+                    kMaplyShader: kMaplyShaderDefaultTri}];
+//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
+//        MaplyCoordinate centerGeo = [sun asPosition];
+//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
+//        bill.selectable = false;
+////        bill.screenObj = [[MaplyScreenObject alloc] init];
+//        UIImage *globeImage = [UIImage imageNamed:@"SunImage"];
+//        [bill.screenObj addImage:globeImage color:[UIColor whiteColor] size:CGSizeMake(0.9, 0.9)];
+//        sunObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye,kMaplyDrawPriority: @(kMaplySunDrawPriorityDefault)} mode:MaplyThreadAny];
     });
     
     
