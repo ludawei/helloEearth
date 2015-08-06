@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
+//#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
+#import "WhirlyGlobeComponent.h"
 #import "MyRemoteTileInfo.h"
 
 @interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate>
@@ -75,6 +76,8 @@
 //    layer.drawPriority = 0;
 
     [self.theViewC addLayer:layer];
+    self.theViewC.frameInterval = 2;
+    self.theViewC.threadPerLayer = true;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
     
@@ -120,6 +123,9 @@
         
         [self addLine_symbolsToMap];
         
+        if ([self.data objectForKey:@"r"]) {
+            [self addAreasToMap2];
+        }
         //        [self addSymbolsToMap];
     }
     
@@ -169,6 +175,81 @@
                    });
 }
 
+- (void)addStars:(NSString *)inFile
+{
+    if (!self.theViewC)
+        return;
+    
+    // Load the stars
+    NSString *fileName = [[NSBundle mainBundle] pathForResource:inFile ofType:@"txt"];
+    if (fileName)
+    {
+        MaplyStarsModel *stars = [[MaplyStarsModel alloc] initWithFileName:fileName];
+        stars.image = [UIImage imageNamed:@"star_background"];
+        [stars addToViewC:self.theViewC date:[NSDate date] desc:nil mode:MaplyThreadCurrent];
+    }
+}
+
+- (void)addSun
+{
+    if (!self.theViewC)
+        return;
+    
+    // Lighting for the sun
+    MaplySun *sun = [[MaplySun alloc] initWithDate:[NSDate date]];
+    MaplyLight *sunLight = [sun makeLight];
+    [self.theViewC clearLights];
+    [self.theViewC addLight:sunLight];
+    
+    // And a model, because why not
+//    if (1)
+//    {
+//        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
+//        sphere.center = [sun asPosition];
+//        sphere.radius = 0.2;
+//        sphere.height = 4.0;
+//        [self.theViewC addShapes:@[sphere] desc:
+//                  @{kMaplyColor: [UIColor yellowColor],
+//                    kMaplyShader: kMaplyShaderDefaultTriNoLighting}];
+//    }
+//    else {
+//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
+//        MaplyCoordinate centerGeo = [sun asPosition];
+//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
+//        bill.selectable = false;
+//        bill.screenObj = [[MaplyScreenObject alloc] init];
+//        UIImage *globeImage = [UIImage imageNamed:@"SunImage"];
+//        [bill.screenObj addImage:globeImage color:[UIColor whiteColor] size:CGSizeMake(0.9, 0.9)];
+//        sunObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye,kMaplyDrawPriority: @(kMaplySunDrawPriorityDefault)} mode:MaplyThreadAny];
+//    }
+    
+    // Position for the moon
+//    MaplyMoon *moon = [[MaplyMoon alloc] initWithDate:[NSDate date]];
+//    if (UseMoonSphere)
+//    {
+//        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
+//        sphere.center = [moon asCoordinate];
+//        sphere.radius = 0.2;
+//        sphere.height = 4.0;
+//        moonObj = [globeViewC addShapes:@[sphere] desc:
+//                   @{kMaplyColor: [UIColor grayColor],
+//                     kMaplyShader: kMaplyShaderDefaultTriNoLighting}];
+//    } else {
+//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
+//        MaplyCoordinate3d centerGeo = [moon asPosition];
+//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
+//        bill.selectable = false;
+//        bill.screenObj = [[MaplyScreenObject alloc] init];
+//        UIImage *moonImage = [UIImage imageNamed:@"moon"];
+//        [bill.screenObj addImage:moonImage color:[UIColor colorWithWhite:moon.illuminatedFraction alpha:1.0] size:CGSizeMake(0.75, 0.75)];
+//        moonObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye, kMaplyDrawPriority: @(kMaplyMoonDrawPriorityDefault)} mode:MaplyThreadAny];
+//    }
+    
+    // And some atmosphere, because the iDevice fill rate is just too fast
+    MaplyAtmosphere *atmosObj = [[MaplyAtmosphere alloc] initWithViewC:self.theViewC];
+    [atmosObj setSunPosition:[sun getDirection]];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -177,29 +258,10 @@
         self.theViewC.heading = 0;
         self.theViewC.keepNorthUp = true;
         [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
-        [self.theViewC setAutoRotateInterval:0.2 degrees:20];
+//        [self.theViewC setAutoRotateInterval:0.2 degrees:20];
         
-//        MaplyLight *light = [[MaplyLight alloc] init];
-//        light.pos = MaplyCoordinate3dMake(10, 10, 100);
-//        light.viewDependent = true;
-//        light.diffuse = [[UIColor greenColor] colorWithAlphaComponent:0.3];
-//        [self.theViewC addLight:light];
-
-        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
-        sphere.center = MaplyCoordinateMake(0, 0);
-        sphere.radius = 0.2;
-        sphere.height = 4.0;
-        [self.theViewC addShapes:@[sphere] desc:
-                  @{kMaplyColor: [UIColor yellowColor],
-                    kMaplyShader: kMaplyShaderDefaultTri}];
-//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
-//        MaplyCoordinate centerGeo = [sun asPosition];
-//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
-//        bill.selectable = false;
-////        bill.screenObj = [[MaplyScreenObject alloc] init];
-//        UIImage *globeImage = [UIImage imageNamed:@"SunImage"];
-//        [bill.screenObj addImage:globeImage color:[UIColor whiteColor] size:CGSizeMake(0.9, 0.9)];
-//        sunObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye,kMaplyDrawPriority: @(kMaplySunDrawPriorityDefault)} mode:MaplyThreadAny];
+        [self addSun];
+        [self addStars:@"starcatalog_orig"];
     });
     
     
@@ -362,6 +424,81 @@
         
         [self.comObjs addObject:comObj];
     }
+}
+
+
+-(void)addAreasToMap2
+{
+    NSArray *r = [self.data objectForKey:@"r"];
+    NSArray *lists = [self.data objectForKey:@"list"];
+    
+    for (NSArray *arr in r) {
+        NSInteger index = [[arr firstObject] integerValue];
+        NSString *color = [arr lastObject];
+        
+        NSArray *items = [lists objectAtIndex:index];
+//        CGFloat bool_items = [self getArea:items];
+        
+        MaplyCoordinate * points = (MaplyCoordinate *)malloc(sizeof(MaplyCoordinate) * items.count);
+        
+        NSInteger j=0;
+//        if (bool_items < 0) {
+//            for (NSInteger i=0; i<items.count; i++) {
+//                NSDictionary *point = [items objectAtIndex:i];
+//                
+//                points[j] = MaplyCoordinateMake([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
+//                j++;
+//            }
+//        }
+//        else
+        {
+            for (NSInteger i=items.count-1; i>=0; i--) {
+                NSDictionary *point = [items objectAtIndex:i];
+                
+                points[j] = MaplyCoordinateMake([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
+                j++;
+            }
+        }
+        
+        
+        NSDictionary *vectorDict = nil;
+        if (color) {
+            vectorDict = @{
+                           kMaplyColor: [self colorFromRGBString:color],
+                           kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
+                           kMaplySelectable: @(true),
+                           kMaplyFilled: @(true),
+                           kMaplyDrawOffset: @(0),
+                           };
+        }
+        
+        MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithAreal:points numCoords:(int)items.count attributes:nil];
+        vect.selectable = true;
+        free(points);
+        
+        MaplyComponentObject *comObj = [self.theViewC addVectors:[NSArray arrayWithObject:vect] desc:vectorDict mode:MaplyThreadCurrent];
+        
+        [self.comObjs addObject:comObj];
+        
+        break;
+    }
+}
+
+-(CGFloat)getArea:(NSArray *)points
+{
+    CGFloat s = 0;
+    for (NSInteger i=0; i<points.count-1; i++) {
+        NSDictionary *point_a = [points objectAtIndex:i];
+        NSDictionary *point_b = [points objectAtIndex:i+1];
+        
+        s += [point_a[@"x"] floatValue]*[point_b[@"y"] floatValue] - [point_b[@"x"] floatValue]*[point_a[@"y"] floatValue];
+    }
+    
+    NSDictionary *point_a = [points lastObject];
+    NSDictionary *point_b = [points firstObject];
+    s += [point_a[@"x"] floatValue]*[point_b[@"y"] floatValue] - [point_b[@"x"] floatValue]*[point_a[@"y"] floatValue];
+    
+    return s/2;
 }
 
 #pragma mark - Whirly Globe Delegate

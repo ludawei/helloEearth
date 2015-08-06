@@ -6,7 +6,8 @@
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
-#import <WhirlyGlobeMaplyComponent/MaplyRemoteTileSource.h>
+//#import <WhirlyGlobeMaplyComponent/MaplyRemoteTileSource.h>
+#import "MaplyRemoteTileSource.h"
 
 @interface MyRemoteTileInfo : MaplyRemoteTileInfo
 
