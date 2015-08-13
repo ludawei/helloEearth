@@ -20,4 +20,10 @@
     return newRequest;
 }
 
+-(bool)tileIsLocal:(MaplyTileID)tileID frame:(int)frame
+{
+    bool bl = [super tileIsLocal:tileID frame:frame];
+    
+    return bl;
+}
 @end
