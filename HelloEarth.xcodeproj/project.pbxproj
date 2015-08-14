@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */; };
+		EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */; };
 		EE47F7FA1B6B93360000F066 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE47F7F91B6B93360000F066 /* libstdc++.dylib */; };
 		EE47F89D1B71F28A0000F066 /* libWhirlyGlobe-MaplyComponent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE47F8071B71F2890000F066 /* libWhirlyGlobe-MaplyComponent.a */; };
 		EE47F89E1B71F28A0000F066 /* libWhirlyGlobeLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE47F8081B71F2890000F066 /* libWhirlyGlobeLib.a */; };
@@ -150,6 +151,8 @@
 /* Begin PBXFileReference section */
 		EE2414A21B7D7F6800B2C5B5 /* HEMapDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapDatas.h; sourceTree = "<group>"; };
 		EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapDatas.m; sourceTree = "<group>"; };
+		EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimLogic.h; sourceTree = "<group>"; };
+		EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapAnimLogic.m; sourceTree = "<group>"; };
 		EE47F7F91B6B93360000F066 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		EE47F8071B71F2890000F066 /* libWhirlyGlobe-MaplyComponent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libWhirlyGlobe-MaplyComponent.a"; sourceTree = "<group>"; };
 		EE47F8081B71F2890000F066 /* libWhirlyGlobeLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWhirlyGlobeLib.a; sourceTree = "<group>"; };
@@ -640,6 +643,8 @@
 			children = (
 				EE2414A21B7D7F6800B2C5B5 /* HEMapDatas.h */,
 				EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */,
+				EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */,
+				EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */,
 			);
 			name = Logics;
 			sourceTree = "<group>";
@@ -1515,6 +1520,7 @@
 				EED8B66E1B748BF5000EADC1 /* SDWebImageDecoder.m in Sources */,
 				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
 				EED8B65A1B748BF5000EADC1 /* AFHTTPSessionManager.m in Sources */,
+				EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */,
 				EED8B6B21B748C58000EADC1 /* UtilConstants.m in Sources */,
 				EEE41E491B6743A700752EC6 /* main.m in Sources */,
 				EED8B6D31B748C71000EADC1 /* DeviceUtil.m in Sources */,
