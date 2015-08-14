@@ -18,6 +18,8 @@
 #import "MapStatisticsBottomView.h"
 #import "NSDate+Utilities.h"
 
+#import "HEMapDatas.h"
+
 #define MK_CHINA_CENTER_REGION MKCoordinateRegionMake(CLLocationCoordinate2DMake(33.2, 105.0), MKCoordinateSpanMake(42, 64))
 
 @interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate>
@@ -30,10 +32,10 @@
 @property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
 
 @property (nonatomic,copy) NSArray *titles;
-@property (nonatomic,copy) NSDictionary *data;
-@property (nonatomic,copy) NSArray *areas;
 
-@property (nonatomic,strong) NSMutableArray *comObjs, *vects, *descs;
+@property (nonatomic,strong) HEMapDatas *mapDatas;
+
+@property (nonatomic,copy) NSArray *comObjs;
 @property (nonatomic,strong) MaplyComponentObject *stickersObj,*markersObj;
 
 // 雷达动画
@@ -115,58 +117,21 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"图层" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavLeft)];
     
-    self.comObjs = [NSMutableArray array];
+//    self.comObjs = [NSMutableArray array];
     
     [self addCountries];
     
     [self initBottomViews];
+    
+    self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
 }
 
 -(void)changetitle:(NSString *)title
 {
     self.title = title;
-    
-    self.data = nil;
-    self.areas = nil;
-    
-    [self initData:title];
-    [self setupLayer];
-}
 
--(void)initData:(NSString *)name
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"json"];
-    NSData *jsonData = [NSData dataWithContentsOfFile:path];
-    
-    id data = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-    
-    if ([data isKindOfClass:[NSArray class]]) {
-        self.areas = data;
-    }
-    else
-    {
-        self.data = data;
-    }
-}
-
--(void)setupLayer
-{
     [self resetMapUI];
-    
-    if (self.data) {
-        [self addAreasToMap];
-        
-        [self addLine_symbolsToMap];
-        
-        if ([self.data objectForKey:@"r"]) {
-            [self addAreasToMap2];
-        }
-        //        [self addSymbolsToMap];
-    }
-    
-    if (self.areas) {
-        [self addAreasToMap1];
-    }
+    self.comObjs = [self.mapDatas changetitle:title];
 }
 
 - (void)addCountries
@@ -193,19 +158,10 @@
                                wgVecObj.userObject = vecName;
                                
                                // add the outline to our view
-                               MaplyComponentObject *compObj = [self.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
+                               [self.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
                                // If you ever intend to remove these, keep track of the MaplyComponentObjects above.
                            }
                        }
-                       
-//                    NSArray *jsons = [[NSBundle mainBundle] pathsForResourcesOfType:@"json" inDirectory:nil];
-//                    for (NSString *path in jsons)
-//                       {
-//                           NSData *jsonData = [NSData dataWithContentsOfFile:path];
-//                           
-//                           id data = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-//                           [self.datas addObject:data];
-//                       }
                        
                    });
 }
@@ -317,234 +273,6 @@
     self.statisticsView.hidden = YES;
 }
 
--(void)addAreasToMap
-{
-//    全国大雾落区预报, 全国空气污染气象预报
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"全国空气污染气象预报" ofType:@"json"];
-//    NSData *jsonData = [NSData dataWithContentsOfFile:path];
-//    
-//    id data = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-//    
-//    NSArray *areas = [data objectForKey:@"areas"];
-    NSArray *areas = [self.data objectForKey:@"areas"];
-    for (NSDictionary *area in areas) {
-        NSArray *items = [area objectForKey:@"items"];
-        
-        NSInteger index = [areas indexOfObject:area];
-        MaplyCoordinate * points = (MaplyCoordinate *)malloc(sizeof(MaplyCoordinate) * items.count);
-        
-        for (NSInteger i=0; i<items.count; i++) {
-            NSDictionary *point = [items objectAtIndex:i];
-            
-            points[i] = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
-        }
-        
-        NSDictionary *vectorDict = nil;
-        if ([area objectForKey:@"c"]) {
-            vectorDict = @{
-                           kMaplyColor: [self colorFromRGBString:[area objectForKey:@"c"]],
-                           kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
-                           kMaplySelectable: @(true),
-                           kMaplyFilled: @(true),
-                           kMaplyDrawOffset: @(0),
-//                           kMaplyLabelWidth : @(4.0),
-                           };
-        }
-        
-        MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithAreal:points numCoords:(int)items.count attributes:nil];
-        vect.selectable = true;
-        free(points);
-        
-        MaplyComponentObject *comObj = [self.theViewC addVectors:[NSArray arrayWithObject:vect] desc:vectorDict mode:MaplyThreadCurrent];
-        
-        [self.comObjs addObject:comObj];
-    }
-}
-
-//-(void)addLinesToMap
-//{
-//    NSArray *areas = [self.data objectForKey:@"lines"];
-//    /********* 目前没有，暂时不处理 *********/
-//
-//    for (NSDictionary *area in areas) {
-//        NSArray *items = [area objectForKey:@"items"];
-//
-//        CLLocationCoordinate2D * points = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * items.count);
-//
-//        for (NSInteger i=0; i<items.count; i++) {
-//            NSDictionary *point = [items objectAtIndex:i];
-//
-//            points[i] = CLLocationCoordinate2DMake([[point objectForKey:@"y"] doubleValue], [[point objectForKey:@"x"] doubleValue]);
-//        }
-//
-//        MKPolygon *line = [MKPolygon polygonWithCoordinates:points count:items.count];
-////        line.subtitle = [self colorStringFromDataInfoWithCode:[area objectForKey:@"code"] text:[[area objectForKey:@"symbols"] objectForKey:@"text"]];
-//        free(points);
-//
-//        [self.mapView addOverlay:line];
-//    }
-//}
-
--(void)addLine_symbolsToMap
-{
-    NSArray *areas = [self.data objectForKey:@"line_symbols"];
-    for (NSDictionary *area in areas) {
-        
-        if ([[area objectForKey:@"code"] integerValue] != 38) {
-            continue;
-        }
-        
-        NSArray *items = [area objectForKey:@"items"];
-        
-        MaplyCoordinate * points = (MaplyCoordinate *)malloc(sizeof(MaplyCoordinate) * items.count);
-        
-        for (NSInteger i=0; i<items.count; i++) {
-            NSDictionary *point = [items objectAtIndex:i];
-            
-            points[i] = MaplyCoordinateMake([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
-        }
-        
-        NSDictionary *vectorDict = @{
-                                     kMaplyColor: [UIColor redColor],
-                                     kMaplySelectable: @(true),
-                                     kMaplyDrawOffset: @(0),
-                                     kMaplyLabelWidth : @(3.0),
-                                     };
-        
-        MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithLineString:points numCoords:(int)items.count attributes:nil];
-        vect.selectable = true;
-        free(points);
-        
-        MaplyComponentObject *comObj = [self.theViewC addVectors:[NSArray arrayWithObject:vect] desc:vectorDict mode:MaplyThreadCurrent];
-        
-        [self.comObjs addObject:comObj];
-    }
-}
-
-//-(void)addSymbolsToMap
-//{
-//    NSArray *areas = [self.data objectForKey:@"symbols"];
-//    for (NSDictionary *area in areas) {
-//        
-//        MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
-//        ann.coordinate = CLLocationCoordinate2DMake([[area objectForKey:@"y"] doubleValue], [[area objectForKey:@"x"] doubleValue]);
-//        ann.title = [area objectForKey:@"text"];
-//        
-//        [self.mapView addAnnotation:ann];
-//    }
-//}
-
--(void)addAreasToMap1
-{
-//    MaplyCoordinateSystem *coorSys = [[MaplySphericalMercator alloc] initWebStandard];
-    for (NSDictionary *area in self.areas) {
-        NSArray *items = [area objectForKey:@"items"];
-        
-        NSInteger index = [self.areas indexOfObject:area];
-        MaplyCoordinate * points = (MaplyCoordinate *)malloc(sizeof(MaplyCoordinate) * items.count);
-        
-        for (NSInteger i=0; i<items.count; i++) {
-            NSDictionary *point = [items objectAtIndex:i];
-            
-            points[i] = MaplyCoordinateMake([[point objectForKey:@"lng"] doubleValue], [[point objectForKey:@"lat"] doubleValue]);
-        }
-        
-        NSDictionary *vectorDict = nil;
-        if ([area objectForKey:@"color"]) {
-            vectorDict = @{
-                           kMaplyColor: [self colorFromRGBString:[area objectForKey:@"color"]],
-                           kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
-                           kMaplySelectable: @(true),
-                           kMaplyFilled: @(true),
-                           kMaplyDrawOffset: @(0),
-                           };
-        }
-        
-        MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithAreal:points numCoords:(int)items.count attributes:nil];
-        vect.selectable = true;
-        free(points);
-        
-        MaplyComponentObject *comObj = [self.theViewC addVectors:[NSArray arrayWithObject:vect] desc:vectorDict mode:MaplyThreadCurrent];
-        
-        [self.comObjs addObject:comObj];
-    }
-}
-
-
--(void)addAreasToMap2
-{
-    NSArray *r = [self.data objectForKey:@"r"];
-    NSArray *lists = [self.data objectForKey:@"list"];
-    
-    for (NSArray *arr in r) {
-        NSInteger index = [[arr firstObject] integerValue];
-        NSString *color = [arr lastObject];
-        
-        NSArray *items = [lists objectAtIndex:index];
-//        CGFloat bool_items = [self getArea:items];
-        
-        MaplyCoordinate * points = (MaplyCoordinate *)malloc(sizeof(MaplyCoordinate) * items.count);
-        
-        NSInteger j=0;
-//        if (bool_items < 0) {
-//            for (NSInteger i=0; i<items.count; i++) {
-//                NSDictionary *point = [items objectAtIndex:i];
-//                
-//                points[j] = MaplyCoordinateMake([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
-//                j++;
-//            }
-//        }
-//        else
-        {
-            for (NSInteger i=items.count-1; i>=0; i--) {
-                NSDictionary *point = [items objectAtIndex:i];
-                
-                points[j] = MaplyCoordinateMake([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
-                j++;
-            }
-        }
-        
-        
-        NSDictionary *vectorDict = nil;
-        if (color) {
-            vectorDict = @{
-                           kMaplyColor: [self colorFromRGBString:color],
-                           kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
-                           kMaplySelectable: @(true),
-                           kMaplyFilled: @(true),
-                           kMaplyDrawOffset: @(0),
-                           };
-        }
-        
-        MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithAreal:points numCoords:(int)items.count attributes:nil];
-        vect.selectable = true;
-        free(points);
-        
-        MaplyComponentObject *comObj = [self.theViewC addVectors:[NSArray arrayWithObject:vect] desc:vectorDict mode:MaplyThreadCurrent];
-        
-        [self.comObjs addObject:comObj];
-        
-        break;
-    }
-}
-
--(CGFloat)getArea:(NSArray *)points
-{
-    CGFloat s = 0;
-    for (NSInteger i=0; i<points.count-1; i++) {
-        NSDictionary *point_a = [points objectAtIndex:i];
-        NSDictionary *point_b = [points objectAtIndex:i+1];
-        
-        s += [point_a[@"x"] floatValue]*[point_b[@"y"] floatValue] - [point_b[@"x"] floatValue]*[point_a[@"y"] floatValue];
-    }
-    
-    NSDictionary *point_a = [points lastObject];
-    NSDictionary *point_b = [points firstObject];
-    s += [point_a[@"x"] floatValue]*[point_b[@"y"] floatValue] - [point_b[@"x"] floatValue]*[point_a[@"y"] floatValue];
-    
-    return s/2;
-}
-
 #pragma mark - Whirly Globe Delegate
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -592,16 +320,6 @@
             }
         }
     }
-}
-
--(UIColor *)colorFromRGBString:(NSString *)rbgString
-{
-    if ([rbgString hasPrefix:@"rgba"]) {
-        return [UIColor clearColor];
-    }
-    unsigned long rgbValue = strtoul([[rbgString stringByReplacingOccurrencesOfString:@"#" withString:@"0x"] UTF8String], 0, 16);
-    
-    return [[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0] colorWithAlphaComponent:0.7];
 }
 
 -(void)clickNavLeft
@@ -653,7 +371,7 @@
 -(void)resetMapUI
 {
     [self.theViewC removeObjects:self.comObjs];
-    [self.comObjs removeAllObjects];
+    self.comObjs = nil;
     
     [self.theViewC removeObject:self.stickersObj];
     self.stickersObj = nil;
@@ -900,7 +618,7 @@
         
         MaplySticker *sticker = [[MaplySticker alloc] init];
         // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
-//        MK_CHINA_CENTER_REGION.
+        
         locPoints = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l3"];
         NSString *p1 = [NSString stringWithFormat:@"%@", locPoints.firstObject];
         NSString *p2 = [NSString stringWithFormat:@"%@", locPoints[1]];
