@@ -7,7 +7,6 @@
 //
 
 #import "HEMapAnimLogic.h"
-#import "MapImagesManager.h"
 #import "CWDataManager.h"
 #import "Masonry.h"
 #import "Util.h"
@@ -23,6 +22,8 @@
 @property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
 
 // 雷达动画
+@property (nonatomic,assign) NSInteger type;
+
 @property (nonatomic,strong) MapImagesManager *mapImagesManager;
 @property (nonatomic,copy) NSDictionary *allImages;
 @property (nonatomic,copy) NSArray *allUrls;
@@ -50,6 +51,8 @@
 
 -(void)showImagesAnimation:(enum MapImageType)type
 {
+    self.type = type==MapImageTypeRain?0:1;
+    
     if (!self.mapImagesManager) {
         self.mapImagesManager = [[MapImagesManager alloc] init];
     }
@@ -59,7 +62,7 @@
     }
     
     self.bottomView.hidden = NO;
-    [self requestImage:MapImageTypeRain];
+    [self requestImage:type];
 }
 
 -(void)requestImage:(enum MapImageType)type
@@ -79,38 +82,35 @@
         NSString *url = [self.allUrls.firstObject objectForKey:@"l2"];
         
         __weak typeof(self) weakSlef = self;
-        [self.mapImagesManager downloadImageWithUrl:url type:type region:MK_CHINA_CENTER_REGION completed:^(UIImage *image) {
+        [self.mapImagesManager downloadImageWithUrl:url type:type completed:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (image) {
-                    //                    [weakSlef.mapView removeOverlays:self.mapView.overlays];
-                    //                    [weakSlef removeMapOverlayWithoutTileOverlay];
-                    
-                    //                    MyOverlay *groundOverlay = [[MyOverlay alloc] initWithRegion:MK_CHINA_CENTER_REGION];
                     MaplySticker *sticker = [[MaplySticker alloc] init];
+                    MaplyCoordinateSystem *coordSys = [[MaplySphericalMercator alloc] initWebStandard];
+                    sticker.coordSys = coordSys;
                     
                     if (type == MapImageTypeRain) {
                         locPoints = [weakSlef.allUrls.firstObject objectForKey:@"l3"];
-                        NSString *p1 = [NSString stringWithFormat:@"%@", locPoints.firstObject];
-                        NSString *p2 = [NSString stringWithFormat:@"%@", locPoints[1]];
-                        NSString *p3 = [NSString stringWithFormat:@"%@", locPoints[2]];
-                        NSString *p4 = [NSString stringWithFormat:@"%@", locPoints.lastObject];
-                        
-                        // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
-                        MaplyCoordinateSystem *coordSys = [[MaplySphericalMercator alloc] initWebStandard];
-                        sticker.coordSys = coordSys;
-                        sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
-                        sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
-                        
-                        sticker.image = image;
-                        // And a random rotation
-                        //        sticker.rotation = 2*M_PI * drand48();
-                        
                     }
                     else if(type == MapImageTypeCloud)
                     {
-                        //                        groundOverlay = [[MyOverlay alloc] initWithNorthEast:CLLocationCoordinate2DMake(59.97, 50.02) southWest:CLLocationCoordinate2DMake(-4.98, 144.97)];
+                        locPoints = @[@"-4.98", @"50.02", @"59.97", @"144.97"];
                     }
+                    
+                    NSString *p1 = [NSString stringWithFormat:@"%@", locPoints.firstObject];
+                    NSString *p2 = [NSString stringWithFormat:@"%@", locPoints[1]];
+                    NSString *p3 = [NSString stringWithFormat:@"%@", locPoints[2]];
+                    NSString *p4 = [NSString stringWithFormat:@"%@", locPoints.lastObject];
+                    
+                    // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
+                    
+                    sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
+                    sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
+                    
+                    // And a random rotation
+                    //        sticker.rotation = 2*M_PI * drand48();
+                    sticker.image = image;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.stickersObj = [self.theViewC addStickers:@[sticker] desc:@{kMaplyFade: @(1.0),
@@ -140,7 +140,7 @@
         else
         {
             __weak typeof(self) weakSlef = self;
-            [self.mapImagesManager downloadAllImageWithType:type region:MK_CHINA_CENTER_REGION completed:^(NSDictionary *images) {
+            [self.mapImagesManager downloadAllImageWithType:type completed:^(NSDictionary *images) {
                 
                 if (images) {
                     // 开始动画
@@ -224,7 +224,7 @@
         MaplySticker *sticker = [[MaplySticker alloc] init];
         // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
         
-        locPoints = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l3"];
+//        locPoints = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l3"];
         NSString *p1 = [NSString stringWithFormat:@"%@", locPoints.firstObject];
         NSString *p2 = [NSString stringWithFormat:@"%@", locPoints[1]];
         NSString *p3 = [NSString stringWithFormat:@"%@", locPoints[2]];
@@ -257,38 +257,38 @@
 -(void)setTimeLabelText:(NSString *)text
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //    if (self.type == 0)
+    if (self.type == 0)
     {
         NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
         [dateFormatter setDateFormat:@"HH:mm"];
         self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
     }
-    //    else
-    //    {
-    //        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-    //        NSDate* expirationDate = [dateFormatter dateFromString: text];
-    //        [dateFormatter setDateFormat:@"HH:mm"];
-    //        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
-    //    }
+    else
+    {
+        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+        NSDate* expirationDate = [dateFormatter dateFromString: text];
+        [dateFormatter setDateFormat:@"HH:mm"];
+        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+    }
     dateFormatter = nil;
 }
 
 -(void)setDateLabelText:(NSString *)text
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //    if (self.type == 0)
+    if (self.type == 0)
     {
         NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
         [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
         self.dateLbl.text = [dateFormatter stringFromDate:expirationDate];
     }
-    //    else
-    //    {
-    //        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-    //        NSDate* expirationDate = [dateFormatter dateFromString: text];
-    //        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
-    //        self.dateLbl.text = [dateFormatter stringFromDate:expirationDate];
-    //    }
+    else
+    {
+        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+        NSDate* expirationDate = [dateFormatter dateFromString: text];
+        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+        self.dateLbl.text = [dateFormatter stringFromDate:expirationDate];
+    }
     dateFormatter = nil;
 }
 
@@ -342,14 +342,14 @@
     
     UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:30]];
     titleLbl.textColor = UIColorFromRGB(0x929292);
-    //    if (self.type == 0)
+    if (self.type == 0)
     {
         titleLbl.text = @"全国雷达拼图";
     }
-    //    else
-    //    {
-    //        titleLbl.text = @"区域卫星云图";
-    //    }
+    else
+    {
+        titleLbl.text = @"区域卫星云图";
+    }
     
     [bottomView addSubview:titleLbl];
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -482,13 +482,13 @@
     }
     else
     {
-        //        if (self.type == 0) {
-        [self requestImageList:MapImageTypeRain];
-        //        }
-        //        else
-        //        {
-        //            [self requestImageList:MapImageTypeCloud];
-        //        }
+        if (self.type == 0) {
+            [self requestImageList:MapImageTypeRain];
+        }
+        else
+        {
+            [self requestImageList:MapImageTypeCloud];
+        }
     }
 }
 
@@ -530,5 +530,16 @@
     {
         LOG(@"Image file 不存在~~%@", imageUrl);
     }
+}
+
+-(void)hide
+{
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+        self.playButton.selected = NO;
+    }
+    
+    self.bottomView.hidden = YES;
 }
 @end

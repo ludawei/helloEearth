@@ -27,9 +27,9 @@ typedef NS_ENUM(NSInteger, MapImageDownloadType){
 @property (nonatomic,strong) UIView *hudView;
 
 -(void)requestImageList:(enum MapImageType)type completed:(void (^)(enum MapImageDownloadType downloadType))block;
--(void)downloadAllImageWithType:(enum MapImageType)type region:(MKCoordinateRegion)region completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType;
+-(void)downloadAllImageWithType:(enum MapImageType)type completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType;
 
--(void)downloadImageWithUrl:(NSString *)url type:(enum MapImageType)type region:(MKCoordinateRegion)region completed:(void (^)(UIImage *image))block;
+-(void)downloadImageWithUrl:(NSString *)url type:(enum MapImageType)type completed:(void (^)(UIImage *image))block;
 
 -(UIImage *)imageFromDiskForUrl:(NSString *)url;
 

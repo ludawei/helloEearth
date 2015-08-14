@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WhirlyGlobeComponent.h"
+#import "MapImagesManager.h"
 
 @interface HEMapAnimLogic : NSObject
 
@@ -16,5 +17,6 @@
 -(instancetype)initWithController:(UIViewController *)theViewC;
 
 -(void)showImagesAnimation:(enum MapImageType)type;
+-(void)hide;
 
 @end

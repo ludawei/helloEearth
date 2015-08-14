@@ -20,14 +20,16 @@
 
 #import "HEMapDatas.h"
 #import "HEMapAnimLogic.h"
-
-#define MK_CHINA_CENTER_REGION MKCoordinateRegionMake(CLLocationCoordinate2DMake(33.2, 105.0), MKCoordinateSpanMake(42, 64))
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate>
 {
     CGFloat globeHeight;
+    BOOL loadOk;
     
     NSArray *locPoints;
+    
+    MPMoviePlayerViewController * player;
 }
 
 @property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
@@ -39,19 +41,6 @@
 
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
 @property (nonatomic,strong) MaplyComponentObject *markersObj;
-
-// 雷达动画
-@property (nonatomic,strong) MapImagesManager *mapImagesManager;
-@property (nonatomic,copy) NSDictionary *allImages;
-@property (nonatomic,copy) NSArray *allUrls;
-@property (nonatomic,strong) NSTimer *timer;
-@property (nonatomic) NSInteger currentPlayIndex;
-
-@property (nonatomic,strong) UIView *bottomView;
-
-@property (nonatomic,strong) UIButton *playButton;
-@property (nonatomic,strong) UISlider *progressView;
-@property (nonatomic,strong) UILabel *timeLabel,*dateLbl;
 
 // 统计
 @property (nonatomic,copy) NSDictionary *markerDatas;
@@ -119,11 +108,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"图层" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavLeft)];
     
-//    self.comObjs = [NSMutableArray array];
-    
     [self addCountries];
-    
-//    [self initBottomViews];
     
     self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
     self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
@@ -254,6 +239,10 @@
 {
     [super viewWillAppear:animated];
     
+    if (loadOk) {
+        return;
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.theViewC.heading = 0;
         self.theViewC.keepNorthUp = true;
@@ -263,17 +252,21 @@
         [self addSun];
         [self addStars:@"starcatalog_orig"];
     });
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+    if (loadOk) {
+        return;
+    }
+    
     [self changetitle:[self.titles firstObject]];
     
     self.statisticsView.hidden = YES;
+    
+    loadOk = YES;
 }
 
 #pragma mark - Whirly Globe Delegate
@@ -309,20 +302,42 @@
         MaplyMarker *marker = (MaplyMarker *)selectedObj;
         
         NSDictionary *data = (NSDictionary *)marker.userObject;
-        NSString *areaid = [data objectForKey:@"subTitle"];
-        if (areaid && self.statisticsView.hidden) {
-            
-//            if (self.isShowTemp) {
-//                self.statisticsTempView.addr = [view.annotation title];
-//                [self.statisticsTempView showWithStationId:areaid];
-//            }
-//            else
-            {
-                self.statisticsView.addr = [data objectForKey:@"title"];
-                [self.statisticsView showWithStationId:areaid];
+        if ([data[@"type"] isEqualToString:@"tongji"]) {
+            NSString *areaid = [data objectForKey:@"subTitle"];
+            if (areaid && self.statisticsView.hidden) {
+                
+                //            if (self.isShowTemp) {
+                //                self.statisticsTempView.addr = [view.annotation title];
+                //                [self.statisticsTempView showWithStationId:areaid];
+                //            }
+                //            else
+                {
+                    self.statisticsView.addr = [data objectForKey:@"title"];
+                    [self.statisticsView showWithStationId:areaid];
+                }
             }
         }
+        else if([data[@"type"] isEqualToString:@"eyes"])
+        {
+            NSString *url = [data objectForKey:@"subTitle"];
+            player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:url]];
+            [player.moviePlayer setShouldAutoplay:YES];
+            [player.moviePlayer setScalingMode:MPMovieScalingModeAspectFit];
+            [player.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+            [player.moviePlayer play];
+            
+            [self presentMoviePlayerViewControllerAnimated:player];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doVideoPlayFinished:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+        }
     }
+}
+
+- (void)doVideoPlayFinished:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    //[player.view removeFromSuperview];
+    player = nil;
 }
 
 -(void)clickNavLeft
@@ -330,7 +345,8 @@
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
     actSheet.tag = 1000;
     [actSheet addButtonWithTitle:@"雷达图"];
-//    [actSheet addButtonWithTitle:@"网眼"];
+    [actSheet addButtonWithTitle:@"云图"];
+    [actSheet addButtonWithTitle:@"网眼"];
     [actSheet addButtonWithTitle:@"天气统计"];
 //    [actSheet addButtonWithTitle:@""];
     [actSheet showInView:self.view];
@@ -361,12 +377,27 @@
         [self resetMapUI];
         
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        
+        self.title = title;
         if ([title isEqualToString:@"雷达图"]) {
-//            [self showImagesAnimation:MapImageTypeRain];
             [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+        }
+        else if ([title isEqualToString:@"云图"]) {
+            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+        }
+        else if ([title isEqualToString:@"网眼"]) {
+            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [act startAnimating];
+            self.navigationItem.titleView = act;
+            
+            [self showNetEyesMarkers];
         }
         else if ([title isEqualToString:@"天气统计"])
         {
+            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [act startAnimating];
+            self.navigationItem.titleView = act;
+            
             [self showTongJiMarkers];
         }
     }
@@ -377,11 +408,31 @@
     [self.theViewC removeObjects:self.comObjs];
     self.comObjs = nil;
     
+    [self.mapAnimLogic hide];
     [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
     self.mapAnimLogic.stickersObj = nil;
     
-    [self.theViewC removeObject:self.markersObj];
+    if (self.markersObj) {
+        [self.theViewC disableObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        [self.theViewC startChanges];
+        
+        [self.theViewC removeObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+    }
     self.markersObj = nil;
+}
+
+-(void)showNetEyesMarkers
+{
+    [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (responseObject) {
+            self.markerDatas = (NSDictionary *)responseObject;
+            [self addNetEyeMarkers:responseObject];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 -(void)showTongJiMarkers
@@ -392,7 +443,7 @@
         
         if (responseObject) {
             self.markerDatas = (NSDictionary *)responseObject;
-            [self addAnnotations];
+            [self addTongJiMarkers];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -400,7 +451,27 @@
     }];
 }
 
--(void)addAnnotations
+-(void)addNetEyeMarkers:(NSArray *)datas
+{
+    NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
+    for (NSInteger i=0; i<datas.count; i++) {
+        NSDictionary *dict = [datas objectAtIndex:i];
+        
+        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
+        anno.size            = CGSizeMake(30, 30);
+        anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
+        anno.image           = [UIImage imageNamed:@"weather_camera_icon"];
+        [annos addObject:anno];
+    }
+    
+    [self resetMapUI];
+    self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    
+    self.navigationItem.titleView = nil;
+}
+
+-(void)addTongJiMarkers
 {
 //    CGFloat zoomLevel = [self.theViewC height];
 //    NSMutableArray *annos = [NSMutableArray array];
@@ -426,8 +497,11 @@
 //    self.level = level;
     
     [self resetMapUI];
-    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0),
-                                                                           kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.navigationItem.titleView = nil;
+    });
 }
 
 -(NSArray *)annotationsWithServerDatas:(NSString *)level
@@ -443,7 +517,7 @@
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
         anno.size            = CGSizeMake(30, 30);
-        anno.userObject   = @{@"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
+        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
         anno.image           = newImage;
         [annos addObject:anno];
     }

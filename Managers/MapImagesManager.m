@@ -18,9 +18,6 @@
 #import "SDImageCache.h"
 #import "SDWebImageDownloader.h"
 
-
-#define REQUEST_TIMETMP 10//10*60
-
 @interface MapImagesManager ()
 
 @property (nonatomic,strong) AFHTTPRequestOperationManager *client;
@@ -38,7 +35,7 @@
 //    dispatch_once(&oncePredicate, ^{
 //        _sharedInstance = [[self alloc] init];
 //    });
-//    
+//
 //    return _sharedInstance;
 //}
 
@@ -84,7 +81,7 @@
         path = @"http://scapi.weather.com.cn/product/list/cloudnew_20.html";
         lastTime = [[CWDataManager sharedInstance].mapCloudData objectForKey:@"time"];
     }
-    if (!lastTime || nowTime - [lastTime doubleValue] >= REQUEST_TIMETMP) {
+    if (!lastTime || nowTime - [lastTime doubleValue] >= 10*60) {
         // 获取降雨图
         [self.client GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             id json = responseObject;//[NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
@@ -133,7 +130,7 @@
     }
 }
 
--(void)downloadAllImageWithType:(enum MapImageType)type region:(MKCoordinateRegion)region completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType
+-(void)downloadAllImageWithType:(enum MapImageType)type completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType
 {
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
     [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -144,11 +141,11 @@
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 NSLog(@"WIFI");
-                [self startDownloadAllImageWithType:type region:region completed:block loadType:loadType];
+                [self startDownloadAllImageWithType:type completed:block loadType:loadType];
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 NSLog(@"3G");
-                [self startDownloadAllImageWithType:type region:region completed:block loadType:loadType];
+                [self startDownloadAllImageWithType:type completed:block loadType:loadType];
                 break;
             default:
                 NSLog(@"Unkown network status");
@@ -160,7 +157,7 @@
     [manager startMonitoring];
 }
 
--(void)startDownloadAllImageWithType:(enum MapImageType)type region:(MKCoordinateRegion)region completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType
+-(void)startDownloadAllImageWithType:(enum MapImageType)type completed:(void (^)(NSDictionary *images))block loadType:(enum MapImageDownloadType)loadType
 {
     if (self.operations) {
         [self.operations enumerateObjectsUsingBlock:^(id<SDWebImageOperation> operation, NSUInteger idx, BOOL *stop) {
@@ -191,7 +188,6 @@
         self.hud = nil;
     }
     self.hud = [MBProgressHUD showHUDInView:self.hudView andText:nil];
-
     
     __block int failCount = 0;
     
@@ -202,11 +198,11 @@
         if (loadType == MapImageDownloadTypeOld) {
             NSTimeInterval timeint = [[[CWDataManager sharedInstance].mapRainData objectForKey:@"time"] doubleValue];
             NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeint];
-            imageUrl = [self getFinalUrl:url region:region date:date isCloud:type==MapImageTypeCloud];
+            imageUrl = [self getFinalUrl:url date:date isCloud:type==MapImageTypeCloud];
         }
         else
         {
-            imageUrl = [self getFinalUrl:url region:region date:[NSDate date] isCloud:type==MapImageTypeCloud];
+            imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:type==MapImageTypeCloud];
         }
         [self downloadImage:imageUrl completed:^(UIImage *image) {
             if (image) {
@@ -220,9 +216,7 @@
             CGFloat radio = 1.0*(failCount+allImages.count)/imageUrls.count;
             self.hud.mode = MBProgressHUDModeDeterminate;
             self.hud.progress = radio;
-            if (radio < 1.0) {
-                self.hud.labelText = [NSString stringWithFormat:@"%.f%%", 100.0*radio];
-            }
+            self.hud.labelText = [NSString stringWithFormat:@"%.f%%", 100.0*radio];
             if (failCount+allImages.count == imageUrls.count) {
                 // 下载完成
                 if (self.hud)
@@ -238,9 +232,9 @@
     }
 }
 
--(void)downloadImageWithUrl:(NSString *)url type:(enum MapImageType)type region:(MKCoordinateRegion)region completed:(void (^)(UIImage *image))block
+-(void)downloadImageWithUrl:(NSString *)url type:(enum MapImageType)type completed:(void (^)(UIImage *image))block
 {
-    NSString *imageUrl = [self getFinalUrl:url region:region date:[NSDate date] isCloud:type==MapImageTypeCloud];
+    NSString *imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:type==MapImageTypeCloud];
     
     [self downloadImage:imageUrl completed:^(UIImage *image) {
         block(image);
@@ -261,13 +255,13 @@
     {
         __weak typeof(self) weakSelf = self;
         __block id<SDWebImageOperation> operation = [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                block(image);
-                if (image) {
-                    [weakSelf storeImage:image withUrl:imageUrl];
-                }
+            block(image);
+            if (image) {
+                [weakSelf storeImage:image withUrl:imageUrl];
+            }
             
-                [weakSelf.operations removeObject:operation];
-                operation = nil;
+            [weakSelf.operations removeObject:operation];
+            operation = nil;
         }];
         if (operation) {
             [self.operations addObject:operation];
@@ -275,7 +269,7 @@
     }
 }
 
--(NSString *)getFinalUrl:(NSString *)imgUrl region:(MKCoordinateRegion)region date:(NSDate *)date isCloud:(BOOL)isCloud
+-(NSString *)getFinalUrl:(NSString *)imgUrl date:(NSDate *)date isCloud:(BOOL)isCloud
 {
     if (!imgUrl) {
         return @"";
@@ -289,16 +283,16 @@
     if (isCloud) {
         url = [url stringByAppendingString:[NSString stringWithFormat:@"date=%@", curTime]];
     }
-    else
-    {
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"loncenter=%f", region.center.longitude]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&latcenter=%f", region.center.latitude]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&lonspan=%f", region.span.longitudeDelta]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&latspan=%f", region.span.latitudeDelta]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&width=%f", self.isQuanGuo?2000.0:500.0]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&proj=%@", @"webmector"]];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&date=%@", curTime]];
-    }
+    //    else
+    //    {
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"loncenter=%f", region.center.longitude]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&latcenter=%f", region.center.latitude]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&lonspan=%f", region.span.longitudeDelta]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&latspan=%f", region.span.latitudeDelta]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&width=%f", self.isQuanGuo?2000.0:500.0]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&proj=%@", @"webmector"]];
+    //        url = [url stringByAppendingString:[NSString stringWithFormat:@"&date=%@", curTime]];
+    //    }
     
     NSString *myUrl = [url stringByAppendingString:[NSString stringWithFormat:@"&appid=%@", [weather_appId substringToIndex:6]]];
     url = [url stringByAppendingString:[NSString stringWithFormat:@"&appid=%@", weather_appId]];
@@ -359,7 +353,7 @@
 -(void)storeImage:(UIImage *)image withUrl:(NSString *)url
 {
     NSString *imagePath = [self imagePathForUrl:url];
-        
+    
     NSData *imageData = UIImagePNGRepresentation(image);
     [imageData writeToFile:imagePath atomically:YES];
 }
