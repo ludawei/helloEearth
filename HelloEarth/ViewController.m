@@ -119,7 +119,10 @@
     self.title = title;
 
     [self resetMapUI];
-    self.comObjs = [self.mapDatas changetitle:title];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.comObjs = [self.mapDatas changetitle:title];
+    });
 }
 
 - (void)addCountries
@@ -417,8 +420,18 @@
         [self.theViewC startChanges];
         
         [self.theViewC removeObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        
+        // 修改bug : 删除markers时的黑色块
+        sleep(0.2);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.theViewC endChanges];
+        });
     }
     self.markersObj = nil;
+    
+    if (!self.statisticsView.hidden) {
+        self.statisticsView.hidden = YES;
+    }
 }
 
 -(void)showNetEyesMarkers
@@ -515,6 +528,7 @@
         UIImage *newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
         
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.layoutImportance = 1.0f;
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
         anno.size            = CGSizeMake(30, 30);
         anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
