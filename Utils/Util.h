@@ -12,6 +12,8 @@
 @interface Util : NSObject
 
 +(UIImage *) createImageWithColor: (UIColor *) color width:(CGFloat)width height:(CGFloat)height;
++ (UIImage *) drawText:(NSString*)text inImage:(UIImage*)image font:(UIFont *)font textColor:(UIColor *)color;
+
 + (NSString*) getAppKey;
 + (NSString *)parseWeather:(NSString *)code;
 + (NSString *)parseWindDirection:(NSString *)code;

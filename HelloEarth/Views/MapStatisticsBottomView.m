@@ -96,8 +96,7 @@
         make.top.mas_equalTo(0);
     }];
     
-    
-    [UIView animateWithDuration:0.4f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.fatherView layoutIfNeeded];
     } completion:^(BOOL finished) {
         NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/historycount?stationid=%@&areaid=%@&", statId, areaId]
@@ -120,7 +119,8 @@
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.height);
     }];
-    [UIView animateWithDuration:0.4f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    
+    [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.fatherView layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self clearViews];
@@ -135,7 +135,7 @@
     }
     
     self.actView.hidden = YES;
-    [self.actView removeFromSuperview];
+//    [self.actView removeFromSuperview];
     
     UILabel *titleLabel = [self createLabel];
     titleLabel.text = [NSString stringWithFormat:@"%@ %@", self.addr, self.stationId];

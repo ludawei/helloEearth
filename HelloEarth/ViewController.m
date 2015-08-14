@@ -34,7 +34,7 @@
 @property (nonatomic,copy) NSArray *areas;
 
 @property (nonatomic,strong) NSMutableArray *comObjs, *vects, *descs;
-@property (nonatomic,strong) MaplyComponentObject *stickersObj,*markersObj,*makersLabel;
+@property (nonatomic,strong) MaplyComponentObject *stickersObj,*markersObj;
 
 // 雷达动画
 @property (nonatomic,strong) MapImagesManager *mapImagesManager;
@@ -86,7 +86,7 @@
     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
      objectAtIndex:0];
     NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/osmtiles/",baseCacheDir];
-    int maxZoom = 6;
+    int maxZoom = 16;
     
     MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.n1ppo21a/" ext:@"png" minZoom:0 maxZoom:maxZoom];
     
@@ -99,7 +99,7 @@
     tileSource.cacheDir = aerialTilesCacheDir;
     MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
     layer.handleEdges = false;
-    layer.coverPoles = false;
+    layer.coverPoles = true;
     layer.maxTiles = 256;
 //    layer.animationPeriod = 6.0;
     layer.singleLevelLoading = true;
@@ -313,6 +313,8 @@
     [super viewDidAppear:animated];
     
     [self changetitle:[self.titles firstObject]];
+    
+    self.statisticsView.hidden = YES;
 }
 
 -(void)addAreasToMap
@@ -434,6 +436,7 @@
 
 -(void)addAreasToMap1
 {
+//    MaplyCoordinateSystem *coorSys = [[MaplySphericalMercator alloc] initWebStandard];
     for (NSDictionary *area in self.areas) {
         NSArray *items = [area objectForKey:@"items"];
         
@@ -563,8 +566,31 @@
 {
     NSLog(@"Stopped moving %f, %f", viewC.height, viewC.heading);
     
-    if (self.markerDatas && self.markerDatas.count > 0) {
-        [self addAnnotations];
+//    if (self.markerDatas && self.markerDatas.count > 0) {
+//        [self addAnnotations];
+//    }
+}
+
+-(void)globeViewController:(WhirlyGlobeViewController *)viewC didSelect:(NSObject *)selectedObj
+{
+    if ([selectedObj isKindOfClass:[MaplyScreenMarker class]])
+    {
+        MaplyMarker *marker = (MaplyMarker *)selectedObj;
+        
+        NSDictionary *data = (NSDictionary *)marker.userObject;
+        NSString *areaid = [data objectForKey:@"subTitle"];
+        if (areaid && self.statisticsView.hidden) {
+            
+//            if (self.isShowTemp) {
+//                self.statisticsTempView.addr = [view.annotation title];
+//                [self.statisticsTempView showWithStationId:areaid];
+//            }
+//            else
+            {
+                self.statisticsView.addr = [data objectForKey:@"title"];
+                [self.statisticsView showWithStationId:areaid];
+            }
+        }
     }
 }
 
@@ -584,7 +610,7 @@
     actSheet.tag = 1000;
     [actSheet addButtonWithTitle:@"雷达图"];
 //    [actSheet addButtonWithTitle:@"网眼"];
-//    [actSheet addButtonWithTitle:@"天气统计"];
+    [actSheet addButtonWithTitle:@"天气统计"];
 //    [actSheet addButtonWithTitle:@""];
     [actSheet showInView:self.view];
 }
@@ -634,9 +660,6 @@
     
     [self.theViewC removeObject:self.markersObj];
     self.markersObj = nil;
-    
-    [self.theViewC removeObject:self.makersLabel];
-    self.makersLabel = nil;
 }
 
 -(void)showTongJiMarkers
@@ -667,34 +690,32 @@
 
 -(void)addAnnotations
 {
-    CGFloat zoomLevel = [self.theViewC height];
-    NSMutableArray *annos = [NSMutableArray array];
-    
-    NSInteger level = 1;
-    [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level1"]];
-    
-    if (zoomLevel >= 2.5)
-    {
-        level = 2;
-        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level2"]];
-    }
-    
-    if (zoomLevel >= 4.5) {
-        level = 3;
-        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level3"]];
-    }
-    
-    if (level == self.level) {
-        return;
-    }
-    
-    self.level = level;
+//    CGFloat zoomLevel = [self.theViewC height];
+//    NSMutableArray *annos = [NSMutableArray array];
+//    
+//    NSInteger level = 1;
+//    [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level1"]];
+//    
+//    if (zoomLevel >= 2.5)
+//    {
+//        level = 2;
+//        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level2"]];
+//    }
+//    
+//    if (zoomLevel >= 4.5) {
+//        level = 3;
+//        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level3"]];
+//    }
+//    
+//    if (level == self.level) {
+//        return;
+//    }
+//    
+//    self.level = level;
     
     [self resetMapUI];
-//    self.markersObj = [self.theViewC addScreenMarkers:[annos firstObject] desc:@{kMaplyFade: @(1.0),
-//                                                                           kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-    self.makersLabel = [self.theViewC addLabels:[annos lastObject] desc:@{kMaplyFade: @(1.0),
-                                                                          kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+201)}];
+    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0),
+                                                                           kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
 }
 
 -(NSArray *)annotationsWithServerDatas:(NSString *)level
@@ -702,34 +723,20 @@
     NSArray *datas = [self.markerDatas objectForKey:level];
     
     NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
-    NSMutableArray *labels = [NSMutableArray arrayWithCapacity:datas.count];
     for (NSInteger i=0; i<datas.count; i++) {
         NSDictionary *dict = [datas objectAtIndex:i];
         
-        
+        UIImage *newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
         
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
-//        anno.userObject      = dict[@"name"];
-        anno.size            = CGSizeMake(25, 25);
-        anno.userObject   = [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]];
-        anno.image           = [UIImage imageNamed:@"circle39"];
+        anno.size            = CGSizeMake(30, 30);
+        anno.userObject   = @{@"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
+        anno.image           = newImage;
         [annos addObject:anno];
-        
-        MaplyLabel *label = [[MaplyLabel alloc] init];
-        label.loc = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
-        label.iconImage2 = [UIImage imageNamed:@"circle39"];
-        label.size = CGSizeMake(0.02, 0.02);
-        label.justify = MaplyLabelJustifyMiddle;
-//        label.iconSize = CGSizeMake(25, 25);
-//        label.offset = CGPointMake(0, 20);
-        label.text = dict[@"name"];
-//        label.layoutPlacement = kMaplyLayoutCenter;
-//        label.userObject = [NSString stringWithFormat:@"%s",location->name];
-        [labels addObject:label];
     }
     
-    return @[annos, labels];
+    return annos;
 }
 
 -(void)requestImage:(enum MapImageType)type
@@ -767,8 +774,11 @@
                         NSString *p4 = [NSString stringWithFormat:@"%@", locPoints.lastObject];
                         
                         // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
-                        sticker.ll = MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue]);
-                        sticker.ur = MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue]);
+                        MaplyCoordinateSystem *coordSys = [[MaplySphericalMercator alloc] initWebStandard];
+                        sticker.coordSys = coordSys;
+                        sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
+                        sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
+                        
                         sticker.image = image;
                         // And a random rotation
                         //        sticker.rotation = 2*M_PI * drand48();
@@ -898,8 +908,11 @@
         NSString *p4 = [NSString stringWithFormat:@"%@", locPoints.lastObject];
         
         // Stickers are sized in geographic (because they're for KML ground overlays).  Bleah.
-        sticker.ll = MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue]+5);
-        sticker.ur = MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue]+5);
+        MaplyCoordinateSystem *coordSys = [[MaplySphericalMercator alloc] initWebStandard];
+        sticker.coordSys = coordSys;
+        sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
+        sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
+        
         sticker.image = image;
         // And a random rotation
         //        sticker.rotation = 2*M_PI * drand48();
@@ -1194,5 +1207,20 @@
     {
         LOG(@"Image file 不存在~~%@", imageUrl);
     }
+}
+
+-(MapStatisticsBottomView *)statisticsView
+{
+    if (!_statisticsView) {
+        //        _statisticsView = [[MapStatisticsBottomView alloc] initWithFrame:CGRectMake(0, self.backView.height, self.backView.width, self.backView.height)];
+        _statisticsView = [MapStatisticsBottomView new];
+        [self.view addSubview:_statisticsView];
+        [_statisticsView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.width.and.height.mas_equalTo(self.view);
+            make.top.mas_equalTo(self.view.mas_bottom);
+        }];
+    }
+    
+    return _statisticsView;
 }
 @end

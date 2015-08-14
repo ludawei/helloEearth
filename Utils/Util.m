@@ -24,6 +24,42 @@
     return theImage;
 }
 
++ (UIImage *) drawText:(NSString*)text inImage:(UIImage*)image font:(UIFont *)font textColor:(UIColor *)color
+{
+    if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    } else {
+        UIGraphicsBeginImageContext(image.size);
+    }
+    
+    CGRect rect = CGRectMake(0,0,image.size.width,image.size.height);
+    [image drawInRect:rect];
+
+    [color set];
+    
+    CGFloat textWidth = image.size.width/2 * sin(M_PI/4);
+    
+    CGSize size = [text sizeWithAttributes:@{NSFontAttributeName: font}];
+    if (size.width < rect.size.width)
+    {
+        CGRect r = CGRectMake(rect.origin.x,
+                              rect.origin.y + (rect.size.height - size.height)/2,
+                              rect.size.width,
+                              (rect.size.height - size.height)/2);
+        [text drawInRect:r withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    }
+    else
+    {
+        CGRect r = CGRectMake(rect.size.width/2 - textWidth, rect.size.height/2 - textWidth, textWidth*2, textWidth*2*2);
+        [text drawInRect:r withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    }
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 + (NSString*) getAppKey
 {
     NSString* appKey = @"";
