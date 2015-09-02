@@ -103,14 +103,15 @@
             points[i] = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
         }
         
+        
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"c"]) {
             vectorDict = @{
                            kMaplyColor: [Util colorFromRGBString:[area objectForKey:@"c"]],
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
-                           kMaplySelectable: @(true),
+//                           kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
-                           kMaplyDrawOffset: @(0),
+//                           kMaplyDrawOffset: @(0),
                            //                           kMaplyLabelWidth : @(4.0),
                            };
         }

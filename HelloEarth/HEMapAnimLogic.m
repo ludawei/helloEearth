@@ -34,7 +34,7 @@
 
 @property (nonatomic,strong) UIButton *playButton;
 @property (nonatomic,strong) UISlider *progressView;
-@property (nonatomic,strong) UILabel *timeLabel,*dateLbl;
+@property (nonatomic,strong) UILabel *timeLabel;
 
 @end
 
@@ -244,12 +244,11 @@
         
         NSString *timeTxt = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l1"];
         [self setTimeLabelText:timeTxt];
-        [self setDateLabelText:timeTxt];
         
         //    LOG(@"%d, %ld", self.currentPlayIndex, self.allImages.count);
         //        self.progressView.progress = 1.0*(self.currentPlayIndex+1)/self.allImages.count;
         CGFloat radio = 100.0*(self.currentPlayIndex)/self.allImages.count;
-        self.progressView.value = radio;
+        [self.progressView setValue:radio animated:YES];
     }
 }
 
@@ -260,34 +259,15 @@
     if (self.type == 0)
     {
         NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
-        [dateFormatter setDateFormat:@"HH:mm"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
     }
     else
     {
         [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
         NSDate* expirationDate = [dateFormatter dateFromString: text];
-        [dateFormatter setDateFormat:@"HH:mm"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
-    }
-    dateFormatter = nil;
-}
-
--(void)setDateLabelText:(NSString *)text
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    if (self.type == 0)
-    {
-        NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
-        self.dateLbl.text = [dateFormatter stringFromDate:expirationDate];
-    }
-    else
-    {
-        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-        NSDate* expirationDate = [dateFormatter dateFromString: text];
-        [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
-        self.dateLbl.text = [dateFormatter stringFromDate:expirationDate];
     }
     dateFormatter = nil;
 }
@@ -316,7 +296,7 @@
     //        [leftbutton sizeToFit];
     //    }
     //
-    CGFloat height = 75;
+    CGFloat height = 100;
     UIView *bottomView = [[UIView alloc] init];
     [self.theViewC.view addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -340,7 +320,7 @@
     //        [backView addGestureRecognizer:tap];
     //    }
     
-    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:30]];
+    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
     titleLbl.textColor = UIColorFromRGB(0x929292);
     if (self.type == 0)
     {
@@ -354,29 +334,18 @@
     [bottomView addSubview:titleLbl];
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(bottomView);
-        make.centerX.mas_equalTo(bottomView.mas_centerX);
+        make.left.mas_equalTo(10);
+//        make.centerX.mas_equalTo(bottomView.mas_centerX);
     }];
     
-    UILabel *dateLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:18]];
-    dateLbl.textColor = UIColorFromRGB(0xa2a2a0);
-    dateLbl.textAlignment = NSTextAlignmentRight;
-    [bottomView addSubview:dateLbl];
-    [dateLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bottomView).offset(10);
-        make.left.mas_equalTo(titleLbl.mas_right).offset(5);
-        make.right.mas_equalTo(-5);
-    }];
+    CGFloat buttonWidth = 35;
     
-    self.dateLbl = dateLbl;
-    
-    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:16]];
     self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
-    self.timeLabel.textAlignment = NSTextAlignmentRight;
     [bottomView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(dateLbl.mas_bottom);
-        make.left.mas_equalTo(titleLbl.mas_right).offset(5);
-        make.right.mas_equalTo(-5);
+        make.top.mas_equalTo(titleLbl.mas_bottom).offset(5);
+        make.left.mas_equalTo(buttonWidth+10);
     }];
     
     
@@ -384,40 +353,41 @@
     bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
     [bottomView addSubview:bView];
     [bView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(titleLbl.mas_bottom);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom);
         make.bottom.mas_equalTo(bottomView.mas_bottom);
         make.left.and.right.mas_equalTo(bottomView);
     }];
     
-    CGFloat buttonWidth = 40;
-    UIButton *nextButton = [[UIButton alloc] init];
-    [nextButton setImage:[UIImage imageNamed:@"Future"] forState:UIControlStateNormal];
-    [nextButton addTarget:self action:@selector(clickNext) forControlEvents:UIControlEventTouchUpInside];
-    [bView addSubview:nextButton];
-    [nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.and.top.and.bottom.mas_equalTo(bView);
-        make.width.mas_equalTo(buttonWidth);
-    }];
-    
     self.playButton = [[UIButton alloc] init];
-    [self.playButton setImage:[UIImage imageNamed:@"Broadcast"] forState:UIControlStateNormal];
+    [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     [self.playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
     [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
     [bView addSubview:self.playButton];
     [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(nextButton.mas_left);
+        make.left.mas_equalTo(5);
         make.top.and.bottom.mas_equalTo(bView);
-        make.width.mas_equalTo(buttonWidth);
+        make.width.height.mas_equalTo(buttonWidth);
     }];
     
-    UIButton *lastButton = [[UIButton alloc] init];
-    [lastButton setImage:[UIImage imageNamed:@"Past"] forState:UIControlStateNormal];
-    [lastButton addTarget:self action:@selector(clickLast) forControlEvents:UIControlEventTouchUpInside];
-    [bView addSubview:lastButton];
-    [lastButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.playButton.mas_left);
-        make.top.and.bottom.mas_equalTo(bView);
-        make.width.mas_equalTo(buttonWidth);
+    UIButton *expandButton = [UIButton new];
+    [expandButton setImage:[UIImage imageNamed:@"expand"] forState:UIControlStateNormal];
+    [expandButton addTarget:self action:@selector(clickExpand) forControlEvents:UIControlEventTouchUpInside];
+    [bView addSubview:expandButton];
+    [expandButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.top.mas_equalTo(bView);
+        make.width.height.mas_equalTo(buttonWidth);
+    }];
+    
+    UIImageView *slideBack = [UIImageView new];
+    slideBack.userInteractionEnabled = YES;
+    slideBack.image = [UIImage imageNamed:@"刻度－20"];
+    [bView addSubview:slideBack];
+    [slideBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.playButton.mas_right).offset(5);
+        make.top.mas_equalTo(5);
+        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
+        make.bottom.mas_equalTo(bView.mas_centerY);
     }];
     
     self.progressView = [[UISlider alloc] init];
@@ -426,17 +396,17 @@
     self.progressView.backgroundColor = [UIColor clearColor];
     self.progressView.minimumValue = 0;
     self.progressView.maximumValue = 95;
-    self.progressView.minimumTrackTintColor = UIColorFromRGB(0x2593c8); // 设置已过进度部分的颜色
-    self.progressView.maximumTrackTintColor = UIColorFromRGB(0xa8a8a8); // 设置未过进度部分的颜色
+    self.progressView.minimumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0x2593c8); // 设置已过进度部分的颜色
+    self.progressView.maximumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0xa8a8a8); // 设置未过进度部分的颜色
     // [oneProgressView setProgress:0.8 animated:YES]; // 设置初始值，可以看到动画效果
     //    [self.progressView setProgressViewStyle:UIProgressViewStyleDefault]; // 设置显示的样式
     [self.progressView setThumbImage:[UIImage imageNamed:@"Slider"] forState:UIControlStateNormal];
     [self.progressView addTarget:self action:@selector(changeProgress:) forControlEvents:UIControlEventValueChanged];
     [bView addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(5);
+        make.left.mas_equalTo(slideBack.mas_left);
         make.top.mas_equalTo(5);
-        make.right.mas_equalTo(lastButton.mas_left);
+        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
         make.bottom.mas_equalTo(-5);
     }];
     
@@ -492,44 +462,9 @@
     }
 }
 
--(void)clickLast
+-(void)clickExpand
 {
-    if (self.timer) {
-        [self.timer invalidate];
-        self.timer = nil;
-        self.playButton.selected = NO;
-    }
     
-    self.currentPlayIndex = MAX(0, self.currentPlayIndex - 1);
-    NSString *imageUrl = [self.allImages objectForKey:@(self.allImages.count-self.currentPlayIndex-1)];
-    UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];
-    if (curImage) {
-        [self changeImageAnim:curImage];
-    }
-    else
-    {
-        LOG(@"Image file 不存在~~%@", imageUrl);
-    }
-}
-
--(void)clickNext
-{
-    if (self.timer) {
-        [self.timer invalidate];
-        self.timer = nil;
-        self.playButton.selected = NO;
-    }
-    
-    self.currentPlayIndex = MIN(self.allImages.count-1, self.currentPlayIndex + 1);
-    NSString *imageUrl = [self.allImages objectForKey:@(self.allImages.count-self.currentPlayIndex-1)];
-    UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];
-    if (curImage) {
-        [self changeImageAnim:curImage];
-    }
-    else
-    {
-        LOG(@"Image file 不存在~~%@", imageUrl);
-    }
 }
 
 -(void)hide

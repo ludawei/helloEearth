@@ -17,6 +17,7 @@
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
 		EE47F8A61B71F6D90000F066 /* starcatalog_short.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A51B71F6D90000F066 /* starcatalog_short.txt */; };
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
+		EEAA17F11B969B92009A3535 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = EEAA17F01B969B92009A3535 /* test.json */; };
 		EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6051B748B78000EADC1 /* CWDataManager.m */; };
 		EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6091B748B78000EADC1 /* MapImagesManager.m */; };
 		EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B60B1B748B79000EADC1 /* PLHttpManager.m */; };
@@ -308,6 +309,7 @@
 		EE47F8A51B71F6D90000F066 /* starcatalog_short.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_short.txt; sourceTree = "<group>"; };
 		EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemoteTileInfo.h; sourceTree = "<group>"; };
 		EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTileInfo.m; sourceTree = "<group>"; };
+		EEAA17F01B969B92009A3535 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		EED8B6041B748B78000EADC1 /* CWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDataManager.h; sourceTree = "<group>"; };
 		EED8B6051B748B78000EADC1 /* CWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWDataManager.m; sourceTree = "<group>"; };
 		EED8B6081B748B78000EADC1 /* MapImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapImagesManager.h; sourceTree = "<group>"; };
@@ -1331,6 +1333,7 @@
 				EEE4224E1B6882FE00752EC6 /* 全国霾区预报.json */,
 				EEE4224F1B6882FE00752EC6 /* 全国高温区域预报.json */,
 				EEE422501B6882FE00752EC6 /* 渍涝气象风险预报.json */,
+				EEAA17F01B969B92009A3535 /* test.json */,
 			);
 			path = "图形样例数据数据";
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
 				EEE422551B6882FE00752EC6 /* 全国大风降温预报.json in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
+				EEAA17F11B969B92009A3535 /* test.json in Resources */,
 				EEE422531B6882FE00752EC6 /* 全国地质灾害气象预报.json in Resources */,
 				EEE422541B6882FE00752EC6 /* 全国大雾落区预报.json in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,

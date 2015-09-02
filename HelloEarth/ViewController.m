@@ -95,7 +95,7 @@
     layer.coverPoles = true;
     layer.maxTiles = 256;
 //    layer.animationPeriod = 6.0;
-    layer.singleLevelLoading = true;
+//    layer.singleLevelLoading = true;
 //    layer.drawPriority = 0;
 
     [self.theViewC addLayer:layer];
@@ -178,7 +178,6 @@
         return;
     
     // Lighting for the sun
-    
     NSDate *now = [NSDate date];
     if ([now hour] > 12) {
         now = [NSDate dateWithHoursFromNow:12-now.hour];
@@ -339,7 +338,6 @@
 - (void)doVideoPlayFinished:(id)sender
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-    //[player.view removeFromSuperview];
     player = nil;
 }
 
