@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +17,19 @@
 @implementation AppDelegate
 
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [UMSocialData setAppKey:UM_APP_KEY];
+    
     return YES;
 }
 

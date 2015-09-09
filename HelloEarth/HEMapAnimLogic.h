@@ -9,14 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "WhirlyGlobeComponent.h"
 #import "MapImagesManager.h"
+#import "ViewController.h"
 
 @interface HEMapAnimLogic : NSObject
 
 @property (nonatomic,strong) MaplyComponentObject *stickersObj;
+@property (nonatomic,assign) id<ViewConDelegate> delegate;
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 
 -(void)showImagesAnimation:(enum MapImageType)type;
--(void)hide;
+-(void)changeProgress:(UISlider *)progressView;
+-(void)clickPlay;
+-(void)clear;
 
 @end

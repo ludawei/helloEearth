@@ -10,12 +10,7 @@
 #import "Base64.h"
 #import "DeviceUtil.h"
 
-static NSString *key_subscribeIndexs = @"subscribeIndexs";
-static NSString *key_navList = @"navList";
-static NSString *key_hotCities = @"hotCities";
-static NSString *key_collectList = @"collectList";
-static NSString *key_collectDict = @"collectDict";
-static NSString *key_userData = @"userData";
+static NSString *key_normalProducts = @"normalProducts";
 
 #define IDENTIFY_WITH_TYPE(t) \
 [NSString stringWithFormat:@"%d", t]
@@ -25,8 +20,9 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 
 @interface CWDataManager ()
 
+@property (readwrite) NSMutableDictionary *normalProducts;
 @property (nonatomic, strong) NSString *basePath;
-@property (nonatomic, strong) NSArray *cacheIndexs;  // 缓存几个city的数据
+//@property (nonatomic, strong) NSArray *cacheIndexs;  // 缓存几个city的数据
 
 @end
 
@@ -45,7 +41,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 -(instancetype)init
 {
     if (self = [super init]) {
-        
+        self.normalProducts = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_normalProducts]];
     }
     return self;
 }
@@ -185,77 +181,17 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 }
 
 #pragma mark - public
--(void)setSubscribeIndexs:(NSArray *)subscribeIndexs
+-(void)setNormalProduct:(NSMutableDictionary *)normalProduct forKey:(NSString *)pid
 {
-    _cacheIndexs = subscribeIndexs;
-    [[NSUserDefaults standardUserDefaults] setObject:subscribeIndexs forKey:key_subscribeIndexs];
+    [self.normalProducts setObject:normalProduct forKey:pid];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.normalProducts forKey:key_normalProducts];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(NSArray *)subscribeIndexs
+-(NSDictionary *)normalProductForKey:(NSString *)pid
 {
-    if (!_cacheIndexs) {
-        _cacheIndexs = [[NSUserDefaults standardUserDefaults] objectForKey:key_subscribeIndexs];
-    }
-    return _cacheIndexs;
-}
-
--(void)setNavList:(NSArray *)navList
-{
-    [[NSUserDefaults standardUserDefaults] setObject:navList forKey:key_navList];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(NSArray *)navList
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:key_navList];
-}
-
--(void)setHotCities:(NSArray *)hotCities
-{
-    [self setArray:hotCities forIdentify:key_hotCities];
-}
-
--(NSArray *)hotCities
-{
-    return [self arrayForIdentify:key_hotCities];
-}
-
--(void)collectDictAddObject:(NSDictionary *)collectDict
-{
-    NSString *key = [collectDict objectForKey:@"l2"];
-    
-    NSMutableArray *list = [NSMutableArray arrayWithArray:[self collectList]];
-    [list addObject:key];
-    [self setArray:list forIdentify:key_collectList];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[CWDataManager sharedInstance].collectDict];
-    [dict setObject:collectDict forKey:key];
-    
-    [self setDictionary:dict forIdentify:key_collectDict];
-}
-
--(void)collectDictremoveObjectForKey:(NSString *)key
-{
-    NSMutableArray *list = [NSMutableArray arrayWithArray:[self collectList]];
-    [list removeObject:key];
-    [self setArray:list forIdentify:key_collectList];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[CWDataManager sharedInstance].collectDict];
-    [dict removeObjectForKey:key];
-    [self setDictionary:dict forIdentify:key_collectDict];
-}
-
--(NSDictionary *)collectDict
-{
-//    [self setArray:nil forIdentify:key_collectList];
-//    [self setDictionary:nil forIdentify:key_collectDict];
-    return [self dictionaryForIdentify:key_collectDict];
-}
-
--(NSArray *)collectList
-{
-    return [self arrayForIdentify:key_collectList];
+    return [self.normalProducts objectForKey:pid];
 }
 
 -(BOOL)enablePushNotification
@@ -272,16 +208,6 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 {
     [[NSUserDefaults standardUserDefaults] setBool:enablePushNotification forKey:@"enablePushNotification"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(void)saveUerData:(NSDictionary *)userDict
-{
-    [self setDictionary:userDict forIdentify:key_userData];
-}
-
--(NSDictionary *)userDict
-{
-    return [self dictionaryForIdentify:key_userData];
 }
 
 // map data

@@ -10,21 +10,9 @@
 
 @interface CWDataManager : NSObject
 
-@property (readwrite) NSArray *subscribeIndexs;
-@property (readwrite) NSArray *navList;
-@property (readwrite) NSArray *hotCities;
 @property (readwrite) BOOL enablePushNotification;
 
 + (CWDataManager *)sharedInstance;
-
-// 收藏相关
--(NSArray *)collectList;
--(NSDictionary *)collectDict;
--(void)collectDictAddObject:(NSDictionary *)collectDict;
--(void)collectDictremoveObjectForKey:(NSString *)key;
-
--(void)saveUerData:(NSDictionary *)userDict;
--(NSDictionary *)userDict;
 
 @property (readwrite) NSDictionary *mapRainData;
 @property (readwrite) NSDictionary *mapCloudData;

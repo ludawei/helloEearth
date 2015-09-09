@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ViewConDelegate <NSObject>
+
+-(void)setPlayButtonSelect:(BOOL)select;
+-(void)setTimeText:(NSString *)text;
+-(void)setProgressValue:(CGFloat)radio;
+
+@end
+
 @interface ViewController : UIViewController
 
+@property (nonatomic,assign) BOOL isBottomFull;
+@property (nonatomic,copy) NSString *dataType;
+@property (nonatomic,copy) NSString *dataUrl;
 
 @end
 

@@ -60,6 +60,23 @@
     return newImage;
 }
 
++ (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2 toRect:(CGRect)frame
+{
+    UIGraphicsBeginImageContext(image2.size);
+    
+    // Draw image1
+    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+    
+    // Draw image2
+    [image1 drawInRect:frame];
+    
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resultingImage;
+}
+
 + (NSString*) getAppKey
 {
     NSString* appKey = @"";

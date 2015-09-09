@@ -30,12 +30,6 @@
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic) NSInteger currentPlayIndex;
 
-@property (nonatomic,strong) UIView *bottomView;
-
-@property (nonatomic,strong) UIButton *playButton;
-@property (nonatomic,strong) UISlider *progressView;
-@property (nonatomic,strong) UILabel *timeLabel;
-
 @end
 
 @implementation HEMapAnimLogic
@@ -57,11 +51,6 @@
         self.mapImagesManager = [[MapImagesManager alloc] init];
     }
     
-    if (!self.bottomView) {
-        [self initBottomViews];
-    }
-    
-    self.bottomView.hidden = NO;
     [self requestImage:type];
 }
 
@@ -129,7 +118,8 @@
     if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
-        self.playButton.selected = NO;
+//        self.playButton.selected = NO;
+        [self.delegate setPlayButtonSelect:NO];
     }
     
     self.mapImagesManager.hudView = self.theViewC.view;
@@ -174,7 +164,8 @@
         if (index >= self.allImages.count-1) {
             self.currentPlayIndex = 0;
         }
-        self.playButton.selected = YES;
+//        self.playButton.selected = YES;
+        [self.delegate setPlayButtonSelect:YES];
         
         [self timeDidFired];
     });
@@ -204,12 +195,6 @@
 
 -(void)repeatAnimation
 {
-    //    @autoreleasepool {
-    //        NSString *imageUrl = [self.allImages objectForKey:@(self.currentPlayIndex)];
-    //         UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];
-    //        [self changeImageAnim:curImage];
-    //    }
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.timer) {
             [self startAnimationWithIndex:0];
@@ -248,7 +233,8 @@
         //    LOG(@"%d, %ld", self.currentPlayIndex, self.allImages.count);
         //        self.progressView.progress = 1.0*(self.currentPlayIndex+1)/self.allImages.count;
         CGFloat radio = 100.0*(self.currentPlayIndex)/self.allImages.count;
-        [self.progressView setValue:radio animated:YES];
+//        [self.progressView setValue:radio animated:YES];
+        [self.delegate setProgressValue:radio];
     }
 }
 
@@ -260,186 +246,40 @@
     {
         NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+//        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+        [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
     }
     else
     {
         [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
         NSDate* expirationDate = [dateFormatter dateFromString: text];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+//        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+        [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
     }
     dateFormatter = nil;
 }
 
--(void)initBottomViews
-{
-    //    UIButton *button = [UIButton new];
-    //    [button setImage:[UIImage imageNamed:@"next_page"] forState:UIControlStateNormal];
-    //    [button addTarget:self action:@selector(clickNextPage) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.backView addSubview:button];
-    //    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(self.backView).offset(10);
-    //        make.right.mas_equalTo(self.backView).offset(-10);
-    //    }];
-    //    [button sizeToFit];
-    //
-    //    if (self.type == 0) {
-    //        UIButton *leftbutton = [UIButton new];
-    //        [leftbutton setImage:[UIImage imageNamed:@"last_page"] forState:UIControlStateNormal];
-    //        [leftbutton addTarget:self action:@selector(clickLastPage) forControlEvents:UIControlEventTouchUpInside];
-    //        [self.backView addSubview:leftbutton];
-    //        [leftbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-    //            make.top.mas_equalTo(self.backView).offset(10);
-    //            make.left.mas_equalTo(self.backView).offset(10);
-    //        }];
-    //        [leftbutton sizeToFit];
-    //    }
-    //
-    CGFloat height = 100;
-    UIView *bottomView = [[UIView alloc] init];
-    [self.theViewC.view addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.mas_equalTo(self.theViewC.view);
-        //        make.centerX.mas_equalTo(self.view.mas_centerX);
-        //        make.width.mas_equalTo(self.view).multipliedBy(0.7);
-        make.height.mas_equalTo(height);
-    }];
-    
-    self.bottomView = bottomView;
-    //
-    //    UIView *backView = [[UIView alloc] init];
-    //    backView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.3];
-    //    [bottomView addSubview:backView];
-    //    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.edges.mas_equalTo(bottomView);
-    //    }];
-    //
-    //    if (self.type == 1) {
-    //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-    //        [backView addGestureRecognizer:tap];
-    //    }
-    
-    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
-    titleLbl.textColor = UIColorFromRGB(0x929292);
-    if (self.type == 0)
-    {
-        titleLbl.text = @"全国雷达拼图";
-    }
-    else
-    {
-        titleLbl.text = @"区域卫星云图";
-    }
-    
-    [bottomView addSubview:titleLbl];
-    [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bottomView);
-        make.left.mas_equalTo(10);
-//        make.centerX.mas_equalTo(bottomView.mas_centerX);
-    }];
-    
-    CGFloat buttonWidth = 35;
-    
-    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:16]];
-    self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
-    [bottomView addSubview:self.timeLabel];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(titleLbl.mas_bottom).offset(5);
-        make.left.mas_equalTo(buttonWidth+10);
-    }];
-    
-    
-    UIView *bView = [UIView new];
-    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
-    [bottomView addSubview:bView];
-    [bView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.timeLabel.mas_bottom);
-        make.bottom.mas_equalTo(bottomView.mas_bottom);
-        make.left.and.right.mas_equalTo(bottomView);
-    }];
-    
-    self.playButton = [[UIButton alloc] init];
-    [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    [self.playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
-    [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
-    [bView addSubview:self.playButton];
-    [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(5);
-        make.top.and.bottom.mas_equalTo(bView);
-        make.width.height.mas_equalTo(buttonWidth);
-    }];
-    
-    UIButton *expandButton = [UIButton new];
-    [expandButton setImage:[UIImage imageNamed:@"expand"] forState:UIControlStateNormal];
-    [expandButton addTarget:self action:@selector(clickExpand) forControlEvents:UIControlEventTouchUpInside];
-    [bView addSubview:expandButton];
-    [expandButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.top.mas_equalTo(bView);
-        make.width.height.mas_equalTo(buttonWidth);
-    }];
-    
-    UIImageView *slideBack = [UIImageView new];
-    slideBack.userInteractionEnabled = YES;
-    slideBack.image = [UIImage imageNamed:@"刻度－20"];
-    [bView addSubview:slideBack];
-    [slideBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.playButton.mas_right).offset(5);
-        make.top.mas_equalTo(5);
-        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
-        make.bottom.mas_equalTo(bView.mas_centerY);
-    }];
-    
-    self.progressView = [[UISlider alloc] init];
-    self.progressView.userInteractionEnabled = YES;
-    //    self.progressView.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame)+10, 5, bottomView.width-(CGRectGetMaxX(self.playButton.frame)+10) - 60, height-10);
-    self.progressView.backgroundColor = [UIColor clearColor];
-    self.progressView.minimumValue = 0;
-    self.progressView.maximumValue = 95;
-    self.progressView.minimumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0x2593c8); // 设置已过进度部分的颜色
-    self.progressView.maximumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0xa8a8a8); // 设置未过进度部分的颜色
-    // [oneProgressView setProgress:0.8 animated:YES]; // 设置初始值，可以看到动画效果
-    //    [self.progressView setProgressViewStyle:UIProgressViewStyleDefault]; // 设置显示的样式
-    [self.progressView setThumbImage:[UIImage imageNamed:@"Slider"] forState:UIControlStateNormal];
-    [self.progressView addTarget:self action:@selector(changeProgress:) forControlEvents:UIControlEventValueChanged];
-    [bView addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(slideBack.mas_left);
-        make.top.mas_equalTo(5);
-        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
-        make.bottom.mas_equalTo(-5);
-    }];
-    
-    self.bottomView.hidden = YES;
-}
-
--(UILabel *)createLabelWithFont:(UIFont *)font
-{
-    UILabel *lbl = [UILabel new];
-    lbl.font = font;
-    lbl.adjustsFontSizeToFitWidth = YES;
-    lbl.minimumScaleFactor = 0.5;
-    
-    return lbl;
-}
-
--(void)changeProgress:(id)sender
+-(void)changeProgress:(UISlider *)progressView
 {
     if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
-        self.playButton.selected = NO;
+//        self.playButton.selected = NO;
+        [self.delegate setPlayButtonSelect:NO];
     }
     
-    self.currentPlayIndex = self.progressView.value*(self.allImages.count)/self.progressView.maximumValue;
+    self.currentPlayIndex = progressView.value*(self.allImages.count)/progressView.maximumValue;
     NSString *imageUrl = [self.allImages objectForKey:@(self.allImages.count-self.currentPlayIndex-1)];
-    UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];
-    if (curImage) {
-        [self changeImageAnim:curImage];
-    }
-    else
-    {
-        LOG(@"Image file 不存在~~%@", imageUrl);
+    if (imageUrl) {
+        UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];
+        if (curImage) {
+            [self changeImageAnim:curImage];
+        }
+        else
+        {
+            LOG(@"Image file 不存在~~%@", imageUrl);
+        }
     }
 }
 
@@ -448,7 +288,8 @@
     if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
-        self.playButton.selected = NO;
+//        self.playButton.selected = NO;
+        [self.delegate setPlayButtonSelect:NO];
     }
     else
     {
@@ -462,19 +303,13 @@
     }
 }
 
--(void)clickExpand
-{
-    
-}
-
--(void)hide
+-(void)clear
 {
     if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
-        self.playButton.selected = NO;
+//        self.playButton.selected = NO;
+        [self.delegate setPlayButtonSelect:NO];
     }
-    
-    self.bottomView.hidden = YES;
 }
 @end

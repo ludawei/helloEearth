@@ -22,11 +22,15 @@
 #import "HEMapAnimLogic.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate>
+#import "HEShareController.h"
+#import "UIView+Extra.h"
+
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate, ViewConDelegate>
 {
     CGFloat globeHeight;
     BOOL loadOk;
     
+    CGFloat initMapHeight;
     NSArray *locPoints;
     
     MPMoviePlayerViewController * player;
@@ -42,6 +46,18 @@
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
 @property (nonatomic,strong) MaplyComponentObject *markersObj;
 
+// UI
+//@property (nonatomic,strong) UIView *topView;
+@property (nonatomic,strong) UIButton *logoButton;
+
+@property (nonatomic,strong) UIView *bottomView;
+
+@property (nonatomic,strong) UIButton *playButton, *indexButton, *expandButton;
+@property (nonatomic,strong) UISlider *progressView;
+@property (nonatomic,strong) UILabel *titleLbl, *timeLabel;
+
+@property (nonatomic,strong) UIView *logoPopView;
+
 // 统计
 @property (nonatomic,copy) NSDictionary *markerDatas;
 @property (nonatomic)       NSInteger level;
@@ -51,10 +67,26 @@
 
 @implementation ViewController
 
+// 状态栏样式
+//-(UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [self initMapView];
+    [self initDatas];
+    [self initViews];
+}
+
+#pragma mark - inits
+-(void)initDatas
+{
     NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"json" inDirectory:nil];
     
     NSMutableArray *arr = [NSMutableArray array];
@@ -67,6 +99,14 @@
     }
     self.titles = arr;
     
+    self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
+    self.mapDatas.delegate = self;
+    self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
+    self.mapAnimLogic.delegate = self;
+}
+
+-(void)initMapView
+{
     self.theViewC = [[WhirlyGlobeViewController alloc] init];
     self.theViewC.delegate = self;
     [self.view addSubview:self.theViewC.view];
@@ -84,39 +124,260 @@
     MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.n1ppo21a/" ext:@"png" minZoom:0 maxZoom:maxZoom];
     
     MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
-    
-//    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://otile1.mqcdn.com/tiles/1.0.0/osm/"  ext:@"png" minZoom:0 maxZoom:maxZoom];
-//    
-//    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
-    
     tileSource.cacheDir = aerialTilesCacheDir;
     MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
     layer.handleEdges = false;
     layer.coverPoles = true;
     layer.maxTiles = 256;
-//    layer.animationPeriod = 6.0;
-//    layer.singleLevelLoading = true;
-//    layer.drawPriority = 0;
-
+    //    layer.animationPeriod = 6.0;
+    //    layer.singleLevelLoading = true;
+    //    layer.drawPriority = 0;
+    
     [self.theViewC addLayer:layer];
     self.theViewC.frameInterval = 2;
     self.theViewC.threadPerLayer = true;
     float minHeight,maxHeight;
     [self.theViewC getZoomLimitsMin:&minHeight max:&maxHeight];
     [self.theViewC setZoomLimitsMin:minHeight max:3.0];
+
+    initMapHeight = self.theViewC.height;
+}
+
+-(void)initViews
+{
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"图层" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavLeft)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"图层" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavLeft)];
+    [self addCountry_china];
     
-    [self addCountries];
+    [self initTopViews];
+    [self initBottomViews];
     
-    self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
-    self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
+    self.logoPopView.hidden = YES;
+}
+
+-(void)initTopViews
+{
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
+    
+    UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.frame];
+//    self.topView = view;
+    
+    NSArray *images = @[@[@"未选中－1", @"选中－1"],
+                        @[@"产品－未选中", @"产品－选中"],
+                        @[@"分享－未选中", @"分享－选中"],
+                        @[@"回位－未选中", @"回位－选中"],
+                        @[@"设置－未选中", @"设置－选中"]];
+    UIButton *lastButton;
+    for (NSInteger i=0; i<5; i++) {
+        
+        NSString *imgName = [[images objectAtIndex:i] firstObject];
+        NSString *selectImgName = [[images objectAtIndex:i] lastObject];
+        UIButton *button = [self createButtonWithImg:[UIImage imageNamed:imgName] selectImg:[UIImage imageNamed:selectImgName]];
+        button.tag = i;
+        [view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (lastButton) {
+                make.left.mas_equalTo(lastButton.mas_right);
+            }
+            else
+            {
+                make.left.mas_equalTo(0);
+            }
+            make.centerY.mas_equalTo(view.mas_centerY);
+            make.height.mas_equalTo(view.mas_height).multipliedBy(0.9);
+            make.width.mas_equalTo(view.mas_width).multipliedBy(0.2);
+        }];
+        
+        [button addTarget:self action:@selector(clickMenu:) forControlEvents:UIControlEventTouchUpInside];
+        lastButton = button;
+        if (i == 0) {
+            self.logoButton = button;
+        }
+    }
+    
+    lastButton = nil;
+    
+    self.navigationItem.titleView = view;
+}
+
+-(void)initBottomViews
+{
+    CGFloat buttonWidth = 35;
+    
+    UIButton *expandButton = [self createButtonWithImg:[UIImage imageNamed:@"全屏－1"] selectImg:[UIImage imageNamed:@"非全屏－1"]];
+    [expandButton addTarget:self action:@selector(clickExpand) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:expandButton];
+    [expandButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.bottom.mas_equalTo(-5);
+        make.width.height.mas_equalTo(buttonWidth);
+    }];
+    self.expandButton = expandButton;
+    
+    CGFloat height = 100;
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+    [self.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(height);
+    }];
+    [self.view bringSubviewToFront:expandButton];
+    self.bottomView = view;
+    
+    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+    titleLbl.textColor = UIColorFromRGB(0x929292);
+    [view addSubview:titleLbl];
+    [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(view);
+        make.left.mas_equalTo(10);
+    }];
+    self.titleLbl = titleLbl;
+    
+    self.indexButton = [self createButtonWithImg:[UIImage imageNamed:@"图例"] selectImg:nil];
+    [view addSubview:self.indexButton];
+    [self.indexButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.bottom.mas_equalTo(titleLbl.mas_bottom);
+        make.width.height.mas_equalTo(50);
+    }];
+    
+    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:16]];
+    self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
+    [view addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(titleLbl.mas_bottom).offset(5);
+        make.left.mas_equalTo(buttonWidth+10);
+    }];
+    
+    UIView *bView = [UIView new];
+    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
+    [view addSubview:bView];
+    [bView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.timeLabel.mas_bottom);
+        make.bottom.mas_equalTo(view.mas_bottom);
+        make.left.and.right.mas_equalTo(view);
+    }];
+    
+    self.playButton = [self createButtonWithImg:[UIImage imageNamed:@"play"] selectImg:[UIImage imageNamed:@"pause"]];
+    [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
+    [bView addSubview:self.playButton];
+    [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(5);
+        make.top.and.bottom.mas_equalTo(bView);
+        make.width.height.mas_equalTo(buttonWidth);
+    }];
+    
+    UIImageView *slideBack = [UIImageView new];
+    slideBack.userInteractionEnabled = YES;
+    slideBack.image = [UIImage imageNamed:@"刻度－20"];
+    [bView addSubview:slideBack];
+    [slideBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.playButton.mas_right).offset(5);
+        make.top.mas_equalTo(5);
+        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
+        make.bottom.mas_equalTo(bView.mas_centerY);
+    }];
+    
+    self.progressView = [[UISlider alloc] init];
+    self.progressView.userInteractionEnabled = YES;
+    self.progressView.backgroundColor = [UIColor clearColor];
+    self.progressView.minimumValue = 0;
+    self.progressView.maximumValue = 95;
+    self.progressView.minimumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0x2593c8); // 设置已过进度部分的颜色
+    self.progressView.maximumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0xa8a8a8); // 设置未过进度部分的颜色
+    [self.progressView setThumbImage:[UIImage imageNamed:@"slider"] forState:UIControlStateNormal];
+    [self.progressView addTarget:self action:@selector(changeProgress:) forControlEvents:UIControlEventValueChanged];
+    [bView addSubview:self.progressView];
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(slideBack.mas_left);
+        make.top.mas_equalTo(5);
+        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
+        make.bottom.mas_equalTo(-5);
+    }];
+}
+
+-(UIButton *)createButtonWithImg:(UIImage *)img selectImg:(UIImage *)selectImg
+{
+    UIButton *button = [UIButton new];
+    [button setImage:img forState:UIControlStateNormal];
+    if (selectImg) {
+        [button setImage:selectImg forState:UIControlStateHighlighted];
+        [button setImage:selectImg forState:UIControlStateSelected];
+    }
+    button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    return button;
+}
+
+-(UILabel *)createLabelWithFont:(UIFont *)font
+{
+    UILabel *lbl = [UILabel new];
+    lbl.font = font;
+    lbl.adjustsFontSizeToFitWidth = YES;
+    lbl.minimumScaleFactor = 0.5;
+    
+    return lbl;
+}
+
+#pragma mark - setup views
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    if (loadOk) {
+        return;
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.theViewC.heading = 0;
+        self.theViewC.keepNorthUp = true;
+        [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
+        //        [self.theViewC setAutoRotateInterval:0.2 degrees:20];
+        
+        [self addSun];
+        [self addStars:@"starcatalog_orig"];
+    });
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (loadOk) {
+        return;
+    }
+    
+    [self changetitle:[self.titles firstObject]];
+    
+    self.statisticsView.hidden = YES;
+    
+    loadOk = YES;
+    
+    // 默认显示一半的
+    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.playButton.height+20);
+    }];
+    
+    [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
+        make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
+    }];
+    
+    [self.view layoutIfNeeded];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 -(void)changetitle:(NSString *)title
 {
-    self.title = title;
+    self.titleLbl.text = title;
 
     [self resetMapUI];
     
@@ -125,7 +386,36 @@
     });
 }
 
-- (void)addCountries
+-(void)resetMapUI
+{
+    [self.theViewC removeObjects:self.comObjs];
+    self.comObjs = nil;
+    
+    [self.mapAnimLogic clear];
+    [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
+    self.mapAnimLogic.stickersObj = nil;
+    
+    if (self.markersObj) {
+        [self.theViewC disableObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        [self.theViewC startChanges];
+        
+        [self.theViewC removeObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        
+        // 修改bug : 删除markers时的黑色块
+        sleep(0.2);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.theViewC endChanges];
+        });
+    }
+    self.markersObj = nil;
+    
+    if (!self.statisticsView.hidden) {
+        self.statisticsView.hidden = YES;
+    }
+}
+
+#pragma mark - map actions
+- (void)addCountry_china
 {
     NSDictionary *vectorDict = @{
                                  kMaplyColor: [UIColor whiteColor],
@@ -188,101 +478,65 @@
     [self.theViewC clearLights];
     [self.theViewC addLight:sunLight];
     
-    // And a model, because why not
-//    if (1)
-//    {
-//        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
-//        sphere.center = [sun asPosition];
-//        sphere.radius = 0.2;
-//        sphere.height = 4.0;
-//        [self.theViewC addShapes:@[sphere] desc:
-//                  @{kMaplyColor: [UIColor yellowColor],
-//                    kMaplyShader: kMaplyShaderDefaultTriNoLighting}];
-//    }
-//    else {
-//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
-//        MaplyCoordinate centerGeo = [sun asPosition];
-//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
-//        bill.selectable = false;
-//        bill.screenObj = [[MaplyScreenObject alloc] init];
-//        UIImage *globeImage = [UIImage imageNamed:@"SunImage"];
-//        [bill.screenObj addImage:globeImage color:[UIColor whiteColor] size:CGSizeMake(0.9, 0.9)];
-//        sunObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye,kMaplyDrawPriority: @(kMaplySunDrawPriorityDefault)} mode:MaplyThreadAny];
-//    }
-    
-    // Position for the moon
-//    MaplyMoon *moon = [[MaplyMoon alloc] initWithDate:[NSDate date]];
-//    if (UseMoonSphere)
-//    {
-//        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
-//        sphere.center = [moon asCoordinate];
-//        sphere.radius = 0.2;
-//        sphere.height = 4.0;
-//        moonObj = [globeViewC addShapes:@[sphere] desc:
-//                   @{kMaplyColor: [UIColor grayColor],
-//                     kMaplyShader: kMaplyShaderDefaultTriNoLighting}];
-//    } else {
-//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
-//        MaplyCoordinate3d centerGeo = [moon asPosition];
-//        bill.center = MaplyCoordinate3dMake(centerGeo.x, centerGeo.y, 5.4*EarthRadius);
-//        bill.selectable = false;
-//        bill.screenObj = [[MaplyScreenObject alloc] init];
-//        UIImage *moonImage = [UIImage imageNamed:@"moon"];
-//        [bill.screenObj addImage:moonImage color:[UIColor colorWithWhite:moon.illuminatedFraction alpha:1.0] size:CGSizeMake(0.75, 0.75)];
-//        moonObj = [globeViewC addBillboards:@[bill] desc:@{kMaplyBillboardOrient: kMaplyBillboardOrientEye, kMaplyDrawPriority: @(kMaplyMoonDrawPriorityDefault)} mode:MaplyThreadAny];
-//    }
-    
     // And some atmosphere, because the iDevice fill rate is just too fast
     MaplyAtmosphere *atmosObj = [[MaplyAtmosphere alloc] initWithViewC:self.theViewC];
     [atmosObj setSunPosition:[sun getDirection]];
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)addTongJiMarkers
 {
-    [super viewWillAppear:animated];
+    //    CGFloat zoomLevel = [self.theViewC height];
+    //    NSMutableArray *annos = [NSMutableArray array];
+    //
+    //    NSInteger level = 1;
+    //    [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level1"]];
+    //
+    //    if (zoomLevel >= 2.5)
+    //    {
+    //        level = 2;
+    //        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level2"]];
+    //    }
+    //
+    //    if (zoomLevel >= 4.5) {
+    //        level = 3;
+    //        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level3"]];
+    //    }
+    //
+    //    if (level == self.level) {
+    //        return;
+    //    }
+    //
+    //    self.level = level;
     
-    if (loadOk) {
-        return;
-    }
+    [self resetMapUI];
+    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.theViewC.heading = 0;
-        self.theViewC.keepNorthUp = true;
-        [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
-//        [self.theViewC setAutoRotateInterval:0.2 degrees:20];
-        
-        [self addSun];
-        [self addStars:@"starcatalog_orig"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.navigationItem.titleView = nil;
     });
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)addNetEyeMarkers:(NSArray *)datas
 {
-    [super viewDidAppear:animated];
-    
-    if (loadOk) {
-        return;
+    NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
+    for (NSInteger i=0; i<datas.count; i++) {
+        NSDictionary *dict = [datas objectAtIndex:i];
+        
+        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
+        anno.size            = CGSizeMake(30, 30);
+        anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
+        anno.image           = [UIImage imageNamed:@"weather_camera_icon"];
+        [annos addObject:anno];
     }
     
-    [self changetitle:[self.titles firstObject]];
+    [self resetMapUI];
+    self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
     
-    self.statisticsView.hidden = YES;
-    
-    loadOk = YES;
+    self.navigationItem.titleView = nil;
 }
 
 #pragma mark - Whirly Globe Delegate
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)globeViewController:(WhirlyGlobeViewController *)viewC layerDidLoad:(WGViewControllerLayer *)layer
-{
-    viewC.heading = 0;
-    viewC.keepNorthUp = true;
-}
-
 - (void)globeViewControllerDidStartMoving:(WhirlyGlobeViewController *)viewC userMotion:(bool)userMotion
 {
     NSLog(@"Started moving");
@@ -335,11 +589,73 @@
     }
 }
 
+#pragma mark - private actions
 - (void)doVideoPlayFinished:(id)sender
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     player = nil;
 }
+
+-(void)clickMenu:(UIButton *)button
+{
+    switch (button.tag) {
+        case 0:
+        {
+            // logo
+            if (self.logoPopView.hidden) {
+                button.selected = !button.selected;
+                
+                self.theViewC.view.userInteractionEnabled = NO;
+                
+                self.logoPopView.hidden = NO;
+                self.logoPopView.alpha = 1;
+                [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
+                    self.logoPopView.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }
+            else
+            {
+                [self closeLogoView];
+            }
+            
+            break;
+        }
+        case 1:
+        {
+            // products
+            break;
+        }
+        case 2:
+        {
+            // share
+            HEShareController *next = [HEShareController new];
+            UIImage *mapImage = [self.theViewC snapshot];
+            self.theViewC.view.hidden = YES;
+            UIImage *viewImage = [self.navigationController.view viewShot];
+            self.theViewC.view.hidden = NO;
+            next.image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
+            [self.navigationController pushViewController:next animated:YES];
+            break;
+        }
+        case 3:
+        {
+            // reset
+            [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight heading:0 time:0.3];
+            break;
+        }
+        case 4:
+        {
+            // setting
+            break;
+        }
+        default:
+        break;
+    }
+}
+
+
 
 -(void)clickNavLeft
 {
@@ -404,34 +720,6 @@
     }
 }
 
--(void)resetMapUI
-{
-    [self.theViewC removeObjects:self.comObjs];
-    self.comObjs = nil;
-    
-    [self.mapAnimLogic hide];
-    [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
-    self.mapAnimLogic.stickersObj = nil;
-    
-    if (self.markersObj) {
-        [self.theViewC disableObjects:@[self.markersObj] mode:MaplyThreadCurrent];
-        [self.theViewC startChanges];
-        
-        [self.theViewC removeObjects:@[self.markersObj] mode:MaplyThreadCurrent];
-        
-        // 修改bug : 删除markers时的黑色块
-        sleep(0.2);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.theViewC endChanges];
-        });
-    }
-    self.markersObj = nil;
-    
-    if (!self.statisticsView.hidden) {
-        self.statisticsView.hidden = YES;
-    }
-}
-
 -(void)showNetEyesMarkers
 {
     [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -462,59 +750,81 @@
     }];
 }
 
--(void)addNetEyeMarkers:(NSArray *)datas
+-(void)changeProgress:(id)sender
 {
-    NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
-    for (NSInteger i=0; i<datas.count; i++) {
-        NSDictionary *dict = [datas objectAtIndex:i];
+    [self.mapAnimLogic changeProgress:sender];
+}
+
+-(void)clickPlay
+{
+    [self.mapAnimLogic clickPlay];
+}
+
+-(void)clickExpand
+{
+    self.expandButton.selected = !self.expandButton.selected;
+    if ([UIApplication sharedApplication].statusBarHidden) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
         
-        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
-        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
-        anno.size            = CGSizeMake(30, 30);
-        anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
-        anno.image           = [UIImage imageNamed:@"weather_camera_icon"];
-        [annos addObject:anno];
+        if (self.isBottomFull) {
+            [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.mas_equalTo(0);
+            }];
+            
+            [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(-10);
+                make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
+            }];
+        }
+    }
+    else
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        
+        if (self.isBottomFull) {
+            [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.mas_equalTo(self.playButton.height+20);
+            }];
+            
+            [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
+                make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
+            }];
+        }
     }
     
-    [self resetMapUI];
-    self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-    
-    self.navigationItem.titleView = nil;
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
--(void)addTongJiMarkers
+-(void)closeLogoView
 {
-//    CGFloat zoomLevel = [self.theViewC height];
-//    NSMutableArray *annos = [NSMutableArray array];
-//    
-//    NSInteger level = 1;
-//    [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level1"]];
-//    
-//    if (zoomLevel >= 2.5)
-//    {
-//        level = 2;
-//        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level2"]];
-//    }
-//    
-//    if (zoomLevel >= 4.5) {
-//        level = 3;
-//        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level3"]];
-//    }
-//    
-//    if (level == self.level) {
-//        return;
-//    }
-//    
-//    self.level = level;
+    self.logoButton.selected = NO;
+    self.theViewC.view.userInteractionEnabled = YES;
     
-    [self resetMapUI];
-    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.navigationItem.titleView = nil;
-    });
+    if (!self.logoPopView.hidden) {
+        
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.logoPopView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+            self.logoPopView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.logoPopView.hidden = YES;
+        }];
+    }
 }
 
+-(void)clickSqView
+{
+    NSString *str = @"weixin://qr/wTnL0yLEQX8_rWaw92zT";//@"http://weixin.qq.com/r/wTnL0yLEQX8_rWaw92zT";//
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
+
+#pragma mark - tool methods
 -(NSArray *)annotationsWithServerDatas:(NSString *)level
 {
     NSArray *datas = [self.markerDatas objectForKey:level];
@@ -550,5 +860,77 @@
     }
     
     return _statisticsView;
+}
+
+-(UIView *)logoPopView
+{
+    if (!_logoPopView) {
+        _logoPopView = [UIView new];
+        _logoPopView.backgroundColor = [UIColor blackColor];
+        _logoPopView.layer.cornerRadius = 10;
+        _logoPopView.layer.borderColor = [UIColor whiteColor].CGColor;
+        _logoPopView.layer.borderWidth = 2.0;
+        [self.view addSubview:_logoPopView];
+        [_logoPopView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.view.mas_centerX);
+            make.centerY.mas_equalTo(self.view.mas_centerY).offset(-10);
+            make.width.mas_equalTo(self.view).multipliedBy(0.8);
+            make.height.mas_equalTo(self.view).multipliedBy(0.5);
+        }];
+        self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
+        
+        UIButton *closeButton = [self createButtonWithImg:[UIImage imageNamed:@"关闭"] selectImg:nil];
+        [_logoPopView addSubview:closeButton];
+        [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(_logoPopView).offset(5);
+            make.right.mas_equalTo(_logoPopView).offset(-5);
+            make.size.mas_equalTo(CGSizeMake(35, 35));
+        }];
+        [closeButton addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:13];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “蓝π蚂蚁” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
+        [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
+        
+        UILabel *titleView = [self createLabelWithFont:[UIFont boldSystemFontOfSize:18]];
+        titleView.textColor = [UIColor whiteColor];
+        titleView.numberOfLines = 0;
+        titleView.attributedText = text;
+//        titleView.preferredMaxLayoutWidth
+        [_logoPopView addSubview:titleView];
+        [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(closeButton.mas_bottom).offset(10);
+            make.left.mas_equalTo(_logoPopView).offset(15);
+            make.right.mas_equalTo(_logoPopView).offset(-10);
+        }];
+        [titleView sizeToFit];
+        
+        UIButton *sqView = [self createButtonWithImg:[UIImage imageNamed:@"qrcode_for_gh_9eb43db17ffb_430.jpg"] selectImg:nil];
+        sqView.contentEdgeInsets = UIEdgeInsetsMake(30, 0, 30, 0);
+        [_logoPopView addSubview:sqView];
+        [sqView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_greaterThanOrEqualTo(titleView.mas_bottom).offset(10);
+            make.bottom.mas_lessThanOrEqualTo(_logoPopView).offset(-10);
+            make.centerX.mas_equalTo(_logoPopView.mas_centerX);
+        }];
+        [sqView addTarget:self action:@selector(clickSqView) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _logoPopView;
+}
+
+#pragma mark - ViewConDelegate
+-(void)setPlayButtonSelect:(BOOL)select
+{
+    self.playButton.selected = select;
+}
+-(void)setTimeText:(NSString *)text
+{
+    self.timeLabel.text = text;
+}
+-(void)setProgressValue:(CGFloat)radio
+{
+    self.progressView.value = radio;
 }
 @end
