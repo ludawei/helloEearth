@@ -17,6 +17,7 @@
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
 		EE47F8A61B71F6D90000F066 /* starcatalog_short.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A51B71F6D90000F066 /* starcatalog_short.txt */; };
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
+		EE4CBC931BA116B1002D322E /* HEFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC921BA116B1002D322E /* HEFeedbackController.m */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE75A25A1B9EEE5D00B225E9 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE75A2261B9EEE5D00B225E9 /* UMSocialLocalizable.strings */; };
@@ -55,6 +56,8 @@
 		EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18191B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		EEAA18281B9EB485009A3535 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */; };
 		EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */; };
+		EED017D81BA01D07007235FA /* HESettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017D71BA01D07007235FA /* HESettingController.m */; };
+		EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017DA1BA02F7D007235FA /* CWLocationManager.m */; };
 		EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6051B748B78000EADC1 /* CWDataManager.m */; };
 		EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6091B748B78000EADC1 /* MapImagesManager.m */; };
 		EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B60B1B748B79000EADC1 /* PLHttpManager.m */; };
@@ -337,6 +340,8 @@
 		EE47F8A51B71F6D90000F066 /* starcatalog_short.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_short.txt; sourceTree = "<group>"; };
 		EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemoteTileInfo.h; sourceTree = "<group>"; };
 		EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTileInfo.m; sourceTree = "<group>"; };
+		EE4CBC911BA116B1002D322E /* HEFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEFeedbackController.h; sourceTree = "<group>"; };
+		EE4CBC921BA116B1002D322E /* HEFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEFeedbackController.m; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -423,6 +428,10 @@
 		EEAA181C1B9EB485009A3535 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		EEAA181D1B9EB485009A3535 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		EED017D61BA01D07007235FA /* HESettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HESettingController.h; sourceTree = "<group>"; };
+		EED017D71BA01D07007235FA /* HESettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HESettingController.m; sourceTree = "<group>"; };
+		EED017D91BA02F7D007235FA /* CWLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLocationManager.h; sourceTree = "<group>"; };
+		EED017DA1BA02F7D007235FA /* CWLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWLocationManager.m; sourceTree = "<group>"; };
 		EED8B6041B748B78000EADC1 /* CWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDataManager.h; sourceTree = "<group>"; };
 		EED8B6051B748B78000EADC1 /* CWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWDataManager.m; sourceTree = "<group>"; };
 		EED8B6081B748B78000EADC1 /* MapImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapImagesManager.h; sourceTree = "<group>"; };
@@ -1082,6 +1091,8 @@
 		EED8B6031B748B78000EADC1 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				EED017D91BA02F7D007235FA /* CWLocationManager.h */,
+				EED017DA1BA02F7D007235FA /* CWLocationManager.m */,
 				EED8B6041B748B78000EADC1 /* CWDataManager.h */,
 				EED8B6051B748B78000EADC1 /* CWDataManager.m */,
 				EED8B6081B748B78000EADC1 /* MapImagesManager.h */,
@@ -1513,6 +1524,10 @@
 				EEAA18021B9E8B18009A3535 /* HEShareController.m */,
 				EE75A1D21B9ECE9800B225E9 /* HENavController.h */,
 				EE75A1D31B9ECE9800B225E9 /* HENavController.m */,
+				EED017D61BA01D07007235FA /* HESettingController.h */,
+				EED017D71BA01D07007235FA /* HESettingController.m */,
+				EE4CBC911BA116B1002D322E /* HEFeedbackController.h */,
+				EE4CBC921BA116B1002D322E /* HEFeedbackController.m */,
 			);
 			path = HelloEarth;
 			sourceTree = "<group>";
@@ -1767,8 +1782,10 @@
 				EED8B66B1B748BF5000EADC1 /* NSData+ImageContentType.m in Sources */,
 				EED8B7781B74BE3A000EADC1 /* CustomAnnoView1.m in Sources */,
 				EEAA18031B9E8B18009A3535 /* HEShareController.m in Sources */,
+				EE4CBC931BA116B1002D322E /* HEFeedbackController.m in Sources */,
 				EED8B6601B748BF5000EADC1 /* AFURLSessionManager.m in Sources */,
 				EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */,
+				EED017D81BA01D07007235FA /* HESettingController.m in Sources */,
 				EED8B77D1B74BE3A000EADC1 /* MapStatisticsBottomView.m in Sources */,
 				EEAA17FC1B9E75F8009A3535 /* NJKWebViewProgress.m in Sources */,
 				EED8B6621B748BF5000EADC1 /* README.md in Sources */,
@@ -1792,6 +1809,7 @@
 				EED8B6721B748BF5000EADC1 /* SDWebImagePrefetcher.m in Sources */,
 				EED8B77E1B74BE3A000EADC1 /* MapStatistTempView.m in Sources */,
 				EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */,
+				EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */,
 				EED8B6AE1B748C58000EADC1 /* Base64.m in Sources */,
 				EEAA18241B9EB485009A3535 /* MASViewAttribute.m in Sources */,
 				EED8B65B1B748BF5000EADC1 /* AFNetworkReachabilityManager.m in Sources */,

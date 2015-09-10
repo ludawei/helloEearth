@@ -648,6 +648,9 @@
         case 4:
         {
             // setting
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController *next = [board instantiateViewControllerWithIdentifier:@"setting"];
+            [self.navigationController pushViewController:next animated:YES];
             break;
         }
         default:
