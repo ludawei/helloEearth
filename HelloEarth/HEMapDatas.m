@@ -12,7 +12,7 @@
 
 @interface HEMapDatas ()
 
-@property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
+@property (nonatomic,strong) MaplyBaseViewController *theViewC;
 
 @property (nonatomic,copy) NSDictionary *data;
 @property (nonatomic,copy) NSArray *areas;
@@ -24,7 +24,7 @@
 -(instancetype)initWithController:(UIViewController *)theViewC
 {
     if (self = [super init]) {
-        self.theViewC = (WhirlyGlobeViewController *)theViewC;
+        self.theViewC = (MaplyBaseViewController *)theViewC;
     }
     
     return self;

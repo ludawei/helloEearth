@@ -19,7 +19,7 @@
     NSArray *locPoints;
 }
 
-@property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
+@property (nonatomic,strong) MaplyBaseViewController *theViewC;
 
 // 雷达动画
 @property (nonatomic,assign) NSInteger type;
@@ -37,7 +37,7 @@
 -(instancetype)initWithController:(UIViewController *)theViewC
 {
     if (self = [super init]) {
-        self.theViewC = (WhirlyGlobeViewController *)theViewC;
+        self.theViewC = (MaplyBaseViewController *)theViewC;
     }
     
     return self;

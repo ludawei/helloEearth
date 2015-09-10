@@ -23,20 +23,29 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "HEShareController.h"
+#import "HESettingController.h"
+#import "CWLocationManager.h"
 #import "UIView+Extra.h"
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate, ViewConDelegate>
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate, ViewConDelegate, HESettingDelegate>
 {
     CGFloat globeHeight;
-    BOOL loadOk;
     
     CGFloat initMapHeight;
     NSArray *locPoints;
     
+    MaplyAtmosphere *atmosObj;
+    
     MPMoviePlayerViewController * player;
+    
+    // setting
+    BOOL show3D,showLight,showLocation;
+    WhirlyGlobeViewController *globeViewC;
+    MaplyViewController *mapViewC;
 }
 
-@property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
+@property (nonatomic,strong) MaplyBaseViewController *theViewC;
+//@property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
 
 @property (nonatomic,copy) NSArray *titles;
 
@@ -45,6 +54,7 @@
 
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
 @property (nonatomic,strong) MaplyComponentObject *markersObj;
+@property (nonatomic,strong) MaplyComponentObject *markerLocation;
 
 // UI
 //@property (nonatomic,strong) UIView *topView;
@@ -72,16 +82,25 @@
 //{
 //    return UIStatusBarStyleLightContent;
 //}
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    show3D = YES;
+    showLight = YES;
+    showLocation = NO;
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    [self initMapView];
-    [self initDatas];
     [self initViews];
+    [self makeMapViewAndDatas];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
 }
 
 #pragma mark - inits
@@ -107,9 +126,36 @@
 
 -(void)initMapView
 {
-    self.theViewC = [[WhirlyGlobeViewController alloc] init];
-    self.theViewC.delegate = self;
+    if (self.theViewC) {
+        [self.theViewC.view removeFromSuperview];
+        [self.theViewC removeFromParentViewController];
+        self.theViewC = nil;
+        globeViewC = nil;
+        mapViewC = nil;
+    }
+    if (show3D) {
+        globeViewC = [[WhirlyGlobeViewController alloc] init];
+        globeViewC.delegate = self;
+        float minHeight,maxHeight;
+        [globeViewC getZoomLimitsMin:&minHeight max:&maxHeight];
+        [globeViewC setZoomLimitsMin:minHeight max:3.0];
+        globeViewC.height = 0.0;
+        
+        initMapHeight = globeViewC.height;
+        self.theViewC = globeViewC;
+    }
+    else
+    {
+        mapViewC = [[MaplyViewController alloc] initAsFlatMap];
+        mapViewC.viewWrap = true;
+        mapViewC.doubleTapZoomGesture = true;
+        mapViewC.twoFingerTapGesture = true;
+//        mapViewC.delegate = self;
+        
+        self.theViewC = mapViewC;
+    }
     [self.view addSubview:self.theViewC.view];
+    [self.view sendSubviewToBack:self.theViewC.view];
     self.theViewC.view.frame = self.view.bounds;
     self.theViewC.view.layer.shadowOffset = CGSizeMake(1, 1);
     self.theViewC.view.layer.shadowColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
@@ -136,20 +182,49 @@
     [self.theViewC addLayer:layer];
     self.theViewC.frameInterval = 2;
     self.theViewC.threadPerLayer = true;
-    float minHeight,maxHeight;
-    [self.theViewC getZoomLimitsMin:&minHeight max:&maxHeight];
-    [self.theViewC setZoomLimitsMin:minHeight max:3.0];
+    
+    [self addCountry_china];
+}
 
-    initMapHeight = self.theViewC.height;
+-(void)makeMapViewAndDatas
+{
+    if (!self.theViewC || (show3D && mapViewC) || (!show3D && globeViewC)) {
+        [self initMapView];
+        [self initDatas];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (show3D) {
+                globeViewC.heading = 0;
+                globeViewC.keepNorthUp = true;
+                [globeViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
+                //                [globeViewC setAutoRotateInterval:0.2 degrees:20];
+                
+                [self addStars:@"starcatalog_orig"];
+                if (showLight) {
+                    [self addSun];
+                }
+            }
+            else
+            {
+                mapViewC.heading = 0;
+                mapViewC.height = M_PI/2;
+                
+                initMapHeight = mapViewC.height;
+                [mapViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight time:0.3];
+            }
+            
+            // 重新设置地图显示
+            [self changetitle:[self.titles firstObject]];
+            
+            if (showLocation) {
+                [self addUserLocationMarker];
+            }
+        });
+    }
 }
 
 -(void)initViews
 {
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"选择" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavRight)];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"图层" style:UIBarButtonItemStyleDone target:self action:@selector(clickNavLeft)];
-    
-    [self addCountry_china];
-    
     [self initTopViews];
     [self initBottomViews];
     
@@ -327,35 +402,15 @@
     [super viewWillAppear:animated];
     
 //    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
     
-    if (loadOk) {
-        return;
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.theViewC.heading = 0;
-        self.theViewC.keepNorthUp = true;
-        [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
-        //        [self.theViewC setAutoRotateInterval:0.2 degrees:20];
-        
-        [self addSun];
-        [self addStars:@"starcatalog_orig"];
-    });
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (loadOk) {
-        return;
-    }
-    
-    [self changetitle:[self.titles firstObject]];
-    
     self.statisticsView.hidden = YES;
-    
-    loadOk = YES;
     
     // 默认显示一半的
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -449,7 +504,7 @@
 
 - (void)addStars:(NSString *)inFile
 {
-    if (!self.theViewC)
+    if (!globeViewC)
         return;
     
     // Load the stars
@@ -458,13 +513,13 @@
     {
         MaplyStarsModel *stars = [[MaplyStarsModel alloc] initWithFileName:fileName];
         stars.image = [UIImage imageNamed:@"star_background"];
-        [stars addToViewC:self.theViewC date:[NSDate date] desc:nil mode:MaplyThreadCurrent];
+        [stars addToViewC:globeViewC date:[NSDate date] desc:nil mode:MaplyThreadCurrent];
     }
 }
 
 - (void)addSun
 {
-    if (!self.theViewC)
+    if (!globeViewC)
         return;
     
     // Lighting for the sun
@@ -479,8 +534,30 @@
     [self.theViewC addLight:sunLight];
     
     // And some atmosphere, because the iDevice fill rate is just too fast
-    MaplyAtmosphere *atmosObj = [[MaplyAtmosphere alloc] initWithViewC:self.theViewC];
+    atmosObj = [[MaplyAtmosphere alloc] initWithViewC:globeViewC];
     [atmosObj setSunPosition:[sun getDirection]];
+}
+
+-(void)addUserLocationMarker
+{
+    CLLocation *location = [CWLocationManager sharedInstance].locationManager.location;
+    if (location) {
+        if (self.markerLocation) {
+            [self.theViewC removeObject:self.markerLocation];
+        }
+        
+        location = [location locationMarsFromEarth];
+        
+        UIImage *img = [UIImage imageNamed:@"map_anni_point"];
+        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.loc             = MaplyCoordinateMakeWithDegrees(location.coordinate.longitude, location.coordinate.latitude);
+        anno.size            = img.size;//CGSizeMake(30, 30);
+        //    anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
+        anno.image = img;
+        
+        self.markerLocation = [self.theViewC addScreenMarkers:@[anno] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    }
+    
 }
 
 -(void)addTongJiMarkers
@@ -642,14 +719,24 @@
         case 3:
         {
             // reset
-            [self.theViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight heading:0 time:0.3];
+            if (show3D) {
+                [globeViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight heading:0 time:0.3];
+            }
+            else
+            {
+                [mapViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight time:0.3];
+            }
             break;
         }
         case 4:
         {
             // setting
             UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *next = [board instantiateViewControllerWithIdentifier:@"setting"];
+            HESettingController *next = (HESettingController *)[board instantiateViewControllerWithIdentifier:@"setting"];
+            next.delegate = self;
+            next.set3D = show3D;
+            next.setLight = showLight;
+            next.setLocation = showLocation;
             [self.navigationController pushViewController:next animated:YES];
             break;
         }
@@ -935,5 +1022,45 @@
 -(void)setProgressValue:(CGFloat)radio
 {
     self.progressView.value = radio;
+}
+
+#pragma makr - HESettingDelegate
+-(void)show3DMap:(BOOL)flag
+{
+    show3D = flag;
+    
+    [self makeMapViewAndDatas];
+}
+-(void)showMapLight:(BOOL)flag
+{
+    showLight = flag;
+    if (show3D) {
+        if (flag) {
+            [self addSun];
+        }
+        else
+        {
+            [self.theViewC clearLights];
+            [atmosObj removeFromViewC];
+        }
+    }
+    
+}
+-(void)showLocation:(BOOL)flag
+{
+    showLocation = flag;
+    if (!flag)
+    {
+        [self.theViewC removeObject:self.markerLocation];
+    }
+}
+
+-(void)locationed:(NSNotification *)noti
+{
+    NSError *error = [noti.userInfo objectForKey:@"error"];
+    if (!error)
+    {
+        [self addUserLocationMarker];
+    }
 }
 @end

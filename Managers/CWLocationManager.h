@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "CLLocation+Sino.h"
 
 @interface CWLocationManager : NSObject
 <CLLocationManagerDelegate>
 
 @property (nonatomic,strong) CLLocationManager* locationManager;
+@property (nonatomic,strong) CLPlacemark *plackMark;
 
 + (CWLocationManager *)sharedInstance;
 
 -(void)updateLocation;
+-(void)stopLocation;
 @end

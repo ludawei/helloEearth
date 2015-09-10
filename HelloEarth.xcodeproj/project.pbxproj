@@ -18,6 +18,7 @@
 		EE47F8A61B71F6D90000F066 /* starcatalog_short.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A51B71F6D90000F066 /* starcatalog_short.txt */; };
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
 		EE4CBC931BA116B1002D322E /* HEFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC921BA116B1002D322E /* HEFeedbackController.m */; };
+		EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC991BA178C2002D322E /* CWHttpCmdFeedback.m */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE75A25A1B9EEE5D00B225E9 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE75A2261B9EEE5D00B225E9 /* UMSocialLocalizable.strings */; };
@@ -342,6 +343,8 @@
 		EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTileInfo.m; sourceTree = "<group>"; };
 		EE4CBC911BA116B1002D322E /* HEFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEFeedbackController.h; sourceTree = "<group>"; };
 		EE4CBC921BA116B1002D322E /* HEFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEFeedbackController.m; sourceTree = "<group>"; };
+		EE4CBC981BA178C2002D322E /* CWHttpCmdFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWHttpCmdFeedback.h; sourceTree = "<group>"; };
+		EE4CBC991BA178C2002D322E /* CWHttpCmdFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWHttpCmdFeedback.m; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -1225,6 +1228,8 @@
 				EED8B6851B748C58000EADC1 /* CWHttpCmdNewGeoArea.m */,
 				EED8B68C1B748C58000EADC1 /* CWHttpCmdWeather.h */,
 				EED8B68D1B748C58000EADC1 /* CWHttpCmdWeather.m */,
+				EE4CBC981BA178C2002D322E /* CWHttpCmdFeedback.h */,
+				EE4CBC991BA178C2002D322E /* CWHttpCmdFeedback.m */,
 				EED8B6901B748C58000EADC1 /* PLHttpCmd.h */,
 				EED8B6911B748C58000EADC1 /* PLHttpCmd.m */,
 				EED8B6921B748C58000EADC1 /* Util */,
@@ -1767,6 +1772,7 @@
 				EED8B6631B748BF5000EADC1 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EED8B7811B74BE3A000EADC1 /* TJPieView.m in Sources */,
 				EED8B6B11B748C58000EADC1 /* encode.c in Sources */,
+				EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */,
 				EEAA17FD1B9E75F8009A3535 /* NJKWebViewProgressView.m in Sources */,
 				EED8B6DB1B748C71000EADC1 /* UIView+ModifyFrame.m in Sources */,
 				EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,

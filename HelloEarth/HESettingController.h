@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HESettingDelegate <NSObject>
+
+-(void)show3DMap:(BOOL)flag;
+-(void)showMapLight:(BOOL)flag;
+-(void)showLocation:(BOOL)flag;
+
+@end
+
 @interface HESettingController : UITableViewController
+
+@property (nonatomic,assign) id<HESettingDelegate> delegate;
+@property (nonatomic,assign) BOOL set3D,setLight,setLocation;
 
 @end

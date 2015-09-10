@@ -7,7 +7,12 @@
 //
 
 #import "CWLocationManager.h"
-#import "CLLocation+Sino.h"
+
+@interface CWLocationManager ()
+
+@property (nonatomic,strong) CLGeocoder *geocoder;
+
+@end
 
 @implementation CWLocationManager
 
@@ -27,12 +32,21 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    self.locationManager.distanceFilter = 10.0f;
+    self.locationManager.distanceFilter = 100.0f;
     
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+}
+
+-(void)stopLocation
+{
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+    
+    self.plackMark = nil;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -44,12 +58,34 @@
     LOG(@"定位成功!%@,%@", latitudeText,longitudeText);
     
     // 只定位一次,不更新位置
-    [self.locationManager stopUpdatingLocation];
-    self.locationManager.delegate = nil;
-    self.locationManager = nil;
+//    [self.locationManager stopUpdatingLocation];
+//    self.locationManager.delegate = nil;
+//    self.locationManager = nil;
     // 请求完成
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:noti_update_location object:nil userInfo:@{LATITUDE_KEY: latitudeText, LONGITUDE_KEY: longitudeText}];
+    if (!self.geocoder) {
+        self.geocoder = [[CLGeocoder alloc] init];
+    }
+    
+    if (self.geocoder.isGeocoding) {
+        [self.geocoder cancelGeocode];
+    }
+    
+    [self.geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray* placemarks,NSError *error)
+     {
+         NSString *mapName;
+         if (placemarks.count > 0   )
+         {
+             CLPlacemark * plmark = [placemarks objectAtIndex:0];
+             
+             mapName = plmark.name;
+             
+             LOG(@"1:%@2:%@3:%@4:%@",  plmark.locality, plmark.subLocality,plmark.thoroughfare,plmark.subThoroughfare);
+             
+             self.plackMark = plmark;
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:noti_update_location object:nil userInfo:nil];
+         }
+     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager

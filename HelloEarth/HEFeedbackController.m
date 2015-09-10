@@ -9,6 +9,8 @@
 #import "HEFeedbackController.h"
 #import "Masonry.h"
 #import <MessageUI/MessageUI.h>
+#import "CWHttpCmdFeedback.h"
+#import "MBProgressHUD+Extra.h"
 
 #define FEEDBACK_EMAILBOX @"****@***"
 
@@ -151,7 +153,32 @@
 
 -(void)clickButton
 {
+    [self.textView resignFirstResponder];
+    [self.textField resignFirstResponder];
+    if ([self.textField.text length] == 0) {
+        [MBProgressHUD showHUDNoteWithText:@"填写电话或邮箱"];
+    }
+    if ([self.textView.text length] == 0) {
+        [MBProgressHUD showHUDNoteWithText:@"没有内容!"];
+    }
     // 提交
+    CWHttpCmdFeedback *cmd = [CWHttpCmdFeedback cmd];
+    cmd.content = self.textView.text;
+    if ([self.textField.text rangeOfString:@"@"].location == NSNotFound) {
+        cmd.tel = self.textField.text;
+    }
+    else
+    {
+        cmd.email = self.textField.text;
+    }
+    [cmd setSuccess:^(id object){
+        [MBProgressHUD showHUDNoteWithText:@"感谢您的尊贵建议!"];
+        [self clickButton];
+    }];
+    [cmd setFail:^(AFHTTPRequestOperation *response){
+        [MBProgressHUD showHUDNoteWithText:@"出了点问题，稍后再试试吧"];
+    }];
+    [cmd startRequest];
 }
 
 -(void)clickBack

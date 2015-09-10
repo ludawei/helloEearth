@@ -16,7 +16,6 @@
     
 }
 
-@property (nonatomic,strong) CLGeocoder *geocoder;
 @property (nonatomic,weak) IBOutlet UISwitch *switch3D,*switchLight,*switchLocate;
 @property (nonatomic,weak) IBOutlet UILabel *locationLabel;
 
@@ -50,7 +49,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
     
-    self.geocoder = [[CLGeocoder alloc] init];
+    self.switch3D.on = self.set3D;
+    self.switchLight.on = self.setLight && self.set3D;
+    self.switchLocate.on = self.setLocation;
+    if (self.setLocation) {
+        self.locationLabel.text = [CWLocationManager sharedInstance].plackMark.name;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,18 +62,28 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)switchChanged:(id)sender
+-(IBAction)switchChanged:(UISwitch *)sender
 {
     if (sender == self.switch3D) {
-        
+        [self.delegate show3DMap:sender.on];
+        self.switchLight.on = self.setLight && sender.on;
     }
     else if (sender == self.switchLight)
     {
-        
+        [self.delegate showMapLight:sender.on];
     }
     else if (sender == self.switchLocate)
     {
+        [self.delegate showLocation:sender.on];
         
+        if (sender.on) {
+            [[CWLocationManager sharedInstance] updateLocation];
+        }
+        else
+        {
+            [[CWLocationManager sharedInstance] stopLocation];
+            self.locationLabel.text = @"";
+        }
     }
 }
 
@@ -81,34 +95,17 @@
 
 -(void)locationed:(NSNotification *)noti
 {
-//    NSDictionary *
     NSError *error = [noti.userInfo objectForKey:@"error"];
     if (error) {
         if (error.code == 1) {
             // 用户关闭定位
+            [[CWLocationManager sharedInstance] stopLocation];
             return;
         }
     }
     else
     {
-        if (self.geocoder.isGeocoding) {
-            [self.geocoder cancelGeocode];
-        }
-        
-        [self.geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:[[noti.userInfo objectForKey:LATITUDE_KEY] floatValue] longitude:[[noti.userInfo objectForKey:LONGITUDE_KEY] floatValue]] completionHandler:^(NSArray* placemarks,NSError *error)
-         {
-             NSString *mapName;
-             if (placemarks.count > 0   )
-             {
-                 CLPlacemark * plmark = [placemarks objectAtIndex:0];
-                 
-                 mapName = plmark.name;
-                 
-                 LOG(@"1:%@2:%@3:%@4:%@",  plmark.locality, plmark.subLocality,plmark.thoroughfare,plmark.subThoroughfare);
-             }
-             
-             self.locationLabel.text = mapName;
-         }];
+        self.locationLabel.text = [CWLocationManager sharedInstance].plackMark.name;
     }
 }
 
