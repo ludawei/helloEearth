@@ -11,10 +11,17 @@
 #import "MapImagesManager.h"
 #import "ViewController.h"
 
+@protocol HEMapAnimLogicDelegate <NSObject>
+
+-(void)setPlayButtonSelect:(BOOL)select;
+-(void)setTimeText:(NSString *)text;
+-(void)setProgressValue:(CGFloat)radio;
+
+@end
 @interface HEMapAnimLogic : NSObject
 
 @property (nonatomic,strong) MaplyComponentObject *stickersObj;
-@property (nonatomic,assign) id<ViewConDelegate> delegate;
+@property (nonatomic,assign) id<HEMapAnimLogicDelegate> delegate;
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 

@@ -13,7 +13,10 @@
 static NSString *key_normalProducts = @"normalProducts";
 
 #define IDENTIFY_WITH_TYPE(t) \
-[NSString stringWithFormat:@"%d", t]
+[NSString stringWithFormat:@"%ld", t]
+
+#define IDENTIFY_WITH_ID_AND_TYPE(i, t) \
+[NSString stringWithFormat:@"%ld-%@", i, t]
 
 static NSString *key_map_rainImageList = @"map_rainImageList";
 static NSString *key_map_cloudImageList = @"map_cloudImageList";
@@ -229,5 +232,23 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 -(NSDictionary *)mapCloudData
 {
     return [self dictionaryForIdentify:[Base64 base64EncodeString:key_map_cloudImageList]];
+}
+
+-(void)setProductList:(NSArray *)datas
+{
+    [self setArray:datas forIdentify:IDENTIFY_WITH_TYPE(CWDataTypeProductList)];
+}
+-(NSArray *)productList
+{
+    return [self arrayForIdentify:IDENTIFY_WITH_TYPE(CWDataTypeProductList)];
+}
+
+-(void)setMapdata:(NSDictionary *)mapdata fileMark:(NSString *)fileMark;
+{
+    [self setDictionary:mapdata forIdentify:IDENTIFY_WITH_ID_AND_TYPE(CWDataTypeMapdata, fileMark)];
+}
+-(NSDictionary *)mapdataByFileMark:(NSString *)fileMark
+{
+    return [self dictionaryForIdentify:IDENTIFY_WITH_ID_AND_TYPE(CWDataTypeMapdata, fileMark)];
 }
 @end

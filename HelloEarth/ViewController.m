@@ -25,9 +25,20 @@
 #import "HEShareController.h"
 #import "HESettingController.h"
 #import "CWLocationManager.h"
+#import "HELegendController.h"
+#import "HEProductsController.h"
 #import "UIView+Extra.h"
+#import "HEMapDataAnimLogic.h"
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, UIActionSheetDelegate, ViewConDelegate, HESettingDelegate>
+#import "MBProgressHUD+Extra.h"
+
+NS_ENUM(NSInteger, MapAnimType)
+{
+    MapAnimTypeImage,
+    MapAnimTypeData,
+};
+
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate>
 {
     CGFloat globeHeight;
     
@@ -42,19 +53,25 @@
     BOOL show3D,showLight,showLocation;
     WhirlyGlobeViewController *globeViewC;
     MaplyViewController *mapViewC;
+    
+    // product data
+    BOOL isBottomFull;
+    NSString *productType;
+    NSString *productName;
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
 //@property (nonatomic,strong) WhirlyGlobeViewController *theViewC;
 
-@property (nonatomic,copy) NSArray *titles;
-
 @property (nonatomic,strong) HEMapDatas *mapDatas;
 @property (nonatomic,copy) NSArray *comObjs;
+@property (nonatomic,strong) HEMapDataAnimLogic *mapDataAnimLogic;
 
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
 @property (nonatomic,strong) MaplyComponentObject *markersObj;
 @property (nonatomic,strong) MaplyComponentObject *markerLocation;
+
+@property (nonatomic,assign) enum MapAnimType animType;
 
 // UI
 //@property (nonatomic,strong) UIView *topView;
@@ -106,20 +123,9 @@
 #pragma mark - inits
 -(void)initDatas
 {
-    NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"json" inDirectory:nil];
-    
-    NSMutableArray *arr = [NSMutableArray array];
-    for (NSString *path in paths) {
-        NSString *title = [[path lastPathComponent] stringByDeletingPathExtension];
-        if ([title isEqualToString:@"china"]) {
-            continue;
-        };
-        [arr addObject:[[path lastPathComponent] stringByDeletingPathExtension]];
-    }
-    self.titles = arr;
-    
     self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
-    self.mapDatas.delegate = self;
+    self.mapDataAnimLogic = [[HEMapDataAnimLogic alloc] initWithMapDatas:self.mapDatas];
+    self.mapDataAnimLogic.delegate = self;
     self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
     self.mapAnimLogic.delegate = self;
 }
@@ -139,9 +145,7 @@
         float minHeight,maxHeight;
         [globeViewC getZoomLimitsMin:&minHeight max:&maxHeight];
         [globeViewC setZoomLimitsMin:minHeight max:3.0];
-        globeViewC.height = 0.0;
         
-        initMapHeight = globeViewC.height;
         self.theViewC = globeViewC;
     }
     else
@@ -167,7 +171,7 @@
     NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/osmtiles/",baseCacheDir];
     int maxZoom = 16;
     
-    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.n1ppo21a/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.ndkap6n1/" ext:@"png" minZoom:0 maxZoom:maxZoom];
     
     MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
     tileSource.cacheDir = aerialTilesCacheDir;
@@ -199,6 +203,7 @@
                 [globeViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
                 //                [globeViewC setAutoRotateInterval:0.2 degrees:20];
                 
+                initMapHeight = globeViewC.height;
                 [self addStars:@"starcatalog_orig"];
                 if (showLight) {
                     [self addSun];
@@ -214,7 +219,7 @@
             }
             
             // 重新设置地图显示
-            [self changetitle:[self.titles firstObject]];
+            [self changeProduct_normal];
             
             if (showLocation) {
                 [self addUserLocationMarker];
@@ -317,6 +322,7 @@
         make.bottom.mas_equalTo(titleLbl.mas_bottom);
         make.width.height.mas_equalTo(50);
     }];
+    [self.indexButton addTarget:self action:@selector(clickLegend) forControlEvents:UIControlEventTouchUpInside];
     
     self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:16]];
     self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
@@ -359,7 +365,7 @@
     self.progressView.userInteractionEnabled = YES;
     self.progressView.backgroundColor = [UIColor clearColor];
     self.progressView.minimumValue = 0;
-    self.progressView.maximumValue = 95;
+    self.progressView.maximumValue = 100;
     self.progressView.minimumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0x2593c8); // 设置已过进度部分的颜色
     self.progressView.maximumTrackTintColor = [UIColor clearColor];//UIColorFromRGB(0xa8a8a8); // 设置未过进度部分的颜色
     [self.progressView setThumbImage:[UIImage imageNamed:@"slider"] forState:UIControlStateNormal];
@@ -412,17 +418,34 @@
     
     self.statisticsView.hidden = YES;
     
-    // 默认显示一半的
-    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.playButton.height+20);
-    }];
-    
-    [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
-        make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
-    }];
+    if (isBottomFull) {
+        [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(0);
+        }];
+        
+        [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(-10);
+            make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
+            make.width.height.mas_equalTo(50);
+        }];
+    }
+    else
+    {
+        // 默认显示一半的
+        [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.playButton.height+20);
+        }];
+        
+        [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
+            make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
+            make.width.height.mas_equalTo(50);
+        }];
+    }
     
     [self.view layoutIfNeeded];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -430,15 +453,44 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)changetitle:(NSString *)title
+-(void)changeProduct_normal
 {
-    self.titleLbl.text = title;
+    if (!productName) {
+        return;
+    }
+    
+    self.titleLbl.text = productName;
 
     [self resetMapUI];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.comObjs = [self.mapDatas changetitle:title];
-    });
+    [MBProgressHUD showHUDInView:self.view andText:@"请求数据..."];
+    NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+    [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (responseObject && [responseObject isKindOfClass:[NSArray class]]) {
+            if (isBottomFull) {
+                NSArray *types = [productType componentsSeparatedByString:@","];
+                if (types.count == [responseObject count]) {
+                    for (NSInteger i=0; i<types.count; i++) {
+                        [[CWDataManager sharedInstance] setMapdata:[responseObject objectAtIndex:i] fileMark:[types objectAtIndex:i]];
+                    }
+                }
+                
+                self.animType = MapAnimTypeData;
+                [self.mapDataAnimLogic showProductWithTypes:types];
+            }
+            else
+            {
+                [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
+                self.comObjs = [self.mapDatas changeType:productType];
+            }
+        }
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
 }
 
 -(void)resetMapUI
@@ -702,6 +754,9 @@
         case 1:
         {
             // products
+            HEProductsController *next = [HEProductsController new];
+            next.delegate = self;
+            [self.navigationController pushViewController:next animated:YES];
             break;
         }
         case 2:
@@ -747,68 +802,68 @@
 
 
 
--(void)clickNavLeft
-{
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
-    actSheet.tag = 1000;
-    [actSheet addButtonWithTitle:@"雷达图"];
-    [actSheet addButtonWithTitle:@"云图"];
-    [actSheet addButtonWithTitle:@"网眼"];
-    [actSheet addButtonWithTitle:@"天气统计"];
-//    [actSheet addButtonWithTitle:@""];
-    [actSheet showInView:self.view];
-}
+//-(void)clickNavLeft
+//{
+//    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
+//    actSheet.tag = 1000;
+//    [actSheet addButtonWithTitle:@"雷达图"];
+//    [actSheet addButtonWithTitle:@"云图"];
+//    [actSheet addButtonWithTitle:@"网眼"];
+//    [actSheet addButtonWithTitle:@"天气统计"];
+////    [actSheet addButtonWithTitle:@""];
+//    [actSheet showInView:self.view];
+//}
+//
+//-(void)clickNavRight
+//{
+//    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
+//    actSheet.tag = 1001;
+//    for (NSString *title in self.titles) {
+//        [actSheet addButtonWithTitle:title];
+//    }
+//    [actSheet showInView:self.view];
+//}
 
--(void)clickNavRight
-{
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
-    actSheet.tag = 1001;
-    for (NSString *title in self.titles) {
-        [actSheet addButtonWithTitle:title];
-    }
-    [actSheet showInView:self.view];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    }
-    
-    if (actionSheet.tag == 1001) {
-        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-        [self changetitle:title];
-    }
-    else if (actionSheet.tag == 1000)
-    {
-        [self resetMapUI];
-        
-        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-        
-        self.title = title;
-        if ([title isEqualToString:@"雷达图"]) {
-            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
-        }
-        else if ([title isEqualToString:@"云图"]) {
-            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
-        }
-        else if ([title isEqualToString:@"网眼"]) {
-            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [act startAnimating];
-            self.navigationItem.titleView = act;
-            
-            [self showNetEyesMarkers];
-        }
-        else if ([title isEqualToString:@"天气统计"])
-        {
-            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [act startAnimating];
-            self.navigationItem.titleView = act;
-            
-            [self showTongJiMarkers];
-        }
-    }
-}
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == actionSheet.cancelButtonIndex) {
+//        return;
+//    }
+//    
+//    if (actionSheet.tag == 1001) {
+//        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+//        [self changetitle:title];
+//    }
+//    else if (actionSheet.tag == 1000)
+//    {
+//        [self resetMapUI];
+//        
+//        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+//        
+//        self.title = title;
+//        if ([title isEqualToString:@"雷达图"]) {
+//            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+//        }
+//        else if ([title isEqualToString:@"云图"]) {
+//            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+//        }
+//        else if ([title isEqualToString:@"网眼"]) {
+//            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//            [act startAnimating];
+//            self.navigationItem.titleView = act;
+//            
+//            [self showNetEyesMarkers];
+//        }
+//        else if ([title isEqualToString:@"天气统计"])
+//        {
+//            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//            [act startAnimating];
+//            self.navigationItem.titleView = act;
+//            
+//            [self showTongJiMarkers];
+//        }
+//    }
+//}
 
 -(void)showNetEyesMarkers
 {
@@ -842,12 +897,24 @@
 
 -(void)changeProgress:(id)sender
 {
-    [self.mapAnimLogic changeProgress:sender];
+    if (self.animType == MapAnimTypeData) {
+        [self.mapDataAnimLogic changeProgress:sender];
+    }
+    else if (self.animType == MapAnimTypeImage)
+    {
+        [self.mapAnimLogic changeProgress:sender];
+    }
 }
 
 -(void)clickPlay
 {
-    [self.mapAnimLogic clickPlay];
+    if (self.animType == MapAnimTypeData) {
+        [self.mapDataAnimLogic clickPlay];
+    }
+    else if (self.animType == MapAnimTypeImage)
+    {
+        [self.mapAnimLogic clickPlay];
+    }
 }
 
 -(void)clickExpand
@@ -857,7 +924,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
-        if (self.isBottomFull) {
+        if (isBottomFull) {
             [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(0);
             }];
@@ -873,7 +940,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         
-        if (self.isBottomFull) {
+        if (isBottomFull) {
             [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(self.playButton.height+20);
             }];
@@ -890,6 +957,12 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+-(void)clickLegend
+{
+    HELegendController *next = [HELegendController new];
+    [self.navigationController pushViewController:next animated:YES];
 }
 
 -(void)closeLogoView
@@ -1024,6 +1097,17 @@
     self.progressView.value = radio;
 }
 
+#pragma mark - HEMapDataAnimDelegate
+-(void)willChangeObjs
+{
+    [self resetMapUI];
+}
+
+-(void)changeObjs:(NSArray *)objs
+{
+    self.comObjs = objs;
+}
+
 #pragma makr - HESettingDelegate
 -(void)show3DMap:(BOOL)flag
 {
@@ -1063,4 +1147,18 @@
         [self addUserLocationMarker];
     }
 }
+
+#pragma makr - HEProductDelegate
+-(void)setData:(NSDictionary *)data
+{
+    NSString *dataType = [data objectForKey:@"fileMark"];
+    NSString *dataName = [data objectForKey:@"name"];
+    
+    isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
+    productType = dataType;
+    productName = dataName;
+    
+    [self changeProduct_normal];
+}
+
 @end

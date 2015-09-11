@@ -232,7 +232,7 @@
         
         //    LOG(@"%d, %ld", self.currentPlayIndex, self.allImages.count);
         //        self.progressView.progress = 1.0*(self.currentPlayIndex+1)/self.allImages.count;
-        CGFloat radio = 100.0*(self.currentPlayIndex)/self.allImages.count;
+        CGFloat radio = 100.0*(self.currentPlayIndex)/(self.allImages.count-1);
 //        [self.progressView setValue:radio animated:YES];
         [self.delegate setProgressValue:radio];
     }
@@ -269,7 +269,7 @@
         [self.delegate setPlayButtonSelect:NO];
     }
     
-    self.currentPlayIndex = progressView.value*(self.allImages.count)/progressView.maximumValue;
+    self.currentPlayIndex = round(progressView.value*(self.allImages.count-1)/progressView.maximumValue);
     NSString *imageUrl = [self.allImages objectForKey:@(self.allImages.count-self.currentPlayIndex-1)];
     if (imageUrl) {
         UIImage *curImage = [self.mapImagesManager imageFromDiskForUrl:imageUrl];

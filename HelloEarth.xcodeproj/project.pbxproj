@@ -19,6 +19,10 @@
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
 		EE4CBC931BA116B1002D322E /* HEFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC921BA116B1002D322E /* HEFeedbackController.m */; };
 		EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC991BA178C2002D322E /* CWHttpCmdFeedback.m */; };
+		EE4CBC9D1BA1827E002D322E /* HELegendController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC9C1BA1827E002D322E /* HELegendController.m */; };
+		EE4CBCA01BA18E55002D322E /* HEProductsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBC9F1BA18E55002D322E /* HEProductsController.m */; };
+		EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCA21BA18F04002D322E /* MyCollCell.m */; };
+		EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE75A25A1B9EEE5D00B225E9 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE75A2261B9EEE5D00B225E9 /* UMSocialLocalizable.strings */; };
@@ -345,6 +349,14 @@
 		EE4CBC921BA116B1002D322E /* HEFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEFeedbackController.m; sourceTree = "<group>"; };
 		EE4CBC981BA178C2002D322E /* CWHttpCmdFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWHttpCmdFeedback.h; sourceTree = "<group>"; };
 		EE4CBC991BA178C2002D322E /* CWHttpCmdFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWHttpCmdFeedback.m; sourceTree = "<group>"; };
+		EE4CBC9B1BA1827E002D322E /* HELegendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HELegendController.h; sourceTree = "<group>"; };
+		EE4CBC9C1BA1827E002D322E /* HELegendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HELegendController.m; sourceTree = "<group>"; };
+		EE4CBC9E1BA18E55002D322E /* HEProductsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEProductsController.h; sourceTree = "<group>"; };
+		EE4CBC9F1BA18E55002D322E /* HEProductsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEProductsController.m; sourceTree = "<group>"; };
+		EE4CBCA11BA18F04002D322E /* MyCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollCell.h; sourceTree = "<group>"; };
+		EE4CBCA21BA18F04002D322E /* MyCollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollCell.m; sourceTree = "<group>"; };
+		EE4CBCA41BA27241002D322E /* HEMapDataAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapDataAnimLogic.h; sourceTree = "<group>"; };
+		EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapDataAnimLogic.m; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -759,6 +771,8 @@
 				EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */,
 				EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */,
 				EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */,
+				EE4CBCA41BA27241002D322E /* HEMapDataAnimLogic.h */,
+				EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */,
 			);
 			name = Logics;
 			sourceTree = "<group>";
@@ -1422,6 +1436,8 @@
 		EED8B7561B74BE3A000EADC1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EE4CBCA11BA18F04002D322E /* MyCollCell.h */,
+				EE4CBCA21BA18F04002D322E /* MyCollCell.m */,
 				EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */,
 				EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */,
 				EED8B7571B74BE3A000EADC1 /* ChartView */,
@@ -1533,6 +1549,10 @@
 				EED017D71BA01D07007235FA /* HESettingController.m */,
 				EE4CBC911BA116B1002D322E /* HEFeedbackController.h */,
 				EE4CBC921BA116B1002D322E /* HEFeedbackController.m */,
+				EE4CBC9B1BA1827E002D322E /* HELegendController.h */,
+				EE4CBC9C1BA1827E002D322E /* HELegendController.m */,
+				EE4CBC9E1BA18E55002D322E /* HEProductsController.h */,
+				EE4CBC9F1BA18E55002D322E /* HEProductsController.m */,
 			);
 			path = HelloEarth;
 			sourceTree = "<group>";
@@ -1762,6 +1782,7 @@
 				EED8B66C1B748BF5000EADC1 /* SDImageCache.m in Sources */,
 				EED8B65E1B748BF5000EADC1 /* AFURLRequestSerialization.m in Sources */,
 				EED8B6D01B748C71000EADC1 /* AlertViewBlocks.m in Sources */,
+				EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */,
 				EED8B6751B748BF5000EADC1 /* UIImage+MultiFormat.m in Sources */,
 				EED8B6701B748BF5000EADC1 /* SDWebImageDownloaderOperation.m in Sources */,
 				EED8B6671B748BF5000EADC1 /* UIImageView+AFNetworking.m in Sources */,
@@ -1775,6 +1796,7 @@
 				EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */,
 				EEAA17FD1B9E75F8009A3535 /* NJKWebViewProgressView.m in Sources */,
 				EED8B6DB1B748C71000EADC1 /* UIView+ModifyFrame.m in Sources */,
+				EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */,
 				EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				EED8B6D71B748C71000EADC1 /* NSDate+Utilities.m in Sources */,
 				EEAA18001B9E760E009A3535 /* WebController.m in Sources */,
@@ -1805,6 +1827,7 @@
 				EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */,
 				EED8B6B21B748C58000EADC1 /* UtilConstants.m in Sources */,
 				EEE41E491B6743A700752EC6 /* main.m in Sources */,
+				EE4CBC9D1BA1827E002D322E /* HELegendController.m in Sources */,
 				EED8B6D31B748C71000EADC1 /* DeviceUtil.m in Sources */,
 				EED8B6D81B748C71000EADC1 /* NSObject+Log.m in Sources */,
 				EED8B6D41B748C71000EADC1 /* MBProgressHUD+Extra.m in Sources */,
@@ -1814,6 +1837,7 @@
 				EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */,
 				EED8B6721B748BF5000EADC1 /* SDWebImagePrefetcher.m in Sources */,
 				EED8B77E1B74BE3A000EADC1 /* MapStatistTempView.m in Sources */,
+				EE4CBCA01BA18E55002D322E /* HEProductsController.m in Sources */,
 				EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */,
 				EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */,
 				EED8B6AE1B748C58000EADC1 /* Base64.m in Sources */,

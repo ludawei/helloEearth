@@ -9,6 +9,7 @@
 #import "HEMapDatas.h"
 #import "Util.h"
 #import "WhirlyGlobeComponent.h"
+#import "CWDataManager.h"
 
 @interface HEMapDatas ()
 
@@ -30,21 +31,18 @@
     return self;
 }
 
--(NSArray *)changetitle:(NSString *)title
+-(NSArray *)changeType:(NSString *)type
 {
     self.data = nil;
     self.areas = nil;
     
-    [self initData:title];
+    [self initData:type];
     return [self setupLayer];
 }
 
 -(void)initData:(NSString *)name
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"json"];
-    NSData *jsonData = [NSData dataWithContentsOfFile:path];
-    
-    id data = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+    id data = [[CWDataManager sharedInstance] mapdataByFileMark:name];
     
     if ([data isKindOfClass:[NSArray class]]) {
         self.areas = data;

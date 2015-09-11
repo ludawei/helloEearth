@@ -1,14 +1,13 @@
 //
-//  ViewController.h
+//  HELegendController.h
 //  HelloEarth
 //
-//  Created by 卢大维 on 15/7/28.
+//  Created by 卢大维 on 15/9/10.
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface HELegendController : UIViewController
 
 @end
-

@@ -11,9 +11,7 @@
 
 @interface HEMapDatas : NSObject
 
-@property (nonatomic,assign) id<ViewConDelegate> delegate;
-
 -(instancetype)initWithController:(UIViewController *)theViewC;
--(NSArray *)changetitle:(NSString *)title;
+-(NSArray *)changeType:(NSString *)type;
 
 @end

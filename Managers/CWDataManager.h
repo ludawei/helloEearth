@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ENUM(NSInteger, CWDataType){
+    CWDataTypeProductList,
+    CWDataTypeMapdata,
+};
+
 @interface CWDataManager : NSObject
 
 @property (readwrite) BOOL enablePushNotification;
@@ -16,5 +21,11 @@
 
 @property (readwrite) NSDictionary *mapRainData;
 @property (readwrite) NSDictionary *mapCloudData;
+
+-(void)setProductList:(NSArray *)datas;
+-(NSArray *)productList;
+
+-(void)setMapdata:(NSDictionary *)mapdata fileMark:(NSString *)fileMark;
+-(NSDictionary *)mapdataByFileMark:(NSString *)fileMark;
 
 @end
