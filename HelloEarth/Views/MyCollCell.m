@@ -35,7 +35,7 @@
         UIView *imgBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, CGRectGetMinY(self.lbl.frame))];
         imgBackView.layer.cornerRadius = 5;
         imgBackView.layer.borderWidth = 1;
-        imgBackView.layer.borderColor = [UIColor grayColor].CGColor;
+        imgBackView.layer.borderColor = UIColorFromRGB(0x2da7e0).CGColor;
         [self.contentView addSubview:imgBackView];
         self.imgBackView = imgBackView;
         

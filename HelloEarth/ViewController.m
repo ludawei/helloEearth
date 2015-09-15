@@ -102,6 +102,9 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic)       NSInteger level;
 @property (nonatomic,strong) MapStatisticsBottomView *statisticsView;
 
+// 请求
+@property (nonatomic,strong) AFHTTPRequestOperation *currentOperation;
+
 @end
 
 @implementation ViewController
@@ -134,9 +137,9 @@ NS_ENUM(NSInteger, MapAnimType)
     UIImageView *loadingBackView = [UIImageView new];
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
     loadingBackView.image = [UIImage imageNamed:@"APP启动图－3.jpg"];
-    [self.view addSubview:loadingBackView];
+    [self.navigationController.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
+        make.edges.mas_equalTo(self.navigationController.view);
     }];
     loadingIV = loadingBackView;
     
@@ -390,17 +393,16 @@ NS_ENUM(NSInteger, MapAnimType)
     [bView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.titleLbl.mas_bottom);
         make.bottom.mas_equalTo(view.mas_bottom).offset(-9);
-        make.left.mas_equalTo(titleLbl.mas_left);
+        make.left.mas_equalTo(0);
         make.right.mas_equalTo(view);
     }];
     
-    CGFloat playButtonWidth = 20;
     self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:14]];
     self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
     [bView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(5);
-        make.left.mas_equalTo(margin+playButtonWidth);
+        make.left.mas_equalTo(margin+buttonWidth);
         make.height.mas_greaterThanOrEqualTo(15);
     }];
     
@@ -419,12 +421,14 @@ NS_ENUM(NSInteger, MapAnimType)
     
     self.playButton = [self createButtonWithImg:[UIImage imageNamed:@"play"] selectImg:[UIImage imageNamed:@"pause"]];
     [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
+    self.playButton.contentEdgeInsets = UIEdgeInsetsMake(0, margin, 0, margin);
     [bView addSubview:self.playButton];
     [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.top.mas_equalTo(self.timeLabel.mas_bottom);
         make.bottom.mas_equalTo(slideBack.mas_bottom).offset(5);
-        make.width.mas_equalTo(playButtonWidth);
+//        make.width.mas_equalTo(buttonWidth);
+        make.right.mas_equalTo(self.timeLabel.mas_left);
     }];
     
     self.progressView = [[UISlider alloc] init];
@@ -510,7 +514,9 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [MBProgressHUD showHUDInView:self.view andText:@"请求数据..."];
     NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
-    [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [self.currentOperation cancel];
+    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (responseObject && [responseObject isKindOfClass:[NSArray class]]) {
             if (isBottomFull) {
@@ -684,9 +690,29 @@ NS_ENUM(NSInteger, MapAnimType)
     //
     //    self.level = level;
     
-    [self resetMapUI];
-    self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    [MBProgressHUD showHUDInView:self.view andText:@"处理中..."];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *annos = [self annotationsWithServerDatas:@"level3"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self resetMapUI];
+            self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+        });
+    });
 }
+
+-(void)setMarkersObj:(MaplyComponentObject *)markersObj
+{
+    _markersObj = markersObj;
+    if (markersObj && [productType isEqualToString:@"local_tongji"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        });
+
+    }
+}
+
 
 -(void)addNetEyeMarkers:(NSArray *)datas
 {
@@ -844,7 +870,8 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)showNetEyesMarkers
 {
-    [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.currentOperation cancel];
+    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (responseObject) {
             self.markerDatas = (NSDictionary *)responseObject;
@@ -860,7 +887,8 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/stationinfo?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
     
-    [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.currentOperation cancel];
+    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (responseObject) {
             self.markerDatas = (NSDictionary *)responseObject;

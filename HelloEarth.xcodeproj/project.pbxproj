@@ -31,6 +31,7 @@
 		EE4CBCF01BA7BA92002D322E /* HESplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCEF1BA7BA92002D322E /* HESplashController.m */; };
 		EE4CBCF31BA7C787002D322E /* HEPreAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF21BA7C787002D322E /* HEPreAnim.m */; };
 		EE4CBCF61BA7C863002D322E /* HEDisAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF51BA7C863002D322E /* HEDisAnim.m */; };
+		EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE75A25A1B9EEE5D00B225E9 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE75A2261B9EEE5D00B225E9 /* UMSocialLocalizable.strings */; };
@@ -378,6 +379,8 @@
 		EE4CBCF21BA7C787002D322E /* HEPreAnim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEPreAnim.m; sourceTree = "<group>"; };
 		EE4CBCF41BA7C863002D322E /* HEDisAnim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEDisAnim.h; sourceTree = "<group>"; };
 		EE4CBCF51BA7C863002D322E /* HEDisAnim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEDisAnim.m; sourceTree = "<group>"; };
+		EE4CBD1D1BA82119002D322E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
+		EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -976,6 +979,15 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		EE4CBCF71BA81D44002D322E /* UIimage+libs */ = {
+			isa = PBXGroup;
+			children = (
+				EE4CBD1D1BA82119002D322E /* UIImage+Tint.h */,
+				EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */,
+			);
+			path = "UIimage+libs";
+			sourceTree = "<group>";
+		};
 		EE75A2241B9EEE5D00B225E9 /* umeng_ios_social_sdk_4.2.3_arm64_custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -1144,6 +1156,7 @@
 		EED8B6101B748BCD000EADC1 /* ThirdLibs */ = {
 			isa = PBXGroup;
 			children = (
+				EE4CBCF71BA81D44002D322E /* UIimage+libs */,
 				EE75A2241B9EEE5D00B225E9 /* umeng_ios_social_sdk_4.2.3_arm64_custom */,
 				EEAA18041B9EB485009A3535 /* Masonry */,
 				EEAA17F71B9E75F8009A3535 /* NJKWebViewProgress */,
@@ -1814,6 +1827,7 @@
 				EED8B77F1B74BE3A000EADC1 /* NewMapCoverView.m in Sources */,
 				EED8B65F1B748BF5000EADC1 /* AFURLResponseSerialization.m in Sources */,
 				EED8B6761B748BF5000EADC1 /* UIImageView+HighlightedWebCache.m in Sources */,
+				EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */,
 				EED8B6E11B748E56000EADC1 /* MBProgressHUD.m in Sources */,
 				EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */,
 				EED8B77B1B74BE3A000EADC1 /* CWWindMapBottomView.m in Sources */,

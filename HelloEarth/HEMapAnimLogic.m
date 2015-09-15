@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "Util.h"
 #import "PLHttpManager.h"
+#import "UIImage+Tint.h"
 
 #define MK_CHINA_CENTER_REGION MKCoordinateRegionMake(CLLocationCoordinate2DMake(33.2, 105.0), MKCoordinateSpanMake(42, 64))
 
@@ -221,7 +222,13 @@
         sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
         sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
         
-        sticker.image = image;
+        if (self.type == 0) {
+            sticker.image = [image imageWithTintColor:[UIColor yellowColor]];
+        }
+        else
+        {
+            sticker.image = image;
+        }
         // And a random rotation
         //        sticker.rotation = 2*M_PI * drand48();
         [self.theViewC removeObject:self.stickersObj];
@@ -310,6 +317,8 @@
         self.timer = nil;
 //        self.playButton.selected = NO;
         [self.delegate setPlayButtonSelect:NO];
+        
+        self.mapImagesManager = nil;
     }
 }
 @end

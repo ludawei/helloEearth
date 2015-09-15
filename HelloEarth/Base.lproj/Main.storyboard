@@ -167,7 +167,7 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jB-v6-RmY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9jB-v6-RmY">
                                                     <rect key="frame" x="185" y="13" width="202" height="59"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -229,7 +229,7 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="010-68408068" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2E-AT-o9Q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="010-68408068" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2E-AT-o9Q">
                                                     <rect key="frame" x="219" y="10" width="202" height="59"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="202" id="0Ex-Ug-ga7"/>
@@ -258,8 +258,9 @@
                                                 <constraint firstItem="cH7-cf-vhO" firstAttribute="top" secondItem="hvZ-ac-ohn" secondAttribute="bottom" constant="29" id="Nod-rH-Qk8"/>
                                                 <constraint firstItem="hvZ-ac-ohn" firstAttribute="leading" secondItem="PwX-dq-V5Q" secondAttribute="trailing" constant="18" id="NqP-5t-tAH"/>
                                                 <constraint firstItem="cH7-cf-vhO" firstAttribute="leading" secondItem="PwX-dq-V5Q" secondAttribute="leading" id="Pfr-zV-EhQ"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="i2E-AT-o9Q" secondAttribute="trailing" constant="5" id="Wsr-Wi-aRV"/>
                                                 <constraint firstItem="i2E-AT-o9Q" firstAttribute="top" secondItem="2Gh-3t-0yt" secondAttribute="topMargin" constant="2" id="Xoo-26-XWK"/>
-                                                <constraint firstItem="i2E-AT-o9Q" firstAttribute="leading" secondItem="hvZ-ac-ohn" secondAttribute="trailing" constant="39" id="jbE-ZT-BEc"/>
+                                                <constraint firstItem="i2E-AT-o9Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hvZ-ac-ohn" secondAttribute="trailing" constant="10" id="jbE-ZT-BEc"/>
                                                 <constraint firstItem="PwX-dq-V5Q" firstAttribute="bottom" secondItem="cH7-cf-vhO" secondAttribute="bottom" id="l3d-Ck-vaf"/>
                                                 <constraint firstAttribute="trailing" secondItem="cH7-cf-vhO" secondAttribute="trailing" id="pf4-65-Q1S"/>
                                                 <constraint firstItem="hvZ-ac-ohn" firstAttribute="centerY" secondItem="i2E-AT-o9Q" secondAttribute="centerY" id="yn1-0J-Upi"/>
