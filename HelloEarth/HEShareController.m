@@ -30,7 +30,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"分享";
-    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"•••"
                                                               style:UIBarButtonItemStyleDone
@@ -47,7 +46,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -69,24 +68,10 @@
     topView.backgroundColor = [UIColor colorWithRed:0.192 green:0.196 blue:0.200 alpha:1];
     [self.view addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo([UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height);
+        make.top.mas_equalTo(STATUS_HEIGHT+SELF_NAV_HEIGHT);
         make.bottom.left.right.mas_equalTo(self.view);
     }];
     self.contentView = topView;
-    
-    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:13];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “蓝π蚂蚁” 邀您体验酷炫的3D地图展示立体化的气象数据，动态的效果、直观的方式，让您能够与之互动，更全面、更直观地感觉产品。"];
-    [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
-    
-    UILabel *titleLabel = [self createLabelWithFont:[UIFont boldSystemFontOfSize:16] text:text textColor:[UIColor colorWithRed:0.698 green:0.698 blue:0.702 alpha:1]];
-    [topView addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(topView).offset(-20);
-        make.left.mas_equalTo(topView).offset(20);
-        make.right.mas_equalTo(topView).offset(-20);
-    }];
-    [titleLabel sizeToFit];
     
     UIImageView *logo = [UIImageView new];
     logo.image = [UIImage imageNamed:@"logo"];
@@ -104,11 +89,13 @@
     shareImageView.contentMode = UIViewContentModeScaleAspectFit;
     [topView addSubview:shareImageView];
     
-    CGSize imgSize = CGSizeMake(self.view.width*0.6, self.view.width*0.6*shareImageView.image.size.height/shareImageView.image.size.width);
+    CGSize imgSize = CGSizeMake(self.view.width*0.55, self.view.width*0.55*shareImageView.image.size.height/shareImageView.image.size.width);
     [shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(topView.mas_centerX);
-        make.bottom.mas_lessThanOrEqualTo(titleLabel.mas_top).offset(-20);
-        make.size.mas_equalTo(imgSize);
+        make.top.mas_greaterThanOrEqualTo(self.view.height*0.02).with.priorityHigh();
+//        make.bottom.mas_lessThanOrEqualTo(titleLabel.mas_top).offset(-20).with.priorityHigh();
+        make.width.mas_lessThanOrEqualTo(imgSize.width);
+        make.height.mas_lessThanOrEqualTo(imgSize.height);
     }];
     
     UIImageView *inImageView = [UIImageView new];
@@ -119,6 +106,22 @@
         make.centerY.mas_equalTo(shareImageView.mas_centerY);
         make.width.mas_equalTo(shareImageView.mas_width).multipliedBy(0.9);
         make.height.mas_equalTo(shareImageView.mas_height).multipliedBy(0.8);
+    }];
+    
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:10];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “蓝π蚂蚁” 邀您体验酷炫的3D地图展示立体化的气象数据，动态的效果、直观的方式，让您能够与之互动，更全面、更直观地感觉产品。"];
+    [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
+    CGFloat textHeight = ceil([text size].width/(self.view.width*0.9));
+    
+    UILabel *titleLabel = [self createLabelWithFont:[UIFont boldSystemFontOfSize:16] text:text textColor:[UIColor colorWithRed:0.698 green:0.698 blue:0.702 alpha:1]];
+    [topView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(shareImageView.mas_bottom).offset(20);
+//        make.bottom.mas_equalTo(topView).offset(-10).with.priorityLow();
+        make.centerX.mas_equalTo(topView.mas_centerX);
+        make.width.mas_equalTo(topView.mas_width).multipliedBy(0.9);
+        make.height.mas_greaterThanOrEqualTo(textHeight*([text size].height+10));
     }];
     
     self.dimView = [UIControl new];

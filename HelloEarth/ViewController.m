@@ -31,6 +31,13 @@
 #import "HEMapDataAnimLogic.h"
 
 #import "MBProgressHUD+Extra.h"
+#import "HESplashController.h"
+#import "UIImageView+AnimationCompletion.h"
+
+#define VIEW_MARGIN self.view.width*0.05
+#define EXPAND_MARGIN 12
+
+#define CHINA_CENTER_COOR MaplyCoordinateMakeWithDegrees(104, 32)
 
 NS_ENUM(NSInteger, MapAnimType)
 {
@@ -54,10 +61,15 @@ NS_ENUM(NSInteger, MapAnimType)
     WhirlyGlobeViewController *globeViewC;
     MaplyViewController *mapViewC;
     
+    MaplyQuadImageTilesLayer *tileLayer;
+    MaplyStarsModel *stars;
+    
     // product data
     BOOL isBottomFull;
     NSString *productType;
     NSString *productName;
+    
+    UIImageView *loadingIV;
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -77,7 +89,7 @@ NS_ENUM(NSInteger, MapAnimType)
 //@property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIButton *logoButton;
 
-@property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIView *bottomView,*bottomContentView;
 
 @property (nonatomic,strong) UIButton *playButton, *indexButton, *expandButton;
 @property (nonatomic,strong) UISlider *progressView;
@@ -118,6 +130,29 @@ NS_ENUM(NSInteger, MapAnimType)
     [self makeMapViewAndDatas];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
+    
+    UIImageView *loadingBackView = [UIImageView new];
+    loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
+    loadingBackView.image = [UIImage imageNamed:@"APP启动图－3.jpg"];
+    [self.view addSubview:loadingBackView];
+    [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
+    loadingIV = loadingBackView;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showLoadingView];
+    });
+}
+
+-(void)showLoadingView
+{
+    HESplashController *next = [HESplashController new];
+    next.transitioningDelegate = next;
+    [self.navigationController presentViewController:next animated:YES completion:^{
+        [loadingIV removeFromSuperview];
+        loadingIV = nil;
+    }];
 }
 
 #pragma mark - inits
@@ -136,25 +171,26 @@ NS_ENUM(NSInteger, MapAnimType)
         [self.theViewC.view removeFromSuperview];
         [self.theViewC removeFromParentViewController];
         self.theViewC = nil;
-        globeViewC = nil;
-        mapViewC = nil;
+//        globeViewC = nil;
+//        mapViewC = nil;
     }
     if (show3D) {
-        globeViewC = [[WhirlyGlobeViewController alloc] init];
-        globeViewC.delegate = self;
-        float minHeight,maxHeight;
-        [globeViewC getZoomLimitsMin:&minHeight max:&maxHeight];
-        [globeViewC setZoomLimitsMin:minHeight max:3.0];
+        if (!globeViewC) {
+            globeViewC = [[WhirlyGlobeViewController alloc] init];
+            globeViewC.delegate = self;
+        }
         
         self.theViewC = globeViewC;
     }
     else
     {
-        mapViewC = [[MaplyViewController alloc] initAsFlatMap];
-        mapViewC.viewWrap = true;
-        mapViewC.doubleTapZoomGesture = true;
-        mapViewC.twoFingerTapGesture = true;
-//        mapViewC.delegate = self;
+        if (!mapViewC) {
+            mapViewC = [[MaplyViewController alloc] initAsFlatMap];
+            mapViewC.viewWrap = true;
+            mapViewC.doubleTapZoomGesture = true;
+            mapViewC.twoFingerTapGesture = true;
+            //        mapViewC.delegate = self;
+        }
         
         self.theViewC = mapViewC;
     }
@@ -171,21 +207,40 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/osmtiles/",baseCacheDir];
     int maxZoom = 16;
     
-    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.ndkap6n1/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+    if (!tileLayer) {
+        MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.ndkap6n1/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+        
+        MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
+        tileSource.cacheDir = aerialTilesCacheDir;
+        MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
+        layer.handleEdges = false;
+        layer.coverPoles = true;
+        layer.maxTiles = 256;
+        //    layer.animationPeriod = 6.0;
+        //    layer.singleLevelLoading = true;
+        //    layer.drawPriority = 0;
+        
+        tileLayer = layer;
+    }
+    [self.theViewC addLayer:tileLayer];
     
-    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
-    tileSource.cacheDir = aerialTilesCacheDir;
-    MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
-    layer.handleEdges = false;
-    layer.coverPoles = true;
-    layer.maxTiles = 256;
-    //    layer.animationPeriod = 6.0;
-    //    layer.singleLevelLoading = true;
-    //    layer.drawPriority = 0;
-    
-    [self.theViewC addLayer:layer];
     self.theViewC.frameInterval = 2;
     self.theViewC.threadPerLayer = true;
+    
+    if (show3D) {
+        float minHeight,maxHeight;
+        [globeViewC getZoomLimitsMin:&minHeight max:&maxHeight];
+        [globeViewC setZoomLimitsMin:minHeight max:3.0];
+        
+        initMapHeight = globeViewC.height;
+    }
+    else
+    {
+        mapViewC.heading = 0;
+        mapViewC.height = M_PI/2;
+        
+        initMapHeight = mapViewC.height;
+    }
     
     [self addCountry_china];
 }
@@ -200,10 +255,9 @@ NS_ENUM(NSInteger, MapAnimType)
             if (show3D) {
                 globeViewC.heading = 0;
                 globeViewC.keepNorthUp = true;
-                [globeViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) time:0.3];
+                [globeViewC animateToPosition:CHINA_CENTER_COOR time:0.3];
                 //                [globeViewC setAutoRotateInterval:0.2 degrees:20];
                 
-                initMapHeight = globeViewC.height;
                 [self addStars:@"starcatalog_orig"];
                 if (showLight) {
                     [self addSun];
@@ -211,11 +265,7 @@ NS_ENUM(NSInteger, MapAnimType)
             }
             else
             {
-                mapViewC.heading = 0;
-                mapViewC.height = M_PI/2;
-                
-                initMapHeight = mapViewC.height;
-                [mapViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight time:0.3];
+                [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
             }
             
             // 重新设置地图显示
@@ -238,9 +288,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)initTopViews
 {
-    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
-    
-    UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.frame];
+    UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.bounds];
 //    self.topView = view;
     
     NSArray *images = @[@[@"未选中－1", @"选中－1"],
@@ -264,8 +312,9 @@ NS_ENUM(NSInteger, MapAnimType)
             {
                 make.left.mas_equalTo(0);
             }
-            make.centerY.mas_equalTo(view.mas_centerY);
-            make.height.mas_equalTo(view.mas_height).multipliedBy(0.9);
+            make.top.mas_equalTo(SELF_NAV_HEIGHT*0.12);
+            make.bottom.mas_equalTo(-SELF_NAV_HEIGHT*0.12);
+//            make.height.mas_equalTo(view.mas_height).multipliedBy(0.8);
             make.width.mas_equalTo(view.mas_width).multipliedBy(0.2);
         }];
         
@@ -284,34 +333,44 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)initBottomViews
 {
     CGFloat buttonWidth = 35;
-    
+    CGFloat margin = VIEW_MARGIN;
+
     UIButton *expandButton = [self createButtonWithImg:[UIImage imageNamed:@"全屏－1"] selectImg:[UIImage imageNamed:@"非全屏－1"]];
     [expandButton addTarget:self action:@selector(clickExpand) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:expandButton];
     [expandButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.bottom.mas_equalTo(-5);
+        make.right.mas_equalTo(-margin);
+        make.bottom.mas_equalTo(-EXPAND_MARGIN);
         make.width.height.mas_equalTo(buttonWidth);
     }];
     self.expandButton = expandButton;
     
-    CGFloat height = 100;
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
-    [self.view addSubview:view];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    CGFloat height = 90;
+    UIView *bottomView = [[UIView alloc] init];
+    bottomView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+    [self.view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.mas_equalTo(self.view);
         make.height.mas_equalTo(height);
     }];
     [self.view bringSubviewToFront:expandButton];
-    self.bottomView = view;
+    self.bottomView = bottomView;
     
-    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+    UIView *view = [UIView new];
+    [bottomView addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(bottomView);
+    }];
+    self.bottomContentView = view;
+    
+    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     titleLbl.textColor = UIColorFromRGB(0x929292);
     [view addSubview:titleLbl];
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view);
-        make.left.mas_equalTo(10);
+        make.left.mas_equalTo(margin);
+        make.height.mas_equalTo(32);
+        make.right.mas_equalTo(-margin);
     }];
     self.titleLbl = titleLbl;
     
@@ -320,34 +379,29 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.indexButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-10);
         make.bottom.mas_equalTo(titleLbl.mas_bottom);
-        make.width.height.mas_equalTo(50);
+        make.width.mas_equalTo(50);
+        make.top.mas_greaterThanOrEqualTo(5);
     }];
     [self.indexButton addTarget:self action:@selector(clickLegend) forControlEvents:UIControlEventTouchUpInside];
     
-    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:16]];
-    self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
-    [view addSubview:self.timeLabel];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(titleLbl.mas_bottom).offset(5);
-        make.left.mas_equalTo(buttonWidth+10);
-    }];
-    
     UIView *bView = [UIView new];
-    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
+//    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
     [view addSubview:bView];
     [bView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.timeLabel.mas_bottom);
-        make.bottom.mas_equalTo(view.mas_bottom);
-        make.left.and.right.mas_equalTo(view);
+        make.top.mas_equalTo(self.titleLbl.mas_bottom);
+        make.bottom.mas_equalTo(view.mas_bottom).offset(-9);
+        make.left.mas_equalTo(titleLbl.mas_left);
+        make.right.mas_equalTo(view);
     }];
     
-    self.playButton = [self createButtonWithImg:[UIImage imageNamed:@"play"] selectImg:[UIImage imageNamed:@"pause"]];
-    [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
-    [bView addSubview:self.playButton];
-    [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(5);
-        make.top.and.bottom.mas_equalTo(bView);
-        make.width.height.mas_equalTo(buttonWidth);
+    CGFloat playButtonWidth = 20;
+    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:14]];
+    self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
+    [bView addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(5);
+        make.left.mas_equalTo(margin+playButtonWidth);
+        make.height.mas_greaterThanOrEqualTo(15);
     }];
     
     UIImageView *slideBack = [UIImageView new];
@@ -355,10 +409,22 @@ NS_ENUM(NSInteger, MapAnimType)
     slideBack.image = [UIImage imageNamed:@"刻度－20"];
     [bView addSubview:slideBack];
     [slideBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.playButton.mas_right).offset(5);
-        make.top.mas_equalTo(5);
-        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
-        make.bottom.mas_equalTo(bView.mas_centerY);
+        make.left.mas_equalTo(self.timeLabel.mas_left);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
+        make.right.mas_equalTo(expandButton.mas_left).offset(-margin);
+        make.height.mas_lessThanOrEqualTo(10);
+//        make.bottom.mas_equalTo(bView);
+    }];
+//    [slideBack sizeToFit];
+    
+    self.playButton = [self createButtonWithImg:[UIImage imageNamed:@"play"] selectImg:[UIImage imageNamed:@"pause"]];
+    [self.playButton addTarget:self action:@selector(clickPlay) forControlEvents:UIControlEventTouchUpInside];
+    [bView addSubview:self.playButton];
+    [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom);
+        make.bottom.mas_equalTo(slideBack.mas_bottom).offset(5);
+        make.width.mas_equalTo(playButtonWidth);
     }];
     
     self.progressView = [[UISlider alloc] init];
@@ -373,9 +439,8 @@ NS_ENUM(NSInteger, MapAnimType)
     [bView addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(slideBack.mas_left);
-        make.top.mas_equalTo(5);
-        make.right.mas_equalTo(expandButton.mas_left).offset(-10);
-        make.bottom.mas_equalTo(-5);
+        make.right.mas_equalTo(slideBack.mas_right);
+        make.centerY.mas_equalTo(slideBack.mas_bottom);
     }];
 }
 
@@ -407,9 +472,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     [super viewWillAppear:animated];
     
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
-    
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -419,33 +482,15 @@ NS_ENUM(NSInteger, MapAnimType)
     self.statisticsView.hidden = YES;
     
     if (isBottomFull) {
-        [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(0);
-        }];
-        
-        [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-10);
-            make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
-            make.width.height.mas_equalTo(50);
-        }];
+        [self setFullBottomLayout];
     }
     else
     {
         // 默认显示一半的
-        [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.playButton.height+20);
-        }];
-        
-        [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
-            make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
-            make.width.height.mas_equalTo(50);
-        }];
+        [self setHalfBottomLayout];
     }
     
     [self.view layoutIfNeeded];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -563,9 +608,11 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *fileName = [[NSBundle mainBundle] pathForResource:inFile ofType:@"txt"];
     if (fileName)
     {
-        MaplyStarsModel *stars = [[MaplyStarsModel alloc] initWithFileName:fileName];
-        stars.image = [UIImage imageNamed:@"star_background"];
-        [stars addToViewC:globeViewC date:[NSDate date] desc:nil mode:MaplyThreadCurrent];
+        if (!stars) {
+            stars = [[MaplyStarsModel alloc] initWithFileName:fileName];
+            stars.image = [UIImage imageNamed:@"star_background"];
+            [stars addToViewC:globeViewC date:[NSDate date] desc:nil mode:MaplyThreadCurrent];
+        }
     }
 }
 
@@ -639,10 +686,6 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self resetMapUI];
     self.markersObj = [self.theViewC addScreenMarkers:[self annotationsWithServerDatas:@"level3"] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.navigationItem.titleView = nil;
-    });
 }
 
 -(void)addNetEyeMarkers:(NSArray *)datas
@@ -661,8 +704,6 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self resetMapUI];
     self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-    
-    self.navigationItem.titleView = nil;
 }
 
 #pragma mark - Whirly Globe Delegate
@@ -756,6 +797,7 @@ NS_ENUM(NSInteger, MapAnimType)
             // products
             HEProductsController *next = [HEProductsController new];
             next.delegate = self;
+            next.fileMark = productType;
             [self.navigationController pushViewController:next animated:YES];
             break;
         }
@@ -775,11 +817,11 @@ NS_ENUM(NSInteger, MapAnimType)
         {
             // reset
             if (show3D) {
-                [globeViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight heading:0 time:0.3];
+                [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:0.3];
             }
             else
             {
-                [mapViewC animateToPosition:MaplyCoordinateMakeWithDegrees(116.46, 39.92) height:initMapHeight time:0.3];
+                [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
             }
             break;
         }
@@ -799,71 +841,6 @@ NS_ENUM(NSInteger, MapAnimType)
         break;
     }
 }
-
-
-
-//-(void)clickNavLeft
-//{
-//    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
-//    actSheet.tag = 1000;
-//    [actSheet addButtonWithTitle:@"雷达图"];
-//    [actSheet addButtonWithTitle:@"云图"];
-//    [actSheet addButtonWithTitle:@"网眼"];
-//    [actSheet addButtonWithTitle:@"天气统计"];
-////    [actSheet addButtonWithTitle:@""];
-//    [actSheet showInView:self.view];
-//}
-//
-//-(void)clickNavRight
-//{
-//    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil];
-//    actSheet.tag = 1001;
-//    for (NSString *title in self.titles) {
-//        [actSheet addButtonWithTitle:title];
-//    }
-//    [actSheet showInView:self.view];
-//}
-
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex == actionSheet.cancelButtonIndex) {
-//        return;
-//    }
-//    
-//    if (actionSheet.tag == 1001) {
-//        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-//        [self changetitle:title];
-//    }
-//    else if (actionSheet.tag == 1000)
-//    {
-//        [self resetMapUI];
-//        
-//        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-//        
-//        self.title = title;
-//        if ([title isEqualToString:@"雷达图"]) {
-//            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
-//        }
-//        else if ([title isEqualToString:@"云图"]) {
-//            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
-//        }
-//        else if ([title isEqualToString:@"网眼"]) {
-//            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//            [act startAnimating];
-//            self.navigationItem.titleView = act;
-//            
-//            [self showNetEyesMarkers];
-//        }
-//        else if ([title isEqualToString:@"天气统计"])
-//        {
-//            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//            [act startAnimating];
-//            self.navigationItem.titleView = act;
-//            
-//            [self showTongJiMarkers];
-//        }
-//    }
-//}
 
 -(void)showNetEyesMarkers
 {
@@ -924,15 +901,9 @@ NS_ENUM(NSInteger, MapAnimType)
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
-        if (isBottomFull) {
-            [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(0);
-            }];
-            
-            [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.right.mas_equalTo(-10);
-                make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
-            }];
+        if (isBottomFull)
+        {
+            [self setFullBottomLayout];
         }
     }
     else
@@ -941,14 +912,7 @@ NS_ENUM(NSInteger, MapAnimType)
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         
         if (isBottomFull) {
-            [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(self.playButton.height+20);
-            }];
-            
-            [self.indexButton mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
-                make.right.mas_equalTo(self.expandButton.mas_left).offset(-10);
-            }];
+            [self setHalfBottomLayout];
         }
     }
     
@@ -956,6 +920,44 @@ NS_ENUM(NSInteger, MapAnimType)
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
+    }];
+}
+
+-(void)setFullBottomLayout
+{
+    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(0);
+    }];
+    
+    [self.bottomContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.bottomView);
+    }];
+    
+    [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-VIEW_MARGIN);
+        make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
+        make.width.mas_equalTo(50);
+        make.top.mas_greaterThanOrEqualTo(5);
+    }];
+}
+
+-(void)setHalfBottomLayout
+{
+    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.bottomView.height-MAX(self.titleLbl.height, self.expandButton.height+EXPAND_MARGIN*2)+5);
+    }];
+    
+    CGFloat topModify = ((self.expandButton.height+EXPAND_MARGIN*2)-self.titleLbl.height)/2;
+    UIEdgeInsets padding = UIEdgeInsetsMake(topModify, 0, 0, 0);
+    [self.bottomContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.bottomView).insets(padding);
+    }];
+    
+    [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
+        make.right.mas_equalTo(self.expandButton.mas_left).offset(-VIEW_MARGIN);
+        make.width.mas_equalTo(50);
+        make.top.mas_greaterThanOrEqualTo(5);
     }];
 }
 
@@ -1042,11 +1044,24 @@ NS_ENUM(NSInteger, MapAnimType)
         }];
         self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
         
+        UIScrollView *sv = [UIScrollView new];
+        [_logoPopView addSubview:sv];
+        [sv mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(_logoPopView);
+        }];
+        
+        UIView *sv_sub = [UIView new];
+        [sv addSubview:sv_sub];
+        [sv_sub mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(sv);
+            make.width.mas_equalTo(sv);
+        }];
+        
         UIButton *closeButton = [self createButtonWithImg:[UIImage imageNamed:@"关闭"] selectImg:nil];
-        [_logoPopView addSubview:closeButton];
+        [sv_sub addSubview:closeButton];
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(_logoPopView).offset(5);
-            make.right.mas_equalTo(_logoPopView).offset(-5);
+            make.top.mas_equalTo(sv_sub).offset(5);
+            make.right.mas_equalTo(sv_sub).offset(-5);
             make.size.mas_equalTo(CGSizeMake(35, 35));
         }];
         [closeButton addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchUpInside];
@@ -1060,24 +1075,29 @@ NS_ENUM(NSInteger, MapAnimType)
         titleView.textColor = [UIColor whiteColor];
         titleView.numberOfLines = 0;
         titleView.attributedText = text;
-//        titleView.preferredMaxLayoutWidth
-        [_logoPopView addSubview:titleView];
+        titleView.preferredMaxLayoutWidth = self.view.width * 0.8;
+        [sv_sub addSubview:titleView];
         [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(closeButton.mas_bottom).offset(10);
-            make.left.mas_equalTo(_logoPopView).offset(15);
-            make.right.mas_equalTo(_logoPopView).offset(-10);
+            make.left.mas_equalTo(sv_sub).offset(15);
+            make.right.mas_equalTo(sv_sub).offset(-10);
         }];
         [titleView sizeToFit];
         
         UIButton *sqView = [self createButtonWithImg:[UIImage imageNamed:@"qrcode_for_gh_9eb43db17ffb_430.jpg"] selectImg:nil];
-        sqView.contentEdgeInsets = UIEdgeInsetsMake(30, 0, 30, 0);
-        [_logoPopView addSubview:sqView];
+        [sv_sub addSubview:sqView];
         [sqView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_greaterThanOrEqualTo(titleView.mas_bottom).offset(10);
-            make.bottom.mas_lessThanOrEqualTo(_logoPopView).offset(-10);
-            make.centerX.mas_equalTo(_logoPopView.mas_centerX);
+            make.top.mas_greaterThanOrEqualTo(titleView.mas_bottom).offset(30);
+            make.centerX.mas_equalTo(sv_sub.mas_centerX);
+            make.width.mas_equalTo(sv_sub.mas_width).multipliedBy(0.5);
+            make.height.mas_equalTo(sv_sub.mas_width).multipliedBy(0.5);
         }];
+        
         [sqView addTarget:self action:@selector(clickSqView) forControlEvents:UIControlEventTouchUpInside];
+        
+        [sv_sub mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(sqView.mas_bottom).offset(20);
+        }];
     }
     
     return _logoPopView;
@@ -1135,7 +1155,19 @@ NS_ENUM(NSInteger, MapAnimType)
     showLocation = flag;
     if (!flag)
     {
-        [self.theViewC removeObject:self.markerLocation];
+        if (self.markerLocation) {
+            [self.theViewC disableObjects:@[self.markerLocation] mode:MaplyThreadCurrent];
+            [self.theViewC startChanges];
+            
+            [self.theViewC removeObjects:@[self.markerLocation] mode:MaplyThreadCurrent];
+            
+            // 修改bug : 删除markers时的黑色块
+            sleep(0.2);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.theViewC endChanges];
+            });
+        }
+        self.markerLocation = nil;
     }
 }
 
@@ -1154,11 +1186,41 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *dataType = [data objectForKey:@"fileMark"];
     NSString *dataName = [data objectForKey:@"name"];
     
-    isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
-    productType = dataType;
-    productName = dataName;
-    
-    [self changeProduct_normal];
+    if ([dataType rangeOfString:@"local"].location != NSNotFound) {
+        productType = dataType;
+        productName = dataName;
+        isBottomFull = NO;
+        
+        [self resetMapUI];
+        self.titleLbl.text = dataName;
+        if ([dataType isEqualToString:@"local_radar"]) {
+            isBottomFull = YES;
+            
+            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+        }
+        else if ([dataType isEqualToString:@"local_cloud"])
+        {
+            isBottomFull = YES;
+            
+            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+        }
+        else if ([dataType isEqualToString:@"local_neteye"])
+        {
+            [self showNetEyesMarkers];
+        }
+        else if ([dataType isEqualToString:@"local_tongji"])
+        {
+            [self showTongJiMarkers];
+        }
+    }
+    else
+    {
+        isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
+        productType = dataType;
+        productName = dataName;
+        
+        [self changeProduct_normal];
+    }
 }
 
 @end

@@ -17,5 +17,6 @@
 @interface HEProductsController : UIViewController
 
 @property (nonatomic,assign) id<HEProductDelegate> delegate;
+@property (nonatomic,copy)  NSString *fileMark;
 
 @end

@@ -11,9 +11,12 @@
 #import "Util.h"
 #import "PLHttpManager.h"
 
-@interface HELegendController ()
+@interface HELegendController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic,strong) UIView *contentView;
+@property (nonatomic,copy) NSArray *datas;
+
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -24,7 +27,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"图例";
-    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
     self.navigationItem.leftBarButtonItem = left;
     
@@ -40,6 +42,17 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+    
+    self.tableView = [UITableView new];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.rowHeight = 50;
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
+    self.tableView.tableFooterView = [UIView new];
 }
 
 -(void)initViewsWithData:(id)data
@@ -47,17 +60,8 @@
     CGFloat legendHeight = 30.0f;
     NSArray *legends = (NSArray *)data;
     
-    self.contentView = [UIView new];
-    [self.view addSubview:self.contentView];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        UIView *top = (UIView *)self.topLayoutGuide;
-        
-        make.top.mas_equalTo(top.mas_bottom).offset(20);
-        make.left.mas_equalTo(20);
-        make.right.mas_equalTo(-20);
-        make.height.mas_equalTo(legends.count * legendHeight);
-    }];
-    
+    CGFloat hMargin=15,vMargin=20;
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight*legends.count)];
     for (NSInteger i=0; i<legends.count; i++) {
         NSArray *colors = [[legends objectAtIndex:i] objectForKey:@"colors"];
         
@@ -68,7 +72,7 @@
             UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
             
             UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[colorData objectForKey:@"text"]];
-            [self.contentView addSubview:lbl];
+            [contentView addSubview:lbl];
             [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(legendHeight*i);
                 if (tempLbl) {
@@ -79,12 +83,26 @@
                     make.left.mas_equalTo(0);
                 }
                 make.height.mas_equalTo(legendHeight);
-                make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(1.0/colors.count);
+                make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
             }];
             tempLbl = lbl;
         }
         tempLbl = nil;
     }
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight*legends.count+vMargin*2)];
+    headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+    [headerView addSubview:contentView];
+    self.contentView = headerView;
+    
+    self.datas = @[@{@"level":@"一级", @"comment":@"好", @"text":@"非常有利于空气污染物稀释、扩散和清除"},
+                   @{@"level":@"二级", @"comment":@"较好", @"text":@"较有利于空气污染物稀释、扩散和清除"},
+                   @{@"level":@"三级", @"comment":@"一般", @"text":@"对空气污染物稀释、扩散和清除无明显影响"},
+                   @{@"level":@"四级", @"comment":@"较差", @"text":@"不利于空气污染物稀释、扩散和清除"},
+                   @{@"level":@"五级", @"comment":@"差", @"text":@"很不利于空气污染物稀释、扩散和清除"},
+                   @{@"level":@"六级", @"comment":@"极差", @"text":@"极不利于空气污染物稀释、扩散和清除"},
+                   ];
+    [self.tableView reloadData];
 }
 
 -(UILabel *)createLabelWithBackColor:(UIColor *)backColor textColor:(UIColor *)textColor text:(NSString *)text
@@ -98,9 +116,58 @@
     return lbl;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.datas.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return self.contentView.height;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return self.contentView;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identify = @"legentCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.textColor = [UIColor whiteColor];
+//        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.detailTextLabel.numberOfLines = 0;
+        
+        cell.textLabel.font = cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
+    }
+    
+    NSDictionary *data = [self.datas objectAtIndex:indexPath.item];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@   %@", [data objectForKey:@"level"], [data objectForKey:@"comment"]];
+    cell.detailTextLabel.text = [data objectForKey:@"text"];
+    
+    return cell;
 }
 
 -(void)clickBack

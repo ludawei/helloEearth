@@ -58,4 +58,17 @@
     self.lbl.text = data[@"name"];
 }
 
+-(void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    
+    if (highlighted) {
+        self.imgBackView.layer.borderWidth = 3;
+    }
+    else
+    {
+        self.imgBackView.layer.borderWidth = 1;
+    }
+}
+
 @end

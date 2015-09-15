@@ -28,7 +28,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"设置";
-    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:64] forBarMetrics:UIBarMetricsDefault];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
     self.navigationItem.leftBarButtonItem = left;
     
@@ -57,6 +56,13 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,6 +73,7 @@
     if (sender == self.switch3D) {
         [self.delegate show3DMap:sender.on];
         self.switchLight.on = self.setLight && sender.on;
+        self.switchLight.enabled = sender.on;
     }
     else if (sender == self.switchLight)
     {
