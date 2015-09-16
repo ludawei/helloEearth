@@ -221,4 +221,20 @@ static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NS
     
     return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0];
 }
+
++(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size
+{
+    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    return [UIFont fontWithName:name size:newSize];
+}
++(UIFont *)modifySystemFontWithSize:(CGFloat)size
+{
+    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    return [UIFont systemFontOfSize:newSize];
+}
++(UIFont *)modifyBoldSystemFontWithSize:(CGFloat)size
+{
+    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    return [UIFont boldSystemFontOfSize:newSize];
+}
 @end

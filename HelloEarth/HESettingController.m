@@ -17,6 +17,7 @@
 }
 
 @property (nonatomic,weak) IBOutlet UISwitch *switch3D,*switchLight,*switchLocate;
+@property (nonatomic,weak) IBOutlet UILabel *lbl1,*lbl2,*lbl3,*lbl4,*lbl5;
 @property (nonatomic,weak) IBOutlet UILabel *locationLabel;
 
 @end
@@ -30,7 +31,6 @@
     self.title = @"设置";
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
     self.navigationItem.leftBarButtonItem = left;
-    
     
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     backView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
@@ -54,6 +54,13 @@
     if (self.setLocation) {
         self.locationLabel.text = [CWLocationManager sharedInstance].plackMark.name;
     }
+    
+    self.lbl1.font = [Util modifyBoldSystemFontWithSize:20];
+    self.lbl2.font = [Util modifyBoldSystemFontWithSize:20];
+    self.lbl3.font = [Util modifyBoldSystemFontWithSize:20];
+    self.lbl4.font = [Util modifyBoldSystemFontWithSize:20];
+    self.lbl5.font = [Util modifyBoldSystemFontWithSize:20];
+    self.locationLabel.font = [Util modifySystemFontWithSize:16];
 }
 
 -(void)viewWillAppear:(BOOL)animated

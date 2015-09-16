@@ -54,7 +54,7 @@
                                                         <action selector="switchChanged:" destination="eX9-5A-CIo" eventType="valueChanged" id="8eM-Y0-Kf8"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mO-CT3">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mO-CT3">
                                                     <rect key="frame" x="98" y="29" width="75" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="Kco-Pb-8oz"/>
@@ -119,7 +119,7 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="灯光" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWq-xZ-Fv6">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="灯光" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWq-xZ-Fv6">
                                                     <rect key="frame" x="98" y="29" width="75" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="Hbc-5Z-VTI"/>
@@ -158,7 +158,7 @@
                                                         <constraint firstAttribute="width" constant="80" id="ubO-b4-UEe"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="定位" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M4-Gf-L1X">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="定位" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M4-Gf-L1X">
                                                     <rect key="frame" x="98" y="28" width="40" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="0QF-3N-c0d"/>
@@ -220,7 +220,7 @@
                                                         <constraint firstAttribute="width" constant="80" id="9XO-Ij-l2U"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系我们" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvZ-ac-ohn">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系我们" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvZ-ac-ohn">
                                                     <rect key="frame" x="98" y="29" width="82" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="82" id="trr-IU-jSd"/>
@@ -280,7 +280,7 @@
                                                         <constraint firstAttribute="width" constant="80" id="DT5-Af-7Bw"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="意见反馈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiK-aV-JEa">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="意见反馈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiK-aV-JEa">
                                                     <rect key="frame" x="98" y="29" width="82" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="82" id="twC-nR-4qb"/>
@@ -324,6 +324,11 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="lbl1" destination="QnE-mO-CT3" id="WHQ-wq-a25"/>
+                        <outlet property="lbl2" destination="vWq-xZ-Fv6" id="fkB-tu-h5g"/>
+                        <outlet property="lbl3" destination="9M4-Gf-L1X" id="7bw-Kg-baZ"/>
+                        <outlet property="lbl4" destination="hvZ-ac-ohn" id="cYY-pt-J2F"/>
+                        <outlet property="lbl5" destination="UiK-aV-JEa" id="FW3-bm-3yX"/>
                         <outlet property="locationLabel" destination="9jB-v6-RmY" id="k7Q-Cz-68H"/>
                         <outlet property="switch3D" destination="ev8-Oz-DXe" id="NLf-lu-d29"/>
                         <outlet property="switchLight" destination="yxK-6R-0pt" id="j01-gW-8rN"/>

@@ -35,7 +35,7 @@
         UIView *imgBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, CGRectGetMinY(self.lbl.frame))];
         imgBackView.layer.cornerRadius = 5;
         imgBackView.layer.borderWidth = 1;
-        imgBackView.layer.borderColor = UIColorFromRGB(0x2da7e0).CGColor;
+        imgBackView.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.contentView addSubview:imgBackView];
         self.imgBackView = imgBackView;
         
@@ -63,10 +63,12 @@
     [super setHighlighted:highlighted];
     
     if (highlighted) {
+        self.imgBackView.layer.borderColor = UIColorFromRGB(0x2da7e0).CGColor;
         self.imgBackView.layer.borderWidth = 3;
     }
     else
     {
+        self.imgBackView.layer.borderColor = [UIColor whiteColor].CGColor;
         self.imgBackView.layer.borderWidth = 1;
     }
 }

@@ -24,4 +24,7 @@
 + (NSString *)AFPercentEscapedQueryStringPairMemberFromString:(NSString *)string encoding:(NSStringEncoding)edcoding;
 
 +(UIColor *)colorFromRGBString:(NSString *)rbgString;
++(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size;
++(UIFont *)modifySystemFontWithSize:(CGFloat)size;
++(UIFont *)modifyBoldSystemFontWithSize:(CGFloat)size;
 @end

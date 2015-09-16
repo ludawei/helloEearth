@@ -34,7 +34,7 @@
 #import "HESplashController.h"
 #import "UIImageView+AnimationCompletion.h"
 
-#define VIEW_MARGIN self.view.width*0.05
+#define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
 
 #define CHINA_CENTER_COOR MaplyCoordinateMakeWithDegrees(104, 32)
@@ -366,8 +366,8 @@ NS_ENUM(NSInteger, MapAnimType)
     }];
     self.bottomContentView = view;
     
-    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
-    titleLbl.textColor = UIColorFromRGB(0x929292);
+    UILabel *titleLbl = [self createLabelWithFont:[Util modifyFontWithName:@"Helvetica-Bold" size:18]];
+    titleLbl.textColor = [UIColor whiteColor];
     [view addSubview:titleLbl];
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view);
@@ -397,8 +397,8 @@ NS_ENUM(NSInteger, MapAnimType)
         make.right.mas_equalTo(view);
     }];
     
-    self.timeLabel = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica" size:14]];
-    self.timeLabel.textColor = UIColorFromRGB(0xa2a2a0);
+    self.timeLabel = [self createLabelWithFont:[Util modifyFontWithName:@"Helvetica" size:14]];
+    self.timeLabel.textColor = [UIColor whiteColor];
     [bView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(5);
@@ -733,14 +733,19 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 #pragma mark - Whirly Globe Delegate
+- (void)globeViewController:(WhirlyGlobeViewController *)viewC layerDidLoad:(WGViewControllerLayer *)layer
+{
+    LOG(@"layerDidLoad");
+}
+
 - (void)globeViewControllerDidStartMoving:(WhirlyGlobeViewController *)viewC userMotion:(bool)userMotion
 {
-    NSLog(@"Started moving");
+    LOG(@"Started moving");
 }
 
 - (void)globeViewController:(WhirlyGlobeViewController *)viewC didStopMoving:(MaplyCoordinate *)corners userMotion:(bool)userMotion
 {
-    NSLog(@"Stopped moving %f, %f", viewC.height, viewC.heading);
+    LOG(@"Stopped moving %f, %f", viewC.height, viewC.heading);
     
 //    if (self.markerDatas && self.markerDatas.count > 0) {
 //        [self addAnnotations];
@@ -1068,7 +1073,7 @@ NS_ENUM(NSInteger, MapAnimType)
             make.centerX.mas_equalTo(self.view.mas_centerX);
             make.centerY.mas_equalTo(self.view.mas_centerY).offset(-10);
             make.width.mas_equalTo(self.view).multipliedBy(0.8);
-            make.height.mas_equalTo(self.view).multipliedBy(0.5);
+            make.height.mas_equalTo(self.view).multipliedBy(0.6);
         }];
         self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
         
@@ -1082,7 +1087,7 @@ NS_ENUM(NSInteger, MapAnimType)
         [sv addSubview:sv_sub];
         [sv_sub mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(sv);
-            make.width.mas_equalTo(sv);
+            make.width.mas_equalTo(sv).offset(-1);
         }];
         
         UIButton *closeButton = [self createButtonWithImg:[UIImage imageNamed:@"关闭"] selectImg:nil];
