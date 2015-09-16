@@ -1073,7 +1073,7 @@ NS_ENUM(NSInteger, MapAnimType)
             make.centerX.mas_equalTo(self.view.mas_centerX);
             make.centerY.mas_equalTo(self.view.mas_centerY).offset(-10);
             make.width.mas_equalTo(self.view).multipliedBy(0.8);
-            make.height.mas_equalTo(self.view).multipliedBy(0.6);
+            make.height.mas_equalTo(self.view).multipliedBy(0.5);
         }];
         self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
         
@@ -1095,7 +1095,7 @@ NS_ENUM(NSInteger, MapAnimType)
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(sv_sub).offset(5);
             make.right.mas_equalTo(sv_sub).offset(-5);
-            make.size.mas_equalTo(CGSizeMake(35, 35));
+            make.size.mas_equalTo(CGSizeMake(self.view.width*0.08, self.view.width*0.08));
         }];
         [closeButton addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchUpInside];
         
@@ -1104,7 +1104,7 @@ NS_ENUM(NSInteger, MapAnimType)
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “蓝π蚂蚁” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
         [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
         
-        UILabel *titleView = [self createLabelWithFont:[UIFont boldSystemFontOfSize:18]];
+        UILabel *titleView = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:18]];
         titleView.textColor = [UIColor whiteColor];
         titleView.numberOfLines = 0;
         titleView.attributedText = text;
@@ -1120,10 +1120,11 @@ NS_ENUM(NSInteger, MapAnimType)
         UIButton *sqView = [self createButtonWithImg:[UIImage imageNamed:@"qrcode_for_gh_9eb43db17ffb_430.jpg"] selectImg:nil];
         [sv_sub addSubview:sqView];
         [sqView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_greaterThanOrEqualTo(titleView.mas_bottom).offset(30);
+            make.top.mas_greaterThanOrEqualTo(titleView.mas_bottom).offset(20);
             make.centerX.mas_equalTo(sv_sub.mas_centerX);
             make.width.mas_equalTo(sv_sub.mas_width).multipliedBy(0.5);
             make.height.mas_equalTo(sv_sub.mas_width).multipliedBy(0.5);
+            make.height.width.mas_lessThanOrEqualTo(sv.mas_height).offset(-10);
         }];
         
         [sqView addTarget:self action:@selector(clickSqView) forControlEvents:UIControlEventTouchUpInside];
