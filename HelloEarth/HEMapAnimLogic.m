@@ -51,6 +51,7 @@
     if (!self.mapImagesManager) {
         self.mapImagesManager = [[MapImagesManager alloc] init];
     }
+    self.currentPlayIndex = 0;
     
     [self requestImage:type];
 }
@@ -222,10 +223,10 @@
         sticker.ll = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p2 doubleValue], [p1 doubleValue])];
         sticker.ur = [coordSys geoToLocal:MaplyCoordinateMakeWithDegrees([p4 doubleValue], [p3 doubleValue])];
         
-        if (self.type == 0) {
-            sticker.image = [image imageWithTintColor:[UIColor yellowColor]];
-        }
-        else
+//        if (self.type == 0) {
+//            sticker.image = [image imageWithTintColor:[UIColor yellowColor]];
+//        }
+//        else
         {
             sticker.image = image;
         }

@@ -95,6 +95,7 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic,strong) UISlider *progressView;
 @property (nonatomic,strong) UILabel *titleLbl, *timeLabel;
 
+@property (nonatomic,strong) UIControl *dimView;
 @property (nonatomic,strong) UIView *logoPopView;
 
 // 统计
@@ -286,6 +287,15 @@ NS_ENUM(NSInteger, MapAnimType)
     [self initTopViews];
     [self initBottomViews];
     
+    self.dimView = [UIControl new];
+    self.dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+    [self.navigationController.view addSubview:self.dimView];
+    [self.dimView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.navigationController.view);
+    }];
+    self.dimView.hidden = YES;
+    [self.dimView addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchDown];
+    
     self.logoPopView.hidden = YES;
 }
 
@@ -366,7 +376,7 @@ NS_ENUM(NSInteger, MapAnimType)
     }];
     self.bottomContentView = view;
     
-    UILabel *titleLbl = [self createLabelWithFont:[Util modifyFontWithName:@"Helvetica-Bold" size:18]];
+    UILabel *titleLbl = [self createLabelWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     titleLbl.textColor = [UIColor whiteColor];
     [view addSubview:titleLbl];
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -495,6 +505,14 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     [self.view layoutIfNeeded];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+//    [self closeLogoView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -810,8 +828,11 @@ NS_ENUM(NSInteger, MapAnimType)
                 
                 self.logoPopView.hidden = NO;
                 self.logoPopView.alpha = 1;
+                self.dimView.hidden = NO;
+                self.dimView.alpha = 0;
                 [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
                     self.logoPopView.transform = CGAffineTransformIdentity;
+                    self.dimView.alpha = 1;
                 } completion:^(BOOL finished) {
                     
                 }];
@@ -1007,11 +1028,14 @@ NS_ENUM(NSInteger, MapAnimType)
     
     if (!self.logoPopView.hidden) {
         
+        self.dimView.alpha = 1;
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.logoPopView.transform = CGAffineTransformMakeScale(0.01, 0.01);
             self.logoPopView.alpha = 0;
+            self.dimView.alpha = 0;
         } completion:^(BOOL finished) {
             self.logoPopView.hidden = YES;
+            self.dimView.hidden = YES;
         }];
     }
 }
@@ -1068,12 +1092,12 @@ NS_ENUM(NSInteger, MapAnimType)
         _logoPopView.layer.cornerRadius = 10;
         _logoPopView.layer.borderColor = [UIColor whiteColor].CGColor;
         _logoPopView.layer.borderWidth = 2.0;
-        [self.view addSubview:_logoPopView];
+        [self.navigationController.view addSubview:_logoPopView];
         [_logoPopView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(self.view.mas_centerX);
-            make.centerY.mas_equalTo(self.view.mas_centerY).offset(-10);
-            make.width.mas_equalTo(self.view).multipliedBy(0.8);
-            make.height.mas_equalTo(self.view).multipliedBy(0.5);
+            make.centerX.mas_equalTo(self.navigationController.view.mas_centerX);
+            make.centerY.mas_equalTo(self.navigationController.view.mas_centerY).offset(-10);
+            make.width.mas_equalTo(self.navigationController.view).multipliedBy(0.8);
+            make.height.mas_equalTo(self.navigationController.view).multipliedBy(0.5);
         }];
         self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
         
