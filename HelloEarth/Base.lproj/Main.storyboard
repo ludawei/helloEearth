@@ -160,9 +160,6 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="定位" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M4-Gf-L1X">
                                                     <rect key="frame" x="98" y="28" width="40" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="0QF-3N-c0d"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -189,10 +186,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="9jB-v6-RmY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9M4-Gf-L1X" secondAttribute="trailing" constant="15" id="0vJ-eo-fqS"/>
+                                                <constraint firstItem="9jB-v6-RmY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9M4-Gf-L1X" secondAttribute="trailing" constant="12" id="0vJ-eo-fqS"/>
                                                 <constraint firstItem="era-V2-GM8" firstAttribute="leading" secondItem="3dr-zn-Cie" secondAttribute="leading" id="8Je-e4-hkv"/>
-                                                <constraint firstItem="9jB-v6-RmY" firstAttribute="top" secondItem="f5F-cP-1ug" secondAttribute="topMargin" constant="5" id="9rN-4C-gQQ"/>
-                                                <constraint firstItem="OPy-W7-yLe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9jB-v6-RmY" secondAttribute="trailing" constant="10" id="aJq-WK-4M7"/>
+                                                <constraint firstItem="9jB-v6-RmY" firstAttribute="top" secondItem="f5F-cP-1ug" secondAttribute="topMargin" id="9rN-4C-gQQ"/>
+                                                <constraint firstItem="OPy-W7-yLe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9jB-v6-RmY" secondAttribute="trailing" constant="12" id="aJq-WK-4M7"/>
                                                 <constraint firstItem="9jB-v6-RmY" firstAttribute="bottom" secondItem="f5F-cP-1ug" secondAttribute="bottomMargin" id="cYk-Ba-1Io"/>
                                                 <constraint firstItem="era-V2-GM8" firstAttribute="top" secondItem="f5F-cP-1ug" secondAttribute="top" id="fdD-Fy-mDz"/>
                                                 <constraint firstAttribute="trailing" secondItem="3dr-zn-Cie" secondAttribute="trailing" id="gwN-Gq-ERb"/>

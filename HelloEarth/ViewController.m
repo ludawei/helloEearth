@@ -120,6 +120,42 @@ NS_ENUM(NSInteger, MapAnimType)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)deviceRotated:(NSNotification *)note{
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+//    
+//    NSNumber *value = [NSNumber numberWithInt:orientation];
+//    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    
+    
+//    [UIView animateWithDuration:0.5 animations:^{
+//    
+//        CGFloat rotationAngle = 0;
+//        if (orientation == UIDeviceOrientationPortraitUpsideDown)
+//        {
+//            //            rotationAngle = M_PI;
+//        }
+//        else if (orientation == UIDeviceOrientationLandscapeLeft)
+//        {
+//            rotationAngle = M_PI_2;
+//            
+//        }
+//        else if (orientation == UIDeviceOrientationLandscapeRight)
+//        {
+//            rotationAngle = -M_PI_2;
+//            
+        //        }
+//        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+//            NSNumber *value = [NSNumber numberWithInt:UIDeviceOrientationPortrait];
+//            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//        }
+//        
+//         NSNumber *value = [NSNumber numberWithInt:orientation];
+//         [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//        
+//        
+//    } completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -134,6 +170,7 @@ NS_ENUM(NSInteger, MapAnimType)
     [self makeMapViewAndDatas];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceRotated:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     UIImageView *loadingBackView = [UIImageView new];
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
@@ -674,6 +711,7 @@ NS_ENUM(NSInteger, MapAnimType)
         UIImage *img = [UIImage imageNamed:@"map_anni_point"];
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
         anno.loc             = MaplyCoordinateMakeWithDegrees(location.coordinate.longitude, location.coordinate.latitude);
+        anno.offset          = CGPointMake(0, img.size.height/2);
         anno.size            = img.size;//CGSizeMake(30, 30);
         //    anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
         anno.image = img;

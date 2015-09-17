@@ -72,6 +72,7 @@
             UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
             
             UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[colorData objectForKey:@"text"]];
+            lbl.font = [Util modifySystemFontWithSize:16];
             [contentView addSubview:lbl];
             [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(legendHeight*i);
@@ -163,7 +164,8 @@
 //        cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.detailTextLabel.numberOfLines = 0;
         
-        cell.textLabel.font = cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
+        cell.textLabel.font = [Util modifySystemFontWithSize:16];
+        cell.detailTextLabel.font = [Util modifySystemFontWithSize:14];
     }
     
     NSDictionary *data = [self.datas objectAtIndex:indexPath.item];

@@ -104,29 +104,6 @@
 #endif
 }
 
--(void)deviceRotated:(NSNotification *)note
-{
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    CGFloat rotation = 0.0;
-    
-    if (orientation == UIDeviceOrientationPortraitUpsideDown)
-        rotation = M_PI;
-    else if (orientation == UIDeviceOrientationLandscapeLeft)
-        rotation = -M_PI_2;
-    else if (orientation == UIDeviceOrientationLandscapeRight)
-        rotation = M_PI_2;
-    
-    // rotate compass without auto rotation animation
-    //  iOS rotation animation duration is 0.3
-    //  this excludes the compassView from the auto rotation
-    //  (same effect as in the camera app where controls do rotate and camera viewport don't)
-    self.loadingBackView.frame = self.view.bounds;
-    self.loadingBackView.transform = CGAffineTransformMakeRotation(rotation);
-//    [UIView animateWithDuration:0.3 animations:^(void) {
-//        self.loadingBackView.transform = CGAffineTransformMakeRotation(rotation);
-//    }];
-}
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if (self.viewControllers.count == 1)
@@ -151,9 +128,9 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    if ([self.topViewController isKindOfClass:[ViewController class]]){
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }
+//    if ([self.topViewController isKindOfClass:[ViewController class]]){
+//        return UIInterfaceOrientationMaskAllButUpsideDown;
+//    }
     
     return UIInterfaceOrientationMaskPortrait;
 }
