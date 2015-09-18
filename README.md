@@ -1,2 +1,0 @@
-# helloEearth
-WhirlyGlobe-develop-test

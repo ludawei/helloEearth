@@ -9,7 +9,6 @@
 #import "NewMapCoverView.h"
 #import "MyVector.h"
 #import "WindParticle.h"
-#import "UIView+Extra.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 #import "MKMapView+ZoomLevel.h"

@@ -12,4 +12,9 @@
 
 - (UIImage *)viewShot;
 
+@property CGFloat x;
+@property CGFloat y;
+@property CGFloat width;
+@property CGFloat height;
+
 @end

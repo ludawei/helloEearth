@@ -14,6 +14,8 @@
 +(UIImage *) createImageWithColor: (UIColor *) color width:(CGFloat)width height:(CGFloat)height;
 + (UIImage *) drawText:(NSString*)text inImage:(UIImage*)image font:(UIFont *)font textColor:(UIColor *)color;
 + (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2 toRect:(CGRect)frame;
++(UIButton *)leftNavButtonWithSize:(CGSize)size;
++(UIButton *)rightNavButtonWithTitle:(NSString *)title;
 
 + (NSString*) getAppKey;
 + (NSString *)parseWeather:(NSString *)code;
@@ -27,4 +29,12 @@
 +(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size;
 +(UIFont *)modifySystemFontWithSize:(CGFloat)size;
 +(UIFont *)modifyBoldSystemFontWithSize:(CGFloat)size;
+
++ (BOOL) isEmpty: (id) var;
++ (NSString*) checkString: (NSString*) src length: (int) length;
++ (NSString*) formatCoord: (NSString*) res;
++ (NSString*) JSONArray2Str: (NSArray*) json;
++ (NSArray*) Str2JSONArray: (NSString*) str;
++ (NSInteger) randomInt;
++ (NSDate*) Str2date: (NSString*) dateValue;
 @end

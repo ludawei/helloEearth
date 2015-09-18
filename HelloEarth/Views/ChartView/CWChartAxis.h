@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, CWChartAxisLineStyle) {
 
 @property (nonatomic, strong) UIColor *labelColor;
 @property (nonatomic, strong) UIFont *labelFont;
-@property (nonatomic, assign) UITextAlignment labelAlignment;
+@property (nonatomic, assign) NSTextAlignment labelAlignment;
 
 @end
 

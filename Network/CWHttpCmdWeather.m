@@ -60,10 +60,10 @@
             id jsonObject = nil;
             char* decryptStr = (char*) malloc([rawData length] + 1); // need to free
             memcpy(decryptStr, (const char*) [rawData bytes], [rawData length]);
-            [DecStr decrypt: decryptStr length: [rawData length]];
+            [DecStr decrypt: decryptStr length: (int)[rawData length]];
             decryptStr[[rawData length]] = '\0';
             
-            char* uncomStr = [ZipStr Uncompress:decryptStr length:[rawData length]]; // need to free
+            char* uncomStr = [ZipStr Uncompress:decryptStr length:(int)[rawData length]]; // need to free
             if(uncomStr)
             {
                 // the ownership of uncomStr is transferred

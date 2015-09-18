@@ -73,7 +73,7 @@ const NSString* UPLOAD = @"upload";
     if ([str isEqual: @""])
         return str;
     const char* bytes = [str UTF8String];
-    return [Base64 base64Encode: (const unsigned char*) bytes length: [str lengthOfBytesUsingEncoding: NSUTF8StringEncoding]];
+    return [Base64 base64Encode: (const unsigned char*) bytes length: (int)[str lengthOfBytesUsingEncoding: NSUTF8StringEncoding]];
 }
 
 @end

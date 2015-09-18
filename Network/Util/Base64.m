@@ -164,7 +164,7 @@
 
 + (NSString*) base64Encode:(NSData *)data
 {
-    int length = [data length];
+    int length = (int)[data length];
     const unsigned char* raw = [data bytes];
     return [Base64 base64Encode: raw length: length];
 }
@@ -172,6 +172,6 @@
 +(NSString *)base64EncodeString:(NSString *)string
 {
     const char* bytes = [string UTF8String];
-    return [Base64 base64Encode: (const unsigned char*) bytes length: [string lengthOfBytesUsingEncoding: NSUTF8StringEncoding]];
+    return [Base64 base64Encode: (const unsigned char*) bytes length: (int)[string lengthOfBytesUsingEncoding: NSUTF8StringEncoding]];
 }
 @end

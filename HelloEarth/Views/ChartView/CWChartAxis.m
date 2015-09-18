@@ -20,7 +20,7 @@
         // set default
         self.labelColor = [UIColor whiteColor];
         self.labelFont = [UIFont systemFontOfSize:12];
-        self.labelAlignment = UITextAlignmentCenter;
+        self.labelAlignment = NSTextAlignmentCenter;
         self.minValue = UNDEFINED;
         self.maxValue = UNDEFINED;
         self.showLabels = YES;

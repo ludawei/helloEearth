@@ -16,7 +16,7 @@
     int pos = 0;
     @try
     {
-        int keylen = [KEY lengthOfBytesUsingEncoding: NSUTF8StringEncoding];
+        NSInteger keylen = [KEY lengthOfBytesUsingEncoding: NSUTF8StringEncoding];
         const char* c = [KEY UTF8String];
         for (int i = 0; i < len; i++, pos = (pos + 1) % keylen)
             buffer[i] ^= c[pos];

@@ -8,7 +8,7 @@
 
 #import "DeviceUtil.h"
 //#import <sys/utsname.h>
-#import "CommonUtil.h"
+#import "Util.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 
@@ -55,7 +55,7 @@
     {
         NSString* ret = [[UIDevice currentDevice] systemName];
         ret = [ret stringByAppendingString: [[UIDevice currentDevice] systemVersion]];
-        return [CommonUtil checkString: ret length: 25];
+        return [Util checkString: ret length: 25];
     }
 }
 
@@ -63,7 +63,7 @@
 {
     NSString* ret = [[UIDevice currentDevice] systemVersion];
     ret = [NSString stringWithFormat: @"ios_%@", ret];
-    return [CommonUtil checkString: ret length: 25];
+    return [Util checkString: ret length: 25];
 }
 
 + (NSString*) getVersionType
@@ -84,7 +84,7 @@
 //    uname(&systemInfo);
 //    //get the device model and the system version
 //    NSString* model = [NSString stringWithCString: systemInfo.machine encoding: NSUTF8StringEncoding];
-    return [CommonUtil checkString: dev.model length: 50];
+    return [Util checkString: dev.model length: 50];
 }
 
 + (int) getOperatorId

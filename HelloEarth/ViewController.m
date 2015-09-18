@@ -27,12 +27,12 @@
 #import "CWLocationManager.h"
 #import "HELegendController.h"
 #import "HEProductsController.h"
-#import "UIView+Extra.h"
 #import "HEMapDataAnimLogic.h"
 
 #import "MBProgressHUD+Extra.h"
 #import "HESplashController.h"
 #import "UIImageView+AnimationCompletion.h"
+#import "AlertViewBlocks.h"
 
 #define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
@@ -65,7 +65,7 @@ NS_ENUM(NSInteger, MapAnimType)
     MaplyStarsModel *stars;
     
     // product data
-    BOOL isBottomFull;
+    BOOL isBottomFull,isHiddenStatusBar;
     NSString *productType;
     NSString *productName;
     
@@ -378,6 +378,7 @@ NS_ENUM(NSInteger, MapAnimType)
     lastButton = nil;
     
     self.navigationItem.titleView = view;
+//    [self.navigationController.navigationBar addSubview:view];
 }
 
 -(void)initBottomViews
@@ -524,6 +525,11 @@ NS_ENUM(NSInteger, MapAnimType)
     [super viewWillAppear:animated];
     
     [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.3] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+    if (isHiddenStatusBar) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        
+        [self.navigationController setNavigationBarHidden:YES];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -532,13 +538,21 @@ NS_ENUM(NSInteger, MapAnimType)
     
     self.statisticsView.hidden = YES;
     
-    if (isBottomFull) {
-        [self setFullBottomLayout];
+    if (isHiddenStatusBar) {
+        if (isBottomFull) {
+            [self setHalfBottomLayout];
+        }
     }
     else
     {
-        // 默认显示一半的
-        [self setHalfBottomLayout];
+        if (isBottomFull) {
+            [self setFullBottomLayout];
+        }
+        else
+        {
+            // 默认显示一半的
+            [self setHalfBottomLayout];
+        }
     }
     
     [self.view layoutIfNeeded];
@@ -997,6 +1011,8 @@ NS_ENUM(NSInteger, MapAnimType)
         {
             [self setFullBottomLayout];
         }
+        
+        isHiddenStatusBar = NO;
     }
     else
     {
@@ -1006,6 +1022,8 @@ NS_ENUM(NSInteger, MapAnimType)
         if (isBottomFull) {
             [self setHalfBottomLayout];
         }
+        
+        isHiddenStatusBar = YES;
     }
     
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -1080,8 +1098,24 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)clickSqView
 {
-    NSString *str = @"weixin://qr/wTnL0yLEQX8_rWaw92zT";//@"http://weixin.qq.com/r/wTnL0yLEQX8_rWaw92zT";//
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"保存图片到相册?" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert showAlerViewFromButtonAction:nil animated:YES handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"qrcode_for_gh_9eb43db17ffb_430.jpg"], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }];
+//    NSString *str = @"weixin://qr/wTnL0yLEQX8_rWaw92zT";//@"http://weixin.qq.com/r/wTnL0yLEQX8_rWaw92zT";//
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    if (error) {
+        [MBProgressHUD showHUDNoteInView:self.navigationController.view withText:@"图片保存出错"];
+        return;
+    }
+    
+    [MBProgressHUD showHUDNoteInView:self.navigationController.view withText:@"图片已保存"];
 }
 
 #pragma mark - tool methods
@@ -1135,7 +1169,7 @@ NS_ENUM(NSInteger, MapAnimType)
             make.centerX.mas_equalTo(self.navigationController.view.mas_centerX);
             make.centerY.mas_equalTo(self.navigationController.view.mas_centerY).offset(-10);
             make.width.mas_equalTo(self.navigationController.view).multipliedBy(0.8);
-            make.height.mas_equalTo(self.navigationController.view).multipliedBy(0.5);
+            make.height.mas_equalTo(self.navigationController.view).multipliedBy(0.55);
         }];
         self.logoPopView.transform = CGAffineTransformMakeScale(0.0, 0.0);
         
@@ -1191,8 +1225,19 @@ NS_ENUM(NSInteger, MapAnimType)
         
         [sqView addTarget:self action:@selector(clickSqView) forControlEvents:UIControlEventTouchUpInside];
         
+        UILabel *sqLbl = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:16]];
+        sqLbl.textColor = [UIColor whiteColor];
+        sqLbl.textAlignment = NSTextAlignmentCenter;
+        sqLbl.text = @"微信公众号: BLUEPIANTS ";
+        [sv_sub addSubview:sqLbl];
+        [sqLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(sqView.mas_bottom).offset(10);
+            make.left.right.mas_equalTo(sv_sub);
+            make.height.mas_equalTo(20);
+        }];
+        
         [sv_sub mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(sqView.mas_bottom).offset(20);
+            make.bottom.mas_equalTo(sqLbl.mas_bottom).offset(20);
         }];
     }
     

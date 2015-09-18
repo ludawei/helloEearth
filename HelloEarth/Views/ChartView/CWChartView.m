@@ -209,7 +209,16 @@
         if(self.yAxis.showLabels)
         {
             CGRect textFrame = CGRectMake(0, y - HEIGHT_OF_LABEL / 2, self.leftMargin, HEIGHT_OF_LABEL);
+            
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = self.yAxis.labelAlignment;
+            [text drawInRect:textFrame withAttributes:@{NSFontAttributeName : self.yAxis.labelFont,
+                                                        NSParagraphStyleAttributeName: parStyle}];
+#else
             [text drawInRect:textFrame withFont:self.yAxis.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:self.yAxis.labelAlignment];
+#endif
         }
 
         [self drawLine:ctx
@@ -227,7 +236,16 @@
         if(self.yAxis.showLabels)
         {
             CGRect textFrame = CGRectMake(0, y - HEIGHT_OF_LABEL / 2, self.leftMargin, HEIGHT_OF_LABEL);
+            
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = self.yAxis.labelAlignment;
+            [text drawInRect:textFrame withAttributes:@{NSFontAttributeName : self.yAxis.labelFont,
+                                                        NSParagraphStyleAttributeName: parStyle}];
+#else
             [text drawInRect:textFrame withFont:self.yAxis.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:self.yAxis.labelAlignment];
+#endif
         }
     }
     
@@ -260,7 +278,15 @@
         if(self.xAxis.showLabels)
         {
             CGRect textFrame = CGRectMake(x + SPACE - WIDTH_OF_LABEL / 2, y, WIDTH_OF_LABEL, HEIGHT_OF_LABEL*[[text componentsSeparatedByString:@"\n"] count]);
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = self.xAxis.labelAlignment;
+            [text drawInRect:textFrame withAttributes:@{NSFontAttributeName : self.xAxis.labelFont,
+                                                        NSParagraphStyleAttributeName: parStyle}];
+#else
             [text drawInRect:textFrame withFont:self.xAxis.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:self.xAxis.labelAlignment];
+#endif
         }
 
         [self drawLine:ctx
@@ -290,7 +316,15 @@
         int x = self.leftMargin + (value - xAxis.minValue) / (xAxis.maxValue - xAxis.minValue) * (self.chartFrame.size.width - WIDTH_SPACE);
     
         CGRect textFrame = CGRectMake(x - WIDTH_OF_LABEL / 2, y, WIDTH_OF_LABEL, HEIGHT_OF_LABEL);
+#if 1
+        NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        parStyle.alignment     = self.xAxis.labelAlignment;
+        [text drawInRect:textFrame withAttributes:@{NSFontAttributeName : xAxis.labelFont,
+                                                    NSParagraphStyleAttributeName: parStyle}];
+#else
         [text drawInRect:textFrame withFont:xAxis.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:self.xAxis.labelAlignment];
+#endif
     }
 }
 
@@ -371,7 +405,15 @@
                 labelFrame.origin.y = y + 5;
             }
             
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = NSTextAlignmentCenter;
+            [pointLabel drawInRect:labelFrame withAttributes:@{NSFontAttributeName : plot.labelFont,
+                                                        NSParagraphStyleAttributeName: parStyle}];
+#else
             [pointLabel drawInRect:labelFrame withFont:plot.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+#endif
         }
         
         lastX = x;
@@ -493,7 +535,7 @@ static CGPoint controlPointForPoints(CGPoint p1, CGPoint p2) {
     CGContextSetLineWidth(ctx, plot.width);
     CGFloat x = self.leftMargin + SPACE;
     CGFloat step = (self.chartFrame.size.width - WIDTH_SPACE) / (plot.points.count - 1);
-    CGFloat lastX, lastY;
+    CGFloat lastX = 0.0, lastY = 0.0;
     
     
     for (int i = 0; i < plot.points.count; ++i)
@@ -544,7 +586,15 @@ static CGPoint controlPointForPoints(CGPoint p1, CGPoint p2) {
                 labelFrame.origin.y = y + 5;
             }
             
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = NSTextAlignmentCenter;
+            [pointLabel drawInRect:labelFrame withAttributes:@{NSFontAttributeName : plot.labelFont,
+                                                               NSParagraphStyleAttributeName: parStyle}];
+#else
             [pointLabel drawInRect:labelFrame withFont:plot.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+#endif
         }
         
         lastX = x;
@@ -587,7 +637,15 @@ static CGPoint controlPointForPoints(CGPoint p1, CGPoint p2) {
             {
                 labelFrame.origin.y = y + 5;
             }
+#if 1
+            NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            parStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            parStyle.alignment     = NSTextAlignmentCenter;
+            [pointLabel drawInRect:labelFrame withAttributes:@{NSFontAttributeName : plot.labelFont,
+                                                               NSParagraphStyleAttributeName: parStyle}];
+#else
             [pointLabel drawInRect:labelFrame withFont:plot.labelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+#endif
         }
         
         lastX = x;

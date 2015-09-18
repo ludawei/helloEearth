@@ -40,8 +40,8 @@ unsigned char *php_base64_encode( ngx_str_t src)   //php_base64_encode_ex
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/', '\0'
 	};
 	static const char base64_pad = '=';
-	const unsigned char *current = src.data;
-	int length = src.len;
+	const unsigned char *current = (const unsigned char *)src.data;
+	int length = (int)src.len;
 	unsigned char *p;
 	unsigned char *result;
 	//printf("in: php_base64_encode\n");
@@ -375,23 +375,24 @@ int authen_augeoidfc(ngx_str_t url,ngx_str_t pri_key,char *rkey/*,ngx_http_reque
     //this function can use¡¡hmac(sha1) to encrypt url,the private key is pri_key,the if the result equals
 	//the authentication is successful! The return value mark the result ,success:1,failed:0.
 	//attention please!In the url, the appid should be at its full length!!!So I still need to write a url generation function.
-	int flag = 0;//mark the authentication result,default :failed.
+//	int flag = 0;//mark the authentication result,default :failed.
 	unsigned char url_h[40];//wikipedia says this would be the length , see hamc.This is the space to store the hmac result. ÓÃÀŽŽæŽ¢¹þÏ£œá¹û
 	unsigned char * p;
     unsigned char url_ht[45] = {0};
 	size_t url_hmac_len;
-	p =  HMAC(EVP_sha1(),pri_key.data,pri_key.len,url.data,url.len,url_h,(unsigned int *)&url_hmac_len);
-    strncpy(url_ht,url_h,url_hmac_len>40?40:url_hmac_len);
+    p = HMAC(EVP_sha1(), (const void *)pri_key.data, (int)pri_key.len, (const unsigned char *)url.data, url.len, url_h, (unsigned int *)&url_hmac_len);
+//	p =  HMAC(EVP_sha1(),pri_key.data,pri_key.len,url.data,url.len,url_h,(unsigned int *)&url_hmac_len);
+    strncpy((char *)url_ht, (const char *)url_h,url_hmac_len>40?40:url_hmac_len);
 	if(p == NULL)
 	{
 		printf("HMAC ERROR!\n");
 		return 0;
 	}
 	ngx_str_t url_hmac;
-	url_hmac.data = url_h;
+	url_hmac.data = (char *)url_h;
 	url_hmac.len = url_hmac_len;	ngx_str_t url_hmac_base64;
     
-	url_hmac_base64.data = php_base64_encode(url_hmac);//result is a string end with '\0'
+	url_hmac_base64.data = (char *)php_base64_encode(url_hmac);//result is a string end with '\0'
 	if(url_hmac_base64.data == NULL)
 	{
 		printf( "Base64 error!.\n");

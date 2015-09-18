@@ -14,7 +14,7 @@
 +(NSString *)encodeByPublicKey:(NSString *)public_key privateKey:(NSString *)private_key
 {
     char *rkey =  calloc(50,sizeof(char));
-    encode(public_key.UTF8String, private_key.UTF8String, rkey);
+    encode((char *)public_key.UTF8String, (char *)private_key.UTF8String, rkey);
     NSString *key = [NSString stringWithUTF8String:rkey];
     free(rkey);
     

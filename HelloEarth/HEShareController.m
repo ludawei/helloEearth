@@ -10,11 +10,11 @@
 #import "Util.h"
 #import "Masonry.h"
 #import "WLMainItem.h"
-#import "UIView+Extra.h"
 
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "WXApi.h"
 
 @interface HEShareController ()
 //@property (nonatomic,strong) UIScrollView *scrollView;
@@ -30,14 +30,13 @@
     // Do any additional setup after loading the view.
     
     self.title = @"分享";
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(clickBack)];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"•••"
-                                                              style:UIBarButtonItemStyleDone
-                                                             target:self
-                                                             action:@selector(clickRightButton)];
+    UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
+    [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
     
-    self.navigationItem.leftBarButtonItem = left;
-    self.navigationItem.rightBarButtonItem = right;
+    UIButton *rightNavButton = [Util rightNavButtonWithTitle:@"•••"];
+    [rightNavButton addTarget:self action:@selector(clickRightButton) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightNavButton];
     
     [self initViews];
 }
@@ -65,7 +64,7 @@
     
     // top views
     UIView *topView = [UIView new];
-    topView.backgroundColor = [UIColor colorWithRed:0.192 green:0.196 blue:0.200 alpha:1];
+    topView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     [self.view addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(STATUS_HEIGHT+SELF_NAV_HEIGHT);
@@ -110,11 +109,11 @@
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:10];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “蓝π蚂蚁” 邀您体验酷炫的3D地图展示立体化的气象数据，动态的效果、直观的方式，让您能够与之互动，更全面、更直观地感觉产品。"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “蓝π蚂蚁”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"];
     [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
     CGFloat textHeight = ceil([text size].width/(self.view.width*0.9));
     
-    UILabel *titleLabel = [self createLabelWithFont:[UIFont boldSystemFontOfSize:16] text:text textColor:[UIColor colorWithRed:0.698 green:0.698 blue:0.702 alpha:1]];
+    UILabel *titleLabel = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:16] text:text textColor:[UIColor colorWithRed:0.698 green:0.698 blue:0.702 alpha:1]];
     [topView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(shareImageView.mas_bottom).offset(20);
@@ -144,57 +143,86 @@
     }];
     self.shareView = bottomView;
     
-    UILabel *shareToLbl = [self createLabelWithFont:[UIFont systemFontOfSize:18] text:@"分享到" textColor:[UIColor colorWithRed:0.400 green:0.404 blue:0.408 alpha:1]];
+    UILabel *shareToLbl = [self createLabelWithFont:[Util modifySystemFontWithSize:18] text:@"分享到" textColor:[UIColor colorWithRed:0.400 green:0.404 blue:0.408 alpha:1]];
     [bottomView addSubview:shareToLbl];
     [shareToLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.mas_equalTo(20);
     }];
     [shareToLbl sizeToFit];
     
-    NSArray *images = @[@[@"QQ", @"qq"],
-                        @[@"微信", @"微信"],
-                        @[@"朋友圈", @"朋友圈"],
-                        @[@"新浪微博", @"微博"]];
-    WLMainItem *lastButton;
-    for (NSInteger i=0; i<images.count; i++) {
-        
-        NSString *text = [[images objectAtIndex:i] firstObject];
-        NSString *imgName = [[images objectAtIndex:i] lastObject];
-        WLMainItem *button = [self createButtonWithImage:[UIImage imageNamed:imgName] text:text];
-        button.tag = i;
-        [bottomView addSubview:button];
-        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (lastButton) {
-                make.left.mas_equalTo(lastButton.mas_right);
-            }
-            else
-            {
-                make.left.mas_equalTo(0);
-            }
-            
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:WX_APP_ID appSecret:WX_APP_SECRET url:@""];
+
+    //设置分享到QQ/Qzone的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:@""];
+    
+    NSMutableArray *images = [NSMutableArray array];
+    if ([QQApiInterface isQQInstalled])
+    {
+        [images addObject:@[@"QQ", @"qq"]];
+    }
+    if ([WXApi isWXAppInstalled])
+    {
+        [images addObject:@[@"微信", @"微信"]];
+        [images addObject:@[@"朋友圈", @"朋友圈"]];
+    }
+    
+    UIView *lastView;
+    if (images.count == 0) {
+        UILabel *tipLabel = [self createLabelWithFont:[Util modifySystemFontWithSize:18] text:@"没有可分享的平台😔" textColor:[UIColor lightGrayColor]];
+        tipLabel.textAlignment = NSTextAlignmentCenter;
+        [bottomView addSubview:tipLabel];
+        [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(bottomView);
             make.top.mas_equalTo(shareToLbl.mas_bottom).offset(10);
-            //            make.bottom.mas_equalTo(bottomView).offset(10);
-            make.width.mas_equalTo(bottomView.mas_width).multipliedBy(0.25);
             make.height.mas_equalTo(bottomView.mas_height).multipliedBy(0.25);
         }];
         
-        [button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
-        lastButton = button;
+        lastView = tipLabel;
+    }
+    else
+    {
+        for (NSInteger i=0; i<images.count; i++) {
+            
+            NSString *text = [[images objectAtIndex:i] firstObject];
+            NSString *imgName = [[images objectAtIndex:i] lastObject];
+            WLMainItem *button = [self createButtonWithImage:[UIImage imageNamed:imgName] text:text];
+            button.tag = i;
+            [bottomView addSubview:button];
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                if (lastView) {
+                    make.left.mas_equalTo(lastView.mas_right);
+                }
+                else
+                {
+                    make.left.mas_equalTo(0);
+                }
+                
+                make.top.mas_equalTo(shareToLbl.mas_bottom).offset(10);
+                //            make.bottom.mas_equalTo(bottomView).offset(10);
+                make.width.mas_equalTo(bottomView.mas_width).multipliedBy(0.25);
+                make.height.mas_equalTo(bottomView.mas_height).multipliedBy(0.25);
+            }];
+            
+            [button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+            lastView = button;
+        }
     }
     
     UIButton *cancelButton = [UIButton new];
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    cancelButton.layer.cornerRadius = 10;
     cancelButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [bottomView addSubview:cancelButton];
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(lastButton.mas_bottom).offset(35);
+        make.top.mas_equalTo(lastView.mas_bottom).offset(35);
         make.bottom.mas_equalTo(bottomView.mas_bottom).offset(-15);
         make.centerX.mas_equalTo(bottomView.mas_centerX);
         make.width.mas_equalTo(bottomView.mas_width).multipliedBy(0.85);
     }];
     [cancelButton addTarget:self action:@selector(clickCancelButton) forControlEvents:UIControlEventTouchUpInside];
     
-    lastButton = nil;
+    lastView = nil;
     
     self.shareView.hidden = YES;
 }
@@ -313,7 +341,6 @@
     }
 }
 
-
 -(void)shareWithType:(NSString *)type
 {
     NSString *imageUrl = @"www.weather.com.cn";
@@ -336,6 +363,10 @@
     //                                     shareImage:shareImage
     //                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToQzone,nil]
     //                                       delegate:nil];
+    
+    
+//    [QQApiInterface isQQInstalled]
+//    [WXApi isWXAppInstalled];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[type]
                                                         content:@"蓝π蚂蚁 分享"//self.info.title
