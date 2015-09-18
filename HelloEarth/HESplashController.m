@@ -45,7 +45,7 @@
 {
     NSMutableArray *imgs = [NSMutableArray array];
     for (NSInteger i=1; i<=25; i++) {
-        [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%ld", i]]];
+        [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
     }
     [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
     [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];

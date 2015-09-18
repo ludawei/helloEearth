@@ -274,8 +274,8 @@
     NSMutableArray *arrayValuey = [[NSMutableArray alloc] init];
     NSMutableArray *arrayLabely = [[NSMutableArray alloc] init];
     for (NSInteger i=(int)(min/10)*10; i<=(int)(max/10)*10; i=i+10) {
-        [arrayLabely addObject:[NSString stringWithFormat:@"%ld°", i]];
-        [arrayValuey addObject:[NSString stringWithFormat:@"%ld", i]];
+        [arrayLabely addObject:[NSString stringWithFormat:@"%td°", i]];
+        [arrayValuey addObject:[NSString stringWithFormat:@"%td", i]];
     }
     
     [dict setObject:arrayValuey forKey:@"yAxisValue"];

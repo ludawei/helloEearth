@@ -139,7 +139,7 @@ NSString * const pLBaseURLString = @"";
     NSArray *lens;
     if(!length)
     {
-        lens = [NSArray arrayWithObject:[NSString stringWithFormat:@"%ld", data.length]];
+        lens = [NSArray arrayWithObject:[NSString stringWithFormat:@"%ld", (unsigned long)data.length]];
     }
     else
     {

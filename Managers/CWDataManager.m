@@ -13,10 +13,10 @@
 static NSString *key_normalProducts = @"normalProducts";
 
 #define IDENTIFY_WITH_TYPE(t) \
-[NSString stringWithFormat:@"%ld", t]
+[NSString stringWithFormat:@"%td", t]
 
 #define IDENTIFY_WITH_ID_AND_TYPE(i, t) \
-[NSString stringWithFormat:@"%ld-%@", i, t]
+[NSString stringWithFormat:@"%td-%@", i, t]
 
 static NSString *key_map_rainImageList = @"map_rainImageList";
 static NSString *key_map_cloudImageList = @"map_cloudImageList";
