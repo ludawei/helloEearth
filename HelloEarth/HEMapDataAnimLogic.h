@@ -19,7 +19,7 @@
 
 @interface HEMapDataAnimLogic : NSObject
 
-@property (nonatomic,assign) id<HEMapDataAnimDelegate> delegate;
+@property (nonatomic,weak) id<HEMapDataAnimDelegate> delegate;
 
 -(instancetype)initWithMapDatas:(HEMapDatas *)mapDatas;
 

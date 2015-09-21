@@ -181,8 +181,9 @@ NS_ENUM(NSInteger, MapAnimType)
     }];
     loadingIV = loadingBackView;
     
+    INIT_WEAK_SELF;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showLoadingView];
+        [weakSlef showLoadingView];
     });
 }
 
@@ -199,9 +200,14 @@ NS_ENUM(NSInteger, MapAnimType)
 #pragma mark - inits
 -(void)initDatas
 {
+    self.mapDatas = nil;
     self.mapDatas = [[HEMapDatas alloc] initWithController:self.theViewC];
+    
+    self.mapDataAnimLogic = nil;
     self.mapDataAnimLogic = [[HEMapDataAnimLogic alloc] initWithMapDatas:self.mapDatas];
     self.mapDataAnimLogic.delegate = self;
+    
+    self.mapAnimLogic = nil;
     self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
     self.mapAnimLogic.delegate = self;
 }
@@ -292,6 +298,7 @@ NS_ENUM(NSInteger, MapAnimType)
         [self initMapView];
         [self initDatas];
         
+        INIT_WEAK_SELF;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (show3D) {
                 globeViewC.heading = 0;
@@ -299,9 +306,9 @@ NS_ENUM(NSInteger, MapAnimType)
                 [globeViewC animateToPosition:CHINA_CENTER_COOR time:0.3];
                 //                [globeViewC setAutoRotateInterval:0.2 degrees:20];
                 
-                [self addStars:@"starcatalog_orig"];
+                [weakSlef addStars:@"starcatalog_orig"];
                 if (showLight) {
-                    [self addSun];
+                    [weakSlef addSun];
                 }
             }
             else
@@ -310,10 +317,11 @@ NS_ENUM(NSInteger, MapAnimType)
             }
             
             // 重新设置地图显示
-            [self changeProduct_normal];
+//            [self changeProduct_normal];
+            [weakSlef refreshDataAndUI];
             
             if (showLocation) {
-                [self addUserLocationMarker];
+                [weakSlef addUserLocationMarker];
             }
         });
     }
@@ -420,18 +428,27 @@ NS_ENUM(NSInteger, MapAnimType)
     [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view);
         make.left.mas_equalTo(margin);
-        make.height.mas_equalTo(32);
+        make.height.mas_equalTo(30);
         make.right.mas_equalTo(-margin);
     }];
     self.titleLbl = titleLbl;
+    
+    self.timeLabel = [self createLabelWithFont:[Util modifyFontWithName:@"Helvetica" size:14]];
+    self.timeLabel.textColor = [UIColor whiteColor];
+    [view addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(titleLbl.mas_bottom).offset(-2);
+        make.left.mas_equalTo(titleLbl.mas_left);
+        make.height.mas_greaterThanOrEqualTo(12);
+    }];
     
     self.indexButton = [self createButtonWithImg:[UIImage imageNamed:@"图例"] selectImg:nil];
     [view addSubview:self.indexButton];
     [self.indexButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-10);
-        make.bottom.mas_equalTo(titleLbl.mas_bottom);
+        make.bottom.mas_equalTo(self.timeLabel.mas_bottom);
         make.width.mas_equalTo(50);
-        make.top.mas_greaterThanOrEqualTo(5);
+        make.top.mas_greaterThanOrEqualTo(0);
     }];
     [self.indexButton addTarget:self action:@selector(clickLegend) forControlEvents:UIControlEventTouchUpInside];
     
@@ -439,19 +456,10 @@ NS_ENUM(NSInteger, MapAnimType)
 //    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
     [view addSubview:bView];
     [bView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLbl.mas_bottom);
+        make.top.mas_equalTo(40);
         make.bottom.mas_equalTo(view.mas_bottom).offset(-9);
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(view);
-    }];
-    
-    self.timeLabel = [self createLabelWithFont:[Util modifyFontWithName:@"Helvetica" size:14]];
-    self.timeLabel.textColor = [UIColor whiteColor];
-    [bView addSubview:self.timeLabel];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
-        make.left.mas_equalTo(margin+buttonWidth);
-        make.height.mas_greaterThanOrEqualTo(15);
     }];
     
     UIImageView *slideBack = [UIImageView new];
@@ -459,8 +467,8 @@ NS_ENUM(NSInteger, MapAnimType)
     slideBack.image = [UIImage imageNamed:@"刻度－20"];
     [bView addSubview:slideBack];
     [slideBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.timeLabel.mas_left);
-        make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(margin+buttonWidth);
+        make.top.mas_equalTo(20);
         make.right.mas_equalTo(expandButton.mas_left).offset(-margin);
         make.height.mas_lessThanOrEqualTo(10);
 //        make.bottom.mas_equalTo(bView);
@@ -473,10 +481,10 @@ NS_ENUM(NSInteger, MapAnimType)
     [bView addSubview:self.playButton];
     [self.playButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.top.mas_equalTo(self.timeLabel.mas_bottom);
+        make.top.mas_equalTo(15);
         make.bottom.mas_equalTo(slideBack.mas_bottom).offset(5);
 //        make.width.mas_equalTo(buttonWidth);
-        make.right.mas_equalTo(self.timeLabel.mas_left);
+        make.right.mas_equalTo(slideBack.mas_left);
     }];
     
     self.progressView = [[UISlider alloc] init];
@@ -598,15 +606,26 @@ NS_ENUM(NSInteger, MapAnimType)
                 
                 self.animType = MapAnimTypeData;
                 [self.mapDataAnimLogic showProductWithTypes:types];
+                
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
             else
             {
-                [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
-                self.comObjs = [self.mapDatas changeType:productType];
+                if ([[responseObject firstObject] count] == 0) {
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    
+                    [MBProgressHUD showHUDNoteInView:self.view withText:@"没有数据"];
+                    LOG(@"%@", url);
+                }
+                else
+                {
+                    [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
+                    self.comObjs = [self.mapDatas changeType:productType];
+                    
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                }
             }
         }
-        
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -630,8 +649,9 @@ NS_ENUM(NSInteger, MapAnimType)
         
         // 修改bug : 删除markers时的黑色块
         sleep(0.2);
+        INIT_WEAK_SELF;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.theViewC endChanges];
+            [weakSlef.theViewC endChanges];
         });
     }
     self.markersObj = nil;
@@ -649,6 +669,7 @@ NS_ENUM(NSInteger, MapAnimType)
                                  kMaplySelectable: @(true),
                                  kMaplyVecWidth: @(4.0)};
     
+    INIT_WEAK_SELF;
     // handle this in another thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),
                    ^{
@@ -666,7 +687,7 @@ NS_ENUM(NSInteger, MapAnimType)
                                wgVecObj.userObject = vecName;
                                
                                // add the outline to our view
-                               [self.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
+                               [weakSlef.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
                                // If you ever intend to remove these, keep track of the MaplyComponentObjects above.
                            }
                        }
@@ -761,13 +782,14 @@ NS_ENUM(NSInteger, MapAnimType)
     //    self.level = level;
     
     [MBProgressHUD showHUDInView:self.view andText:@"处理中..."];
+    INIT_WEAK_SELF;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *annos = [self annotationsWithServerDatas:@"level3"];
+        NSArray *annos = [weakSlef annotationsWithServerDatas:@"level3"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self resetMapUI];
-            self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+            [weakSlef resetMapUI];
+            weakSlef.markersObj = [weakSlef.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
         });
     });
 }
@@ -776,8 +798,9 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     _markersObj = markersObj;
     if (markersObj && [productType isEqualToString:@"local_tongji"]) {
+        INIT_WEAK_SELF;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:weakSlef.view animated:YES];
         });
 
     }
@@ -1039,6 +1062,16 @@ NS_ENUM(NSInteger, MapAnimType)
         make.bottom.mas_equalTo(0);
     }];
     
+    [self.titleLbl mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.progressView.mas_top).offset(-2);
+        make.left.mas_equalTo(self.progressView.mas_left);
+        make.height.mas_greaterThanOrEqualTo(12);
+    }];
+    
     [self.bottomContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.bottomView);
     }];
@@ -1047,27 +1080,43 @@ NS_ENUM(NSInteger, MapAnimType)
         make.right.mas_equalTo(-VIEW_MARGIN);
         make.bottom.mas_equalTo(self.titleLbl.mas_bottom);
         make.width.mas_equalTo(50);
-        make.top.mas_greaterThanOrEqualTo(5);
+        make.top.mas_greaterThanOrEqualTo(0);
     }];
 }
 
 -(void)setHalfBottomLayout
 {
+    CGFloat modifyHeight = self.bottomView.height-(self.expandButton.height+EXPAND_MARGIN*2)+5;
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.bottomView.height-MAX(self.titleLbl.height, self.expandButton.height+EXPAND_MARGIN*2)+5);
+        make.bottom.mas_equalTo(modifyHeight);
+
     }];
     
-    CGFloat topModify = ((self.expandButton.height+EXPAND_MARGIN*2)-self.titleLbl.height)/2;
+    [self.titleLbl mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.bottomContentView);
+//        make.left.mas_equalTo(VIEW_MARGIN);
+        make.height.mas_equalTo(30);
+//        make.right.mas_equalTo(-VIEW_MARGIN);
+    }];
+    
+    [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.titleLbl.mas_bottom).offset(-2);
+        make.left.mas_equalTo(self.titleLbl.mas_left);
+        make.height.mas_greaterThanOrEqualTo(12);
+    }];
+    
+    CGFloat topModify = 5;
     UIEdgeInsets padding = UIEdgeInsetsMake(topModify, 0, 0, 0);
     [self.bottomContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.bottomView).insets(padding);
     }];
     
     [self.indexButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.titleLbl.mas_centerY);
         make.right.mas_equalTo(self.expandButton.mas_left).offset(-VIEW_MARGIN);
+//        make.bottom.mas_equalTo(self.timeLabel.mas_bottom);
         make.width.mas_equalTo(50);
-        make.top.mas_greaterThanOrEqualTo(5);
+        make.top.mas_greaterThanOrEqualTo(0);
+        make.height.mas_equalTo(modifyHeight);
     }];
 }
 
@@ -1304,8 +1353,9 @@ NS_ENUM(NSInteger, MapAnimType)
             
             // 修改bug : 删除markers时的黑色块
             sleep(0.2);
+            INIT_WEAK_SELF;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.theViewC endChanges];
+                [weakSlef.theViewC endChanges];
             });
         }
         self.markerLocation = nil;
@@ -1327,9 +1377,56 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *dataType = [data objectForKey:@"fileMark"];
     NSString *dataName = [data objectForKey:@"name"];
     
+    productType = dataType;
+    productName = dataName;
+    [self refreshDataAndUI];
+//    if ([dataType rangeOfString:@"local"].location != NSNotFound) {
+//        productType = dataType;
+//        productName = dataName;
+//        isBottomFull = NO;
+//        
+//        [self resetMapUI];
+//        self.titleLbl.text = dataName;
+//        if ([dataType isEqualToString:@"local_radar"]) {
+//            isBottomFull = YES;
+//            
+//            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+//        }
+//        else if ([dataType isEqualToString:@"local_cloud"])
+//        {
+//            isBottomFull = YES;
+//            
+//            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+//        }
+//        else if ([dataType isEqualToString:@"local_neteye"])
+//        {
+//            [self showNetEyesMarkers];
+//        }
+//        else if ([dataType isEqualToString:@"local_tongji"])
+//        {
+//            [self showTongJiMarkers];
+//        }
+//    }
+//    else
+//    {
+//        isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
+//        productType = dataType;
+//        productName = dataName;
+//        
+//        [self changeProduct_normal];
+//    }
+}
+
+-(void)refreshDataAndUI
+{
+    if (!productName) {
+        return;
+    }
+    
+    NSString *dataType = productType;
+    NSString *dataName = productName;
+    
     if ([dataType rangeOfString:@"local"].location != NSNotFound) {
-        productType = dataType;
-        productName = dataName;
         isBottomFull = NO;
         
         [self resetMapUI];
@@ -1357,8 +1454,6 @@ NS_ENUM(NSInteger, MapAnimType)
     else
     {
         isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
-        productType = dataType;
-        productName = dataName;
         
         [self changeProduct_normal];
     }

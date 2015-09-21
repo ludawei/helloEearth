@@ -35,8 +35,6 @@
     CGRect rect = CGRectMake(0,0,image.size.width,image.size.height);
     [image drawInRect:rect];
 
-    [color set];
-    
     CGFloat textWidth = image.size.width/2 * sin(M_PI/4);
     
     CGSize size = [text sizeWithAttributes:@{NSFontAttributeName: font}];
@@ -57,8 +55,10 @@
     parStyle.lineBreakMode = NSLineBreakByWordWrapping;
     parStyle.alignment     = NSTextAlignmentCenter;
     [text drawInRect:r withAttributes:@{NSFontAttributeName : font,
-                                        NSParagraphStyleAttributeName: parStyle}];
+                                        NSParagraphStyleAttributeName: parStyle,
+                                        NSForegroundColorAttributeName: color}];
 #else
+    [color set];
     [text drawInRect:r withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
 #endif
     

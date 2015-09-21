@@ -204,6 +204,8 @@
         {
             imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:type==MapImageTypeCloud];
         }
+        
+        INIT_WEAK_SELF;
         [self downloadImage:imageUrl completed:^(UIImage *image) {
             if (image) {
                 [allImages setObject:imageUrl forKey:@(i)];
@@ -214,16 +216,18 @@
             }
             
             CGFloat radio = 1.0*(failCount+allImages.count)/imageUrls.count;
-            self.hud.mode = MBProgressHUDModeDeterminate;
-            self.hud.progress = radio;
-            self.hud.labelText = [NSString stringWithFormat:@"%.f%%", 100.0*radio];
+            weakSlef.hud.mode = MBProgressHUDModeDeterminate;
+            weakSlef.hud.progress = radio;
+            weakSlef.hud.labelText = [NSString stringWithFormat:@"%.f%%", 100.0*radio];
             if (failCount+allImages.count == imageUrls.count) {
                 // 下载完成
-                if (self.hud)
+                if (weakSlef.hud)
                 {
-                    [self.hud hide:YES];
-                    [self.hud removeFromSuperview];
-                    self.hud = nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSlef.hud hide:YES];
+                        [weakSlef.hud removeFromSuperview];
+                        weakSlef.hud = nil;
+                    });
                 }
                 
                 block(allImages);
@@ -253,14 +257,14 @@
     }
     else
     {
-        __weak typeof(self) weakSelf = self;
+        INIT_WEAK_SELF;
         __block id<SDWebImageOperation> operation = [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
             block(image);
             if (image) {
-                [weakSelf storeImage:image withUrl:imageUrl];
+                [weakSlef storeImage:image withUrl:imageUrl];
             }
             
-            [weakSelf.operations removeObject:operation];
+            [weakSlef.operations removeObject:operation];
             operation = nil;
         }];
         if (operation) {

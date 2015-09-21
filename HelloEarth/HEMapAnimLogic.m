@@ -18,6 +18,7 @@
 @interface HEMapAnimLogic ()
 {
     NSArray *locPoints;
+    BOOL isClear;
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -34,6 +35,11 @@
 @end
 
 @implementation HEMapAnimLogic
+
+-(void)dealloc
+{
+    [self clear];
+}
 
 -(instancetype)initWithController:(UIViewController *)theViewC
 {
@@ -58,6 +64,7 @@
 
 -(void)requestImage:(enum MapImageType)type
 {
+    INIT_WEAK_SELF;
     [self.mapImagesManager requestImageList:type completed:^(enum MapImageDownloadType downloadType) {
         
         NSArray *imageUrls = nil;
@@ -69,11 +76,10 @@
         {
             imageUrls = [[CWDataManager sharedInstance].mapCloudData objectForKey:@"list"];
         }
-        self.allUrls = imageUrls;
-        NSString *url = [self.allUrls.firstObject objectForKey:@"l2"];
+        weakSlef.allUrls = imageUrls;
+        NSString *url = [weakSlef.allUrls.firstObject objectForKey:@"l2"];
         
-        __weak typeof(self) weakSlef = self;
-        [self.mapImagesManager downloadImageWithUrl:url type:type completed:^(UIImage *image) {
+        [weakSlef.mapImagesManager downloadImageWithUrl:url type:type completed:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (image) {
@@ -104,7 +110,8 @@
                     sticker.image = image;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        self.stickersObj = [self.theViewC addStickers:@[sticker] desc:@{kMaplyFade: @(1.0),
+                        [weakSlef.theViewC removeObject:weakSlef.stickersObj];
+                        weakSlef.stickersObj = [weakSlef.theViewC addStickers:@[sticker] desc:@{kMaplyFade: @(1.0),
                                                                                         kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+100),}];
                         
                         [weakSlef changeImageAnim:image];
@@ -124,15 +131,17 @@
         [self.delegate setPlayButtonSelect:NO];
     }
     
+    isClear = NO;
+    
     self.mapImagesManager.hudView = self.theViewC.view;
+    INIT_WEAK_SELF;
     [self.mapImagesManager requestImageList:type completed:^(enum MapImageDownloadType downloadType) {
         if (downloadType == MapImageDownloadTypeFail) {
             LOG(@"加载失败");
         }
         else
         {
-            __weak typeof(self) weakSlef = self;
-            [self.mapImagesManager downloadAllImageWithType:type completed:^(NSDictionary *images) {
+            [weakSlef.mapImagesManager downloadAllImageWithType:type completed:^(NSDictionary *images) {
                 
                 if (images) {
                     // 开始动画
@@ -160,16 +169,18 @@
         [self.timer invalidate];
         self.timer = nil;
     }
+    
+    INIT_WEAK_SELF;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(timeDidFired) userInfo:nil repeats:YES];
-        self.currentPlayIndex = index;
-        if (index >= self.allImages.count-1) {
-            self.currentPlayIndex = 0;
+        weakSlef.timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:weakSlef selector:@selector(timeDidFired) userInfo:nil repeats:YES];
+        weakSlef.currentPlayIndex = index;
+        if (index >= weakSlef.allImages.count-1) {
+            weakSlef.currentPlayIndex = 0;
         }
 //        self.playButton.selected = YES;
-        [self.delegate setPlayButtonSelect:YES];
+        [weakSlef.delegate setPlayButtonSelect:YES];
         
-        [self timeDidFired];
+        [weakSlef timeDidFired];
     });
 }
 
@@ -190,18 +201,16 @@
         
         if (self.currentPlayIndex > self.allImages.count-1) {
             [self.timer invalidate];
-            [self repeatAnimation];
+            [self performSelector:@selector(repeatAnimation) withObject:nil afterDelay:3.0];
         }
     }
 }
 
 -(void)repeatAnimation
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.timer) {
-            [self startAnimationWithIndex:0];
-        }
-    });
+    if (self.timer && !isClear) {
+        [self startAnimationWithIndex:0];
+    }
 }
 
 -(void)changeImageAnim:(UIImage *)image
@@ -249,6 +258,10 @@
 
 -(void)setTimeLabelText:(NSString *)text
 {
+    if (!text) {
+        return;
+    }
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if (self.type == 0)
     {
@@ -317,9 +330,13 @@
         [self.timer invalidate];
         self.timer = nil;
 //        self.playButton.selected = NO;
-        [self.delegate setPlayButtonSelect:NO];
-        
-        self.mapImagesManager = nil;
     }
+
+    [self.delegate setPlayButtonSelect:NO];
+    [self.delegate setProgressValue:0];
+    [self setTimeLabelText:[[self.allUrls firstObject] objectForKey:@"l1"]];
+    self.mapImagesManager = nil;
+    isClear = YES;
+    [self.theViewC removeObject:self.stickersObj];
 }
 @end

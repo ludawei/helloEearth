@@ -21,7 +21,7 @@
 @interface HEMapAnimLogic : NSObject
 
 @property (nonatomic,strong) MaplyComponentObject *stickersObj;
-@property (nonatomic,assign) id<HEMapAnimLogicDelegate> delegate;
+@property (nonatomic,weak) id<HEMapAnimLogicDelegate> delegate;
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 
