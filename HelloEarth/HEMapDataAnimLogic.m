@@ -10,6 +10,9 @@
 #import "CWDataManager.h"
 
 @interface HEMapDataAnimLogic ()
+{
+    BOOL isClear;
+}
 
 @property (nonatomic,strong) HEMapDatas *mapDatas;
 
@@ -20,6 +23,11 @@
 @end
 
 @implementation HEMapDataAnimLogic
+
+-(void)dealloc
+{
+    [self clear];
+}
 
 -(instancetype)initWithMapDatas:(HEMapDatas *)mapDatas
 {
@@ -32,13 +40,23 @@
 
 -(void)changeType
 {
-    [self.delegate willChangeObjs];
-    NSArray *comObjs = [self.mapDatas changeType:[self.types objectAtIndex:self.currentPlayIndex]];
+    [self.delegate clearObjs];
+    
+    NSString *type = [self.types objectAtIndex:self.currentPlayIndex];
+    id data = [[CWDataManager sharedInstance] mapdataByFileMark:type];
+    if ([data objectForKey:@"time"]) {
+        [self setTimeLabelText:[data objectForKey:@"time"]];
+    }
+    
+    NSArray *comObjs = [self.mapDatas changeType:type];
     [self.delegate changeObjs:comObjs];
 }
 
 -(void)showProductWithTypes:(NSArray *)types
 {
+    isClear = NO;
+    [self.delegate setPlayButtonSelect:NO];
+    
     self.types = types;
     
     self.currentPlayIndex = 0;
@@ -52,15 +70,17 @@
         [self.timer invalidate];
         self.timer = nil;
     }
+    
+    INIT_WEAK_SELF;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(timeDidFired) userInfo:nil repeats:YES];
-        self.currentPlayIndex = index;
-        if (index >= self.types.count-1) {
-            self.currentPlayIndex = 0;
+        weakSlef.timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:weakSlef selector:@selector(timeDidFired) userInfo:nil repeats:YES];
+        weakSlef.currentPlayIndex = index;
+        if (index >= weakSlef.types.count-1) {
+            weakSlef.currentPlayIndex = 0;
         }
-        [self.delegate setPlayButtonSelect:YES];
         
-        [self timeDidFired];
+        [weakSlef.delegate setPlayButtonSelect:YES];
+        [weakSlef timeDidFired];
     });
 }
 
@@ -75,18 +95,33 @@
         
         if (self.currentPlayIndex > self.types.count-1) {
             [self.timer invalidate];
-            [self repeatAnimation];
+            [self performSelector:@selector(repeatAnimation) withObject:nil afterDelay:3.0];
         }
     }
 }
 
 -(void)repeatAnimation
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.timer) {
-            [self startAnimationWithIndex:0];
-        }
-    });
+    if (self.timer && !isClear) {
+        [self startAnimationWithIndex:0];
+    }
+    else
+    {
+        
+    }
+}
+
+-(void)setTimeLabelText:(NSString *)text
+{
+    if (!text) {
+        return;
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]/1000.0];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
+    dateFormatter = nil;
 }
 
 -(void)changeProgress:(UISlider *)progressView
@@ -112,6 +147,7 @@
     {
         [self startAnimationWithIndex:0];
     }
+    isClear = NO;
 }
 
 -(void)clear
@@ -121,6 +157,11 @@
         self.timer = nil;
         [self.delegate setPlayButtonSelect:NO];
     }
+    
+    [self.delegate setProgressValue:0];
+    [self setTimeLabelText:@""];
+    isClear = YES;
+    [self.delegate clearObjs];
 }
 
 @end

@@ -167,7 +167,8 @@
     self.tipLabel.font = font;
     [self.view addSubview:self.tipLabel];
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(self.textView).offset(5);
+        make.top.mas_equalTo(self.textView).offset(7);
+        make.left.mas_equalTo(self.textView).offset(5);
         make.right.mas_equalTo(self.textView).offset(-5);
     }];
     [self.tipLabel sizeToFit];
@@ -203,7 +204,7 @@
         make.top.mas_equalTo(self.textField.mas_bottom).offset(25);
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(self.view).multipliedBy(0.3);
-        make.height.mas_equalTo(35);
+        make.height.mas_equalTo(38);
     }];
     [button addTarget:self action:@selector(clickButton) forControlEvents:UIControlEventTouchUpInside];
     

@@ -12,8 +12,8 @@
 
 @protocol HEMapDataAnimDelegate <HEMapAnimLogicDelegate>
 
--(void)willChangeObjs;
 -(void)changeObjs:(NSArray *)objs;
+-(void)clearObjs;
 
 @end
 

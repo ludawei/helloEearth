@@ -41,7 +41,7 @@
 
 NS_ENUM(NSInteger, MapAnimType)
 {
-    MapAnimTypeImage,
+    MapAnimTypeImage=1,
     MapAnimTypeData,
 };
 
@@ -607,6 +607,12 @@ NS_ENUM(NSInteger, MapAnimType)
                 self.animType = MapAnimTypeData;
                 [self.mapDataAnimLogic showProductWithTypes:types];
                 
+                // 设置时间
+//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//                NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[[[responseObject firstObject] objectForKey:@"time"] integerValue]/1000.0];
+//                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//                self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+                
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
             else
@@ -622,6 +628,12 @@ NS_ENUM(NSInteger, MapAnimType)
                     [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
                     self.comObjs = [self.mapDatas changeType:productType];
                     
+                    // 设置时间
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[[[responseObject firstObject] objectForKey:@"time"] integerValue]/1000.0];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                    self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+                    
                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 }
             }
@@ -634,6 +646,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)resetMapUI
 {
+    [self.mapDataAnimLogic clear];
     [self.theViewC removeObjects:self.comObjs];
     self.comObjs = nil;
     
@@ -659,6 +672,8 @@ NS_ENUM(NSInteger, MapAnimType)
     if (!self.statisticsView.hidden) {
         self.statisticsView.hidden = YES;
     }
+    
+    self.timeLabel.text = @"";
 }
 
 #pragma mark - map actions
@@ -890,6 +905,17 @@ NS_ENUM(NSInteger, MapAnimType)
     player = nil;
 }
 
+-(void)resetLocationToInit
+{
+    if (show3D) {
+        [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:0.3];
+    }
+    else
+    {
+        [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
+    }
+}
+
 -(void)clickMenu:(UIButton *)button
 {
     switch (button.tag) {
@@ -943,13 +969,7 @@ NS_ENUM(NSInteger, MapAnimType)
         case 3:
         {
             // reset
-            if (show3D) {
-                [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:0.3];
-            }
-            else
-            {
-                [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
-            }
+            [self resetLocationToInit];
             break;
         }
         case 4:
@@ -1308,14 +1328,22 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 #pragma mark - HEMapDataAnimDelegate
--(void)willChangeObjs
-{
-    [self resetMapUI];
-}
+//-(void)willChangeObjs
+//{
+////    [self resetMapUI];
+//    [self.theViewC removeObjects:self.comObjs];
+//    self.comObjs = nil;
+//}
 
 -(void)changeObjs:(NSArray *)objs
 {
     self.comObjs = objs;
+}
+
+-(void)clearObjs
+{
+    [self.theViewC removeObjects:self.comObjs];
+    self.comObjs = nil;
 }
 
 #pragma makr - HESettingDelegate
@@ -1426,6 +1454,7 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *dataType = productType;
     NSString *dataName = productName;
     
+    self.animType = 0;
     if ([dataType rangeOfString:@"local"].location != NSNotFound) {
         isBottomFull = NO;
         
@@ -1433,12 +1462,14 @@ NS_ENUM(NSInteger, MapAnimType)
         self.titleLbl.text = dataName;
         if ([dataType isEqualToString:@"local_radar"]) {
             isBottomFull = YES;
+            self.animType = MapAnimTypeImage;
             
             [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
         }
         else if ([dataType isEqualToString:@"local_cloud"])
         {
             isBottomFull = YES;
+            self.animType = MapAnimTypeImage;
             
             [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
         }
@@ -1457,6 +1488,8 @@ NS_ENUM(NSInteger, MapAnimType)
         
         [self changeProduct_normal];
     }
+    
+    [self resetLocationToInit];
 }
 
 @end

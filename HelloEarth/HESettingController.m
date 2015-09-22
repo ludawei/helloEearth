@@ -129,8 +129,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.item == 3) {
-        NSString *UrlStr = [NSString stringWithFormat:@"telprompt://%@", @"010-68408068"];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UrlStr]];
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        HESettingController *next = (HESettingController *)[board instantiateViewControllerWithIdentifier:@"aboutUs"];
+        [self.navigationController pushViewController:next animated:YES];
     }
     else if (indexPath.item == 4)
     {

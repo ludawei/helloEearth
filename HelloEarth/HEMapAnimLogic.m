@@ -54,6 +54,8 @@
 {
     self.type = type==MapImageTypeRain?0:1;
     
+    [self.delegate setPlayButtonSelect:NO];
+    
     if (!self.mapImagesManager) {
         self.mapImagesManager = [[MapImagesManager alloc] init];
     }
@@ -330,9 +332,10 @@
         [self.timer invalidate];
         self.timer = nil;
 //        self.playButton.selected = NO;
+        
+        [self.delegate setPlayButtonSelect:NO];
     }
-
-    [self.delegate setPlayButtonSelect:NO];
+    
     [self.delegate setProgressValue:0];
     [self setTimeLabelText:[[self.allUrls firstObject] objectForKey:@"l1"]];
     self.mapImagesManager = nil;
