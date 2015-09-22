@@ -80,7 +80,7 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic,strong) HEMapDataAnimLogic *mapDataAnimLogic;
 
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
-@property (nonatomic,strong) MaplyComponentObject *markersObj;
+@property (nonatomic,strong) MaplyComponentObject *markersObj,*markersTJ1,*markersTJ2,*markersTJ3;
 @property (nonatomic,strong) MaplyComponentObject *markerLocation;
 
 @property (nonatomic,assign) enum MapAnimType animType;
@@ -100,7 +100,6 @@ NS_ENUM(NSInteger, MapAnimType)
 
 // 统计
 @property (nonatomic,copy) NSDictionary *markerDatas;
-@property (nonatomic)       NSInteger level;
 @property (nonatomic,strong) MapStatisticsBottomView *statisticsView;
 
 // 请求
@@ -161,7 +160,7 @@ NS_ENUM(NSInteger, MapAnimType)
     // Do any additional setup after loading the view, typically from a nib.
     
     show3D = YES;
-    showLight = YES;
+    showLight = NO;
     showLocation = NO;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -488,6 +487,7 @@ NS_ENUM(NSInteger, MapAnimType)
     }];
     
     self.progressView = [[UISlider alloc] init];
+    self.progressView.continuous = NO;
     self.progressView.userInteractionEnabled = YES;
     self.progressView.backgroundColor = [UIColor clearColor];
     self.progressView.minimumValue = 0;
@@ -586,8 +586,6 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     self.titleLbl.text = productName;
-
-    [self resetMapUI];
     
     [MBProgressHUD showHUDInView:self.view andText:@"请求数据..."];
     NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
@@ -646,6 +644,8 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)resetMapUI
 {
+    [self.currentOperation cancel];
+    
     [self.mapDataAnimLogic clear];
     [self.theViewC removeObjects:self.comObjs];
     self.comObjs = nil;
@@ -654,11 +654,35 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
     self.mapAnimLogic.stickersObj = nil;
     
+    [self clearMarkerObjs];
+    
+    if (!self.statisticsView.hidden) {
+        self.statisticsView.hidden = YES;
+    }
+    
+    self.timeLabel.text = @"";
+}
+
+-(void)clearMarkerObjs
+{
+    NSMutableArray *temp = [NSMutableArray array];
     if (self.markersObj) {
-        [self.theViewC disableObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        [temp addObject:self.markersObj];
+    }
+    if (self.markersTJ1) {
+        [temp addObject:self.markersTJ1];
+    }
+    if (self.markersTJ2) {
+        [temp addObject:self.markersTJ2];
+    }
+    if (self.markersTJ3) {
+        [temp addObject:self.markersTJ3];
+    }
+    if (temp.count > 0) {
+        [self.theViewC disableObjects:temp mode:MaplyThreadCurrent];
         [self.theViewC startChanges];
         
-        [self.theViewC removeObjects:@[self.markersObj] mode:MaplyThreadCurrent];
+        [self.theViewC removeObjects:temp mode:MaplyThreadCurrent];
         
         // 修改bug : 删除markers时的黑色块
         sleep(0.2);
@@ -668,12 +692,9 @@ NS_ENUM(NSInteger, MapAnimType)
         });
     }
     self.markersObj = nil;
-    
-    if (!self.statisticsView.hidden) {
-        self.statisticsView.hidden = YES;
-    }
-    
-    self.timeLabel.text = @"";
+    self.markersTJ1 = nil;
+    self.markersTJ2 = nil;
+    self.markersTJ3 = nil;
 }
 
 #pragma mark - map actions
@@ -688,23 +709,20 @@ NS_ENUM(NSInteger, MapAnimType)
     // handle this in another thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),
                    ^{
-                       NSArray *allOutlines = [[NSBundle mainBundle] pathsForResourcesOfType:@"geojson" inDirectory:nil];
+                       NSString *outlineFile = [[NSBundle mainBundle] pathForResource:@"china_b" ofType:@"json"];
                        
-                       for (NSString *outlineFile in allOutlines)
+                       NSData *jsonData = [NSData dataWithContentsOfFile:outlineFile];
+                       if (jsonData)
                        {
-                           NSData *jsonData = [NSData dataWithContentsOfFile:outlineFile];
-                           if (jsonData)
-                           {
-                               MaplyVectorObject *wgVecObj = [MaplyVectorObject VectorObjectFromGeoJSON:jsonData];
-                               
-                               // the admin tag from the country outline geojson has the country name ­ save
-                               NSString *vecName = [[wgVecObj attributes] objectForKey:@"name"];
-                               wgVecObj.userObject = vecName;
-                               
-                               // add the outline to our view
-                               [weakSlef.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
-                               // If you ever intend to remove these, keep track of the MaplyComponentObjects above.
-                           }
+                           MaplyVectorObject *wgVecObj = [MaplyVectorObject VectorObjectFromGeoJSONApple:jsonData];
+                           
+                           // the admin tag from the country outline geojson has the country name ­ save
+                           NSString *vecName = [[wgVecObj attributes] objectForKey:@"name"];
+                           wgVecObj.userObject = vecName;
+                           
+                           // add the outline to our view
+                           [weakSlef.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
+                           // If you ever intend to remove these, keep track of the MaplyComponentObjects above.
                        }
                        
                    });
@@ -763,64 +781,52 @@ NS_ENUM(NSInteger, MapAnimType)
         anno.loc             = MaplyCoordinateMakeWithDegrees(location.coordinate.longitude, location.coordinate.latitude);
         anno.offset          = CGPointMake(0, img.size.height/2);
         anno.size            = img.size;//CGSizeMake(30, 30);
-        //    anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
+        anno.userObject      = @{@"type": @"userLocation", @"title": [CWLocationManager sharedInstance].plackMark.locality, @"subTitle": [CWLocationManager sharedInstance].plackMark.name };
         anno.image = img;
+        anno.layoutImportance = MAXFLOAT;
         
-        self.markerLocation = [self.theViewC addScreenMarkers:@[anno] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+        self.markerLocation = [self.theViewC addScreenMarkers:@[anno] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+2000)}];
     }
     
 }
 
 -(void)addTongJiMarkers
 {
-    //    CGFloat zoomLevel = [self.theViewC height];
-    //    NSMutableArray *annos = [NSMutableArray array];
-    //
-    //    NSInteger level = 1;
-    //    [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level1"]];
-    //
-    //    if (zoomLevel >= 2.5)
-    //    {
-    //        level = 2;
-    //        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level2"]];
-    //    }
-    //
-    //    if (zoomLevel >= 4.5) {
-    //        level = 3;
-    //        [annos addObjectsFromArray:[self annotationsWithServerDatas:@"level3"]];
-    //    }
-    //
-    //    if (level == self.level) {
-    //        return;
-    //    }
-    //
-    //    self.level = level;
-    
     [MBProgressHUD showHUDInView:self.view andText:@"处理中..."];
     INIT_WEAK_SELF;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *annos = [weakSlef annotationsWithServerDatas:@"level3"];
+        NSArray *annos1 = [weakSlef annotationsWithServerDatas:@"level1"];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [weakSlef resetMapUI];
-            weakSlef.markersObj = [weakSlef.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-        });
+        if (annos1 && [productType isEqualToString:@"local_tongji"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSlef.markersTJ1 = [weakSlef.theViewC addScreenMarkers:annos1 desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+                [MBProgressHUD hideAllHUDsForView:weakSlef.view animated:YES];
+            });
+        }
     });
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
+        NSArray *annos2 = [weakSlef annotationsWithServerDatas:@"level2"];
+        if (annos2 && [productType isEqualToString:@"local_tongji"]) {
+            weakSlef.markersTJ2 = [weakSlef.theViewC addScreenMarkers:annos2 desc:@{kMaplyMaxVis:@0.1, kMaplyMinVis:@0.0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+            annos2 = nil;
+        }
+    }];
+    [op2 setCompletionBlock:^{
+        LOG(@"op2 完成");
+    }];
+    
+//    NSBlockOperation *op3 = [NSBlockOperation blockOperationWithBlock:
+    [op2 addExecutionBlock:^{
+        NSArray *annos3 = [weakSlef annotationsWithServerDatas:@"level3"];
+        if (annos3 && [productType isEqualToString:@"local_tongji"]) {
+            weakSlef.markersTJ3 = [weakSlef.theViewC addScreenMarkers:annos3 desc:@{kMaplyMaxVis:@0.05, kMaplyMinVis:@0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+            annos3 = nil;
+        }
+    }];
+    [queue addOperation:op2];
 }
-
--(void)setMarkersObj:(MaplyComponentObject *)markersObj
-{
-    _markersObj = markersObj;
-    if (markersObj && [productType isEqualToString:@"local_tongji"]) {
-        INIT_WEAK_SELF;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideAllHUDsForView:weakSlef.view animated:YES];
-        });
-
-    }
-}
-
 
 -(void)addNetEyeMarkers:(NSArray *)datas
 {
@@ -836,7 +842,6 @@ NS_ENUM(NSInteger, MapAnimType)
         [annos addObject:anno];
     }
     
-    [self resetMapUI];
     self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
 }
 
@@ -862,6 +867,8 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)globeViewController:(WhirlyGlobeViewController *)viewC didSelect:(NSObject *)selectedObj
 {
+    [self.theViewC clearAnnotations];
+    
     if ([selectedObj isKindOfClass:[MaplyScreenMarker class]])
     {
         MaplyMarker *marker = (MaplyMarker *)selectedObj;
@@ -894,6 +901,14 @@ NS_ENUM(NSInteger, MapAnimType)
             [self presentMoviePlayerViewControllerAnimated:player];
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doVideoPlayFinished:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+        }
+        else if([data[@"type"] isEqualToString:@"userLocation"])
+        {
+            MaplyCoordinate loc = marker.loc;
+            MaplyAnnotation *annotate = [[MaplyAnnotation alloc] init];
+            annotate.title = data[@"title"];
+            annotate.subTitle = data[@"subTitle"];
+            [self.theViewC addAnnotation:annotate forPoint:loc offset:CGPointMake(0, -15)];
         }
     }
 }
@@ -1194,16 +1209,26 @@ NS_ENUM(NSInteger, MapAnimType)
     
     NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
     for (NSInteger i=0; i<datas.count; i++) {
+        if (![productType isEqualToString:@"local_tongji"]) {
+            return nil;
+        }
         NSDictionary *dict = [datas objectAtIndex:i];
-        
+#if 0
+        MaplyScreenLabel *anno = [MaplyScreenLabel new];
+        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
+        anno.text            = dict[@"name"];
+        anno.iconImage2      = [UIImage imageNamed:@"circle39"];
+        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};;
+#else
         UIImage *newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
         
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
-        anno.layoutImportance = 1.0f;
+        anno.layoutImportance = [level isEqualToString:@"level1"]?MAXFLOAT:10.0f;
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
         anno.size            = CGSizeMake(30, 30);
         anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
         anno.image           = newImage;
+#endif
         [annos addObject:anno];
     }
     
@@ -1486,6 +1511,7 @@ NS_ENUM(NSInteger, MapAnimType)
     {
         isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
         
+        [self resetMapUI];
         [self changeProduct_normal];
     }
     

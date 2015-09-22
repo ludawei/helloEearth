@@ -50,8 +50,6 @@
     [self.collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
     [self.view addSubview:self.collView];
     
-    [self scrollToLocation];
-    
     self.collView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
     NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/getmicapsproductlist?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
@@ -60,7 +58,6 @@
         if (responseObject) {
             self.datas = [self formatDatasFromArray:(NSArray *)responseObject];
             [self.collView reloadData];
-//            [self scrollToLocation];
             
             [[CWDataManager sharedInstance] setProductList:(NSArray *)responseObject];
         }
@@ -101,6 +98,15 @@
     [super viewWillAppear:animated];
     
     [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+    
+    [self.collView setContentOffset:[CWDataManager sharedInstance].productOffset animated:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [CWDataManager sharedInstance].productOffset = self.collView.contentOffset;
 }
 
 - (void)didReceiveMemoryWarning {

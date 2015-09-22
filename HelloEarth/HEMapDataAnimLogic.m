@@ -105,10 +105,6 @@
     if (self.timer && !isClear) {
         [self startAnimationWithIndex:0];
     }
-    else
-    {
-        
-    }
 }
 
 -(void)setTimeLabelText:(NSString *)text
@@ -132,7 +128,11 @@
         [self.delegate setPlayButtonSelect:NO];
     }
     
-    self.currentPlayIndex = round(progressView.value*(self.types.count-1)/progressView.maximumValue);
+    NSInteger newIndex = round(progressView.value*(self.types.count-1)/progressView.maximumValue);
+    if (newIndex == self.currentPlayIndex) {
+        return;
+    }
+    
     [self changeType];
 }
 

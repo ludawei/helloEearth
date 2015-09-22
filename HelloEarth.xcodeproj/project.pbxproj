@@ -28,7 +28,6 @@
 		EE4CBCF31BA7C787002D322E /* HEPreAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF21BA7C787002D322E /* HEPreAnim.m */; };
 		EE4CBCF61BA7C863002D322E /* HEDisAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF51BA7C863002D322E /* HEDisAnim.m */; };
 		EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */; };
-		EE4CC3C01BA914C2002D322E /* CHN.geojson in Resources */ = {isa = PBXBuildFile; fileRef = EE4CC3BF1BA914C2002D322E /* CHN.geojson */; };
 		EE5B996C1BAA6BD000A23E35 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */; };
 		EE5B996E1BAA6BDC00A23E35 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */; };
 		EE5B99701BAA6BE400A23E35 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996F1BAA6BE400A23E35 /* libz.tbd */; };
@@ -97,6 +96,7 @@
 		EED685901BB0002C005E2763 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6858F1BB0002C005E2763 /* WebController.m */; settings = {ASSET_TAGS = (); }; };
 		EED685961BB00063005E2763 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685931BB00063005E2763 /* NJKWebViewProgress.m */; settings = {ASSET_TAGS = (); }; };
 		EED685971BB00063005E2763 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685951BB00063005E2763 /* NJKWebViewProgressView.m */; settings = {ASSET_TAGS = (); }; };
+		EED6859F1BB149F5005E2763 /* china_b.json in Resources */ = {isa = PBXBuildFile; fileRef = EED6859E1BB149F5005E2763 /* china_b.json */; settings = {ASSET_TAGS = (); }; };
 		EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6051B748B78000EADC1 /* CWDataManager.m */; };
 		EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6091B748B78000EADC1 /* MapImagesManager.m */; };
 		EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B60B1B748B79000EADC1 /* PLHttpManager.m */; };
@@ -216,7 +216,6 @@
 		EE4CBCF51BA7C863002D322E /* HEDisAnim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEDisAnim.m; sourceTree = "<group>"; };
 		EE4CBD1D1BA82119002D322E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
 		EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
-		EE4CC3BF1BA914C2002D322E /* CHN.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHN.geojson; sourceTree = "<group>"; };
 		EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996F1BAA6BE400A23E35 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -612,6 +611,7 @@
 		EED685931BB00063005E2763 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		EED685941BB00063005E2763 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		EED685951BB00063005E2763 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
+		EED6859E1BB149F5005E2763 /* china_b.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = china_b.json; sourceTree = "<group>"; };
 		EED8B6041B748B78000EADC1 /* CWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDataManager.h; sourceTree = "<group>"; };
 		EED8B6051B748B78000EADC1 /* CWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWDataManager.m; sourceTree = "<group>"; };
 		EED8B6081B748B78000EADC1 /* MapImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapImagesManager.h; sourceTree = "<group>"; };
@@ -1645,8 +1645,8 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EED6859E1BB149F5005E2763 /* china_b.json */,
 				EE9F6CAE1BABBCD80006C8CF /* test.png */,
-				EE4CC3BF1BA914C2002D322E /* CHN.geojson */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
 				EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */,
 				EE4CBCB21BA6B5C1002D322E /* APP启动图－3.jpg */,
@@ -1764,7 +1764,6 @@
 				EE4CBCB31BA6B5C1002D322E /* APP启动图－3.jpg in Resources */,
 				EE9F6CAF1BABBCD80006C8CF /* test.png in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
-				EE4CC3C01BA914C2002D322E /* CHN.geojson in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
 				EE9F6C9D1BABB2B10006C8CF /* UMSCommentDetailController.xib in Resources */,
 				EE9F6CA31BABB2B10006C8CF /* UMSnsAccountViewController.xib in Resources */,
@@ -1775,6 +1774,7 @@
 				EE4CBCED1BA7A95E002D322E /* 背景.jpg in Resources */,
 				EE9F6C9F1BABB2B10006C8CF /* UMSCommentInputControlleriPad.xib in Resources */,
 				EE9F6CA41BABB2B10006C8CF /* UMSShareListController.xib in Resources */,
+				EED6859F1BB149F5005E2763 /* china_b.json in Resources */,
 				EE9F6CA51BABB2B10006C8CF /* UMSocialSDKResourcesNew.bundle in Resources */,
 				EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */,
 				EE47F8A21B71F6160000F066 /* star_background.png in Resources */,
@@ -2050,7 +2050,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2081,7 +2081,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "da376267-a3b0-468c-83d6-cc2927037eaf";
+				PROVISIONING_PROFILE = "08891191-5e4e-4b90-81ca-3d39b5254f88";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2090,7 +2090,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2121,7 +2121,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "da376267-a3b0-468c-83d6-cc2927037eaf";
+				PROVISIONING_PROFILE = "08891191-5e4e-4b90-81ca-3d39b5254f88";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

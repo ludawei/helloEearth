@@ -19,6 +19,7 @@ NS_ENUM(NSInteger, CWDataType){
 
 + (CWDataManager *)sharedInstance;
 
+@property (nonatomic,assign) CGPoint productOffset;
 @property (readwrite) NSDictionary *mapRainData;
 @property (readwrite) NSDictionary *mapCloudData;
 

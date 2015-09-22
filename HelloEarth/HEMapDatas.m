@@ -65,7 +65,7 @@
         {
             [comObjs addObjectsFromArray:[self addAreasToMap]];
             
-            [comObjs addObjectsFromArray:[self addLine_symbolsToMap]];
+//            [comObjs addObjectsFromArray:[self addLine_symbolsToMap]];
         }
         //        [self addSymbolsToMap];
     }
