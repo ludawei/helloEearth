@@ -709,7 +709,7 @@ NS_ENUM(NSInteger, MapAnimType)
     // handle this in another thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),
                    ^{
-                       NSString *outlineFile = [[NSBundle mainBundle] pathForResource:@"china_b" ofType:@"json"];
+                       NSString *outlineFile = [[NSBundle mainBundle] pathForResource:@"china" ofType:@"json"];
                        
                        NSData *jsonData = [NSData dataWithContentsOfFile:outlineFile];
                        if (jsonData)

@@ -43,6 +43,7 @@
     [leftBackView addSubview:line];
     
     [backView addSubview:leftBackView];
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     self.tableView.backgroundView = backView;
     
     self.tableView.tableFooterView = [UIView new];

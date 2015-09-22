@@ -17,6 +17,9 @@
 #import "WXApi.h"
 
 @interface HEShareController ()
+{
+    BOOL finishLoad;
+}
 //@property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *contentView,*shareView;
 @property (nonatomic,strong) UIControl *dimView;
@@ -51,6 +54,23 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    finishLoad = YES;
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if (finishLoad) {
+        return;
+    }
+    
+    [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.centerY.mas_equalTo(self.view.mas_centerY).offset((STATUS_HEIGHT+SELF_NAV_HEIGHT)/2);
+        make.size.mas_equalTo(self.contentView.bounds.size);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,23 +81,23 @@
 -(void)initViews
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
     // top views
     UIView *topView = [UIView new];
-    topView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     [self.view addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(STATUS_HEIGHT+SELF_NAV_HEIGHT);
-        make.bottom.left.right.mas_equalTo(self.view);
+        make.left.right.mas_equalTo(self.view);
     }];
     self.contentView = topView;
     
     UIImageView *logo = [UIImageView new];
     logo.image = [UIImage imageNamed:@"logo"];
     logo.contentMode = UIViewContentModeScaleAspectFit;
-    [topView addSubview:logo];
+    [self.view addSubview:logo];
     [logo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
+        make.top.mas_equalTo((STATUS_HEIGHT+SELF_NAV_HEIGHT)+10);
         make.right.mas_equalTo(-10);
         make.height.mas_equalTo(60);
         make.width.mas_equalTo(logo.image.size.width/logo.image.size.height * 60);
@@ -88,7 +108,8 @@
     shareImageView.contentMode = UIViewContentModeScaleAspectFit;
     [topView addSubview:shareImageView];
     
-    CGSize imgSize = CGSizeMake(self.view.width*0.55, self.view.width*0.55*shareImageView.image.size.height/shareImageView.image.size.width);
+    CGFloat imgWidth = MIN(self.view.width*0.55, 250);
+    CGSize imgSize = CGSizeMake(imgWidth, imgWidth*shareImageView.image.size.height/shareImageView.image.size.width);
     [shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(topView.mas_centerX);
         make.top.mas_greaterThanOrEqualTo(self.view.height*0.02).with.priorityHigh();
@@ -121,6 +142,10 @@
         make.centerX.mas_equalTo(topView.mas_centerX);
         make.width.mas_equalTo(topView.mas_width).multipliedBy(0.9);
         make.height.mas_greaterThanOrEqualTo(textHeight*([text size].height+10));
+    }];
+    
+    [topView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(titleLabel.mas_bottom).offset(10);
     }];
     
     self.dimView = [UIControl new];
@@ -255,7 +280,7 @@
     return button;
 }
 
-#pragma mark - actions 
+#pragma mark - actions
 -(void)clickBack
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -343,7 +368,7 @@
 
 -(void)shareWithType:(NSString *)type
 {
-    NSString *imageUrl = @"www.weather.com.cn";
+    NSString *imageUrl = @"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
     UIImage *shareImage = [self.contentView viewShot];//[[UIImageView sharedImageCache] cachedImageForRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]]];
     
     [UMSocialData defaultData].extConfig.qqData.title = @"蓝π蚂蚁 分享";
