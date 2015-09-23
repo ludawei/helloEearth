@@ -115,6 +115,11 @@ NS_ENUM(NSInteger, MapAnimType)
 //    return UIStatusBarStyleLightContent;
 //}
 
+-(BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -468,6 +473,16 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 #pragma mark - setup views
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    if (!isHiddenStatusBar) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -1010,7 +1025,7 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)clickExpand
 {
     self.expandButton.selected = !self.expandButton.selected;
-    if ([UIApplication sharedApplication].statusBarHidden) {
+    if (self.navigationController.navigationBarHidden) {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
