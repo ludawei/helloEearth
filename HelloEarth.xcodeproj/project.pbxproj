@@ -96,7 +96,9 @@
 		EED685901BB0002C005E2763 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6858F1BB0002C005E2763 /* WebController.m */; settings = {ASSET_TAGS = (); }; };
 		EED685961BB00063005E2763 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685931BB00063005E2763 /* NJKWebViewProgress.m */; settings = {ASSET_TAGS = (); }; };
 		EED685971BB00063005E2763 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685951BB00063005E2763 /* NJKWebViewProgressView.m */; settings = {ASSET_TAGS = (); }; };
-		EED685A31BB15A45005E2763 /* china.json in Resources */ = {isa = PBXBuildFile; fileRef = EED685A21BB15A45005E2763 /* china.json */; settings = {ASSET_TAGS = (); }; };
+		EED685A61BB24DD0005E2763 /* HEBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685A51BB24DD0005E2763 /* HEBaseController.m */; settings = {ASSET_TAGS = (); }; };
+		EED685A91BB2526A005E2763 /* UIImage+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685A81BB2526A005E2763 /* UIImage+Extra.m */; settings = {ASSET_TAGS = (); }; };
+		EED685AB1BB2861B005E2763 /* china.json in Resources */ = {isa = PBXBuildFile; fileRef = EED685AA1BB2861B005E2763 /* china.json */; settings = {ASSET_TAGS = (); }; };
 		EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6051B748B78000EADC1 /* CWDataManager.m */; };
 		EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6091B748B78000EADC1 /* MapImagesManager.m */; };
 		EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B60B1B748B79000EADC1 /* PLHttpManager.m */; };
@@ -611,7 +613,11 @@
 		EED685931BB00063005E2763 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		EED685941BB00063005E2763 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		EED685951BB00063005E2763 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
-		EED685A21BB15A45005E2763 /* china.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = china.json; sourceTree = "<group>"; };
+		EED685A41BB24DD0005E2763 /* HEBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEBaseController.h; sourceTree = "<group>"; };
+		EED685A51BB24DD0005E2763 /* HEBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEBaseController.m; sourceTree = "<group>"; };
+		EED685A71BB2526A005E2763 /* UIImage+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extra.h"; sourceTree = "<group>"; };
+		EED685A81BB2526A005E2763 /* UIImage+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
+		EED685AA1BB2861B005E2763 /* china.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = china.json; sourceTree = "<group>"; };
 		EED8B6041B748B78000EADC1 /* CWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDataManager.h; sourceTree = "<group>"; };
 		EED8B6051B748B78000EADC1 /* CWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWDataManager.m; sourceTree = "<group>"; };
 		EED8B6081B748B78000EADC1 /* MapImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapImagesManager.h; sourceTree = "<group>"; };
@@ -1446,6 +1452,8 @@
 		EED8B6B41B748C71000EADC1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EED685A71BB2526A005E2763 /* UIImage+Extra.h */,
+				EED685A81BB2526A005E2763 /* UIImage+Extra.m */,
 				EE9F6C2A1BABA1720006C8CF /* NSDate+Utilities.h */,
 				EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */,
 				EE4CBCE71BA6BB19002D322E /* UIImageView+AnimationCompletion.h */,
@@ -1638,6 +1646,8 @@
 				EE4CBCEF1BA7BA92002D322E /* HESplashController.m */,
 				EE9F6CB01BAFF3150006C8CF /* HEAboutController.h */,
 				EE9F6CB11BAFF3150006C8CF /* HEAboutController.m */,
+				EED685A41BB24DD0005E2763 /* HEBaseController.h */,
+				EED685A51BB24DD0005E2763 /* HEBaseController.m */,
 			);
 			path = HelloEarth;
 			sourceTree = "<group>";
@@ -1645,7 +1655,7 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EED685A21BB15A45005E2763 /* china.json */,
+				EED685AA1BB2861B005E2763 /* china.json */,
 				EE9F6CAE1BABBCD80006C8CF /* test.png */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
 				EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */,
@@ -1774,7 +1784,7 @@
 				EE4CBCED1BA7A95E002D322E /* 背景.jpg in Resources */,
 				EE9F6C9F1BABB2B10006C8CF /* UMSCommentInputControlleriPad.xib in Resources */,
 				EE9F6CA41BABB2B10006C8CF /* UMSShareListController.xib in Resources */,
-				EED685A31BB15A45005E2763 /* china.json in Resources */,
+				EED685AB1BB2861B005E2763 /* china.json in Resources */,
 				EE9F6CA51BABB2B10006C8CF /* UMSocialSDKResourcesNew.bundle in Resources */,
 				EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */,
 				EE47F8A21B71F6160000F066 /* star_background.png in Resources */,
@@ -1877,9 +1887,11 @@
 				EE9F6C571BABA4580006C8CF /* AFNetworkReachabilityManager.m in Sources */,
 				EED8B6A51B748C58000EADC1 /* CWHttpCmdMicapspeed.m in Sources */,
 				EED8B6DA1B748C71000EADC1 /* UIView+Extra.m in Sources */,
+				EED685A91BB2526A005E2763 /* UIImage+Extra.m in Sources */,
 				EED8B6B01B748C58000EADC1 /* DecStr.m in Sources */,
 				EED8B77C1B74BE3A000EADC1 /* DrawPathView.m in Sources */,
 				EED8B66E1B748BF5000EADC1 /* SDWebImageDecoder.m in Sources */,
+				EED685A61BB24DD0005E2763 /* HEBaseController.m in Sources */,
 				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
 				EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */,
 				EED8B6B21B748C58000EADC1 /* UtilConstants.m in Sources */,

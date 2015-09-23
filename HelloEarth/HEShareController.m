@@ -15,6 +15,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "WXApi.h"
+#import "UIImage+Extra.h"
 
 @interface HEShareController ()
 {
@@ -108,7 +109,7 @@
     shareImageView.contentMode = UIViewContentModeScaleAspectFit;
     [topView addSubview:shareImageView];
     
-    CGFloat imgWidth = MIN(self.view.width*0.55, 250);
+    CGFloat imgWidth = MIN(MIN(self.view.width, self.view.height)*0.55, 250);
     CGSize imgSize = CGSizeMake(imgWidth, imgWidth*shareImageView.image.size.height/shareImageView.image.size.width);
     [shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(topView.mas_centerX);
@@ -119,7 +120,7 @@
     }];
     
     UIImageView *inImageView = [UIImageView new];
-    inImageView.image = self.image;
+    inImageView.image = self.imageRotationAngle!=0?[self.image rotatedByDegrees:self.imageRotationAngle]:self.image;
     [shareImageView addSubview:inImageView];
     [inImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(shareImageView.mas_centerX);

@@ -26,7 +26,7 @@
     return NO;
 }
 
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -80,7 +80,7 @@
         loadingView.image = [imgs lastObject];
         loadingView.animationImages = imgs;
         loadingView.animationRepeatCount = 1;
-        loadingView.animationDuration = 4.8;//5.8;
+        loadingView.animationDuration = 5.0;//5.8;
         [loadingView startAnimatingWithCompletionBlock:^(BOOL success) {
             if (success) {
                 
@@ -92,6 +92,20 @@
             }
         }];
     });
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(orientation)) {
+        [UIView setAnimationsEnabled:NO];
+        
+        // Stackoverflow #26357162 to force orientation
+        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

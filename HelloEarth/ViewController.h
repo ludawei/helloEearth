@@ -6,9 +6,11 @@
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HEBaseController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : HEBaseController
+
+-(void)preLoadMapView;
 
 @end
 

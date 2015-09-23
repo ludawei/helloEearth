@@ -6,10 +6,11 @@
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HEBaseController.h"
 
-@interface HEShareController : UIViewController
+@interface HEShareController : HEBaseController
 
 @property (nonatomic,strong) UIImage *image;
+@property (nonatomic,assign) CGFloat imageRotationAngle;
 
 @end

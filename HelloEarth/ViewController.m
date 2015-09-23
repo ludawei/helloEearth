@@ -114,86 +114,25 @@ NS_ENUM(NSInteger, MapAnimType)
 //{
 //    return UIStatusBarStyleLightContent;
 //}
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
--(void)deviceRotated:(NSNotification *)note{
-//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-//    
-//    NSNumber *value = [NSNumber numberWithInt:orientation];
-//    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    
-    
-//    [UIView animateWithDuration:0.5 animations:^{
-//    
-//        CGFloat rotationAngle = 0;
-//        if (orientation == UIDeviceOrientationPortraitUpsideDown)
-//        {
-//            //            rotationAngle = M_PI;
-//        }
-//        else if (orientation == UIDeviceOrientationLandscapeLeft)
-//        {
-//            rotationAngle = M_PI_2;
-//            
-//        }
-//        else if (orientation == UIDeviceOrientationLandscapeRight)
-//        {
-//            rotationAngle = -M_PI_2;
-//            
-        //        }
-//        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-//            NSNumber *value = [NSNumber numberWithInt:UIDeviceOrientationPortrait];
-//            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-//        }
-//        
-//         NSNumber *value = [NSNumber numberWithInt:orientation];
-//         [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-//        
-//        
-//    } completion:nil];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self preLoadMapView];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
+}
+
+-(void)preLoadMapView
+{
     show3D = YES;
     showLight = NO;
     showLocation = NO;
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
     [self initViews];
     [self makeMapViewAndDatas];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceRotated:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    
-    UIImageView *loadingBackView = [UIImageView new];
-    loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"APP启动图－3.jpg"];
-    [self.navigationController.view addSubview:loadingBackView];
-    [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.navigationController.view);
-    }];
-    loadingIV = loadingBackView;
-    
-    INIT_WEAK_SELF;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSlef showLoadingView];
-    });
-}
-
--(void)showLoadingView
-{
-    HESplashController *next = [HESplashController new];
-    next.transitioningDelegate = next;
-    [self.navigationController presentViewController:next animated:YES completion:^{
-        [loadingIV removeFromSuperview];
-        loadingIV = nil;
-    }];
 }
 
 #pragma mark - inits
@@ -345,6 +284,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)initTopViews
 {
+    self.navigationItem.hidesBackButton = YES;
     UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.bounds];
 //    self.topView = view;
     
@@ -538,11 +478,6 @@ NS_ENUM(NSInteger, MapAnimType)
         
         [self.navigationController setNavigationBarHidden:YES];
     }
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     self.statisticsView.hidden = YES;
     
@@ -564,6 +499,13 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     [self.view layoutIfNeeded];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -695,6 +637,7 @@ NS_ENUM(NSInteger, MapAnimType)
     self.markersTJ1 = nil;
     self.markersTJ2 = nil;
     self.markersTJ3 = nil;
+    temp = nil;
 }
 
 #pragma mark - map actions
@@ -835,6 +778,7 @@ NS_ENUM(NSInteger, MapAnimType)
         NSDictionary *dict = [datas objectAtIndex:i];
         
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.layoutImportance = MAXFLOAT;
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
         anno.size            = CGSizeMake(30, 30);
         anno.userObject      = @{@"type": @"eyes", @"title": dict[@"name"], @"subTitle": dict[@"url"]};
@@ -843,6 +787,7 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     self.markersObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    annos = nil;
 }
 
 #pragma mark - Whirly Globe Delegate
@@ -977,6 +922,12 @@ NS_ENUM(NSInteger, MapAnimType)
             self.theViewC.view.hidden = YES;
             UIImage *viewImage = [self.navigationController.view viewShot];
             self.theViewC.view.hidden = NO;
+            
+            UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+            
+            if (UIDeviceOrientationIsLandscape(orientation)) {
+                next.imageRotationAngle = orientation == UIDeviceOrientationLandscapeLeft?90:-90;
+            }
             next.image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
             [self.navigationController pushViewController:next animated:YES];
             break;

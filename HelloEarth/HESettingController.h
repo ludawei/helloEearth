@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HEBaseController.h"
 
 @protocol HESettingDelegate <NSObject>
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface HESettingController : UITableViewController
+@interface HESettingController : HEBaseTableController
 
 @property (nonatomic,assign) id<HESettingDelegate> delegate;
 @property (nonatomic,assign) BOOL set3D,setLight,setLocation;

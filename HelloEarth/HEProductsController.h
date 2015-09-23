@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 weather. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HEBaseController.h"
 
 @protocol HEProductDelegate <NSObject>
 
@@ -14,7 +14,7 @@
 
 @end
 
-@interface HEProductsController : UIViewController
+@interface HEProductsController : HEBaseController
 
 @property (nonatomic,assign) id<HEProductDelegate> delegate;
 @property (nonatomic,copy)  NSString *fileMark;
