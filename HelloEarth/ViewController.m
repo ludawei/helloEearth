@@ -468,6 +468,23 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 #pragma mark - setup views
+//-(void)viewDidLayoutSubviews
+//{
+//    [super viewDidLayoutSubviews];
+//    
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+//    if (UIDeviceOrientationIsLandscape(orientation)) {
+//        [UIView setAnimationsEnabled:NO];
+//        
+//        // Stackoverflow #26357162 to force orientation
+//        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+//        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//    }
+//    
+//    LOG(@"%td - %@ - %@", orientation, self.view, self.navigationController.view);
+//    [self.view updateConstraints];
+//}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

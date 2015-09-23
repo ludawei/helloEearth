@@ -20,7 +20,6 @@
 }
 
 @property (nonatomic,strong) UIImageView *loadingBackView;
-@property (nonatomic,strong) UIViewController *cont;
 
 @end
 
@@ -75,6 +74,17 @@
     
     ViewController *next1 = [ViewController new];
     [self pushViewController:next1 animated:NO];
+}
+
+// 转屏加载时，布局乱了*** 在这里修正！
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    self.view.frame = [UIScreen mainScreen].bounds;
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    LOG(@"%td - %@ - %@", [UIDevice currentDevice].orientation, NSStringFromCGRect([self.view frame]), NSStringFromCGRect([UIScreen mainScreen].bounds));
+//    [self.view updateConstraints];
 }
 
 -(void)viewWillAppear:(BOOL)animated
