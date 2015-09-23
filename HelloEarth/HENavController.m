@@ -13,6 +13,7 @@
 #import "Masonry.h"
 #import "UIImageView+AnimationCompletion.h"
 #import "HESplashController.h"
+#import "CWDataManager.h"
 
 @interface HENavController ()<UIGestureRecognizerDelegate>
 {
@@ -29,12 +30,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [UIView setAnimationsEnabled:NO];
-    
-    // Stackoverflow #26357162 to force orientation
-    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    
     [self.navigationBar setMyHeight:50];
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:20]}];
     [self.navigationBar setTintColor:[UIColor whiteColor]];
@@ -49,7 +44,7 @@
     
     UIImageView *loadingBackView = [UIImageView new];
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"APP启动图－3.jpg"];
+    loadingBackView.image = [UIImage imageNamed:@"APP启动图"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
@@ -81,9 +76,12 @@
 {
     [super viewDidLayoutSubviews];
     
+    if ([CWDataManager sharedInstance].loadingAnimationFinished) {
+        return;
+    }
     self.view.frame = [UIScreen mainScreen].bounds;
 //    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    LOG(@"%td - %@ - %@", [UIDevice currentDevice].orientation, NSStringFromCGRect([self.view frame]), NSStringFromCGRect([UIScreen mainScreen].bounds));
+//    LOG(@"%td - %@ - %@", [UIDevice currentDevice].orientation, NSStringFromCGRect([self.view frame]), NSStringFromCGRect([UIScreen mainScreen].bounds));
 //    [self.view updateConstraints];
 }
 
@@ -95,8 +93,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [UIView setAnimationsEnabled:YES];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

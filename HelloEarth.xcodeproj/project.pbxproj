@@ -20,7 +20,6 @@
 		EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCA21BA18F04002D322E /* MyCollCell.m */; };
 		EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */; };
 		EE4CBCB11BA67F2F002D322E /* UINavigationBar+CustomHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCB01BA67F2F002D322E /* UINavigationBar+CustomHeight.m */; };
-		EE4CBCB31BA6B5C1002D322E /* APP启动图－3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE4CBCB21BA6B5C1002D322E /* APP启动图－3.jpg */; };
 		EE4CBCE91BA6BB19002D322E /* UIImageView+AnimationCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCE81BA6BB19002D322E /* UIImageView+AnimationCompletion.m */; };
 		EE4CBCEB1BA6CD05002D322E /* 背景－2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */; };
 		EE4CBCED1BA7A95E002D322E /* 背景.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE4CBCEC1BA7A95E002D322E /* 背景.jpg */; };
@@ -99,6 +98,7 @@
 		EED685A61BB24DD0005E2763 /* HEBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685A51BB24DD0005E2763 /* HEBaseController.m */; settings = {ASSET_TAGS = (); }; };
 		EED685A91BB2526A005E2763 /* UIImage+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = EED685A81BB2526A005E2763 /* UIImage+Extra.m */; settings = {ASSET_TAGS = (); }; };
 		EED685AB1BB2861B005E2763 /* china.json in Resources */ = {isa = PBXBuildFile; fileRef = EED685AA1BB2861B005E2763 /* china.json */; settings = {ASSET_TAGS = (); }; };
+		EED685AD1BB29546005E2763 /* APP启动图.png in Resources */ = {isa = PBXBuildFile; fileRef = EED685AC1BB29546005E2763 /* APP启动图.png */; settings = {ASSET_TAGS = (); }; };
 		EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6051B748B78000EADC1 /* CWDataManager.m */; };
 		EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6091B748B78000EADC1 /* MapImagesManager.m */; };
 		EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B60B1B748B79000EADC1 /* PLHttpManager.m */; };
@@ -205,7 +205,6 @@
 		EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapDataAnimLogic.m; sourceTree = "<group>"; };
 		EE4CBCAF1BA67F2F002D322E /* UINavigationBar+CustomHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomHeight.h"; sourceTree = "<group>"; };
 		EE4CBCB01BA67F2F002D322E /* UINavigationBar+CustomHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomHeight.m"; sourceTree = "<group>"; };
-		EE4CBCB21BA6B5C1002D322E /* APP启动图－3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "APP启动图－3.jpg"; sourceTree = "<group>"; };
 		EE4CBCE71BA6BB19002D322E /* UIImageView+AnimationCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AnimationCompletion.h"; sourceTree = "<group>"; };
 		EE4CBCE81BA6BB19002D322E /* UIImageView+AnimationCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AnimationCompletion.m"; sourceTree = "<group>"; };
 		EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "背景－2.jpg"; sourceTree = "<group>"; };
@@ -618,6 +617,7 @@
 		EED685A71BB2526A005E2763 /* UIImage+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extra.h"; sourceTree = "<group>"; };
 		EED685A81BB2526A005E2763 /* UIImage+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
 		EED685AA1BB2861B005E2763 /* china.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = china.json; sourceTree = "<group>"; };
+		EED685AC1BB29546005E2763 /* APP启动图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "APP启动图.png"; sourceTree = "<group>"; };
 		EED8B6041B748B78000EADC1 /* CWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDataManager.h; sourceTree = "<group>"; };
 		EED8B6051B748B78000EADC1 /* CWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWDataManager.m; sourceTree = "<group>"; };
 		EED8B6081B748B78000EADC1 /* MapImagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapImagesManager.h; sourceTree = "<group>"; };
@@ -1655,11 +1655,11 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EED685AC1BB29546005E2763 /* APP启动图.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
 				EE9F6CAE1BABBCD80006C8CF /* test.png */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
 				EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */,
-				EE4CBCB21BA6B5C1002D322E /* APP启动图－3.jpg */,
 				EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */,
 				EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */,
 				EE47F8A11B71F6160000F066 /* star_background.png */,
@@ -1771,7 +1771,6 @@
 			files = (
 				EE9F6C9B1BABB2B10006C8CF /* UMSocialLocalizable.strings in Resources */,
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
-				EE4CBCB31BA6B5C1002D322E /* APP启动图－3.jpg in Resources */,
 				EE9F6CAF1BABBCD80006C8CF /* test.png in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
@@ -1788,6 +1787,7 @@
 				EE9F6CA51BABB2B10006C8CF /* UMSocialSDKResourcesNew.bundle in Resources */,
 				EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */,
 				EE47F8A21B71F6160000F066 /* star_background.png in Resources */,
+				EED685AD1BB29546005E2763 /* APP启动图.png in Resources */,
 				EE9F6CAB1BABB2B10006C8CF /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				EE4CBCEB1BA6CD05002D322E /* 背景－2.jpg in Resources */,
 				EE9F6CA11BABB2B10006C8CF /* UMShareEditViewControlleriPad.xib in Resources */,

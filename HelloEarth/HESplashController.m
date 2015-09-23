@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "HEPreAnim.h"
 #import "HEDisAnim.h"
+#import "CWDataManager.h"
 
 @interface HESplashController ()
 
@@ -60,7 +61,7 @@
     UIImageView *loadingBackView = [UIImageView new];
     //    loadingBackView.frame = self.view.bounds;
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"APP启动图－3.jpg"];
+    loadingBackView.image = [UIImage imageNamed:@"APP启动图"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
@@ -86,26 +87,12 @@
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self dismissViewControllerAnimated:YES completion:^{
-                        
+                        [CWDataManager sharedInstance].loadingAnimationFinished = YES;
                     }];
                 });
             }
         }];
     });
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(orientation)) {
-        [UIView setAnimationsEnabled:NO];
-        
-        // Stackoverflow #26357162 to force orientation
-        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    }
 }
 
 - (void)didReceiveMemoryWarning {

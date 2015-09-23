@@ -8,6 +8,6 @@
 
 #import "HEBaseController.h"
 
-@interface HESplashController : HEBaseController<UIViewControllerTransitioningDelegate>
+@interface HESplashController : UIViewController<UIViewControllerTransitioningDelegate>
 
 @end
