@@ -260,7 +260,7 @@
 
 -(void)setTimeLabelText:(NSString *)text
 {
-    if (!text) {
+    if ([Util isEmpty:text]) {
         return;
     }
     

@@ -22,6 +22,12 @@
 #define LATITUDE_KEY @"latitude"
 #define LONGITUDE_KEY @"longitude"
 
+#define FILEMARK_RADAR @"local_radar"
+#define FILEMARK_CLOUD @"local_cloud"
+#define FILEMARK_NETEYE @"local_neteye"
+#define FILEMARK_TONGJI @"local_tongji"
+
+
 static NSString *weather_appId = @"6f688d62594549a2";
 static NSString *weather_priKey = @"chinaweather_data";
 

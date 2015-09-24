@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "Util.h"
 #import "PLHttpManager.h"
+#import "CWDataManager.h"
 
 @interface HELegendController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -33,16 +34,22 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
-    NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/micapslegend?fileMark=kqzl_24&" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
-    [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        if (responseObject) {
-            [self initViewsWithData:responseObject];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    if ([self.fileMark isEqualToString:FILEMARK_RADAR]) {
+        [self initViewsWithData:nil];
+    }
+    else
+    {
+        NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/micapslegend?fileMark=kqzl_24&" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+        [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (responseObject) {
+                [self initViewsWithData:responseObject];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+    }
     
     self.tableView = [UITableView new];
     self.tableView.delegate = self;
@@ -58,53 +65,74 @@
 
 -(void)initViewsWithData:(id)data
 {
-    CGFloat legendHeight = 30.0f;
-    NSArray *legends = (NSArray *)data;
-    
     CGFloat hMargin=15,vMargin=20;
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight*legends.count)];
-    for (NSInteger i=0; i<legends.count; i++) {
-        NSArray *colors = [[legends objectAtIndex:i] objectForKey:@"colors"];
+    
+    if (data) {
+        CGFloat legendHeight = 30.0f;
+        NSArray *legends = (NSArray *)data;
         
-        UILabel *tempLbl;
-        for (NSInteger j=0; j<colors.count; j++) {
-            NSDictionary *colorData = [colors objectAtIndex:j];
-            UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
-            UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight*legends.count)];
+        for (NSInteger i=0; i<legends.count; i++) {
+            NSArray *colors = [[legends objectAtIndex:i] objectForKey:@"colors"];
             
-            UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[colorData objectForKey:@"text"]];
-            lbl.font = [Util modifySystemFontWithSize:16];
-            [contentView addSubview:lbl];
-            [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(legendHeight*i);
-                if (tempLbl) {
-                    make.left.mas_equalTo(tempLbl.mas_right);
-                }
-                else
-                {
-                    make.left.mas_equalTo(0);
-                }
-                make.height.mas_equalTo(legendHeight);
-                make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
-            }];
-            tempLbl = lbl;
+            UILabel *tempLbl;
+            for (NSInteger j=0; j<colors.count; j++) {
+                NSDictionary *colorData = [colors objectAtIndex:j];
+                UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
+                UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
+                
+                UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[colorData objectForKey:@"text"]];
+                lbl.font = [Util modifySystemFontWithSize:16];
+                [contentView addSubview:lbl];
+                [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(legendHeight*i);
+                    if (tempLbl) {
+                        make.left.mas_equalTo(tempLbl.mas_right);
+                    }
+                    else
+                    {
+                        make.left.mas_equalTo(0);
+                    }
+                    make.height.mas_equalTo(legendHeight);
+                    make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
+                }];
+                tempLbl = lbl;
+            }
+            tempLbl = nil;
         }
-        tempLbl = nil;
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight*legends.count+vMargin*2)];
+        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+        [headerView addSubview:contentView];
+        self.contentView = headerView;
+    }
+    else
+    {
+        UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
+        
+        UIImageView *contentView = [[UIImageView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendImage.size.height*(self.view.width-hMargin*2)/legendImage.size.width)];
+        contentView.image = legendImage;
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, contentView.height+vMargin*2)];
+        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+        [headerView addSubview:contentView];
+        self.contentView = headerView;
     }
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight*legends.count+vMargin*2)];
-    headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
-    [headerView addSubview:contentView];
-    self.contentView = headerView;
-    
-    self.datas = @[@{@"level":@"一级", @"comment":@"好", @"text":@"非常有利于空气污染物稀释、扩散和清除"},
-                   @{@"level":@"二级", @"comment":@"较好", @"text":@"较有利于空气污染物稀释、扩散和清除"},
-                   @{@"level":@"三级", @"comment":@"一般", @"text":@"对空气污染物稀释、扩散和清除无明显影响"},
-                   @{@"level":@"四级", @"comment":@"较差", @"text":@"不利于空气污染物稀释、扩散和清除"},
-                   @{@"level":@"五级", @"comment":@"差", @"text":@"很不利于空气污染物稀释、扩散和清除"},
-                   @{@"level":@"六级", @"comment":@"极差", @"text":@"极不利于空气污染物稀释、扩散和清除"},
+#if 0
+    self.datas = @[@[@"一级", @"好", @"非常有利于空气污染物稀释、扩散和清除"],
+                   @[@"二级", @"较好", @"较有利于空气污染物稀释、扩散和清除"],
+                   @[@"三级", @"一般", @"对空气污染物稀释、扩散和清除无明显影响"],
+                   @[@"四级", @"较差", @"不利于空气污染物稀释、扩散和清除"],
+                   @[@"五级", @"差", @"很不利于空气污染物稀释、扩散和清除",
+                   @[@"六级", @"极差", @"极不利于空气污染物稀释、扩散和清除"],
                    ];
-    [self.tableView reloadData];
+#else
+    self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
+#endif
+    if (self.datas) {
+        [self.tableView reloadData];
+    }
 }
 
 -(UILabel *)createLabelWithBackColor:(UIColor *)backColor textColor:(UIColor *)textColor text:(NSString *)text
@@ -169,9 +197,25 @@
         cell.detailTextLabel.font = [Util modifySystemFontWithSize:14];
     }
     
-    NSDictionary *data = [self.datas objectAtIndex:indexPath.item];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@   %@", [data objectForKey:@"level"], [data objectForKey:@"comment"]];
-    cell.detailTextLabel.text = [data objectForKey:@"text"];
+    NSArray *data = [self.datas objectAtIndex:indexPath.item];
+    if (data.count == 1)
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", [data firstObject]];
+    }
+    else
+    {
+        if (data.count == 3)
+        {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@   %@", [data firstObject], [data objectAtIndex:1]];
+        }
+        else if (data.count == 2)
+        {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", [data firstObject]];
+        }
+        
+        
+        cell.detailTextLabel.text = [data lastObject];
+    }
     
     return cell;
 }

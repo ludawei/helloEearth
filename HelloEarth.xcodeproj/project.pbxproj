@@ -10,6 +10,7 @@
 		EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */; };
 		EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */; };
 		EE2414A91B7D9BAF00B2C5B5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */; };
+		EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */; settings = {ASSET_TAGS = (); }; };
 		EE47F8A21B71F6160000F066 /* star_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A11B71F6160000F066 /* star_background.png */; };
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
@@ -187,6 +188,7 @@
 		EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimLogic.h; sourceTree = "<group>"; };
 		EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapAnimLogic.m; sourceTree = "<group>"; };
 		EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Legend_radar.png; sourceTree = "<group>"; };
 		EE47F8A11B71F6160000F066 /* star_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_background.png; sourceTree = "<group>"; };
 		EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_orig.txt; sourceTree = "<group>"; };
 		EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemoteTileInfo.h; sourceTree = "<group>"; };
@@ -1655,6 +1657,7 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */,
 				EED685AC1BB29546005E2763 /* APP启动图.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
 				EE9F6CAE1BABBCD80006C8CF /* test.png */,
@@ -1789,6 +1792,7 @@
 				EE47F8A21B71F6160000F066 /* star_background.png in Resources */,
 				EED685AD1BB29546005E2763 /* APP启动图.png in Resources */,
 				EE9F6CAB1BABB2B10006C8CF /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */,
 				EE4CBCEB1BA6CD05002D322E /* 背景－2.jpg in Resources */,
 				EE9F6CA11BABB2B10006C8CF /* UMShareEditViewControlleriPad.xib in Resources */,
 				EE9F6CA01BABB2B10006C8CF /* UMShareEditViewController.xib in Resources */,
@@ -2093,7 +2097,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08891191-5e4e-4b90-81ca-3d39b5254f88";
+				PROVISIONING_PROFILE = "316db41b-b378-49eb-9a8a-00d2031369bb";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2133,7 +2137,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08891191-5e4e-4b90-81ca-3d39b5254f88";
+				PROVISIONING_PROFILE = "316db41b-b378-49eb-9a8a-00d2031369bb";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -10,4 +10,6 @@
 
 @interface HELegendController : UIViewController
 
+@property (nonatomic,copy) NSString *fileMark;
+
 @end

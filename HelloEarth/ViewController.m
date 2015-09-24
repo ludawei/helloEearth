@@ -45,7 +45,7 @@ NS_ENUM(NSInteger, MapAnimType)
     MapAnimTypeData,
 };
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate>
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate>
 {
     CGFloat globeHeight;
     
@@ -177,9 +177,10 @@ NS_ENUM(NSInteger, MapAnimType)
         if (!mapViewC) {
             mapViewC = [[MaplyViewController alloc] initAsFlatMap];
             mapViewC.viewWrap = true;
+            mapViewC.rotateGesture = NO;
             mapViewC.doubleTapZoomGesture = true;
             mapViewC.twoFingerTapGesture = true;
-            //        mapViewC.delegate = self;
+            mapViewC.delegate = self;
         }
         
         self.theViewC = mapViewC;
@@ -256,6 +257,7 @@ NS_ENUM(NSInteger, MapAnimType)
             }
             else
             {
+
                 [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
             }
             
@@ -753,7 +755,7 @@ NS_ENUM(NSInteger, MapAnimType)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *annos1 = [weakSlef annotationsWithServerDatas:@"level1"];
         
-        if (annos1 && [productType isEqualToString:@"local_tongji"]) {
+        if (annos1 && [productType isEqualToString:FILEMARK_TONGJI]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSlef.markersTJ1 = [weakSlef.theViewC addScreenMarkers:annos1 desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
                 [MBProgressHUD hideAllHUDsForView:weakSlef.view animated:YES];
@@ -764,7 +766,7 @@ NS_ENUM(NSInteger, MapAnimType)
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
         NSArray *annos2 = [weakSlef annotationsWithServerDatas:@"level2"];
-        if (annos2 && [productType isEqualToString:@"local_tongji"]) {
+        if (annos2 && [productType isEqualToString:FILEMARK_TONGJI]) {
             weakSlef.markersTJ2 = [weakSlef.theViewC addScreenMarkers:annos2 desc:@{kMaplyMaxVis:@0.1, kMaplyMinVis:@0.0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
             annos2 = nil;
         }
@@ -776,7 +778,7 @@ NS_ENUM(NSInteger, MapAnimType)
 //    NSBlockOperation *op3 = [NSBlockOperation blockOperationWithBlock:
     [op2 addExecutionBlock:^{
         NSArray *annos3 = [weakSlef annotationsWithServerDatas:@"level3"];
-        if (annos3 && [productType isEqualToString:@"local_tongji"]) {
+        if (annos3 && [productType isEqualToString:FILEMARK_TONGJI]) {
             weakSlef.markersTJ3 = [weakSlef.theViewC addScreenMarkers:annos3 desc:@{kMaplyMaxVis:@0.05, kMaplyMinVis:@0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
             annos3 = nil;
         }
@@ -824,6 +826,18 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 -(void)globeViewController:(WhirlyGlobeViewController *)viewC didSelect:(NSObject *)selectedObj
+{
+    [self didSelectedObjOnMap:selectedObj];
+}
+
+#pragma mark - MaplyViewControllerDelegate
+- (void)maplyViewController:(MaplyViewController *)viewC didSelect:(NSObject *)selectedObj
+{
+    [self didSelectedObjOnMap:selectedObj];
+}
+
+#pragma mark - map tool
+-(void)didSelectedObjOnMap:(NSObject *)selectedObj
 {
     [self.theViewC clearAnnotations];
     
@@ -1122,6 +1136,7 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)clickLegend
 {
     HELegendController *next = [HELegendController new];
+    next.fileMark = productType;
     [self.navigationController pushViewController:next animated:YES];
 }
 
@@ -1173,7 +1188,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
     for (NSInteger i=0; i<datas.count; i++) {
-        if (![productType isEqualToString:@"local_tongji"]) {
+        if (![productType isEqualToString:FILEMARK_TONGJI]) {
             return nil;
         }
         NSDictionary *dict = [datas objectAtIndex:i];
@@ -1397,41 +1412,6 @@ NS_ENUM(NSInteger, MapAnimType)
     productType = dataType;
     productName = dataName;
     [self refreshDataAndUI];
-//    if ([dataType rangeOfString:@"local"].location != NSNotFound) {
-//        productType = dataType;
-//        productName = dataName;
-//        isBottomFull = NO;
-//        
-//        [self resetMapUI];
-//        self.titleLbl.text = dataName;
-//        if ([dataType isEqualToString:@"local_radar"]) {
-//            isBottomFull = YES;
-//            
-//            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
-//        }
-//        else if ([dataType isEqualToString:@"local_cloud"])
-//        {
-//            isBottomFull = YES;
-//            
-//            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
-//        }
-//        else if ([dataType isEqualToString:@"local_neteye"])
-//        {
-//            [self showNetEyesMarkers];
-//        }
-//        else if ([dataType isEqualToString:@"local_tongji"])
-//        {
-//            [self showTongJiMarkers];
-//        }
-//    }
-//    else
-//    {
-//        isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
-//        productType = dataType;
-//        productName = dataName;
-//        
-//        [self changeProduct_normal];
-//    }
 }
 
 -(void)refreshDataAndUI
@@ -1449,24 +1429,24 @@ NS_ENUM(NSInteger, MapAnimType)
         
         [self resetMapUI];
         self.titleLbl.text = dataName;
-        if ([dataType isEqualToString:@"local_radar"]) {
+        if ([dataType isEqualToString:FILEMARK_RADAR]) {
             isBottomFull = YES;
             self.animType = MapAnimTypeImage;
             
             [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
         }
-        else if ([dataType isEqualToString:@"local_cloud"])
+        else if ([dataType isEqualToString:FILEMARK_CLOUD])
         {
             isBottomFull = YES;
             self.animType = MapAnimTypeImage;
             
             [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
         }
-        else if ([dataType isEqualToString:@"local_neteye"])
+        else if ([dataType isEqualToString:FILEMARK_NETEYE])
         {
             [self showNetEyesMarkers];
         }
-        else if ([dataType isEqualToString:@"local_tongji"])
+        else if ([dataType isEqualToString:FILEMARK_TONGJI])
         {
             [self showTongJiMarkers];
         }
@@ -1480,6 +1460,7 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     [self resetLocationToInit];
+    self.indexButton.hidden = ![[CWDataManager sharedInstance].indexDict objectForKey:dataType];
 }
 
 @end

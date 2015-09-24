@@ -52,11 +52,13 @@
     return self;
 }
 
--(void)setupData:(NSDictionary *)data
+-(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark
 {
     [self.imageView setImageWithURL:[NSURL URLWithString:data[@"l4"]] placeholderImage:[UIImage imageNamed:@"test.png"]];
    
     self.lbl.text = data[@"name"];
+    
+    [self setSelected:[fileMark isEqualToString:data[@"fileMark"]]];
 }
 
 -(void)setHighlighted:(BOOL)highlighted
@@ -76,21 +78,21 @@
     }
 }
 
-//-(void)setSelected:(BOOL)selected
-//{
-//    [super setSelected:selected];
-//    
-//    if (selected) {
-//        self.imgBackView.layer.borderColor = UIColorFromRGB(0x2da7e0).CGColor;
-//        self.imgBackView.layer.borderWidth = 3;
-//    }
-//    else
-//    {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            self.imgBackView.layer.borderColor = [UIColor whiteColor].CGColor;
-//            self.imgBackView.layer.borderWidth = 1;
-//        });
-//    }
-//}
+-(void)setSelected:(BOOL)selected
+{
+    [super setSelected:selected];
+    
+    if (selected) {
+        self.imgBackView.layer.borderColor = UIColorFromRGB(0x2da7e0).CGColor;
+        self.imgBackView.layer.borderWidth = 3;
+        self.lbl.textColor = UIColorFromRGB(0x2da7e0);
+    }
+    else
+    {
+        self.imgBackView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.imgBackView.layer.borderWidth = 1;
+        self.lbl.textColor = [UIColor whiteColor];
+    }
+}
 
 @end

@@ -31,4 +31,6 @@ NS_ENUM(NSInteger, CWDataType){
 -(void)setMapdata:(NSDictionary *)mapdata fileMark:(NSString *)fileMark;
 -(NSDictionary *)mapdataByFileMark:(NSString *)fileMark;
 
+
+-(NSDictionary *)indexDict;
 @end

@@ -85,10 +85,10 @@
 -(NSArray *)formatDatasFromArray:(NSArray *)datas
 {
     NSMutableArray *dataArr = [NSMutableArray arrayWithArray:datas];
-    [dataArr insertObject:@{@"name": @"天气统计", @"fileMark":@"local_tongji"} atIndex:0];
-    [dataArr insertObject:@{@"name": @"网眼", @"fileMark":@"local_neteye"} atIndex:0];
-    [dataArr insertObject:@{@"name": @"云图", @"fileMark":@"local_cloud"} atIndex:0];
-    [dataArr insertObject:@{@"name": @"雷达图", @"fileMark":@"local_radar"} atIndex:0];
+    [dataArr insertObject:@{@"name": @"天气统计", @"fileMark":FILEMARK_TONGJI} atIndex:0];
+    [dataArr insertObject:@{@"name": @"网眼", @"fileMark":FILEMARK_NETEYE} atIndex:0];
+    [dataArr insertObject:@{@"name": @"云图", @"fileMark":FILEMARK_CLOUD} atIndex:0];
+    [dataArr insertObject:@{@"name": @"雷达图", @"fileMark":FILEMARK_RADAR} atIndex:0];
     
     return dataArr;
 }
@@ -131,7 +131,7 @@
     
     MyCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collCell" forIndexPath:indexPath];
     
-    [cell setupData:self.datas[indexPath.row]];
+    [cell setupData:self.datas[indexPath.row] selectFileMark:self.fileMark];
     
     return cell;
 }

@@ -10,6 +10,6 @@
 
 @interface MyCollCell : UICollectionViewCell
 
--(void)setupData:(NSDictionary *)data;
+-(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark;
 
 @end

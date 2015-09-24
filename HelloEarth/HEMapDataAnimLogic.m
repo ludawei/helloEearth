@@ -8,6 +8,7 @@
 
 #import "HEMapDataAnimLogic.h"
 #import "CWDataManager.h"
+#import "Util.h"
 
 @interface HEMapDataAnimLogic ()
 {
@@ -109,7 +110,7 @@
 
 -(void)setTimeLabelText:(NSString *)text
 {
-    if (!text) {
+    if ([Util isEmpty:text]) {
         return;
     }
     

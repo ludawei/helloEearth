@@ -197,7 +197,8 @@
     
     UIButton *button = [UIButton new];
     button.layer.cornerRadius = 35/2.0;
-    button.backgroundColor = UIColorFromRGB(0x28a7e1);
+    button.clipsToBounds = YES;
+    [button setBackgroundImage:[Util createImageWithColor:UIColorFromRGB(0x28a7e1) width:1 height:1] forState:UIControlStateNormal];
     [button setTitle:@"提交" forState:UIControlStateNormal];
     [self.view addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -279,7 +280,7 @@
     }
     [cmd setSuccess:^(id object){
         [MBProgressHUD showHUDNoteWithText:@"感谢您的尊贵建议!"];
-        [self clickButton];
+        [self clickBack];
     }];
     [cmd setFail:^(AFHTTPRequestOperation *response){
         [MBProgressHUD showHUDNoteWithText:@"出了点问题，稍后再试试吧"];

@@ -237,7 +237,9 @@
     
     UIButton *cancelButton = [UIButton new];
     cancelButton.layer.cornerRadius = 10;
-    cancelButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    cancelButton.clipsToBounds = YES;
+    [cancelButton setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.2] width:1 height:1] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[Util createImageWithColor:[UIColor colorWithWhite:0 alpha:0.7] width:1 height:1] forState:UIControlStateHighlighted];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [bottomView addSubview:cancelButton];
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
