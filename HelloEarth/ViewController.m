@@ -71,6 +71,8 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *productName;
     
     UIImageView *loadingIV;
+    
+    NSString *mapDataType;
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -136,6 +138,7 @@ NS_ENUM(NSInteger, MapAnimType)
     show3D = YES;
     showLight = NO;
     showLocation = NO;
+    mapDataType = @"默认地图";
     
     [self initViews];
     [self makeMapViewAndDatas];
@@ -193,26 +196,8 @@ NS_ENUM(NSInteger, MapAnimType)
     self.theViewC.view.layer.shadowColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
     [self addChildViewController:self.theViewC];
     
-    NSString *baseCacheDir =
-    [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
-     objectAtIndex:0];
-    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/ludawei.nhje3ohm/",baseCacheDir];
-    int maxZoom = 16;
-    
     if (!tileLayer) {
-        MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.nhje3ohm/" ext:@"png" minZoom:0 maxZoom:maxZoom];
-        
-        MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
-        tileSource.cacheDir = aerialTilesCacheDir;
-        MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
-        layer.handleEdges = false;
-        layer.coverPoles = true;
-        layer.maxTiles = 256;
-        //    layer.animationPeriod = 6.0;
-        //    layer.singleLevelLoading = true;
-        //    layer.drawPriority = 0;
-        
-        tileLayer = layer;
+        [self createTileLayer];
     }
     [self.theViewC removeAllLayers];
     [self.theViewC addLayer:tileLayer];
@@ -236,6 +221,31 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     [self addCountry_china];
+}
+
+-(void)createTileLayer
+{
+    NSString *mapId = [[CWDataManager sharedInstance].mapDataTypes objectForKey:mapDataType];
+    
+    NSString *baseCacheDir =
+    [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
+     objectAtIndex:0];
+    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/ludawei.%@/",baseCacheDir, mapId];
+    int maxZoom = 16;
+    
+    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:[NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/ludawei.%@/", mapId] ext:@"png" minZoom:0 maxZoom:maxZoom];
+    
+    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
+    tileSource.cacheDir = aerialTilesCacheDir;
+    MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
+    layer.handleEdges = false;
+    layer.coverPoles = true;
+    layer.maxTiles = 256;
+    //    layer.animationPeriod = 6.0;
+    //    layer.singleLevelLoading = true;
+    //    layer.drawPriority = 0;
+    
+    tileLayer = layer;
 }
 
 -(void)makeMapViewAndDatas
@@ -979,6 +989,7 @@ NS_ENUM(NSInteger, MapAnimType)
             next.set3D = show3D;
             next.setLight = showLight;
             next.setLocation = showLocation;
+            next.mapDataType = mapDataType;
             [self.navigationController pushViewController:next animated:YES];
             break;
         }
@@ -1397,6 +1408,31 @@ NS_ENUM(NSInteger, MapAnimType)
         }
         self.markerLocation = nil;
     }
+}
+
+-(void)changeMapType:(NSString *)mType
+{
+    mapDataType = mType;
+
+    [self.theViewC removeAllLayers];
+    
+    [self createTileLayer];
+    
+    [self.theViewC addLayer:tileLayer];
+    
+//    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.nhje3ohm/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+//    
+//    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
+//    tileSource.cacheDir = aerialTilesCacheDir;
+//    MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
+//    layer.handleEdges = false;
+//    layer.coverPoles = true;
+//    layer.maxTiles = 256;
+//    //    layer.animationPeriod = 6.0;
+//    //    layer.singleLevelLoading = true;
+//    //    layer.drawPriority = 0;
+//    
+//    tileLayer = layer;
 }
 
 -(void)locationed:(NSNotification *)noti

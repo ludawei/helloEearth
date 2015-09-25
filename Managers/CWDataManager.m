@@ -290,6 +290,12 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
              };
 }
 
+-(NSDictionary *)mapDataTypes
+{
+    return @{@"卫星地图":@"ndkap6n1",
+             @"默认地图":@"nhje3ohm"};
+}
+
 /* ******************************** some file datas ********************************* */
 
 @end

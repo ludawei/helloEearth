@@ -33,4 +33,5 @@ NS_ENUM(NSInteger, CWDataType){
 
 
 -(NSDictionary *)indexDict;
+-(NSDictionary *)mapDataTypes;
 @end

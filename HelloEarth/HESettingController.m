@@ -35,6 +35,10 @@
     [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
     
+    UIButton *rightNavButton = [Util rightNavButtonWithTitle:self.mapDataType];
+    [rightNavButton addTarget:self action:@selector(clickRightButton) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightNavButton];
+    
     
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     backView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
@@ -123,6 +127,19 @@
 -(void)clickBack
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)clickRightButton
+{
+    if ([self.mapDataType isEqualToString:@"卫星地图"]) {
+        [self.delegate changeMapType:@"默认地图"];
+    }
+    else
+    {
+        [self.delegate changeMapType:@"卫星地图"];
+    }
+    
+    [self clickBack];
 }
 
 -(void)locationed:(NSNotification *)noti

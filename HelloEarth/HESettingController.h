@@ -13,6 +13,7 @@
 -(void)show3DMap:(BOOL)flag;
 -(void)showMapLight:(BOOL)flag;
 -(void)showLocation:(BOOL)flag;
+-(void)changeMapType:(NSString *)mapDataType;
 
 @end
 
@@ -20,5 +21,6 @@
 
 @property (nonatomic,assign) id<HESettingDelegate> delegate;
 @property (nonatomic,assign) BOOL set3D,setLight,setLocation;
+@property (nonatomic,copy) NSString *mapDataType;
 
 @end
