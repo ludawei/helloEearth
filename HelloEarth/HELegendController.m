@@ -14,6 +14,9 @@
 
 @interface HELegendController ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,strong) UIPageControl *pageControl;
+
 @property (nonatomic,strong) UIView *contentView;
 @property (nonatomic,copy) NSArray *datas;
 
@@ -39,7 +42,8 @@
     }
     else
     {
-        NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/micapslegend?fileMark=kqzl_24&" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+        NSString *newFileMark = [[self.fileMark componentsSeparatedByString:@","] firstObject];
+        NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapslegend?fileMark=%@&", newFileMark] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
         [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (responseObject) {
@@ -55,7 +59,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.rowHeight = 50;
+    self.tableView.estimatedRowHeight = 50;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
@@ -63,17 +67,75 @@
     self.tableView.tableFooterView = [UIView new];
 }
 
+-(void)initViewWithData:(id)data
+{
+//    self.scrollView = [UIScrollView new];
+//    [self.view addSubview:self.scrollView];
+//    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.
+//    }];
+}
+
+-(NSInteger)binarySearchForFontSizeForText:(NSString *)text minFontSize:(NSInteger)minFontSize maxFontSize:(NSInteger)maxFontSize size:(CGSize)size
+{
+    if (maxFontSize < minFontSize)
+        return minFontSize;
+    
+    NSInteger fontSize = (minFontSize + maxFontSize) / 2;
+    UIFont *font = [UIFont systemFontOfSize:fontSize];
+    
+    CGSize constraintSize = CGSizeMake(size.width, MAXFLOAT);
+    CGRect rect = [text boundingRectWithSize:constraintSize
+                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                        attributes:@{NSFontAttributeName : font}
+                                           context:nil];
+    CGSize labelSize = rect.size;
+    
+    if (labelSize.height >= size.height + 10 && labelSize.width >= size.width + 10 && labelSize.height <= size.height && labelSize.height <= size.width)
+        return fontSize;
+    else if (labelSize.height > size.height || labelSize.width > size.width)
+        return [self binarySearchForFontSizeForText:text minFontSize:minFontSize maxFontSize:fontSize-1 size:size];
+    else
+        return [self binarySearchForFontSizeForText:text minFontSize:fontSize+1 maxFontSize:maxFontSize size:size];
+}
+
 -(void)initViewsWithData:(id)data
 {
-    CGFloat hMargin=15,vMargin=20;
+    CGFloat hMargin=15,vMargin=10;
     
     if (data) {
-        CGFloat legendHeight = 30.0f;
+        CGFloat legendHeight = 60.0f,titleLblHeight = 30;
         NSArray *legends = (NSArray *)data;
         
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight*legends.count)];
         for (NSInteger i=0; i<legends.count; i++) {
-            NSArray *colors = [[legends objectAtIndex:i] objectForKey:@"colors"];
+            NSDictionary *legend = [legends objectAtIndex:i];
+            NSArray *colors = [legend objectForKey:@"colors"];
+            colors = [colors sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                if ([[obj1 objectForKey:@"order"] integerValue] > [[obj2 objectForKey:@"order"] integerValue]) {
+                    return NSOrderedDescending;
+                }
+                return NSOrderedAscending;
+            }];
+            
+            NSString *title = [[legend objectForKey:@"val"] objectForKey:@"n"];
+            UILabel *titleLbl = [self createLabelWithBackColor:[UIColor clearColor] textColor:[UIColor whiteColor] text:title];
+            titleLbl.font = [Util modifySystemFontWithSize:16];
+            titleLbl.textAlignment = NSTextAlignmentLeft;
+            [contentView addSubview:titleLbl];
+            [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(legendHeight*i);
+                make.left.right.mas_equalTo(0);
+                make.height.mas_equalTo(titleLblHeight);
+            }];
+            
+//            [title co]
+            NSInteger minFontSize = 16;
+            for (NSInteger j=0; j<colors.count; j++) {
+                NSDictionary *colorData = [colors objectAtIndex:j];
+                NSInteger fontSize = [self binarySearchForFontSizeForText:[colorData objectForKey:@"text"] minFontSize:8 maxFontSize:minFontSize size:CGSizeMake(contentView.width/colors.count-10, legendHeight-titleLblHeight)];
+                minFontSize = MIN(minFontSize, fontSize);
+            }
             
             UILabel *tempLbl;
             for (NSInteger j=0; j<colors.count; j++) {
@@ -81,11 +143,11 @@
                 UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
                 UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
                 
-                UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[colorData objectForKey:@"text"]];
-                lbl.font = [Util modifySystemFontWithSize:16];
+                UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[[[colorData objectForKey:@"text"] componentsSeparatedByString:@"-"] lastObject]];
+                lbl.font = [UIFont systemFontOfSize:minFontSize];//[Util modifySystemFontWithSize:16];
                 [contentView addSubview:lbl];
                 [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(legendHeight*i);
+                    make.top.mas_equalTo(titleLbl.mas_bottom);
                     if (tempLbl) {
                         make.left.mas_equalTo(tempLbl.mas_right);
                     }
@@ -93,7 +155,7 @@
                     {
                         make.left.mas_equalTo(0);
                     }
-                    make.height.mas_equalTo(legendHeight);
+                    make.height.mas_equalTo(legendHeight-titleLblHeight);
                     make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
                 }];
                 tempLbl = lbl;
@@ -135,6 +197,7 @@
     }
 }
 
+
 -(UILabel *)createLabelWithBackColor:(UIColor *)backColor textColor:(UIColor *)textColor text:(NSString *)text
 {
     UILabel *lbl = [UILabel new];
@@ -145,6 +208,7 @@
     
     return lbl;
 }
+                   
 
 -(void)viewWillAppear:(BOOL)animated
 {

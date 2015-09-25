@@ -273,6 +273,31 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDr-KH-xrK">
+                                                    <rect key="frame" x="434" y="30" width="89" height="21"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="配置地图中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mrh-7s-oAn">
+                                                            <rect key="frame" x="22" y="-1" width="66" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-aC-Xcx">
+                                                            <rect key="frame" x="1" y="0.0" width="20" height="20"/>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="D2Q-aC-Xcx" firstAttribute="centerY" secondItem="Mrh-7s-oAn" secondAttribute="centerY" id="BlS-gj-JNJ"/>
+                                                        <constraint firstAttribute="height" constant="21" id="C5x-UT-IGu"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Mrh-7s-oAn" secondAttribute="trailing" constant="1" id="Ebv-cp-BLZ"/>
+                                                        <constraint firstItem="D2Q-aC-Xcx" firstAttribute="leading" secondItem="bDr-KH-xrK" secondAttribute="leading" constant="1" id="GVc-Yt-tA5"/>
+                                                        <constraint firstItem="D2Q-aC-Xcx" firstAttribute="top" secondItem="bDr-KH-xrK" secondAttribute="top" id="WxH-R6-Si5"/>
+                                                        <constraint firstAttribute="width" constant="89" id="csH-UW-s87"/>
+                                                        <constraint firstItem="Mrh-7s-oAn" firstAttribute="leading" secondItem="D2Q-aC-Xcx" secondAttribute="trailing" constant="1" id="omi-SV-mPd"/>
+                                                        <constraint firstItem="Mrh-7s-oAn" firstAttribute="bottom" secondItem="D2Q-aC-Xcx" secondAttribute="bottom" id="r77-zN-kpK"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -280,6 +305,7 @@
                                                 <constraint firstItem="sXv-WF-30N" firstAttribute="bottom" secondItem="dGv-Qt-n6x" secondAttribute="bottom" id="EkQ-Hc-Pw8"/>
                                                 <constraint firstItem="dGv-Qt-n6x" firstAttribute="top" secondItem="s9T-38-5oA" secondAttribute="top" id="HQG-tP-QX0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ev8-Oz-DXe" secondAttribute="trailing" constant="6" id="K5E-Ni-9kE"/>
+                                                <constraint firstItem="bDr-KH-xrK" firstAttribute="centerY" secondItem="dGv-Qt-n6x" secondAttribute="centerY" id="S3D-X8-EvI"/>
                                                 <constraint firstAttribute="trailing" secondItem="sXv-WF-30N" secondAttribute="trailing" id="T7F-qy-25v"/>
                                                 <constraint firstItem="ev8-Oz-DXe" firstAttribute="centerY" secondItem="QnE-mO-CT3" secondAttribute="centerY" id="TWk-hY-pqZ"/>
                                                 <constraint firstItem="dGv-Qt-n6x" firstAttribute="leading" secondItem="sXv-WF-30N" secondAttribute="leading" id="TqI-ji-K7q"/>
@@ -287,7 +313,16 @@
                                                 <constraint firstItem="QnE-mO-CT3" firstAttribute="leading" secondItem="dGv-Qt-n6x" secondAttribute="trailing" constant="18" id="Zi2-se-l8X"/>
                                                 <constraint firstItem="ev8-Oz-DXe" firstAttribute="top" secondItem="s9T-38-5oA" secondAttribute="topMargin" constant="16" id="d7B-Qj-Hwq"/>
                                                 <constraint firstItem="sXv-WF-30N" firstAttribute="top" secondItem="QnE-mO-CT3" secondAttribute="bottom" constant="29" id="lmS-XS-rGq"/>
+                                                <constraint firstItem="bDr-KH-xrK" firstAttribute="leading" secondItem="s9T-38-5oA" secondAttribute="leading" constant="434" id="ny6-IG-TKC"/>
+                                                <constraint firstItem="sXv-WF-30N" firstAttribute="top" secondItem="bDr-KH-xrK" secondAttribute="bottom" constant="28" id="qIR-Ba-0GS"/>
+                                                <constraint firstItem="ev8-Oz-DXe" firstAttribute="leading" secondItem="bDr-KH-xrK" secondAttribute="trailing" constant="7" id="zhx-7Q-LxF"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="qIR-Ba-0GS"/>
+                                                    <exclude reference="ny6-IG-TKC"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -521,6 +556,7 @@
                         <outlet property="lbl3" destination="9M4-Gf-L1X" id="7bw-Kg-baZ"/>
                         <outlet property="lbl4" destination="hvZ-ac-ohn" id="cYY-pt-J2F"/>
                         <outlet property="lbl5" destination="UiK-aV-JEa" id="FW3-bm-3yX"/>
+                        <outlet property="loadingView" destination="bDr-KH-xrK" id="G9Z-jg-4cf"/>
                         <outlet property="locationLabel" destination="9jB-v6-RmY" id="k7Q-Cz-68H"/>
                         <outlet property="switch3D" destination="ev8-Oz-DXe" id="NLf-lu-d29"/>
                         <outlet property="switchLight" destination="yxK-6R-0pt" id="j01-gW-8rN"/>

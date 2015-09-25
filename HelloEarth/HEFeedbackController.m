@@ -13,7 +13,7 @@
 #import "MBProgressHUD+Extra.h"
 #import "Util.h"
 
-#define FEEDBACK_EMAILBOX @"****@***"
+#define FEEDBACK_EMAILBOX @"webmaster@tianqi.cn"
 
 @interface HEFeedbackController ()<UITextViewDelegate, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
@@ -126,20 +126,25 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.259 alpha:1];
     
-    UIButton *emailButton = [UIButton new];
-    emailButton.layer.borderColor = UIColorFromRGB(0x28a7e1).CGColor;
-    emailButton.layer.borderWidth = 1;
-    emailButton.layer.cornerRadius = 35/2.0;
-    emailButton.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
-    emailButton.titleLabel.font = [Util modifySystemFontWithSize:16];
-    [emailButton setTitle:[NSString stringWithFormat:@"     或发送邮件到:%@     ", FEEDBACK_EMAILBOX] forState:UIControlStateNormal];
-    [self.view addSubview:emailButton];
-    [emailButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_topLayoutGuide).offset(20);
-        make.height.mas_equalTo(35);
-    }];
-    [emailButton sizeToFit];
-    [emailButton addTarget:self action:@selector(clickEmailButton) forControlEvents:UIControlEventTouchUpInside];
+    BOOL showEmailButton = [MFMailComposeViewController canSendMail];
+    
+    UIButton *emailButton;
+    if (showEmailButton) {
+        emailButton = [UIButton new];
+        emailButton.layer.borderColor = UIColorFromRGB(0x28a7e1).CGColor;
+        emailButton.layer.borderWidth = 1;
+        emailButton.layer.cornerRadius = 35/2.0;
+        emailButton.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
+        emailButton.titleLabel.font = [Util modifySystemFontWithSize:16];
+        [emailButton setTitle:[NSString stringWithFormat:@"     或发送邮件到:%@     ", FEEDBACK_EMAILBOX] forState:UIControlStateNormal];
+        [self.view addSubview:emailButton];
+        [emailButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.mas_topLayoutGuide).offset(20);
+            make.height.mas_equalTo(35);
+        }];
+        [emailButton sizeToFit];
+        [emailButton addTarget:self action:@selector(clickEmailButton) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     UIFont *font = [Util modifySystemFontWithSize:17];
     
@@ -154,7 +159,13 @@
     [self.view addSubview:self.textView];
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(emailButton.mas_bottom).offset(20);
+        if (showEmailButton) {
+            make.top.mas_equalTo(emailButton.mas_bottom).offset(20);
+        }
+        else
+        {
+            make.top.mas_equalTo(self.mas_topLayoutGuide).offset(20);
+        }
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.88);
         make.height.mas_equalTo(150);

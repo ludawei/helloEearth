@@ -267,7 +267,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if (self.type == 0)
     {
-        NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text integerValue]];
+        NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text longLongValue]];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
         [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];

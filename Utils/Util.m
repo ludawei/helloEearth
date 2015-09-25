@@ -251,17 +251,17 @@ static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NS
 
 +(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size
 {
-    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    CGFloat newSize = MIN(size*SCREEN_SIZE.width/414.0, size);
     return [UIFont fontWithName:name size:newSize];
 }
 +(UIFont *)modifySystemFontWithSize:(CGFloat)size
 {
-    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    CGFloat newSize = MIN(size*SCREEN_SIZE.width/414.0, size);
     return [UIFont systemFontOfSize:newSize];
 }
 +(UIFont *)modifyBoldSystemFontWithSize:(CGFloat)size
 {
-    CGFloat newSize = size*SCREEN_SIZE.width/414.0;
+    CGFloat newSize = MIN(size*SCREEN_SIZE.width/414.0, size);
     return [UIFont boldSystemFontOfSize:newSize];
 }
 

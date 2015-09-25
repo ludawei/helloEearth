@@ -33,6 +33,7 @@
 #import "HESplashController.h"
 #import "UIImageView+AnimationCompletion.h"
 #import "AlertViewBlocks.h"
+#import "NSDate+Utilities.h"
 
 #define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
@@ -195,11 +196,11 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *baseCacheDir =
     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
      objectAtIndex:0];
-    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/osmtiles/",baseCacheDir];
+    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/ludawei.nhje3ohm/",baseCacheDir];
     int maxZoom = 16;
     
     if (!tileLayer) {
-        MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.ndkap6n1/" ext:@"png" minZoom:0 maxZoom:maxZoom];
+        MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.nhje3ohm/" ext:@"png" minZoom:0 maxZoom:maxZoom];
         
         MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
         tileSource.cacheDir = aerialTilesCacheDir;
@@ -213,6 +214,7 @@ NS_ENUM(NSInteger, MapAnimType)
         
         tileLayer = layer;
     }
+    [self.theViewC removeAllLayers];
     [self.theViewC addLayer:tileLayer];
     
     self.theViewC.frameInterval = 2;
@@ -397,6 +399,7 @@ NS_ENUM(NSInteger, MapAnimType)
         make.top.mas_greaterThanOrEqualTo(0);
     }];
     [self.indexButton addTarget:self action:@selector(clickLegend) forControlEvents:UIControlEventTouchUpInside];
+    self.indexButton.hidden = YES;
     
     UIView *bView = [UIView new];
 //    bView.backgroundColor = [UIColor colorWithRed:45/255.0 green:40/255.0 blue:16/255.0 alpha:0.1];
@@ -567,7 +570,7 @@ NS_ENUM(NSInteger, MapAnimType)
 //                NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[[[responseObject firstObject] objectForKey:@"time"] integerValue]/1000.0];
 //                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //                self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
-                
+            
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
             else
@@ -585,7 +588,9 @@ NS_ENUM(NSInteger, MapAnimType)
                     
                     // 设置时间
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[[[responseObject firstObject] objectForKey:@"time"] integerValue]/1000.0];
+                    
+                    long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
+                    NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
                     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
                     self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
                     
@@ -659,7 +664,7 @@ NS_ENUM(NSInteger, MapAnimType)
 - (void)addCountry_china
 {
     NSDictionary *vectorDict = @{
-                                 kMaplyColor: [UIColor whiteColor],
+                                 kMaplyColor: UIColorFromRGB(0x28a7e1),
                                  kMaplySelectable: @(true),
                                  kMaplyVecWidth: @(4.0)};
     

@@ -20,6 +20,8 @@
 @property (nonatomic,weak) IBOutlet UILabel *lbl1,*lbl2,*lbl3,*lbl4,*lbl5;
 @property (nonatomic,weak) IBOutlet UILabel *locationLabel;
 
+@property (nonatomic,weak) IBOutlet UIView *loadingView;
+
 @end
 
 @implementation HESettingController
@@ -43,8 +45,9 @@
     [leftBackView addSubview:line];
     
     [backView addSubview:leftBackView];
-    self.tableView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     self.tableView.backgroundView = backView;
+    self.tableView.backgroundView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -71,6 +74,11 @@
     [super viewWillAppear:animated];
     
     [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+    
+    for (NSInteger i=0; i<[self.tableView numberOfRowsInSection:0]; i++) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        cell.backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,6 +92,13 @@
         [self.delegate show3DMap:sender.on];
         self.switchLight.on = self.setLight && sender.on;
         self.switchLight.enabled = sender.on;
+        
+        sender.enabled = NO;
+        self.loadingView.hidden = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            sender.enabled = YES;
+            self.loadingView.hidden = YES;
+        });
     }
     else if (sender == self.switchLight)
     {

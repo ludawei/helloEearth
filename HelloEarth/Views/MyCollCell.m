@@ -41,7 +41,8 @@
         self.imgBackView = imgBackView;
         
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imgBackView.x+5, imgBackView.y+5, imgBackView.width-10, imgBackView.height-10)];
-        //        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         //        self.imageView.clipsToBounds = YES;
         [self.contentView addSubview:self.imageView];
         
@@ -54,7 +55,12 @@
 
 -(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark
 {
-    [self.imageView setImageWithURL:[NSURL URLWithString:data[@"l4"]] placeholderImage:[UIImage imageNamed:@"test.png"]];
+#if 1
+    NSString *imageUrl = [NSString stringWithFormat:@"http://7xn1l2.com1.z0.glb.clouddn.com/3d_earth%@", data[@"fileMark"]];
+#else
+    NSString *imageUrl = [NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/img/%@", data[@"fileMark"]];
+#endif
+    [self.imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"test.png"]];
    
     self.lbl.text = data[@"name"];
     

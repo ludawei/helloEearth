@@ -44,11 +44,17 @@
 }
 -(void)startAnimatingWithCompletionBlock:(Block)block
 {
-    [self startAnimatingWithCGImages:getCGImagesArray(self.animationImages) CompletionBlock:block];
+    [self setblock:block];
+    
+    NSTimer *timer =  [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                       target:self
+                                                     selector:@selector(timeDo)
+                                                     userInfo:nil
+                                                      repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 -(void)startAnimatingWithCGImages:(NSArray*)cgImages CompletionBlock:(Block)block
 {
-    [self setblock:block];
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
     [anim setKeyPath:CONTENTS];
     [anim setValues:cgImages];
@@ -73,5 +79,10 @@ NSArray* getCGImagesArray(NSArray* UIImagesArray)
 {
    Block block_ = [self block];
     if (block_)block_(flag);
+}
+
+-(void)timeDo
+{
+    [self startAnimatingWithCGImages:getCGImagesArray(self.animationImages) CompletionBlock:[self block]];
 }
 @end

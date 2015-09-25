@@ -67,7 +67,7 @@
         make.edges.mas_equalTo(self.view);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         loadingBackView.image = [UIImage imageNamed:@"背景.jpg"];
         
         UIImageView *loadingView = [UIImageView new];
@@ -82,18 +82,16 @@
         loadingView.animationImages = imgs;
         loadingView.animationRepeatCount = 1;
         loadingView.animationDuration = 4.0;//5.8;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [loadingView startAnimatingWithCompletionBlock:^(BOOL success) {
-                if (success) {
-                    
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self dismissViewControllerAnimated:YES completion:^{
-                            [CWDataManager sharedInstance].loadingAnimationFinished = YES;
-                        }];
-                    });
-                }
-            }]; 
-        });
+        [loadingView startAnimatingWithCompletionBlock:^(BOOL success) {
+            if (success) {
+                LOG(@"loading anim finished!");
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [CWDataManager sharedInstance].loadingAnimationFinished = YES;
+                    }];
+                });
+            }
+        }];
         
     });
 }

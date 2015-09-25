@@ -38,7 +38,7 @@
     flowLayout.minimumLineSpacing = margin;
     flowLayout.minimumInteritemSpacing = margin;
     flowLayout.sectionInset = UIEdgeInsetsMake(15, margin, margin, margin);
-    flowLayout.itemSize = CGSizeMake((self.view.width-margin*3)/2, (self.view.width-margin*3)/2);
+    flowLayout.itemSize = CGSizeMake((MIN(self.view.width, self.view.height)-margin*3)/2, (MIN(self.view.width, self.view.height)-margin*3)/2);
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     CGFloat topHeight = STATUS_HEIGHT+SELF_NAV_HEIGHT;
@@ -65,6 +65,14 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    CGFloat topHeight = STATUS_HEIGHT+SELF_NAV_HEIGHT;
+    self.collView.frame = CGRectMake(0, topHeight, self.view.width, self.view.height-topHeight);
 }
 
 -(void)scrollToLocation
