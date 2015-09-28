@@ -151,7 +151,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="8ik-go-d8O"/>
                                 </constraints>
-                                <state key="normal" title="www.weather.com.cn"/>
+                                <state key="normal" title="http://www.tianqi.cn/"/>
                                 <connections>
                                     <action selector="clickLink:" destination="WHY-Y0-R11" eventType="touchUpInside" id="gbR-FH-2DV"/>
                                 </connections>

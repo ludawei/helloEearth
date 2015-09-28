@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UIPageControl *pageControl;
 
 @property (nonatomic,strong) UIView *contentView;
+@property (nonatomic,strong) NSMutableArray *contentViews;
 @property (nonatomic,copy) NSArray *datas;
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -38,7 +39,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
     if ([self.fileMark isEqualToString:FILEMARK_RADAR]) {
-        [self initViewsWithData:nil];
+        [self initViewWithData:nil];
     }
     else
     {
@@ -47,33 +48,178 @@
         [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (responseObject) {
-                [self initViewsWithData:responseObject];
+                [self initViewWithData:responseObject];
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         }];
     }
-    
-    self.tableView = [UITableView new];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.estimatedRowHeight = 50;
-    [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
-    }];
-    self.tableView.tableFooterView = [UIView new];
 }
 
 -(void)initViewWithData:(id)data
 {
-//    self.scrollView = [UIScrollView new];
-//    [self.view addSubview:self.scrollView];
-//    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.
-//    }];
+    CGFloat hMargin=15,vMargin=10;
+    
+    if (data) {
+        
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.scrollView = [UIScrollView new];
+        self.scrollView.pagingEnabled = YES;
+        self.scrollView.delegate = self;
+        [self.view addSubview:self.scrollView];
+        [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(self.view);
+        }];
+        
+        self.pageControl = [UIPageControl new];
+        self.pageControl.hidesForSinglePage = YES;
+        [self.view addSubview:self.pageControl];
+        [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(self.view);
+            make.bottom.mas_equalTo(self.view.mas_bottom).offset(-20);
+            make.height.mas_equalTo(15);
+        }];
+        
+        self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
+        
+        UITableView *tempTable;
+        
+        
+        CGFloat legendHeight = 60.0f,titleLblHeight = 30;
+        NSArray *legends = (NSArray *)data;
+        
+        UIView *sv_sub = [UIView new];
+        [self.scrollView addSubview:sv_sub];
+        [sv_sub mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.right.mas_equalTo(self.scrollView);
+            make.width.mas_equalTo(self.view.width*legends.count);
+            make.height.mas_equalTo(self.view.height-1);
+        }];
+        
+        self.contentViews = [NSMutableArray arrayWithCapacity:legends.count];
+        for (NSInteger i=0; i<legends.count; i++) {
+            UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight)];
+            
+            NSDictionary *legend = [legends objectAtIndex:i];
+            NSArray *colors = [legend objectForKey:@"colors"];
+            colors = [colors sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                if ([[obj1 objectForKey:@"order"] integerValue] > [[obj2 objectForKey:@"order"] integerValue]) {
+                    return NSOrderedDescending;
+                }
+                return NSOrderedAscending;
+            }];
+            
+            NSString *title = [[legend objectForKey:@"val"] objectForKey:@"n"];
+            UILabel *titleLbl;
+            if (![Util isEmpty:title]) {
+                titleLbl = [self createLabelWithBackColor:[UIColor clearColor] textColor:[UIColor whiteColor] text:title];
+                titleLbl.font = [Util modifySystemFontWithSize:16];
+                titleLbl.textAlignment = NSTextAlignmentLeft;
+                [contentView addSubview:titleLbl];
+                [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.left.right.mas_equalTo(0);
+                    make.height.mas_equalTo(titleLblHeight);
+                }];
+            }
+            
+            NSInteger minFontSize = 16;
+            for (NSInteger j=0; j<colors.count; j++) {
+                NSDictionary *colorData = [colors objectAtIndex:j];
+                NSInteger fontSize = [self binarySearchForFontSizeForText:[colorData objectForKey:@"text"] minFontSize:8 maxFontSize:minFontSize size:CGSizeMake(contentView.width/colors.count-10, legendHeight-titleLblHeight)];
+                minFontSize = MIN(minFontSize, fontSize);
+            }
+            
+            UILabel *tempLbl;
+            for (NSInteger j=0; j<colors.count; j++) {
+                NSDictionary *colorData = [colors objectAtIndex:j];
+                UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
+                UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
+                
+                UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[[[colorData objectForKey:@"text"] componentsSeparatedByString:@"-"] lastObject]];
+                lbl.font = [UIFont systemFontOfSize:minFontSize];//[Util modifySystemFontWithSize:16];
+                [contentView addSubview:lbl];
+                [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
+                    if (titleLbl) {
+                        make.top.mas_equalTo(titleLbl.mas_bottom);
+                    }
+                    else
+                    {
+                        make.top.mas_equalTo((legendHeight-titleLblHeight)/2);
+                    }
+                    
+                    if (tempLbl) {
+                        make.left.mas_equalTo(tempLbl.mas_right);
+                    }
+                    else
+                    {
+                        make.left.mas_equalTo(0);
+                    }
+                    make.height.mas_equalTo(legendHeight-titleLblHeight);
+                    make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
+                }];
+                tempLbl = lbl;
+            }
+            tempLbl = nil;
+            
+            
+            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight+vMargin*2)];
+            headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+            [headerView addSubview:contentView];
+            [self.contentViews addObject:headerView];
+            
+            UITableView *tableView = [UITableView new];
+            tableView.delegate = self;
+            tableView.dataSource = self;
+            tableView.backgroundColor = [UIColor clearColor];
+            tableView.estimatedRowHeight = 50;
+            tableView.tag = 100+i;
+            [sv_sub addSubview:tableView];
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.mas_topLayoutGuide);
+                make.bottom.mas_equalTo(sv_sub);
+                make.width.mas_equalTo(self.view);
+                if (tempTable) {
+                    make.left.mas_equalTo(tempTable.mas_right);
+                }
+                else
+                {
+                    make.left.mas_equalTo(0);
+                }
+            }];
+            tableView.tableFooterView = [UIView new];
+            tempTable = tableView;
+        }
+        
+        self.pageControl.numberOfPages = legends.count;
+    }
+    else
+    {
+        self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
+        
+        UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
+        
+        UIImageView *contentView = [[UIImageView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendImage.size.height*(self.view.width-hMargin*2)/legendImage.size.width)];
+        contentView.image = legendImage;
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, contentView.height+vMargin*2)];
+        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+        [headerView addSubview:contentView];
+        self.contentView = headerView;
+        
+        UITableView *tableView = [UITableView new];
+        self.tableView = tableView;
+        
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor clearColor];
+        tableView.estimatedRowHeight = 50;
+        [self.view addSubview:tableView];
+        [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(self.view);
+        }];
+        tableView.tableFooterView = [UIView new];
+    }
 }
 
 -(NSInteger)binarySearchForFontSizeForText:(NSString *)text minFontSize:(NSInteger)minFontSize maxFontSize:(NSInteger)maxFontSize size:(CGSize)size
@@ -98,105 +244,6 @@
     else
         return [self binarySearchForFontSizeForText:text minFontSize:fontSize+1 maxFontSize:maxFontSize size:size];
 }
-
--(void)initViewsWithData:(id)data
-{
-    CGFloat hMargin=15,vMargin=10;
-    
-    if (data) {
-        CGFloat legendHeight = 60.0f,titleLblHeight = 30;
-        NSArray *legends = (NSArray *)data;
-        
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight*legends.count)];
-        for (NSInteger i=0; i<legends.count; i++) {
-            NSDictionary *legend = [legends objectAtIndex:i];
-            NSArray *colors = [legend objectForKey:@"colors"];
-            colors = [colors sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-                if ([[obj1 objectForKey:@"order"] integerValue] > [[obj2 objectForKey:@"order"] integerValue]) {
-                    return NSOrderedDescending;
-                }
-                return NSOrderedAscending;
-            }];
-            
-            NSString *title = [[legend objectForKey:@"val"] objectForKey:@"n"];
-            UILabel *titleLbl = [self createLabelWithBackColor:[UIColor clearColor] textColor:[UIColor whiteColor] text:title];
-            titleLbl.font = [Util modifySystemFontWithSize:16];
-            titleLbl.textAlignment = NSTextAlignmentLeft;
-            [contentView addSubview:titleLbl];
-            [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(legendHeight*i);
-                make.left.right.mas_equalTo(0);
-                make.height.mas_equalTo(titleLblHeight);
-            }];
-            
-//            [title co]
-            NSInteger minFontSize = 16;
-            for (NSInteger j=0; j<colors.count; j++) {
-                NSDictionary *colorData = [colors objectAtIndex:j];
-                NSInteger fontSize = [self binarySearchForFontSizeForText:[colorData objectForKey:@"text"] minFontSize:8 maxFontSize:minFontSize size:CGSizeMake(contentView.width/colors.count-10, legendHeight-titleLblHeight)];
-                minFontSize = MIN(minFontSize, fontSize);
-            }
-            
-            UILabel *tempLbl;
-            for (NSInteger j=0; j<colors.count; j++) {
-                NSDictionary *colorData = [colors objectAtIndex:j];
-                UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
-                UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
-                
-                UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[[[colorData objectForKey:@"text"] componentsSeparatedByString:@"-"] lastObject]];
-                lbl.font = [UIFont systemFontOfSize:minFontSize];//[Util modifySystemFontWithSize:16];
-                [contentView addSubview:lbl];
-                [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(titleLbl.mas_bottom);
-                    if (tempLbl) {
-                        make.left.mas_equalTo(tempLbl.mas_right);
-                    }
-                    else
-                    {
-                        make.left.mas_equalTo(0);
-                    }
-                    make.height.mas_equalTo(legendHeight-titleLblHeight);
-                    make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
-                }];
-                tempLbl = lbl;
-            }
-            tempLbl = nil;
-        }
-        
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight*legends.count+vMargin*2)];
-        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
-        [headerView addSubview:contentView];
-        self.contentView = headerView;
-    }
-    else
-    {
-        UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
-        
-        UIImageView *contentView = [[UIImageView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendImage.size.height*(self.view.width-hMargin*2)/legendImage.size.width)];
-        contentView.image = legendImage;
-        
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, contentView.height+vMargin*2)];
-        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
-        [headerView addSubview:contentView];
-        self.contentView = headerView;
-    }
-    
-#if 0
-    self.datas = @[@[@"一级", @"好", @"非常有利于空气污染物稀释、扩散和清除"],
-                   @[@"二级", @"较好", @"较有利于空气污染物稀释、扩散和清除"],
-                   @[@"三级", @"一般", @"对空气污染物稀释、扩散和清除无明显影响"],
-                   @[@"四级", @"较差", @"不利于空气污染物稀释、扩散和清除"],
-                   @[@"五级", @"差", @"很不利于空气污染物稀释、扩散和清除",
-                   @[@"六级", @"极差", @"极不利于空气污染物稀释、扩散和清除"],
-                   ];
-#else
-    self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
-#endif
-    if (self.datas) {
-        [self.tableView reloadData];
-    }
-}
-
 
 -(UILabel *)createLabelWithBackColor:(UIColor *)backColor textColor:(UIColor *)textColor text:(NSString *)text
 {
@@ -232,17 +279,29 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.datas.count;
+    if (tableView == self.tableView) {
+        return self.datas.count;
+    }
+    
+    NSArray *data = [self.datas objectAtIndex:tableView.tag - 100];
+    return data.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return self.contentView.height;
+    if (tableView == self.tableView) {
+        return self.contentView.height;
+    }
+    UIView *view = [self.contentViews objectAtIndex:tableView.tag-100];
+    return [view height];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return self.contentView;
+    if (self.tableView == tableView) {
+        return self.contentView;
+    }
+    return [self.contentViews objectAtIndex:tableView.tag-100];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -261,7 +320,15 @@
         cell.detailTextLabel.font = [Util modifySystemFontWithSize:14];
     }
     
-    NSArray *data = [self.datas objectAtIndex:indexPath.item];
+    NSArray *data;
+    if (tableView == self.tableView) {
+        data = [self.datas objectAtIndex:indexPath.item];
+    }
+    else
+    {
+        NSArray *datas = [self.datas objectAtIndex:tableView.tag - 100];
+        data = [datas objectAtIndex:indexPath.item];
+    }
     if (data.count == 1)
     {
         cell.textLabel.text = [NSString stringWithFormat:@"%@", [data firstObject]];
@@ -287,5 +354,14 @@
 -(void)clickBack
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.scrollView == scrollView) {
+        NSInteger page = ceil(scrollView.contentOffset.x/scrollView.width);
+        self.pageControl.currentPage = page;
+    }
 }
 @end

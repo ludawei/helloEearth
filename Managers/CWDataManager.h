@@ -16,6 +16,7 @@ NS_ENUM(NSInteger, CWDataType){
 @interface CWDataManager : NSObject
 
 @property (readwrite) BOOL enablePushNotification;
+@property (readwrite) NSString *imageVersion;
 
 + (CWDataManager *)sharedInstance;
 

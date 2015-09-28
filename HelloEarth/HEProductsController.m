@@ -16,6 +16,7 @@
 
 @property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic,copy) NSArray *datas;
+@property (nonatomic,copy) NSString *imageVersion;
 
 @end
 
@@ -26,6 +27,7 @@
     // Do any additional setup after loading the view.
     
     self.datas = [self formatDatasFromArray:[[CWDataManager sharedInstance] productList]];
+    self.imageVersion = [CWDataManager sharedInstance].imageVersion;
     
     self.title = @"产品";
     UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
@@ -55,11 +57,13 @@
     NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/getmicapsproductlist?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
     [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        if (responseObject) {
-            self.datas = [self formatDatasFromArray:(NSArray *)responseObject];
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            self.datas = [self formatDatasFromArray:[responseObject objectForKey:@"array"]];
+            self.imageVersion = [responseObject objectForKey:@"version"];
             [self.collView reloadData];
             
-            [[CWDataManager sharedInstance] setProductList:(NSArray *)responseObject];
+            [[CWDataManager sharedInstance] setProductList:(NSArray *)self.datas];
+            [[CWDataManager sharedInstance] setImageVersion:self.imageVersion];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -139,7 +143,8 @@
     
     MyCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collCell" forIndexPath:indexPath];
     
-    [cell setupData:self.datas[indexPath.row] selectFileMark:self.fileMark];
+    NSDictionary *data = [self.datas objectAtIndex:indexPath.item];
+    [cell setupData:data selectFileMark:self.fileMark imageVersion:self.imageVersion];
     
     return cell;
 }

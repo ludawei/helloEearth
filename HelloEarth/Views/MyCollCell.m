@@ -56,14 +56,15 @@
     return self;
 }
 
--(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark
+-(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark imageVersion:(NSString *)imgVersion
 {
-#if 1
+#if 0
     NSString *imageUrl = [NSString stringWithFormat:@"http://7xn1l2.com1.z0.glb.clouddn.com/3d_earth_%@.jpg", data[@"fileMark"]];
 #else
-    NSString *imageUrl = [NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/img/%@", data[@"fileMark"]];
+    NSString *imageUrl = [NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/img/%@_%@.jpg", data[@"fileMark"], imgVersion];
 #endif
-    [self.imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"test.png"]];
+    
+    [self.imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
    
     self.lbl.text = data[@"name"];
     

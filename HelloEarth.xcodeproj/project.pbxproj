@@ -76,7 +76,6 @@
 		EE9F6CAB1BABB2B10006C8CF /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE9F6C931BABB2B10006C8CF /* TencentOpenApi_IOS_Bundle.bundle */; settings = {ASSET_TAGS = (); }; };
 		EE9F6CAC1BABB2B10006C8CF /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9F6C961BABB2B10006C8CF /* libSocialWechat.a */; settings = {ASSET_TAGS = (); }; };
 		EE9F6CAD1BABB2B10006C8CF /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9F6C971BABB2B10006C8CF /* libWeChatSDK.a */; settings = {ASSET_TAGS = (); }; };
-		EE9F6CAF1BABBCD80006C8CF /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = EE9F6CAE1BABBCD80006C8CF /* test.png */; settings = {ASSET_TAGS = (); }; };
 		EE9F6CB21BAFF3150006C8CF /* HEAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6CB11BAFF3150006C8CF /* HEAboutController.m */; settings = {ASSET_TAGS = (); }; };
 		EEAA17F41B9C3B3C009A3535 /* HEProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA17F31B9C3B3C009A3535 /* HEProduct.m */; };
 		EEAA17F61B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */; };
@@ -571,7 +570,6 @@
 		EE9F6C981BABB2B10006C8CF /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
 		EE9F6C991BABB2B10006C8CF /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		EE9F6C9A1BABB2B10006C8CF /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		EE9F6CAE1BABBCD80006C8CF /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		EE9F6CB01BAFF3150006C8CF /* HEAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEAboutController.h; sourceTree = "<group>"; };
 		EE9F6CB11BAFF3150006C8CF /* HEAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEAboutController.m; sourceTree = "<group>"; };
 		EEAA17F21B9C3B3C009A3535 /* HEProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEProduct.h; sourceTree = "<group>"; };
@@ -1660,7 +1658,6 @@
 				EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */,
 				EED685AC1BB29546005E2763 /* APP启动图.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
-				EE9F6CAE1BABBCD80006C8CF /* test.png */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
 				EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */,
 				EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */,
@@ -1774,7 +1771,6 @@
 			files = (
 				EE9F6C9B1BABB2B10006C8CF /* UMSocialLocalizable.strings in Resources */,
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
-				EE9F6CAF1BABBCD80006C8CF /* test.png in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
 				EE9F6C9D1BABB2B10006C8CF /* UMSCommentDetailController.xib in Resources */,
