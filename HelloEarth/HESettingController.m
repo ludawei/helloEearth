@@ -17,8 +17,9 @@
 }
 
 @property (nonatomic,weak) IBOutlet UISwitch *switch3D,*switchLight,*switchLocate;
-@property (nonatomic,weak) IBOutlet UILabel *lbl1,*lbl2,*lbl3,*lbl4,*lbl5;
+@property (nonatomic,weak) IBOutlet UILabel *lbl1,*lbl2,*lbl3,*lbl4,*lbl5,*lbl6;
 @property (nonatomic,weak) IBOutlet UILabel *locationLabel;
+@property (nonatomic,weak) IBOutlet UIImageView *layerImageView;
 
 @property (nonatomic,weak) IBOutlet UIView *loadingView;
 
@@ -34,10 +35,6 @@
     UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
     [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
-    
-    UIButton *rightNavButton = [Util rightNavButtonWithTitle:self.mapDataType];
-    [rightNavButton addTarget:self action:@selector(clickRightButton) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightNavButton];
     
     
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.bounds];
@@ -70,7 +67,18 @@
     self.lbl3.font = [Util modifyBoldSystemFontWithSize:20];
     self.lbl4.font = [Util modifyBoldSystemFontWithSize:20];
     self.lbl5.font = [Util modifyBoldSystemFontWithSize:20];
+    self.lbl6.font = [Util modifyBoldSystemFontWithSize:20];
     self.locationLabel.font = [Util modifySystemFontWithSize:16];
+    
+    if ([self.mapDataType isEqualToString:@"卫星地图"]) {
+        self.layerImageView.image = [UIImage imageNamed:@"default_layer"];
+    }
+    else
+    {
+        self.layerImageView.image = [UIImage imageNamed:@"satellite_layer"];
+    }
+    self.layerImageView.layer.cornerRadius = self.layerImageView.width/2;
+    self.layerImageView.clipsToBounds = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -129,7 +137,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)clickRightButton
+-(void)ChangeMapLayer
 {
     if ([self.mapDataType isEqualToString:@"卫星地图"]) {
         [self.delegate changeMapType:@"默认地图"];
@@ -162,11 +170,15 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.item == 3) {
+        [self ChangeMapLayer];
+    }
+    else if (indexPath.item == 4)
+    {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         HESettingController *next = (HESettingController *)[board instantiateViewControllerWithIdentifier:@"aboutUs"];
         [self.navigationController pushViewController:next animated:YES];
     }
-    else if (indexPath.item == 4)
+    else if (indexPath.item == 5)
     {
         HEFeedbackController *next = [HEFeedbackController new];
         [self.navigationController pushViewController:next animated:YES];

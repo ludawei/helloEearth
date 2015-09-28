@@ -14,7 +14,7 @@
 {
     NSURLRequest *oldRequest = [super requestForTile:tileID];
     NSString *urlString = oldRequest.URL.absoluteString;
-    NSURLRequest *newRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[urlString stringByAppendingString:@"?access_token=pk.eyJ1IjoibHVkYXdlaSIsImEiOiJldzV1SVIwIn0.-gaUYss5MkQMyem_IOskdA"]]];
+    NSURLRequest *newRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[urlString stringByAppendingString:@"?access_token=pk.eyJ1IjoiZGl2ZGl2IiwiYSI6ImNpZXpoN3ZhbjE5cjdyem0zdDduNzB5YmsifQ.yammbn9qObvstid_12Gq9A"]]];
     
     
     return newRequest;

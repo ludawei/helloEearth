@@ -230,10 +230,10 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *baseCacheDir =
     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
      objectAtIndex:0];
-    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/ludawei.%@/",baseCacheDir, mapId];
+    NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/%@/",baseCacheDir, mapId];
     int maxZoom = 16;
     
-    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:[NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/ludawei.%@/", mapId] ext:@"png" minZoom:0 maxZoom:maxZoom];
+    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:[NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/%@/", mapId] ext:@"png" minZoom:0 maxZoom:maxZoom];
     
     MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
     tileSource.cacheDir = aerialTilesCacheDir;
