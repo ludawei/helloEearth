@@ -8,6 +8,7 @@
 
 #import "Util.h"
 #import "CWEncode.h"
+#import "CWDataManager.h"
 
 @implementation Util
 
@@ -216,7 +217,7 @@
 
 + (NSString *)requestEncodeWithString:(NSString *)url appId:(NSString *)appId privateKey:(NSString *)priKey
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
     [formatter setDateFormat:@"yyyyMMddHHmm"];
     NSString *now = [formatter stringFromDate:[NSDate date]];
     
@@ -326,7 +327,7 @@ static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NS
 }
 + (NSDate*) Str2date: (NSString*) dateValue
 {
-    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    NSDateFormatter* dateFormat = [CWDataManager sharedInstance].dateFormatter;
     [dateFormat setDateFormat: @"yyyy-MM-dd"];
     NSDate* date = [dateFormat dateFromString: dateValue];
     return date;

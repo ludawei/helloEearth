@@ -124,6 +124,11 @@ NS_ENUM(NSInteger, MapAnimType)
     return NO;
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -132,13 +137,14 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAnimFinished) name:noti_loadanim_ok object:nil];
 }
 
 -(void)preLoadMapView
 {
     show3D = YES;
     showLight = NO;
-    showLocation = NO;
+    showLocation = YES;
     mapDataType = @"默认地图";
     
     [self initViews];
@@ -198,7 +204,7 @@ NS_ENUM(NSInteger, MapAnimType)
     [self addChildViewController:self.theViewC];
     
     if (!tileLayer) {
-        [self createTileLayer];
+        tileLayer = [self createTileLayer];
     }
     [self.theViewC removeAllLayers];
     [self.theViewC addLayer:tileLayer];
@@ -224,7 +230,7 @@ NS_ENUM(NSInteger, MapAnimType)
     [self addCountry_china];
 }
 
--(void)createTileLayer
+-(MaplyQuadImageTilesLayer *)createTileLayer
 {
     NSString *mapId = [[CWDataManager sharedInstance].mapDataTypes objectForKey:mapDataType];
     
@@ -242,11 +248,14 @@ NS_ENUM(NSInteger, MapAnimType)
     layer.handleEdges = false;
     layer.coverPoles = true;
     layer.maxTiles = 256;
-    //    layer.animationPeriod = 6.0;
-    //    layer.singleLevelLoading = true;
-    //    layer.drawPriority = 0;
+//    layer.singleLevelLoading = true;
+//    layer.animationPeriod = 6.0;
+    layer.drawPriority = 0;
+//    layer.waitLoad = true;
     
-    tileLayer = layer;
+//    [tileLayer reset];
+    
+    return layer;
 }
 
 -(void)makeMapViewAndDatas
@@ -598,7 +607,7 @@ NS_ENUM(NSInteger, MapAnimType)
                     self.comObjs = [self.mapDatas changeType:productType];
                     
                     // 设置时间
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
                     
                     long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
                     NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
@@ -743,7 +752,7 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)addUserLocationMarker
 {
     CLLocation *location = [CWLocationManager sharedInstance].locationManager.location;
-    if (location) {
+    if (location && [CWLocationManager sharedInstance].plackMark) {
         if (self.markerLocation) {
             [self.theViewC removeObject:self.markerLocation];
         }
@@ -1214,9 +1223,13 @@ NS_ENUM(NSInteger, MapAnimType)
         anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
         anno.text            = dict[@"name"];
         anno.iconImage2      = [UIImage imageNamed:@"circle39"];
-        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};;
+        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
 #else
-        UIImage *newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
+        UIImage *newImage = [[CWDataManager sharedInstance] tongjiImageForName:dict[@"name"]];
+        if (!newImage) {
+            newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
+            [[CWDataManager sharedInstance] saveTongjiImage:newImage forName:dict[@"name"]];
+        }
         
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
         anno.layoutImportance = [level isEqualToString:@"level1"]?MAXFLOAT:10.0f;
@@ -1342,7 +1355,13 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)setTimeText:(NSString *)text
 {
     if (productAge) {
-        self.timeLabel.text = [text stringByAppendingFormat:@" - %@小时", productAge];
+        NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSDate *date = [[dateFormatter dateFromString:text] dateByAddingHours:[productAge integerValue]];
+        [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+        NSString *timeAge = [dateFormatter stringFromDate:date];
+        
+        self.timeLabel.text = [text stringByAppendingFormat:@" - %@", timeAge];
     }
     else
     {
@@ -1422,11 +1441,15 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     mapDataType = mType;
 
-    [self.theViewC removeAllLayers];
+    MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
-    [self createTileLayer];
-    
-    [self.theViewC addLayer:tileLayer];
+//    tileLayer.enable = false;
+    [self.theViewC addLayer:newLayer];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.theViewC removeLayer:tileLayer];
+        tileLayer = nil;
+        tileLayer = newLayer;
+    });
     
 //    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.nhje3ohm/" ext:@"png" minZoom:0 maxZoom:maxZoom];
 //    
@@ -1450,6 +1473,20 @@ NS_ENUM(NSInteger, MapAnimType)
     {
         [self addUserLocationMarker];
     }
+}
+
+-(void)loadAnimFinished
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:noti_loadanim_ok object:nil];;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[CWLocationManager sharedInstance] updateLocation];
+    });
+    
+    [globeViewC setPosition:MaplyCoordinateMakeWithDegrees(0, 0) height:5];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:0.5];
+    });
 }
 
 #pragma mark - HEProductDelegate

@@ -38,5 +38,6 @@ static NSString *weather_priKey = @"chinaweather_data";
 #define QQ_APP_KEY      @"kZt9WFoWgv9bVpjI"
 
 static NSString *noti_update_location = @"noti_update_location";
+static NSString *noti_loadanim_ok = @"noti_loadanim_ok";
 
 #endif

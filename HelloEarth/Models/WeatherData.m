@@ -8,6 +8,7 @@
 
 #import "WeatherData.h"
 #import "Util.h"
+#import "CWDataManager.h"
 
 #define KEY_WEATHERFACTINFO         @"l"
 #define KEY_AIRQUALITYINFO          @"k"
@@ -51,7 +52,7 @@
         NSArray *weatherArray = [[currDict objectForKey:@"l5"] componentsSeparatedByString:@"|"];                    //过去24小时实况天气
         self.currWeather = [Util parseWeather:weatherArray.lastObject];
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
         [formatter setDateFormat:@"HH"];
         int hour = [[formatter stringFromDate:[NSDate date]] intValue];
         if (hour > 5 && hour < 18) {
@@ -113,7 +114,7 @@
         self.todayDateStr = [[timeArray objectAtIndex:0] objectForKey:@"t1"];
         
         NSMutableArray *dayInfos = [NSMutableArray arrayWithCapacity:timeArray.count];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
         for (int i=0; i<timeArray.count; i++) {
             WeatherDayData *dayData = [[WeatherDayData alloc] init];
             

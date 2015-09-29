@@ -36,7 +36,7 @@
     if(self.lon)
         [queryJson setValue:self.lon forKey: @"lon"];
     [queryJson setObject:@"1000" forKey:@"type"];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
     [formatter setDateFormat:@"yyyyMMddHHmm"];
     NSString *curTime = [formatter stringFromDate:[NSDate date]];
     

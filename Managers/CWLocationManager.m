@@ -53,8 +53,8 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     newLocation = [newLocation locationMarsFromEarth];
-    NSString *latitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.latitude];
-    NSString *longitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.longitude];
+//    NSString *latitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.latitude];
+//    NSString *longitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.longitude];
     LOG(@"定位成功!%@,%@", latitudeText,longitudeText);
     
     // 只定位一次,不更新位置

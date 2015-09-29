@@ -45,7 +45,7 @@
 -(void)showLoadingView
 {
     NSMutableArray *imgs = [NSMutableArray array];
-    for (NSInteger i=1; i<=25; i++) {
+    for (NSInteger i=1; i<=30; i++) {
         [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
     }
     [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
@@ -60,21 +60,21 @@
     
     UIImageView *loadingBackView = [UIImageView new];
     //    loadingBackView.frame = self.view.bounds;
-    loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"app_launch"];
+    loadingBackView.contentMode = UIViewContentModeScaleAspectFit;
+    loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         loadingBackView.image = [UIImage imageNamed:@"背景.jpg"];
         
         UIImageView *loadingView = [UIImageView new];
         [loadingBackView addSubview:loadingView];
         [loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(loadingBackView.mas_centerX);
-            make.centerY.mas_equalTo(loadingBackView.mas_centerY).offset(-self.view.height/7);
+            make.centerY.mas_equalTo(loadingBackView.mas_centerY).offset(-self.view.height/7+3);
         }];
         [loadingView sizeToFit];
         
@@ -86,8 +86,11 @@
             if (success) {
                 LOG(@"loading anim finished!");
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:noti_loadanim_ok object:nil userInfo:nil];
                     [self dismissViewControllerAnimated:YES completion:^{
                         [CWDataManager sharedInstance].loadingAnimationFinished = YES;
+                        
                     }];
                 });
             }

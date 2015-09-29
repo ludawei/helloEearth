@@ -280,7 +280,7 @@
     }
     NSString *url = [imgUrl stringByAppendingString:@"?"];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
     [formatter setDateFormat:@"yyyyMMddHHmm"];
     NSString *curTime = [formatter stringFromDate:date];
     

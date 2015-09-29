@@ -43,8 +43,8 @@
     self.interactivePopGestureRecognizer.delegate = self;
     
     UIImageView *loadingBackView = [UIImageView new];
-    loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"app_launch"];
+    loadingBackView.contentMode = UIViewContentModeScaleAspectFit;
+    loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);

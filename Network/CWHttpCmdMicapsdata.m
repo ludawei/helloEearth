@@ -35,7 +35,7 @@
         [queryJson setValue:self.vti forKey: @"vti"];
     if(self.type)
         [queryJson setValue:self.type forKey: @"type"];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
     [formatter setDateFormat:@"yyyyMMddHHmm"];
     NSString *curTime = [formatter stringFromDate:[NSDate date]];
     

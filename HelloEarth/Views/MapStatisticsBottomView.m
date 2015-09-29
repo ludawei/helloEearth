@@ -46,7 +46,7 @@
             make.height.mas_greaterThanOrEqualTo(BOTTOM_HEIGHT);
         }];
         
-        self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.dateFormatter = [CWDataManager sharedInstance].dateFormatter;
         [self.dateFormatter setDateFormat:@"yyyyMMdd"];
         
         self.actView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];

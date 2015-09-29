@@ -19,6 +19,7 @@ NS_ENUM(NSInteger, CWDataType){
 @property (readwrite) NSString *imageVersion;
 
 + (CWDataManager *)sharedInstance;
+@property (nonatomic,strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic,assign) CGPoint productOffset;
 @property (nonatomic,assign) BOOL loadingAnimationFinished;
@@ -35,4 +36,7 @@ NS_ENUM(NSInteger, CWDataType){
 
 -(NSDictionary *)indexDict;
 -(NSDictionary *)mapDataTypes;
+
+-(void)saveTongjiImage:(UIImage *)image forName:(NSString *)name;
+-(UIImage *)tongjiImageForName:(NSString *)name;
 @end

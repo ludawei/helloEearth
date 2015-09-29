@@ -264,7 +264,7 @@
         return;
     }
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
     if (self.type == 0)
     {
         NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[text longLongValue]];
@@ -280,7 +280,6 @@
 //        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
         [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
     }
-    dateFormatter = nil;
 }
 
 -(void)changeProgress:(UISlider *)progressView

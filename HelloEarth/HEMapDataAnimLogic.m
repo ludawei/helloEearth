@@ -114,12 +114,11 @@
         return;
     }
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
     long long timeInt = [text longLongValue];
     NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
-    dateFormatter = nil;
 }
 
 -(void)changeProgress:(UISlider *)progressView

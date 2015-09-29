@@ -29,7 +29,7 @@
         [queryJson setValue:self.longitude forKey: @"lon"];
     if(self.latitude)
         [queryJson setValue:self.latitude forKey: @"lat"];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [CWDataManager sharedInstance].dateFormatter;
     [formatter setDateFormat:@"yyyyMMddHHmm"];
     NSString *curTime = [formatter stringFromDate:[NSDate date]];
     

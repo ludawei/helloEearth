@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#import "CWDataManager.h"
 
 typedef void (^HCHttpCmdSuccess)(id object);
 typedef void (^HCHttpCmdFailed)(AFHTTPRequestOperation *response);

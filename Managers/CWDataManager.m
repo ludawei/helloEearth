@@ -45,6 +45,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 {
     if (self = [super init]) {
         self.normalProducts = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_normalProducts]];
+        self.dateFormatter = [[NSDateFormatter alloc] init];
     }
     return self;
 }
@@ -264,6 +265,27 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 }
 
 
+-(void)saveTongjiImage:(UIImage *)image forName:(NSString *)name
+{
+    NSString *_path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    _path = [_path stringByAppendingPathComponent:@"tongji_images"];
+    
+    [self ensurePathExists:_path];
+    
+    NSString *filename = [_path stringByAppendingPathComponent:[Base64 base64EncodeString:name]];
+    [UIImagePNGRepresentation(image) writeToFile:filename atomically:YES];
+}
+
+-(UIImage *)tongjiImageForName:(NSString *)name
+{
+    NSString *_path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    _path = [_path stringByAppendingPathComponent:@"tongji_images"];
+    
+    NSString *filename = [_path stringByAppendingPathComponent:[Base64 base64EncodeString:name]];
+    
+    return [UIImage imageWithContentsOfFile:filename];
+}
+
 /* ******************************** some file datas ********************************* */
 -(NSDictionary *)indexDict
 {
@@ -318,7 +340,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
                    @[@"六级", @"极差", @"极不利于空气污染物稀释、扩散和清除"],],
                    ],
              
-             FILEMARK_RADAR:@[@[@"组合反射率是气象雷达接收周围一定范围内不同高度云层反射雷达波的比率。从而判断云层厚度和高度，预报大雨和暴风等强对流天气的数据产品。单位：dbz"]],
+             FILEMARK_RADAR:@[@[@"组合反射率是气象雷达接收周围一定范围内不同高度云层反射雷达波的比率。从而判断云层厚度和高度，预报大雨和暴风等强对流天气的数据产品。\n单位：dbz"]],
              };
 }
 
