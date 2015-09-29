@@ -75,7 +75,7 @@
          NSString *mapName;
          if (placemarks.count > 0   )
          {
-             CLPlacemark * plmark = [placemarks objectAtIndex:0];
+             CLPlacemark * plmark = [placemarks firstObject];
              
              mapName = plmark.name;
              

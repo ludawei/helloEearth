@@ -135,6 +135,7 @@
         return;
     }
     
+    self.currentPlayIndex = newIndex;
     [self changeType];
 }
 

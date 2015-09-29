@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.datas = [self formatDatasFromArray:[[CWDataManager sharedInstance] productList]];
+    self.datas = [[CWDataManager sharedInstance] productList];
     self.imageVersion = [CWDataManager sharedInstance].imageVersion;
     
     self.title = @"产品";
@@ -98,7 +98,7 @@
 {
     NSMutableArray *dataArr = [NSMutableArray arrayWithArray:datas];
     [dataArr insertObject:@{@"name": @"天气统计", @"fileMark":FILEMARK_TONGJI} atIndex:0];
-    [dataArr insertObject:@{@"name": @"网眼", @"fileMark":FILEMARK_NETEYE} atIndex:0];
+    [dataArr insertObject:@{@"name": @"天气网眼", @"fileMark":FILEMARK_NETEYE} atIndex:0];
     [dataArr insertObject:@{@"name": @"云图", @"fileMark":FILEMARK_CLOUD} atIndex:0];
     [dataArr insertObject:@{@"name": @"雷达图", @"fileMark":FILEMARK_RADAR} atIndex:0];
     

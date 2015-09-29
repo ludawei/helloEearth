@@ -61,7 +61,7 @@
     UIImageView *loadingBackView = [UIImageView new];
     //    loadingBackView.frame = self.view.bounds;
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"APP启动图"];
+    loadingBackView.image = [UIImage imageNamed:@"app_launch"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);

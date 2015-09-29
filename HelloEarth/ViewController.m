@@ -69,6 +69,7 @@ NS_ENUM(NSInteger, MapAnimType)
     BOOL isBottomFull,isHiddenStatusBar;
     NSString *productType;
     NSString *productName;
+    NSString *productAge;
     
     UIImageView *loadingIV;
     
@@ -602,7 +603,7 @@ NS_ENUM(NSInteger, MapAnimType)
                     long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
                     NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
                     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-                    self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+                    [self setTimeText:[dateFormatter stringFromDate:expirationDate]];
                     
                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 }
@@ -1286,7 +1287,7 @@ NS_ENUM(NSInteger, MapAnimType)
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setLineSpacing:13];
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “蓝π蚂蚁” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “藍π•寰宇” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
         [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
         
         UILabel *titleView = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:18]];
@@ -1340,7 +1341,14 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 -(void)setTimeText:(NSString *)text
 {
-    self.timeLabel.text = text;
+    if (productAge) {
+        self.timeLabel.text = [text stringByAppendingFormat:@" - %@小时", productAge];
+    }
+    else
+    {
+        self.timeLabel.text = text;
+    }
+    
 }
 -(void)setProgressValue:(CGFloat)radio
 {
@@ -1444,7 +1452,7 @@ NS_ENUM(NSInteger, MapAnimType)
     }
 }
 
-#pragma makr - HEProductDelegate
+#pragma mark - HEProductDelegate
 -(void)setData:(NSDictionary *)data
 {
     NSString *dataType = [data objectForKey:@"fileMark"];
@@ -1452,6 +1460,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     productType = dataType;
     productName = dataName;
+    productAge = [data objectForKey:@"timeValid"];
     [self refreshDataAndUI];
 }
 

@@ -16,6 +16,7 @@
 #import "UMSocialQQHandler.h"
 #import "WXApi.h"
 #import "UIImage+Extra.h"
+#import "DeviceUtil.h"
 
 @interface HEShareController ()
 {
@@ -131,7 +132,7 @@
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:10];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “蓝π蚂蚁”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “藍π•寰宇”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"];
     [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
     CGFloat textHeight = ceil([text size].width/(self.view.width*0.9));
     
@@ -374,10 +375,12 @@
     NSString *imageUrl = @"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
     UIImage *shareImage = [self.contentView viewShot];//[[UIImageView sharedImageCache] cachedImageForRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]]];
     
-    [UMSocialData defaultData].extConfig.qqData.title = @"蓝π蚂蚁 分享";
-    [UMSocialData defaultData].extConfig.qzoneData.title = @"蓝π蚂蚁 分享";
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"蓝π蚂蚁 分享";
-    [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"蓝π蚂蚁 分享";//title;
+    NSString *appName = [DeviceUtil getSoftVersion:true];
+    
+    [UMSocialData defaultData].extConfig.qqData.title = [appName stringByAppendingPathComponent:@" 分享"];
+    [UMSocialData defaultData].extConfig.qzoneData.title = [appName stringByAppendingPathComponent:@" 分享"];
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = [appName stringByAppendingPathComponent:@" 分享"];
+    [UMSocialData defaultData].extConfig.wechatTimelineData.title = [appName stringByAppendingPathComponent:@" 分享"];
     
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:WX_APP_ID appSecret:WX_APP_SECRET url:imageUrl];
@@ -397,14 +400,14 @@
 //    [WXApi isWXAppInstalled];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[type]
-                                                        content:@"蓝π蚂蚁 分享"//self.info.title
+                                                        content:[appName stringByAppendingPathComponent:@" 分享"]//self.info.title
                                                           image:shareImage
                                                        location:nil
                                                     urlResource:[[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:imageUrl]
                                             presentedController:self
                                                      completion:^(UMSocialResponseEntity *response){
                                                          if (response.responseCode == UMSResponseCodeSuccess) {
-                                                             NSLog(@"分享成功！");
+                                                             LOG(@"分享成功！");
                                                          }
                                                      }];
 }

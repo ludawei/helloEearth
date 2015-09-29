@@ -44,7 +44,7 @@
                                 <rect key="frame" x="0.0" y="226" width="600" height="50"/>
                                 <color key="backgroundColor" red="0.14117647058823529" green="0.15686274509803921" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;蓝π蚂蚁&quot; 3D展示系统" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWf-uq-Ze1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藍π•寰宇" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWf-uq-Ze1">
                                 <rect key="frame" x="0.0" y="36" width="600" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="VPk-yw-ntw"/>
