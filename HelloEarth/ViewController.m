@@ -550,6 +550,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     [super viewWillDisappear:animated];
     
+    [self.theViewC clearAnnotations];
 //    [self closeLogoView];
     
 }
