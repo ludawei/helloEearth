@@ -225,6 +225,17 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(NSString *)appVerison
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"appVersion"];
+}
+
+-(void)setAppVerison:(NSString *)appVerison
+{
+    [[NSUserDefaults standardUserDefaults] setValue:appVerison forKey:@"appVersion"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 // map data
 -(void)setMapRainData:(NSDictionary *)mapRainData
 {

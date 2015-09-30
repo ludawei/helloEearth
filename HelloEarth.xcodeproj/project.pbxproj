@@ -10,6 +10,12 @@
 		EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */; };
 		EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */; };
 		EE2414A91B7D9BAF00B2C5B5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */; };
+		EE2C4BC91BBBA5B00034D1B3 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */; settings = {ASSET_TAGS = (); }; };
+		EE2C4BCA1BBBA5B00034D1B3 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */; settings = {ASSET_TAGS = (); }; };
+		EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		EE2C4BD21BBBACBE0034D1B3 /* 引导页-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */; settings = {ASSET_TAGS = (); }; };
+		EE2C4BD31BBBACBE0034D1B3 /* 引导页-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */; settings = {ASSET_TAGS = (); }; };
+		EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */; settings = {ASSET_TAGS = (); }; };
 		EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */; settings = {ASSET_TAGS = (); }; };
 		EE47F8A21B71F6160000F066 /* star_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A11B71F6160000F066 /* star_background.png */; };
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
@@ -187,6 +193,15 @@
 		EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimLogic.h; sourceTree = "<group>"; };
 		EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapAnimLogic.m; sourceTree = "<group>"; };
 		EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EE2C4BC51BBBA5B00034D1B3 /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
+		EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
+		EE2C4BC71BBBA5B00034D1B3 /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
+		EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
+		EE2C4BCC1BBBAC910034D1B3 /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
+		EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
+		EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-1.jpg"; sourceTree = "<group>"; };
+		EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-2.jpg"; sourceTree = "<group>"; };
+		EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-3.jpg"; sourceTree = "<group>"; };
 		EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Legend_radar.png; sourceTree = "<group>"; };
 		EE47F8A11B71F6160000F066 /* star_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_background.png; sourceTree = "<group>"; };
 		EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_orig.txt; sourceTree = "<group>"; };
@@ -810,6 +825,27 @@
 			name = Logics;
 			sourceTree = "<group>";
 		};
+		EE2C4BC41BBBA5B00034D1B3 /* EAIntroView */ = {
+			isa = PBXGroup;
+			children = (
+				EE2C4BCB1BBBAC910034D1B3 /* EARestrictedScrollView */,
+				EE2C4BC51BBBA5B00034D1B3 /* EAIntroPage.h */,
+				EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */,
+				EE2C4BC71BBBA5B00034D1B3 /* EAIntroView.h */,
+				EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */,
+			);
+			path = EAIntroView;
+			sourceTree = "<group>";
+		};
+		EE2C4BCB1BBBAC910034D1B3 /* EARestrictedScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				EE2C4BCC1BBBAC910034D1B3 /* EARestrictedScrollView.h */,
+				EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */,
+			);
+			path = EARestrictedScrollView;
+			sourceTree = "<group>";
+		};
 		EE4CBCF71BA81D44002D322E /* UIimage+libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,6 +1386,7 @@
 		EED8B6101B748BCD000EADC1 /* ThirdLibs */ = {
 			isa = PBXGroup;
 			children = (
+				EE2C4BC41BBBA5B00034D1B3 /* EAIntroView */,
 				EED685911BB00063005E2763 /* NJKWebViewProgress */,
 				EE9F6C651BABB2B10006C8CF /* umeng_ios_social_sdk_4.2.3_arm64_custom */,
 				EE4CC3031BA913A4002D322E /* WhirlyGlobe-Maply */,
@@ -1655,6 +1692,9 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */,
+				EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */,
+				EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */,
 				EE6A7BD41BBA33FE00922607 /* app_launch_1.png */,
 				EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
@@ -1772,6 +1812,7 @@
 				EE9F6C9B1BABB2B10006C8CF /* UMSocialLocalizable.strings in Resources */,
 				EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */,
 				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
+				EE2C4BD31BBBACBE0034D1B3 /* 引导页-2.jpg in Resources */,
 				EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */,
 				EE9F6C9D1BABB2B10006C8CF /* UMSCommentDetailController.xib in Resources */,
 				EE9F6CA31BABB2B10006C8CF /* UMSnsAccountViewController.xib in Resources */,
@@ -1781,8 +1822,10 @@
 				EE9F6CA81BABB2B10006C8CF /* WeiboSDK.bundle in Resources */,
 				EE4CBCED1BA7A95E002D322E /* 背景.jpg in Resources */,
 				EE9F6C9F1BABB2B10006C8CF /* UMSCommentInputControlleriPad.xib in Resources */,
+				EE2C4BD21BBBACBE0034D1B3 /* 引导页-1.jpg in Resources */,
 				EE9F6CA41BABB2B10006C8CF /* UMSShareListController.xib in Resources */,
 				EED685AB1BB2861B005E2763 /* china.json in Resources */,
+				EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */,
 				EE9F6CA51BABB2B10006C8CF /* UMSocialSDKResourcesNew.bundle in Resources */,
 				EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */,
 				EE47F8A21B71F6160000F066 /* star_background.png in Resources */,
@@ -1853,7 +1896,9 @@
 				EED8B66C1B748BF5000EADC1 /* SDImageCache.m in Sources */,
 				EED8B6D01B748C71000EADC1 /* AlertViewBlocks.m in Sources */,
 				EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */,
+				EE2C4BC91BBBA5B00034D1B3 /* EAIntroPage.m in Sources */,
 				EE9F6C631BABA4580006C8CF /* UIRefreshControl+AFNetworking.m in Sources */,
+				EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */,
 				EED8B6751B748BF5000EADC1 /* UIImage+MultiFormat.m in Sources */,
 				EED8B6701B748BF5000EADC1 /* SDWebImageDownloaderOperation.m in Sources */,
 				EED8B77A1B74BE3A000EADC1 /* CWMyMotionStreakView.m in Sources */,
@@ -1895,6 +1940,7 @@
 				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
 				EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */,
 				EED8B6B21B748C58000EADC1 /* UtilConstants.m in Sources */,
+				EE2C4BCA1BBBA5B00034D1B3 /* EAIntroView.m in Sources */,
 				EEE41E491B6743A700752EC6 /* main.m in Sources */,
 				EE4CBC9D1BA1827E002D322E /* HELegendController.m in Sources */,
 				EE4CBCF01BA7BA92002D322E /* HESplashController.m in Sources */,

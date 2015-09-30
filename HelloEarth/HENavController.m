@@ -43,7 +43,7 @@
     self.interactivePopGestureRecognizer.delegate = self;
     
     UIImageView *loadingBackView = [UIImageView new];
-    loadingBackView.contentMode = UIViewContentModeScaleAspectFit;
+    loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
     loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,7 +64,6 @@
     [self presentViewController:next animated:YES completion:^{
         [loadingIV removeFromSuperview];
         loadingIV = nil;
-        
     }];
     
     ViewController *next1 = [ViewController new];

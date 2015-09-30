@@ -18,6 +18,8 @@
 #import "UIImage+Extra.h"
 #import "DeviceUtil.h"
 
+#define SHARE_TEXT @"“藍π•寰宇”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"
+
 @interface HEShareController ()
 {
     BOOL finishLoad;
@@ -132,7 +134,7 @@
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:10];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      “藍π•寰宇”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[@"      " stringByAppendingString:SHARE_TEXT]];
     [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
     CGFloat textHeight = ceil([text size].width/(self.view.width*0.9));
     
@@ -377,10 +379,10 @@
     
     NSString *appName = [DeviceUtil getSoftVersion:true];
     
-    [UMSocialData defaultData].extConfig.qqData.title = [appName stringByAppendingPathComponent:@" 分享"];
-    [UMSocialData defaultData].extConfig.qzoneData.title = [appName stringByAppendingPathComponent:@" 分享"];
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = [appName stringByAppendingPathComponent:@" 分享"];
-    [UMSocialData defaultData].extConfig.wechatTimelineData.title = [appName stringByAppendingPathComponent:@" 分享"];
+    [UMSocialData defaultData].extConfig.qqData.title = [appName stringByAppendingString:@" 分享"];
+    [UMSocialData defaultData].extConfig.qzoneData.title = [appName stringByAppendingString:@" 分享"];
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = [appName stringByAppendingString:@" 分享"];
+    [UMSocialData defaultData].extConfig.wechatTimelineData.title = [[SHARE_TEXT componentsSeparatedByString:@"，"] firstObject];
     
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:WX_APP_ID appSecret:WX_APP_SECRET url:imageUrl];
@@ -400,7 +402,7 @@
 //    [WXApi isWXAppInstalled];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[type]
-                                                        content:[appName stringByAppendingPathComponent:@" 分享"]//self.info.title
+                                                        content:[[SHARE_TEXT componentsSeparatedByString:@"，"] firstObject]//self.info.title
                                                           image:shareImage
                                                        location:nil
                                                     urlResource:[[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:imageUrl]

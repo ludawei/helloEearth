@@ -17,6 +17,7 @@ NS_ENUM(NSInteger, CWDataType){
 
 @property (readwrite) BOOL enablePushNotification;
 @property (readwrite) NSString *imageVersion;
+@property (readwrite) NSString *appVerison;
 
 + (CWDataManager *)sharedInstance;
 @property (nonatomic,strong) NSDateFormatter *dateFormatter;

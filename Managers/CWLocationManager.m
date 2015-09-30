@@ -52,7 +52,7 @@
 #pragma mark - CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    newLocation = [newLocation locationMarsFromEarth];
+//    newLocation = [newLocation locationMarsFromEarth];
 //    NSString *latitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.latitude];
 //    NSString *longitudeText = [NSString stringWithFormat:@"%lf",newLocation.coordinate.longitude];
     LOG(@"定位成功!%@,%@", latitudeText,longitudeText);
