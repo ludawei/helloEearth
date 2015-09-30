@@ -250,7 +250,7 @@ NS_ENUM(NSInteger, MapAnimType)
     layer.maxTiles = 256;
 //    layer.singleLevelLoading = true;
 //    layer.animationPeriod = 6.0;
-    layer.drawPriority = 0;
+//    layer.drawPriority = 0;
 //    layer.waitLoad = true;
     
 //    [tileLayer reset];
@@ -583,13 +583,7 @@ NS_ENUM(NSInteger, MapAnimType)
                 }
                 
                 self.animType = MapAnimTypeData;
-                [self.mapDataAnimLogic showProductWithTypes:types];
-                
-                // 设置时间
-//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//                NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:[[[responseObject firstObject] objectForKey:@"time"] integerValue]/1000.0];
-//                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-//                self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
+                [self.mapDataAnimLogic showProductWithTypes:types withAge:productAge];
             
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
@@ -611,7 +605,7 @@ NS_ENUM(NSInteger, MapAnimType)
                     
                     long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
                     NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
-                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                    [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
                     [self setTimeText:[dateFormatter stringFromDate:expirationDate]];
                     
                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -768,7 +762,7 @@ NS_ENUM(NSInteger, MapAnimType)
         anno.image = img;
         anno.layoutImportance = MAXFLOAT;
         
-        self.markerLocation = [self.theViewC addScreenMarkers:@[anno] desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+2000)}];
+        self.markerLocation = [self.theViewC addScreenMarkers:@[anno] desc:@{kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+300)}];
     }
     
 }
@@ -1356,9 +1350,17 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     if (productAge) {
         NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        NSDate *date = [[dateFormatter dateFromString:text] dateByAddingHours:[productAge integerValue]];
-        [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+        [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+        NSDate *timeDate = [dateFormatter dateFromString:text];
+        NSDate *date = [timeDate dateByAddingHours:[productAge integerValue]/[[productType componentsSeparatedByString:@","] count]];
+        if (timeDate.year == date.year) {
+            [dateFormatter setDateFormat:@"MM.dd HH:mm"];
+        }
+        else
+        {
+            [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+        }
+        
         NSString *timeAge = [dateFormatter stringFromDate:date];
         
         self.timeLabel.text = [text stringByAppendingFormat:@" - %@", timeAge];
@@ -1481,11 +1483,11 @@ NS_ENUM(NSInteger, MapAnimType)
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[CWLocationManager sharedInstance] updateLocation];
-    });
-    
-    [globeViewC setPosition:MaplyCoordinateMakeWithDegrees(0, 0) height:5];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:0.5];
+        
+        [globeViewC setPosition:MaplyCoordinateMakeWithDegrees(0, 0) height:5];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [globeViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight heading:0 time:1.0];
+        });
     });
 }
 

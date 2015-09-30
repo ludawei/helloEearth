@@ -9,6 +9,7 @@
 #import "HEMapDataAnimLogic.h"
 #import "CWDataManager.h"
 #import "Util.h"
+#import "NSDate+Utilities.h"
 
 @interface HEMapDataAnimLogic ()
 {
@@ -18,6 +19,7 @@
 @property (nonatomic,strong) HEMapDatas *mapDatas;
 
 @property (nonatomic,copy) NSArray *types;
+@property (nonatomic,copy) NSString *age;
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic) NSInteger currentPlayIndex;
 
@@ -53,12 +55,13 @@
     [self.delegate changeObjs:comObjs];
 }
 
--(void)showProductWithTypes:(NSArray *)types
+-(void)showProductWithTypes:(NSArray *)types withAge:(NSString *)age
 {
     isClear = NO;
     [self.delegate setPlayButtonSelect:NO];
     
     self.types = types;
+    self.age = age;
     
     self.currentPlayIndex = 0;
     [self changeType];
@@ -117,7 +120,10 @@
     NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
     long long timeInt = [text longLongValue];
     NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+    if (self.age) {
+        expirationDate = [expirationDate dateByAddingHours:[self.age integerValue]/[self.types count] * self.currentPlayIndex];
+    }
     [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
 }
 

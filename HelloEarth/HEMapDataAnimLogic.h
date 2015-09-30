@@ -23,7 +23,7 @@
 
 -(instancetype)initWithMapDatas:(HEMapDatas *)mapDatas;
 
--(void)showProductWithTypes:(NSArray *)types;
+-(void)showProductWithTypes:(NSArray *)types withAge:(NSString *)age;
 -(void)changeProgress:(UISlider *)progressView;
 -(void)clickPlay;
 -(void)clear;
