@@ -47,7 +47,6 @@
         }];
         
         self.dateFormatter = [CWDataManager sharedInstance].dateFormatter;
-        [self.dateFormatter setDateFormat:@"yyyyMMdd"];
         
         self.actView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 //        self.actView.center = self.contentView.center;
@@ -116,6 +115,10 @@
 
 -(void)hide
 {
+    if (self.hidden) {
+        return;
+    }
+    
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.height);
     }];
@@ -190,6 +193,7 @@
             NSString *htmlString = @"<div style='color:#FFFFFF; font-size:18px'>自%@至%@：<br />"
             "日最高气温<a style='color:#d87a80;'>%@</a>°C,日最低气温<a style='color:#d87a80;'>%@</a>°C,日最大风速<a style='color:#d87a80;'>%@</a>m/s，日最大降水量<a style='color:#d87a80;'>%@</a>mm，连续无降水日数<a style='color:#d87a80;'>%@</a>天，连续霾日数<a style='color:#d87a80;'>%@</a>天。</div>";
             
+            [self.dateFormatter setDateFormat:@"yyyyMMdd"];
             NSDate *startDate = [self.dateFormatter dateFromString:data[@"starttime"]];
             NSString *startDateString = [NSString stringWithFormat:@"%ld-%02ld-%02ld", (long)startDate.year, (long)startDate.month, (long)startDate.day];
             

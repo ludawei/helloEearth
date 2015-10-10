@@ -45,8 +45,8 @@
             make.height.mas_greaterThanOrEqualTo(BOTTOM_HEIGHT);
         }];
         
-        self.dateFormatter = [CWDataManager sharedInstance].dateFormatter;
-        [self.dateFormatter setDateFormat:@"yyyyMMdd"];
+//        self.dateFormatter = [CWDataManager sharedInstance].dateFormatter;
+//        [self.dateFormatter setDateFormat:@"yyyyMMdd"];
         
         self.actView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         //        self.actView.center = self.contentView.center;
@@ -114,6 +114,10 @@
 
 -(void)hide
 {
+    if (self.hidden) {
+        return;
+    }
+    
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.height);
     }];

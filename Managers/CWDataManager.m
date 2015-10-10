@@ -25,6 +25,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 
 @property (readwrite) NSMutableDictionary *normalProducts;
 @property (nonatomic, strong) NSString *basePath;
+@property (nonatomic, strong) NSCache *tongjiImageCache;
 //@property (nonatomic, strong) NSArray *cacheIndexs;  // 缓存几个city的数据
 
 @end
@@ -46,6 +47,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
     if (self = [super init]) {
         self.normalProducts = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_normalProducts]];
         self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.tongjiImageCache = [NSCache new];
     }
     return self;
 }
@@ -289,12 +291,22 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
 
 -(UIImage *)tongjiImageForName:(NSString *)name
 {
+    UIImage *image = [self.tongjiImageCache objectForKey:name];
+    if (image) {
+        return image;
+    }
+    
     NSString *_path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     _path = [_path stringByAppendingPathComponent:@"tongji_images"];
     
     NSString *filename = [_path stringByAppendingPathComponent:[Base64 base64EncodeString:name]];
     
-    return [UIImage imageWithContentsOfFile:filename];
+    image = [UIImage imageWithContentsOfFile:filename];
+    if (image) {
+        [self.tongjiImageCache setObject:image forKey:name];
+    }
+    
+    return image;
 }
 
 /* ******************************** some file datas ********************************* */

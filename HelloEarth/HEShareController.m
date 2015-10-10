@@ -374,7 +374,7 @@
 
 -(void)shareWithType:(NSString *)type
 {
-    NSString *imageUrl = @"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
+    NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";//@"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
     UIImage *shareImage = [self.contentView viewShot];//[[UIImageView sharedImageCache] cachedImageForRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]]];
     
     NSString *appName = [DeviceUtil getSoftVersion:true];

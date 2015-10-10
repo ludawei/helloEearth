@@ -12,6 +12,7 @@
 #import "Util.h"
 #import "PLHttpManager.h"
 #import "UIImage+Tint.h"
+#import "MBProgressHUD+Extra.h"
 
 #define MK_CHINA_CENTER_REGION MKCoordinateRegionMake(CLLocationCoordinate2DMake(33.2, 105.0), MKCoordinateSpanMake(42, 64))
 
@@ -66,6 +67,7 @@
 
 -(void)requestImage:(enum MapImageType)type
 {
+    [MBProgressHUD showLoadingHUDAddedTo:[UIApplication sharedApplication].keyWindow];
     INIT_WEAK_SELF;
     [self.mapImagesManager requestImageList:type completed:^(enum MapImageDownloadType downloadType) {
         
@@ -83,6 +85,8 @@
         
         [weakSlef.mapImagesManager downloadImageWithUrl:url type:type completed:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
                 
                 if (image) {
                     MaplySticker *sticker = [[MaplySticker alloc] init];

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
+#import <Bugly/CrashReporter.h>
 
 @interface AppDelegate ()
 
@@ -28,6 +29,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[CrashReporter sharedInstance] installWithAppId:@"900010224"];
     [UMSocialData setAppKey:UM_APP_KEY];
     
     return YES;

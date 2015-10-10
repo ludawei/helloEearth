@@ -12,5 +12,6 @@
 
 @property (nonatomic,copy) NSString *addr;
 -(void)showWithStationId:(NSString *)stationid;
+-(void)hide;
 
 @end

@@ -58,7 +58,7 @@ NS_ENUM(NSInteger, MapAnimType)
     MPMoviePlayerViewController * player;
     
     // setting
-    BOOL show3D,showLight,showLocation;
+    BOOL show3D,showLight,showLocation,showMapDataUI;
     WhirlyGlobeViewController *globeViewC;
     MaplyViewController *mapViewC;
     
@@ -260,6 +260,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)makeMapViewAndDatas
 {
+    showMapDataUI = NO;
     if (!self.theViewC || (show3D && mapViewC) || (!show3D && globeViewC)) {
         [self initMapView];
         [self initDatas];
@@ -283,6 +284,7 @@ NS_ENUM(NSInteger, MapAnimType)
                 [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
             }
             
+            showMapDataUI = YES;
             // 重新设置地图显示
 //            [self changeProduct_normal];
             [weakSlef refreshDataAndUI];
@@ -558,6 +560,8 @@ NS_ENUM(NSInteger, MapAnimType)
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    self.markerDatas = nil;
 }
 
 -(void)changeProduct_normal
@@ -568,7 +572,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     self.titleLbl.text = productName;
     
-    [MBProgressHUD showHUDInView:self.view andText:@"请求数据..."];
+    [MBProgressHUD showHUDInView:self.view andText:nil];
     NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
     
     [self.currentOperation cancel];
@@ -775,7 +779,7 @@ NS_ENUM(NSInteger, MapAnimType)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *annos1 = [weakSlef annotationsWithServerDatas:@"level1"];
         
-        if (annos1 && [productType isEqualToString:FILEMARK_TONGJI]) {
+        if (annos1 && [productType isEqualToString:FILEMARK_TONGJI] && showMapDataUI) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSlef.markersTJ1 = [weakSlef.theViewC addScreenMarkers:annos1 desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
                 [MBProgressHUD hideAllHUDsForView:weakSlef.view animated:YES];
@@ -786,7 +790,7 @@ NS_ENUM(NSInteger, MapAnimType)
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
         NSArray *annos2 = [weakSlef annotationsWithServerDatas:@"level2"];
-        if (annos2 && [productType isEqualToString:FILEMARK_TONGJI]) {
+        if (annos2 && [productType isEqualToString:FILEMARK_TONGJI] && showMapDataUI) {
             weakSlef.markersTJ2 = [weakSlef.theViewC addScreenMarkers:annos2 desc:@{kMaplyMaxVis:@0.1, kMaplyMinVis:@0.0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
             annos2 = nil;
         }
@@ -796,13 +800,13 @@ NS_ENUM(NSInteger, MapAnimType)
     }];
     
 //    NSBlockOperation *op3 = [NSBlockOperation blockOperationWithBlock:
-    [op2 addExecutionBlock:^{
-        NSArray *annos3 = [weakSlef annotationsWithServerDatas:@"level3"];
-        if (annos3 && [productType isEqualToString:FILEMARK_TONGJI]) {
-            weakSlef.markersTJ3 = [weakSlef.theViewC addScreenMarkers:annos3 desc:@{kMaplyMaxVis:@0.05, kMaplyMinVis:@0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-            annos3 = nil;
-        }
-    }];
+//    [op2 addExecutionBlock:^{
+//        NSArray *annos3 = [weakSlef annotationsWithServerDatas:@"level3"];
+//        if (annos3 && [productType isEqualToString:FILEMARK_TONGJI] && showMapDataUI) {
+//            weakSlef.markersTJ3 = [weakSlef.theViewC addScreenMarkers:annos3 desc:@{kMaplyMaxVis:@0.05, kMaplyMinVis:@0, kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+//            annos3 = nil;
+//        }
+//    }];
     [queue addOperation:op2];
 }
 
@@ -826,10 +830,10 @@ NS_ENUM(NSInteger, MapAnimType)
 }
 
 #pragma mark - Whirly Globe Delegate
-- (void)globeViewController:(WhirlyGlobeViewController *)viewC layerDidLoad:(WGViewControllerLayer *)layer
-{
-    LOG(@"layerDidLoad");
-}
+//- (void)globeViewController:(WhirlyGlobeViewController *)viewC layerDidLoad:(WGViewControllerLayer *)layer
+//{
+//    LOG(@"layerDidLoad");
+//}
 
 - (void)globeViewControllerDidStartMoving:(WhirlyGlobeViewController *)viewC userMotion:(bool)userMotion
 {
@@ -1006,14 +1010,17 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)showNetEyesMarkers
 {
     [self.currentOperation cancel];
+    [MBProgressHUD showHUDInView:self.view andText:nil];
     self.currentOperation = [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (responseObject) {
             self.markerDatas = (NSDictionary *)responseObject;
             [self addNetEyeMarkers:responseObject];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
     }];
 }
@@ -1023,15 +1030,17 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/stationinfo?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
     
     [self.currentOperation cancel];
+    [MBProgressHUD showHUDInView:self.view andText:nil];
     self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (responseObject) {
             self.markerDatas = (NSDictionary *)responseObject;
             [self addTongJiMarkers];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
 
@@ -1209,31 +1218,34 @@ NS_ENUM(NSInteger, MapAnimType)
     
     NSMutableArray *annos = [NSMutableArray arrayWithCapacity:datas.count];
     for (NSInteger i=0; i<datas.count; i++) {
-        if (![productType isEqualToString:FILEMARK_TONGJI]) {
+        if (![productType isEqualToString:FILEMARK_TONGJI] || !showMapDataUI) {
             return nil;
         }
-        NSDictionary *dict = [datas objectAtIndex:i];
-#if 0
-        MaplyScreenLabel *anno = [MaplyScreenLabel new];
-        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
-        anno.text            = dict[@"name"];
-        anno.iconImage2      = [UIImage imageNamed:@"circle39"];
-        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
-#else
-        UIImage *newImage = [[CWDataManager sharedInstance] tongjiImageForName:dict[@"name"]];
-        if (!newImage) {
-            newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
-            [[CWDataManager sharedInstance] saveTongjiImage:newImage forName:dict[@"name"]];
-        }
         
-        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
-        anno.layoutImportance = [level isEqualToString:@"level1"]?MAXFLOAT:10.0f;
-        anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
-        anno.size            = CGSizeMake(30, 30);
-        anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
-        anno.image           = newImage;
+        @autoreleasepool {
+            NSDictionary *dict = [datas objectAtIndex:i];
+#if 0
+            MaplyScreenLabel *anno = [MaplyScreenLabel new];
+            anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
+            anno.text            = dict[@"name"];
+            anno.iconImage2      = [UIImage imageNamed:@"circle39"];
+            anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
+#else
+            UIImage *newImage = [[CWDataManager sharedInstance] tongjiImageForName:dict[@"name"]];
+            if (!newImage) {
+                newImage = [Util drawText:dict[@"name"] inImage:[UIImage imageNamed:@"circle39"] font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor]];
+                [[CWDataManager sharedInstance] saveTongjiImage:newImage forName:dict[@"name"]];
+            }
+            
+            MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+            anno.layoutImportance = [level isEqualToString:@"level1"]?MAXFLOAT:10.0f;
+            anno.loc             = MaplyCoordinateMakeWithDegrees([dict[@"lon"] floatValue], [dict[@"lat"] floatValue]);
+            anno.size            = CGSizeMake(30, 30);
+            anno.userObject      = @{@"type": @"tongji", @"title": dict[@"name"], @"subTitle": [dict[@"stationid"] stringByAppendingFormat:@"-%@", dict[@"areaid"]]};
+            anno.image           = newImage;
 #endif
-        [annos addObject:anno];
+            [annos addObject:anno];
+        }
     }
     
     return annos;
@@ -1401,6 +1413,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     show3D = flag;
     
+    [self resetMapUI];
     [self makeMapViewAndDatas];
 }
 -(void)showMapLight:(BOOL)flag
@@ -1551,6 +1564,11 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self resetLocationToInit];
     self.indexButton.hidden = ![[CWDataManager sharedInstance].indexDict objectForKey:dataType];
+}
+
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.statisticsView hide];
 }
 
 @end
