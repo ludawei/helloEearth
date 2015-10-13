@@ -191,7 +191,7 @@
         lbl.preferredMaxLayoutWidth = self.width;
         {
             NSString *htmlString = @"<div style='color:#FFFFFF; font-size:18px'>自%@至%@：<br />"
-            "日最高气温<a style='color:#d87a80;'>%@</a>°C,日最低气温<a style='color:#d87a80;'>%@</a>°C,日最大风速<a style='color:#d87a80;'>%@</a>m/s，日最大降水量<a style='color:#d87a80;'>%@</a>mm，连续无降水日数<a style='color:#d87a80;'>%@</a>天，连续霾日数<a style='color:#d87a80;'>%@</a>天。</div>";
+            "日最高气温<a style='color:#d87a80;'>%@</a>,日最低气温<a style='color:#d87a80;'>%@</a>,日最大风速<a style='color:#d87a80;'>%@</a>，日最大降水量<a style='color:#d87a80;'>%@</a>，连续无降水日数<a style='color:#d87a80;'>%@</a>，连续霾日数<a style='color:#d87a80;'>%@</a>。</div>";
             
             [self.dateFormatter setDateFormat:@"yyyyMMdd"];
             NSDate *startDate = [self.dateFormatter dateFromString:data[@"starttime"]];
@@ -200,7 +200,25 @@
             NSDate *endDate = [self.dateFormatter dateFromString:data[@"endtime"]];
             NSString *endDateString = [NSString stringWithFormat:@"%ld-%02ld-%02ld", (long)endDate.year, (long)endDate.month, (long)endDate.day];
             
-            htmlString = [NSString stringWithFormat:htmlString, startDateString, endDateString, [[data[@"count"] firstObject] objectForKey:@"max"], [[data[@"count"] firstObject] objectForKey:@"min"], [[data[@"count"] lastObject] objectForKey:@"max"], [[data[@"count"] objectAtIndex:1] objectForKey:@"max"], data[@"no_rain_lx"],  data[@"mai_lx"]];
+            NSString *temp_max = [[data[@"count"] firstObject] objectForKey:@"max"];
+            temp_max = [self formatShowText:temp_max ext:@"°C"];
+            
+            NSString *temp_min = [[data[@"count"] firstObject] objectForKey:@"min"];
+            temp_min = [self formatShowText:temp_min ext:@"°C"];
+            
+            NSString *wind_max = [[data[@"count"] lastObject] objectForKey:@"max"];
+            wind_max = [self formatShowText:wind_max ext:@"m/s"];
+            
+            NSString *rain_max = [[data[@"count"] objectAtIndex:1] objectForKey:@"max"];
+            rain_max = [self formatShowText:rain_max ext:@"mm"];
+            
+            NSString *no_rain_count = data[@"no_rain_lx"];
+            no_rain_count = [self formatShowText:no_rain_count ext:@"天"];
+            
+            NSString *mai_count = data[@"mai_lx"];
+            mai_count = [self formatShowText:mai_count ext:@"天"];
+            
+            htmlString = [NSString stringWithFormat:htmlString, startDateString, endDateString, temp_max, temp_min, wind_max, rain_max, no_rain_count,  mai_count];
             
             NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
             
@@ -251,6 +269,17 @@
         
         [self.chartView setNeedsDisplay];
 #endif
+    }
+}
+
+-(NSString *)formatShowText:(NSString *)count ext:(NSString *)ext
+{
+    if (count.integerValue == -1) {
+        return @"未统计";
+    }
+    else
+    {
+        return [count stringByAppendingString:ext];
     }
 }
 

@@ -132,7 +132,12 @@
 - (UILabel *)descriptionLabel
 {
     UILabel *descriptionLabel = [[UILabel alloc] init];
-    NSString *days = [NSString stringWithFormat:@"%td天", [[[self.datas firstObject] objectForKey:@"value"] integerValue]];
+    NSInteger days_int = [[[self.datas firstObject] objectForKey:@"value"] integerValue];
+    NSString *days = [NSString stringWithFormat:@"%td天", days_int];
+    
+    if (days_int == -1) {
+        days = @"--";
+    }
     
     NSString *titleText = [NSString stringWithFormat:@"%@\n%@", [[self.datas firstObject] objectForKey:@"name"], days];
     

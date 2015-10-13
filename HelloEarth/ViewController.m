@@ -88,6 +88,8 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic,strong) MaplyComponentObject *markersObj,*markersTJ1,*markersTJ2,*markersTJ3;
 @property (nonatomic,strong) MaplyComponentObject *markerLocation;
 
+@property (nonatomic,strong) MaplyComponentObject *cityLabelsObj;
+
 @property (nonatomic,assign) enum MapAnimType animType;
 
 // UI
@@ -354,7 +356,7 @@ NS_ENUM(NSInteger, MapAnimType)
         
         [button addTarget:self action:@selector(clickMenu:) forControlEvents:UIControlEventTouchUpInside];
         lastButton = button;
-        if (i == 0) {
+        if (i == 4) {
             self.logoButton = button;
         }
     }
@@ -711,9 +713,33 @@ NS_ENUM(NSInteger, MapAnimType)
                            // add the outline to our view
                            [weakSlef.theViewC addVectors:[NSArray arrayWithObject:wgVecObj] desc:vectorDict];
                            // If you ever intend to remove these, keep track of the MaplyComponentObjects above.
+                           
+                           MaplyScreenLabel *lbl1 = [self mapLabelWithName:@"北京" latlon:@"39.9049870000,116.4052810000"];
+                           MaplyScreenLabel *lbl2 = [self mapLabelWithName:@"上海" latlon:@"31.2317070000,121.4726410000"];
+                           self.cityLabelsObj = [weakSlef.theViewC addScreenLabels:@[lbl1, lbl2] desc:@{kMaplyTextOutlineSize: @(0.6),
+                                                                                                        kMaplyTextOutlineColor: [UIColor grayColor],
+                                                                                                        kMaplyFont: [UIFont systemFontOfSize:14.0],
+                                                                                                        kMaplyDrawPriority: @(200),
+                                                                                                        }];
                        }
                        
                    });
+}
+
+-(MaplyScreenLabel *)mapLabelWithName:(NSString *)name latlon:(NSString *)latlon
+{
+    NSString *lat = [[latlon componentsSeparatedByString:@","] firstObject];
+    NSString *lon = [[latlon componentsSeparatedByString:@","] lastObject];
+    
+    MaplyScreenLabel *label = [[MaplyScreenLabel alloc] init];
+    label.loc = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
+//    label.keepUpright = true;
+    label.layoutImportance = 2.0;
+    label.text = [@"•" stringByAppendingString:name];
+//    label.iconSize = CGSizeMake(15, 15);
+//    label.iconImage2 = [UIImage imageNamed:@"city_location"];
+//    label.userObject = [NSString stringWithFormat:@"%s",location->name];
+    return label;
 }
 
 - (void)addStars:(NSString *)inFile
@@ -1532,6 +1558,8 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *dataType = productType;
     NSString *dataName = productName;
     
+    [self.theViewC enableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
+    
     self.animType = 0;
     if ([dataType rangeOfString:@"local"].location != NSNotFound) {
         isBottomFull = NO;
@@ -1557,6 +1585,7 @@ NS_ENUM(NSInteger, MapAnimType)
         }
         else if ([dataType isEqualToString:FILEMARK_TONGJI])
         {
+            [self.theViewC disableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
             [self showTongJiMarkers];
         }
     }
