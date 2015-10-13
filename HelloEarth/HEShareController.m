@@ -18,7 +18,7 @@
 #import "UIImage+Extra.h"
 #import "DeviceUtil.h"
 
-#define SHARE_TEXT @"“藍π•寰宇”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"
+#define SHARE_TEXT @"“蓝PI·寰宇”邀您体验酷炫的气象数据3D展示，三维的地图、动态的效果、便捷的交互，让您能够与数据互动，更全面、更直观地感受气象服务产品。"
 
 @interface HEShareController ()
 {

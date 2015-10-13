@@ -32,16 +32,12 @@
     // Do any additional setup after loading the view.
     
     self.title = @"设置";
-    UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
-    [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
-    
     
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     backView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
-    UIView *leftBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, self.tableView.height)];
+    UIView *leftBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, MAX(self.tableView.height, self.tableView.width))];
     leftBackView.backgroundColor = [UIColor colorWithRed:0.153 green:0.184 blue:0.235 alpha:1];
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(79, 0, 1, leftBackView.height)];
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(79, 0, 1, MAX(leftBackView.height, leftBackView.width))];
     line.backgroundColor = [UIColor darkGrayColor];
     [leftBackView addSubview:line];
     
@@ -86,6 +82,9 @@
     [super viewWillAppear:animated];
     
     [self.navigationController.navigationBar setBackgroundImage:[Util createImageWithColor:[UIColor blackColor] width:1 height:(STATUS_HEIGHT+SELF_NAV_HEIGHT)] forBarMetrics:UIBarMetricsDefault];
+    UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
+    [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
     
     for (NSInteger i=0; i<[self.tableView numberOfRowsInSection:0]; i++) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];

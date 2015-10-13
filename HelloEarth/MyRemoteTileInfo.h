@@ -11,4 +11,6 @@
 
 @interface MyRemoteTileInfo : MaplyRemoteTileInfo
 
+@property (nonatomic,copy) NSDictionary *imageInfo;
+
 @end

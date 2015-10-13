@@ -167,6 +167,11 @@
 }
 - (void)intro:(EAIntroView *)introView pageAppeared:(EAIntroPage *)page withIndex:(NSUInteger)pageIndex
 {
+    CGFloat skipButtonBottomPadding = self.intro.skipButtonY - self.intro.skipButton.height/2;
+    if (!CGPointEqualToPoint(self.intro.skipButton.center, CGPointMake(self.intro.width/2, self.intro.height-skipButtonBottomPadding))) {
+        self.intro.skipButton.center = CGPointMake(self.intro.width/2, self.intro.height-skipButtonBottomPadding);
+    }
+    
     if (pageIndex == introView.pages.count-1) {
         UIImageView *loadingBackView = [UIImageView new];
         loadingBackView.contentMode = UIViewContentModeScaleAspectFill;

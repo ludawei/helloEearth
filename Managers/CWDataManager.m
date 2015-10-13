@@ -373,6 +373,13 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
              @"默认地图":@"divdiv.nicgc1ap"};
 }
 
+-(NSDictionary *)mapOfflineImageInfo
+{
+    return @{@"卫星地图":@{@"type":@"satellite", @"ext":@"jpg"},
+             @"默认地图":@{@"type":@"default", @"ext":@"png"}
+             };
+}
+
 /* ******************************** some file datas ********************************* */
 
 @end

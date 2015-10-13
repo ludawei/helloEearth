@@ -11,6 +11,8 @@
 #import "WhirlyGlobeComponent.h"
 #import "CWDataManager.h"
 
+#define COLOR_APHLE 0.7
+
 @interface HEMapDatas ()
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -105,7 +107,7 @@
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"c"]) {
             vectorDict = @{
-                           kMaplyColor: [Util colorFromRGBString:[area objectForKey:@"c"]],
+                           kMaplyColor: [[Util colorFromRGBString:[area objectForKey:@"c"]] colorWithAlphaComponent:COLOR_APHLE],
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
 //                           kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
@@ -223,7 +225,7 @@
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"color"]) {
             vectorDict = @{
-                           kMaplyColor: [Util colorFromRGBString:[area objectForKey:@"color"]],
+                           kMaplyColor: [[Util colorFromRGBString:[area objectForKey:@"color"]] colorWithAlphaComponent:COLOR_APHLE],
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
@@ -282,7 +284,7 @@
         NSDictionary *vectorDict = nil;
         if (color) {
             vectorDict = @{
-                           kMaplyColor: [Util colorFromRGBString:color],
+                           kMaplyColor: [[Util colorFromRGBString:color] colorWithAlphaComponent:COLOR_APHLE],
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),

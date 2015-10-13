@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(orientation)) {
+    if (!UIDeviceOrientationIsPortrait(orientation)) {
         [UIView setAnimationsEnabled:NO];
         
         // Stackoverflow #26357162 to force orientation
@@ -49,7 +49,7 @@
     // Do any additional setup after loading the view.
     
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(orientation)) {
+    if (!UIDeviceOrientationIsPortrait(orientation)) {
         [UIView setAnimationsEnabled:NO];
         
         // Stackoverflow #26357162 to force orientation

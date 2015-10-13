@@ -10,6 +10,7 @@
 //#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
 #import "WhirlyGlobeComponent.h"
 #import "MyRemoteTileInfo.h"
+#import "MyMaplyRemoteTileSource.h"
 #import "MapImagesManager.h"
 #import "CWDataManager.h"
 #import "Masonry.h"
@@ -233,17 +234,21 @@ NS_ENUM(NSInteger, MapAnimType)
 -(MaplyQuadImageTilesLayer *)createTileLayer
 {
     NSString *mapId = [[CWDataManager sharedInstance].mapDataTypes objectForKey:mapDataType];
+    NSDictionary *mapImageInfo = [[CWDataManager sharedInstance].mapOfflineImageInfo objectForKey:mapDataType];
     
     NSString *baseCacheDir =
     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
      objectAtIndex:0];
     NSString *aerialTilesCacheDir = [NSString stringWithFormat:@"%@/%@/",baseCacheDir, mapId];
-    int maxZoom = 16;
+    int maxZoom = 18;
     
     MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:[NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/%@/", mapId] ext:@"png" minZoom:0 maxZoom:maxZoom];
+    myTileInfo.imageInfo = mapImageInfo;
     
-    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
+    MyMaplyRemoteTileSource *tileSource = [[MyMaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
     tileSource.cacheDir = aerialTilesCacheDir;
+    tileSource.imageInfo = mapImageInfo;
+    
     MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
     layer.handleEdges = false;
     layer.coverPoles = true;
@@ -319,11 +324,12 @@ NS_ENUM(NSInteger, MapAnimType)
     UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.bounds];
 //    self.topView = view;
     
-    NSArray *images = @[@[@"未选中－1", @"选中－1"],
-                        @[@"产品－未选中", @"产品－选中"],
+    NSArray *images = @[@[@"产品－未选中", @"产品－选中"],
+                        @[@"设置－未选中", @"设置－选中"],
                         @[@"分享－未选中", @"分享－选中"],
                         @[@"回位－未选中", @"回位－选中"],
-                        @[@"设置－未选中", @"设置－选中"]];
+                        @[@"未选中－1", @"选中－1"],
+                        ];
     UIButton *lastButton;
     for (NSInteger i=0; i<5; i++) {
         
@@ -932,6 +938,52 @@ NS_ENUM(NSInteger, MapAnimType)
     switch (button.tag) {
         case 0:
         {
+            // products
+            HEProductsController *next = [HEProductsController new];
+            next.delegate = self;
+            next.fileMark = productType;
+            [self.navigationController pushViewController:next animated:YES];
+            break;
+        }
+        case 1:
+        {
+            // setting
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            HESettingController *next = (HESettingController *)[board instantiateViewControllerWithIdentifier:@"setting"];
+            next.delegate = self;
+            next.set3D = show3D;
+            next.setLight = showLight;
+            next.setLocation = showLocation;
+            next.mapDataType = mapDataType;
+            [self.navigationController pushViewController:next animated:YES];
+            break;
+        }
+        case 2:
+        {
+            // share
+            HEShareController *next = [HEShareController new];
+            UIImage *mapImage = [self.theViewC snapshot];
+            self.theViewC.view.hidden = YES;
+            UIImage *viewImage = [self.navigationController.view viewShot];
+            self.theViewC.view.hidden = NO;
+            
+            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+            
+            if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+                next.imageRotationAngle = orientation == UIInterfaceOrientationLandscapeRight?90:-90;
+            }
+            next.image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
+            [self.navigationController pushViewController:next animated:YES];
+            break;
+        }
+        case 3:
+        {
+            // reset
+            [self resetLocationToInit];
+            break;
+        }
+        case 4:
+        {
             // logo
             if (self.logoPopView.hidden) {
                 button.selected = !button.selected;
@@ -954,52 +1006,6 @@ NS_ENUM(NSInteger, MapAnimType)
                 [self closeLogoView];
             }
             
-            break;
-        }
-        case 1:
-        {
-            // products
-            HEProductsController *next = [HEProductsController new];
-            next.delegate = self;
-            next.fileMark = productType;
-            [self.navigationController pushViewController:next animated:YES];
-            break;
-        }
-        case 2:
-        {
-            // share
-            HEShareController *next = [HEShareController new];
-            UIImage *mapImage = [self.theViewC snapshot];
-            self.theViewC.view.hidden = YES;
-            UIImage *viewImage = [self.navigationController.view viewShot];
-            self.theViewC.view.hidden = NO;
-            
-            UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-            
-            if (UIDeviceOrientationIsLandscape(orientation)) {
-                next.imageRotationAngle = orientation == UIDeviceOrientationLandscapeLeft?90:-90;
-            }
-            next.image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
-            [self.navigationController pushViewController:next animated:YES];
-            break;
-        }
-        case 3:
-        {
-            // reset
-            [self resetLocationToInit];
-            break;
-        }
-        case 4:
-        {
-            // setting
-            UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            HESettingController *next = (HESettingController *)[board instantiateViewControllerWithIdentifier:@"setting"];
-            next.delegate = self;
-            next.set3D = show3D;
-            next.setLight = showLight;
-            next.setLocation = showLocation;
-            next.mapDataType = mapDataType;
-            [self.navigationController pushViewController:next animated:YES];
             break;
         }
         default:
@@ -1307,7 +1313,7 @@ NS_ENUM(NSInteger, MapAnimType)
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setLineSpacing:13];
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “藍π•寰宇” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"      欢迎您使用 “蓝PI·寰宇” 气象数据3D展示系统，它将带您进入全新的气象数据视觉化体验！"];
         [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
         
         UILabel *titleView = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:18]];

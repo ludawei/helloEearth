@@ -37,6 +37,7 @@ NS_ENUM(NSInteger, CWDataType){
 
 -(NSDictionary *)indexDict;
 -(NSDictionary *)mapDataTypes;
+-(NSDictionary *)mapOfflineImageInfo;
 
 -(void)saveTongjiImage:(UIImage *)image forName:(NSString *)name;
 -(UIImage *)tongjiImageForName:(NSString *)name;

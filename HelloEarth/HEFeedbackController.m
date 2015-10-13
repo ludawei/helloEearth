@@ -258,7 +258,7 @@
     [mailCompose setMailComposeDelegate:self];
     
     // 设置邮件主题
-    [mailCompose setSubject:@"藍π•寰宇-意见反馈"];
+    [mailCompose setSubject:@"蓝PI·寰宇-意见反馈"];
     
     // 设置收件人
     [mailCompose setToRecipients:@[FEEDBACK_EMAILBOX]];
