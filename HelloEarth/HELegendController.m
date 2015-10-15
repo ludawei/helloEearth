@@ -133,8 +133,8 @@
             UILabel *tempLbl;
             for (NSInteger j=0; j<colors.count; j++) {
                 NSDictionary *colorData = [colors objectAtIndex:j];
-                UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"]];
-                UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"]];
+                UIColor *backColor = [Util colorFromRGBString:[colorData objectForKey:@"color"] alpha:1.0];
+                UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"] alpha:1.0];
                 
                 UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[[[colorData objectForKey:@"text"] componentsSeparatedByString:@"-"] lastObject]];
                 lbl.font = [UIFont systemFontOfSize:minFontSize];//[Util modifySystemFontWithSize:16];

@@ -6,8 +6,10 @@
 //  Copyright © 2015年 weather. All rights reserved.
 //
 
-#import "MaplyRemoteTileSource.h"
-#import "MaplyQuadImageTilesLayer.h"
+#import <WhirlyGlobeMaplyComponent/MaplyRemoteTileSource.h>
+#import <WhirlyGlobeMaplyComponent/MaplyQuadImageTilesLayer.h>
+//#import "MaplyRemoteTileSource.h"
+//#import "MaplyQuadImageTilesLayer.h"
 
 @interface MyMaplyRemoteTileSource : MaplyRemoteTileSource
 

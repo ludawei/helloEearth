@@ -240,14 +240,14 @@ static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NS
     return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescaped, (__bridge CFStringRef)kAFCharactersToBeEscaped, CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
-+(UIColor *)colorFromRGBString:(NSString *)rbgString
++(UIColor *)colorFromRGBString:(NSString *)rbgString alpha:(CGFloat)a
 {
     if ([rbgString hasPrefix:@"rgba"]) {
         return [UIColor clearColor];
     }
     unsigned long rgbValue = strtoul([[rbgString stringByReplacingOccurrencesOfString:@"#" withString:@"0x"] UTF8String], 0, 16);
     
-    return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0];
+    return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a];
 }
 
 +(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size

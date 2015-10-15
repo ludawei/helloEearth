@@ -8,7 +8,8 @@
 
 #import "HEMapDatas.h"
 #import "Util.h"
-#import "WhirlyGlobeComponent.h"
+//#import "WhirlyGlobeComponent.h"
+#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
 #import "CWDataManager.h"
 
 #define COLOR_APHLE 0.7
@@ -106,8 +107,9 @@
         
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"c"]) {
+            UIColor *color = [Util colorFromRGBString:[area objectForKey:@"c"] alpha:COLOR_APHLE];
             vectorDict = @{
-                           kMaplyColor: [[Util colorFromRGBString:[area objectForKey:@"c"]] colorWithAlphaComponent:COLOR_APHLE],
+                           kMaplyColor: color,
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
 //                           kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
@@ -224,8 +226,9 @@
         
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"color"]) {
+            UIColor *color = [Util colorFromRGBString:[area objectForKey:@"color"] alpha:COLOR_APHLE];
             vectorDict = @{
-                           kMaplyColor: [[Util colorFromRGBString:[area objectForKey:@"color"]] colorWithAlphaComponent:COLOR_APHLE],
+                           kMaplyColor: color,
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
@@ -283,8 +286,9 @@
         
         NSDictionary *vectorDict = nil;
         if (color) {
+            UIColor *c = [Util colorFromRGBString:color alpha:COLOR_APHLE];
             vectorDict = @{
-                           kMaplyColor: [[Util colorFromRGBString:color] colorWithAlphaComponent:COLOR_APHLE],
+                           kMaplyColor: c,
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),

@@ -25,7 +25,7 @@
 + (NSString *)requestEncodeWithString:(NSString *)url appId:(NSString *)appId privateKey:(NSString *)priKey;
 + (NSString *)AFPercentEscapedQueryStringPairMemberFromString:(NSString *)string encoding:(NSStringEncoding)edcoding;
 
-+(UIColor *)colorFromRGBString:(NSString *)rbgString;
++(UIColor *)colorFromRGBString:(NSString *)rbgString alpha:(CGFloat)a;
 +(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size;
 +(UIFont *)modifySystemFontWithSize:(CGFloat)size;
 +(UIFont *)modifyBoldSystemFontWithSize:(CGFloat)size;

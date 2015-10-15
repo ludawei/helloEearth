@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ENUM(NSInteger, CWDataType){
+typedef NS_ENUM(NSInteger, CWDataType){
     CWDataTypeProductList,
     CWDataTypeMapdata,
 };

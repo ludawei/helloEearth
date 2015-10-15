@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WhirlyGlobeComponent.h"
+//#import "WhirlyGlobeComponent.h"
+#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
 #import "MapImagesManager.h"
 #import "ViewController.h"
 

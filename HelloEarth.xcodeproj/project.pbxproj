@@ -18,6 +18,7 @@
 		EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */; settings = {ASSET_TAGS = (); }; };
 		EE2E77691BCB86450038F1EE /* MyMaplyRemoteTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E77681BCB86450038F1EE /* MyMaplyRemoteTileSource.m */; settings = {ASSET_TAGS = (); }; };
 		EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */; settings = {ASSET_TAGS = (); }; };
+		EE418DBB1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE418DBA1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework */; settings = {ASSET_TAGS = (); }; };
 		EE47F8A21B71F6160000F066 /* star_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A11B71F6160000F066 /* star_background.png */; };
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
 		EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4A98D21B6A16DD00891970 /* MyRemoteTileInfo.m */; };
@@ -42,8 +43,6 @@
 		EE5B99741BAA6BFD00A23E35 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99731BAA6BFD00A23E35 /* libsqlite3.tbd */; };
 		EE5B99C51BAA7A0B00A23E35 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */; settings = {ASSET_TAGS = (); }; };
 		EE5B99C61BAA7A0B00A23E35 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C41BAA7A0B00A23E35 /* libssl.a */; settings = {ASSET_TAGS = (); }; };
-		EE5B9A821BAA7F5500A23E35 /* libWhirlyGlobe-MaplyComponent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B9A801BAA7F5500A23E35 /* libWhirlyGlobe-MaplyComponent.a */; settings = {ASSET_TAGS = (); }; };
-		EE5B9A831BAA7F5500A23E35 /* libWhirlyGlobeLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B9A811BAA7F5500A23E35 /* libWhirlyGlobeLib.a */; settings = {ASSET_TAGS = (); }; };
 		EE6A7BD51BBA33FE00922607 /* app_launch_1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE6A7BD41BBA33FE00922607 /* app_launch_1.png */; settings = {ASSET_TAGS = (); }; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
@@ -2936,6 +2935,7 @@
 		EE2E77671BCB86450038F1EE /* MyMaplyRemoteTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyRemoteTileSource.h; sourceTree = "<group>"; };
 		EE2E77681BCB86450038F1EE /* MyMaplyRemoteTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyRemoteTileSource.m; sourceTree = "<group>"; };
 		EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Legend_radar.png; sourceTree = "<group>"; };
+		EE418DBA1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhirlyGlobeMaplyComponent.framework; sourceTree = "<group>"; };
 		EE47F8A11B71F6160000F066 /* star_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_background.png; sourceTree = "<group>"; };
 		EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_orig.txt; sourceTree = "<group>"; };
 		EE4A98D11B6A16DD00891970 /* MyRemoteTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRemoteTileInfo.h; sourceTree = "<group>"; };
@@ -3048,188 +3048,6 @@
 		EE5B99C11BAA7A0B00A23E35 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		EE5B99C41BAA7A0B00A23E35 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		EE5B99CC1BAA7F3A00A23E35 /* ActiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveModel.h; sourceTree = "<group>"; };
-		EE5B99CD1BAA7F3A00A23E35 /* AnimateRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimateRotation.h; sourceTree = "<group>"; };
-		EE5B99CE1BAA7F3A00A23E35 /* AnimateViewMomentum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimateViewMomentum.h; sourceTree = "<group>"; };
-		EE5B99CF1BAA7F3A00A23E35 /* BaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseInfo.h; sourceTree = "<group>"; };
-		EE5B99D01BAA7F3A00A23E35 /* BasicDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDrawable.h; sourceTree = "<group>"; };
-		EE5B99D11BAA7F3A00A23E35 /* BasicDrawableInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDrawableInstance.h; sourceTree = "<group>"; };
-		EE5B99D21BAA7F3A00A23E35 /* BigDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDrawable.h; sourceTree = "<group>"; };
-		EE5B99D31BAA7F3A00A23E35 /* BillboardDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardDrawable.h; sourceTree = "<group>"; };
-		EE5B99D41BAA7F3A00A23E35 /* BillboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardManager.h; sourceTree = "<group>"; };
-		EE5B99D51BAA7F3A00A23E35 /* BufferBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferBuilder.h; sourceTree = "<group>"; };
-		EE5B99D61BAA7F3A00A23E35 /* CoordSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordSystem.h; sourceTree = "<group>"; };
-		EE5B99D71BAA7F3A00A23E35 /* Cullable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cullable.h; sourceTree = "<group>"; };
-		EE5B99D81BAA7F3A00A23E35 /* DataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
-		EE5B99D91BAA7F3A00A23E35 /* DefaultShaderPrograms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultShaderPrograms.h; sourceTree = "<group>"; };
-		EE5B99DA1BAA7F3A00A23E35 /* Drawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drawable.h; sourceTree = "<group>"; };
-		EE5B99DB1BAA7F3A00A23E35 /* DynamicDrawableAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicDrawableAtlas.h; sourceTree = "<group>"; };
-		EE5B99DC1BAA7F3A00A23E35 /* DynamicTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicTextureAtlas.h; sourceTree = "<group>"; };
-		EE5B99DD1BAA7F3A00A23E35 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
-		EE5B99DE1BAA7F3A00A23E35 /* ElevationCesiumChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevationCesiumChunk.h; sourceTree = "<group>"; };
-		EE5B99DF1BAA7F3A00A23E35 /* ElevationCesiumFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevationCesiumFormat.h; sourceTree = "<group>"; };
-		EE5B99E01BAA7F3A00A23E35 /* ElevationChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevationChunk.h; sourceTree = "<group>"; };
-		EE5B99E11BAA7F3A00A23E35 /* FlatMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatMath.h; sourceTree = "<group>"; };
-		EE5B99E21BAA7F3A00A23E35 /* FontTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontTextureManager.h; sourceTree = "<group>"; };
-		EE5B99E31BAA7F3A00A23E35 /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
-		EE5B99E41BAA7F3A00A23E35 /* GeometryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryManager.h; sourceTree = "<group>"; };
-		EE5B99E51BAA7F3A00A23E35 /* GeometryOBJReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryOBJReader.h; sourceTree = "<group>"; };
-		EE5B99E61BAA7F3A00A23E35 /* GlobeAnimateHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeAnimateHeight.h; sourceTree = "<group>"; };
-		EE5B99E71BAA7F3A00A23E35 /* GlobeDoubleTapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeDoubleTapDelegate.h; sourceTree = "<group>"; };
-		EE5B99E81BAA7F3A00A23E35 /* GlobeDoubleTapDragDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeDoubleTapDragDelegate.h; sourceTree = "<group>"; };
-		EE5B99E91BAA7F3A00A23E35 /* GlobeLayerViewWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeLayerViewWatcher.h; sourceTree = "<group>"; };
-		EE5B99EA1BAA7F3A00A23E35 /* GlobeMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeMath.h; sourceTree = "<group>"; };
-		EE5B99EB1BAA7F3A00A23E35 /* GlobeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeScene.h; sourceTree = "<group>"; };
-		EE5B99EC1BAA7F3A00A23E35 /* GlobeTwoFingerTapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeTwoFingerTapDelegate.h; sourceTree = "<group>"; };
-		EE5B99ED1BAA7F3A00A23E35 /* GlobeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobeView.h; sourceTree = "<group>"; };
-		EE5B99EE1BAA7F3A00A23E35 /* GLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLUtils.h; sourceTree = "<group>"; };
-		EE5B99EF1BAA7F3A00A23E35 /* GridClipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridClipper.h; sourceTree = "<group>"; };
-		EE5B99F01BAA7F3A00A23E35 /* Identifiable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identifiable.h; sourceTree = "<group>"; };
-		EE5B99F11BAA7F3A00A23E35 /* LabelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelManager.h; sourceTree = "<group>"; };
-		EE5B99F21BAA7F3A00A23E35 /* LabelRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelRenderer.h; sourceTree = "<group>"; };
-		EE5B99F31BAA7F3A00A23E35 /* LayerThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerThread.h; sourceTree = "<group>"; };
-		EE5B99F41BAA7F3A00A23E35 /* LayerViewWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerViewWatcher.h; sourceTree = "<group>"; };
-		EE5B99F51BAA7F3A00A23E35 /* LayoutLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutLayer.h; sourceTree = "<group>"; };
-		EE5B99F61BAA7F3A00A23E35 /* LayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutManager.h; sourceTree = "<group>"; };
-		EE5B99F71BAA7F3A00A23E35 /* Lighting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
-		EE5B99F81BAA7F3A00A23E35 /* LoadedTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadedTile.h; sourceTree = "<group>"; };
-		EE5B99F91BAA7F3A00A23E35 /* LoftManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoftManager.h; sourceTree = "<group>"; };
-		EE5B99FA1BAA7F3A00A23E35 /* LongPressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongPressDelegate.h; sourceTree = "<group>"; };
-		EE5B99FB1BAA7F3A00A23E35 /* MaplyActiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyActiveObject.h; sourceTree = "<group>"; };
-		EE5B99FC1BAA7F3A00A23E35 /* MaplyAnimateFlat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAnimateFlat.h; sourceTree = "<group>"; };
-		EE5B99FD1BAA7F3A00A23E35 /* MaplyAnimateTranslateMomentum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAnimateTranslateMomentum.h; sourceTree = "<group>"; };
-		EE5B99FE1BAA7F3A00A23E35 /* MaplyAnimateTranslation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAnimateTranslation.h; sourceTree = "<group>"; };
-		EE5B99FF1BAA7F3A00A23E35 /* MaplyAnimationTestTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAnimationTestTileSource.h; sourceTree = "<group>"; };
-		EE5B9A001BAA7F3A00A23E35 /* MaplyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAnnotation.h; sourceTree = "<group>"; };
-		EE5B9A011BAA7F3A00A23E35 /* MaplyAtmosphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyAtmosphere.h; sourceTree = "<group>"; };
-		EE5B9A021BAA7F3A00A23E35 /* MaplyBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyBaseViewController.h; sourceTree = "<group>"; };
-		EE5B9A031BAA7F3A00A23E35 /* MaplyBillboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyBillboard.h; sourceTree = "<group>"; };
-		EE5B9A041BAA7F3A00A23E35 /* MaplyBlankTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyBlankTileSource.h; sourceTree = "<group>"; };
-		EE5B9A051BAA7F3A00A23E35 /* MaplyComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyComponent.h; sourceTree = "<group>"; };
-		EE5B9A061BAA7F3A00A23E35 /* MaplyComponentObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyComponentObject.h; sourceTree = "<group>"; };
-		EE5B9A071BAA7F3A00A23E35 /* MaplyCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyCoordinate.h; sourceTree = "<group>"; };
-		EE5B9A081BAA7F3A00A23E35 /* MaplyCoordinateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyCoordinateSystem.h; sourceTree = "<group>"; };
-		EE5B9A091BAA7F3A00A23E35 /* MaplyDoubleTapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyDoubleTapDelegate.h; sourceTree = "<group>"; };
-		EE5B9A0A1BAA7F3A00A23E35 /* MaplyDoubleTapDragDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyDoubleTapDragDelegate.h; sourceTree = "<group>"; };
-		EE5B9A0B1BAA7F3A00A23E35 /* MaplyElevationDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyElevationDatabase.h; sourceTree = "<group>"; };
-		EE5B9A0C1BAA7F3A00A23E35 /* MaplyElevationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyElevationSource.h; sourceTree = "<group>"; };
-		EE5B9A0D1BAA7F3A00A23E35 /* MaplyFlatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyFlatView.h; sourceTree = "<group>"; };
-		EE5B9A0E1BAA7F3A00A23E35 /* MaplyGDALRetileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyGDALRetileSource.h; sourceTree = "<group>"; };
-		EE5B9A0F1BAA7F3A00A23E35 /* MaplyGeomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyGeomModel.h; sourceTree = "<group>"; };
-		EE5B9A101BAA7F3A00A23E35 /* MaplyIconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyIconManager.h; sourceTree = "<group>"; };
-		EE5B9A111BAA7F3A00A23E35 /* MaplyImageTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyImageTile.h; sourceTree = "<group>"; };
-		EE5B9A121BAA7F3A00A23E35 /* MaplyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyLabel.h; sourceTree = "<group>"; };
-		EE5B9A131BAA7F3A00A23E35 /* MaplyLayerViewWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyLayerViewWatcher.h; sourceTree = "<group>"; };
-		EE5B9A141BAA7F3A00A23E35 /* MaplyLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyLight.h; sourceTree = "<group>"; };
-		EE5B9A151BAA7F3A00A23E35 /* MaplyMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyMarker.h; sourceTree = "<group>"; };
-		EE5B9A161BAA7F3A00A23E35 /* MaplyMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyMatrix.h; sourceTree = "<group>"; };
-		EE5B9A171BAA7F3A00A23E35 /* MaplyMBTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyMBTileSource.h; sourceTree = "<group>"; };
-		EE5B9A181BAA7F3A00A23E35 /* MaplyMoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyMoon.h; sourceTree = "<group>"; };
-		EE5B9A191BAA7F3A00A23E35 /* MaplyMultiplexTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyMultiplexTileSource.h; sourceTree = "<group>"; };
-		EE5B9A1A1BAA7F3A00A23E35 /* MaplyPagingElevationTestTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyPagingElevationTestTileSource.h; sourceTree = "<group>"; };
-		EE5B9A1B1BAA7F3A00A23E35 /* MaplyPagingVectorTestTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyPagingVectorTestTileSource.h; sourceTree = "<group>"; };
-		EE5B9A1C1BAA7F3A00A23E35 /* MaplyPanDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyPanDelegate.h; sourceTree = "<group>"; };
-		EE5B9A1D1BAA7F3A00A23E35 /* MaplyParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyParticleSystem.h; sourceTree = "<group>"; };
-		EE5B9A1E1BAA7F3A00A23E35 /* MaplyPinchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyPinchDelegate.h; sourceTree = "<group>"; };
-		EE5B9A1F1BAA7F3A00A23E35 /* MaplyQuadImageOfflineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyQuadImageOfflineLayer.h; sourceTree = "<group>"; };
-		EE5B9A201BAA7F3A00A23E35 /* MaplyQuadImageTilesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyQuadImageTilesLayer.h; sourceTree = "<group>"; };
-		EE5B9A211BAA7F3A00A23E35 /* MaplyQuadPagingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyQuadPagingLayer.h; sourceTree = "<group>"; };
-		EE5B9A221BAA7F3A00A23E35 /* MaplyQuadTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyQuadTracker.h; sourceTree = "<group>"; };
-		EE5B9A231BAA7F3A00A23E35 /* MaplyRemoteTileElevationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyRemoteTileElevationSource.h; sourceTree = "<group>"; };
-		EE5B9A241BAA7F3A00A23E35 /* MaplyRemoteTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyRemoteTileSource.h; sourceTree = "<group>"; };
-		EE5B9A251BAA7F3A00A23E35 /* MaplyRotateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyRotateDelegate.h; sourceTree = "<group>"; };
-		EE5B9A261BAA7F3A00A23E35 /* MaplyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyScene.h; sourceTree = "<group>"; };
-		EE5B9A271BAA7F3A00A23E35 /* MaplyScreenLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyScreenLabel.h; sourceTree = "<group>"; };
-		EE5B9A281BAA7F3A00A23E35 /* MaplyScreenMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyScreenMarker.h; sourceTree = "<group>"; };
-		EE5B9A291BAA7F3A00A23E35 /* MaplyScreenObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyScreenObject.h; sourceTree = "<group>"; };
-		EE5B9A2A1BAA7F3A00A23E35 /* MaplyShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyShader.h; sourceTree = "<group>"; };
-		EE5B9A2B1BAA7F3A00A23E35 /* MaplyShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyShape.h; sourceTree = "<group>"; };
-		EE5B9A2C1BAA7F3A00A23E35 /* MaplySharedAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplySharedAttributes.h; sourceTree = "<group>"; };
-		EE5B9A2D1BAA7F3A00A23E35 /* MaplySphericalQuadEarthWithTexGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplySphericalQuadEarthWithTexGroup.h; sourceTree = "<group>"; };
-		EE5B9A2E1BAA7F3A00A23E35 /* MaplyStarsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyStarsModel.h; sourceTree = "<group>"; };
-		EE5B9A2F1BAA7F3A00A23E35 /* MaplySticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplySticker.h; sourceTree = "<group>"; };
-		EE5B9A301BAA7F3A00A23E35 /* MaplySun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplySun.h; sourceTree = "<group>"; };
-		EE5B9A311BAA7F3A00A23E35 /* MaplyTapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTapDelegate.h; sourceTree = "<group>"; };
-		EE5B9A321BAA7F3A00A23E35 /* MaplyTapMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTapMessage.h; sourceTree = "<group>"; };
-		EE5B9A331BAA7F3A00A23E35 /* MaplyTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTexture.h; sourceTree = "<group>"; };
-		EE5B9A341BAA7F3A00A23E35 /* MaplyTextureBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTextureBuilder.h; sourceTree = "<group>"; };
-		EE5B9A351BAA7F3A00A23E35 /* MaplyTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTileSource.h; sourceTree = "<group>"; };
-		EE5B9A361BAA7F3A00A23E35 /* MaplyTouchCancelAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTouchCancelAnimationDelegate.h; sourceTree = "<group>"; };
-		EE5B9A371BAA7F3A00A23E35 /* MaplyTwoFingerTapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyTwoFingerTapDelegate.h; sourceTree = "<group>"; };
-		EE5B9A381BAA7F3A00A23E35 /* MaplyUpdateLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyUpdateLayer.h; sourceTree = "<group>"; };
-		EE5B9A391BAA7F3A00A23E35 /* MaplyVectorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyVectorObject.h; sourceTree = "<group>"; };
-		EE5B9A3A1BAA7F3A00A23E35 /* MaplyVertexAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyVertexAttribute.h; sourceTree = "<group>"; };
-		EE5B9A3B1BAA7F3A00A23E35 /* MaplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyView.h; sourceTree = "<group>"; };
-		EE5B9A3C1BAA7F3A00A23E35 /* MaplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyViewController.h; sourceTree = "<group>"; };
-		EE5B9A3D1BAA7F3A00A23E35 /* MaplyViewControllerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyViewControllerLayer.h; sourceTree = "<group>"; };
-		EE5B9A3E1BAA7F3A00A23E35 /* MaplyViewTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyViewTracker.h; sourceTree = "<group>"; };
-		EE5B9A3F1BAA7F3A00A23E35 /* MaplyWMSTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyWMSTileSource.h; sourceTree = "<group>"; };
-		EE5B9A401BAA7F3A00A23E35 /* MaplyZoomGestureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyZoomGestureDelegate.h; sourceTree = "<group>"; };
-		EE5B9A411BAA7F3A00A23E35 /* MaplyZoomGestureDelegate_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplyZoomGestureDelegate_private.h; sourceTree = "<group>"; };
-		EE5B9A421BAA7F3A00A23E35 /* MarkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerManager.h; sourceTree = "<group>"; };
-		EE5B9A431BAA7F3A00A23E35 /* MBTileQuadSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTileQuadSource.h; sourceTree = "<group>"; };
-		EE5B9A441BAA7F3A00A23E35 /* NetworkTileQuadSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTileQuadSource.h; sourceTree = "<group>"; };
-		EE5B9A451BAA7F3A00A23E35 /* NSData+Zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Zlib.h"; sourceTree = "<group>"; };
-		EE5B9A461BAA7F3A00A23E35 /* NSDictionary+Stuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Stuff.h"; sourceTree = "<group>"; };
-		EE5B9A471BAA7F3A00A23E35 /* NSDictionary+StyleRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+StyleRules.h"; sourceTree = "<group>"; };
-		EE5B9A481BAA7F3A00A23E35 /* NSString+Stuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Stuff.h"; sourceTree = "<group>"; };
-		EE5B9A491BAA7F3A00A23E35 /* OpenGLES2Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLES2Program.h; sourceTree = "<group>"; };
-		EE5B9A4A1BAA7F3A00A23E35 /* PanDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanDelegate.h; sourceTree = "<group>"; };
-		EE5B9A4B1BAA7F3A00A23E35 /* ParticleSystemDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSystemDrawable.h; sourceTree = "<group>"; };
-		EE5B9A4C1BAA7F3A00A23E35 /* ParticleSystemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSystemLayer.h; sourceTree = "<group>"; };
-		EE5B9A4D1BAA7F3A00A23E35 /* ParticleSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSystemManager.h; sourceTree = "<group>"; };
-		EE5B9A4E1BAA7F3A00A23E35 /* PerformanceTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTimer.h; sourceTree = "<group>"; };
-		EE5B9A4F1BAA7F3A00A23E35 /* PinchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchDelegate.h; sourceTree = "<group>"; };
-		EE5B9A501BAA7F3A00A23E35 /* QuadDisplayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadDisplayLayer.h; sourceTree = "<group>"; };
-		EE5B9A511BAA7F3A00A23E35 /* Quadtree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quadtree.h; sourceTree = "<group>"; };
-		EE5B9A521BAA7F3A00A23E35 /* RotateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateDelegate.h; sourceTree = "<group>"; };
-		EE5B9A531BAA7F3A00A23E35 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
-		EE5B9A541BAA7F3A00A23E35 /* SceneGraphManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGraphManager.h; sourceTree = "<group>"; };
-		EE5B9A551BAA7F3A00A23E35 /* SceneRendererES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRendererES.h; sourceTree = "<group>"; };
-		EE5B9A561BAA7F3A00A23E35 /* SceneRendererES2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRendererES2.h; sourceTree = "<group>"; };
-		EE5B9A571BAA7F3A00A23E35 /* SceneRendererES3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRendererES3.h; sourceTree = "<group>"; };
-		EE5B9A581BAA7F3A00A23E35 /* ScreenImportance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenImportance.h; sourceTree = "<group>"; };
-		EE5B9A591BAA7F3A00A23E35 /* ScreenSpaceBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSpaceBuilder.h; sourceTree = "<group>"; };
-		EE5B9A5A1BAA7F3A00A23E35 /* ScreenSpaceDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSpaceDrawable.h; sourceTree = "<group>"; };
-		EE5B9A5B1BAA7F3A00A23E35 /* ScreenSpaceGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenSpaceGenerator.h; sourceTree = "<group>"; };
-		EE5B9A5C1BAA7F3A00A23E35 /* SelectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionManager.h; sourceTree = "<group>"; };
-		EE5B9A5D1BAA7F3A00A23E35 /* ShapeDrawableBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeDrawableBuilder.h; sourceTree = "<group>"; };
-		EE5B9A5E1BAA7F3A00A23E35 /* ShapeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeManager.h; sourceTree = "<group>"; };
-		EE5B9A5F1BAA7F3A00A23E35 /* ShapeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeReader.h; sourceTree = "<group>"; };
-		EE5B9A601BAA7F3A00A23E35 /* SphericalEarthChunkLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalEarthChunkLayer.h; sourceTree = "<group>"; };
-		EE5B9A611BAA7F3A00A23E35 /* SphericalEarthChunkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalEarthChunkManager.h; sourceTree = "<group>"; };
-		EE5B9A621BAA7F3A00A23E35 /* SphericalEarthLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalEarthLayer.h; sourceTree = "<group>"; };
-		EE5B9A631BAA7F3A00A23E35 /* SphericalEarthQuadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalEarthQuadLayer.h; sourceTree = "<group>"; };
-		EE5B9A641BAA7F3A00A23E35 /* SphericalMercator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercator.h; sourceTree = "<group>"; };
-		EE5B9A651BAA7F3A00A23E35 /* sqlhelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlhelpers.h; sourceTree = "<group>"; };
-		EE5B9A661BAA7F3A00A23E35 /* SwipeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeDelegate.h; sourceTree = "<group>"; };
-		EE5B9A671BAA7F3A00A23E35 /* TapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDelegate.h; sourceTree = "<group>"; };
-		EE5B9A681BAA7F3A00A23E35 /* TapMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMessage.h; sourceTree = "<group>"; };
-		EE5B9A691BAA7F3A00A23E35 /* Tesselator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tesselator.h; sourceTree = "<group>"; };
-		EE5B9A6A1BAA7F3A00A23E35 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
-		EE5B9A6B1BAA7F3A00A23E35 /* TextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureAtlas.h; sourceTree = "<group>"; };
-		EE5B9A6C1BAA7F3A00A23E35 /* TextureGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureGroup.h; sourceTree = "<group>"; };
-		EE5B9A6D1BAA7F3A00A23E35 /* TileQuadLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileQuadLoader.h; sourceTree = "<group>"; };
-		EE5B9A6E1BAA7F3A00A23E35 /* TileQuadOfflineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileQuadOfflineRenderer.h; sourceTree = "<group>"; };
-		EE5B9A6F1BAA7F3A00A23E35 /* UIColor+Stuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Stuff.h"; sourceTree = "<group>"; };
-		EE5B9A701BAA7F3A00A23E35 /* UIImage+Stuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Stuff.h"; sourceTree = "<group>"; };
-		EE5B9A711BAA7F3A00A23E35 /* UpdateDisplayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateDisplayLayer.h; sourceTree = "<group>"; };
-		EE5B9A721BAA7F3A00A23E35 /* VectorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorData.h; sourceTree = "<group>"; };
-		EE5B9A731BAA7F3A00A23E35 /* VectorDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorDatabase.h; sourceTree = "<group>"; };
-		EE5B9A741BAA7F3A00A23E35 /* VectorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorManager.h; sourceTree = "<group>"; };
-		EE5B9A751BAA7F3A00A23E35 /* ViewPlacementGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPlacementGenerator.h; sourceTree = "<group>"; };
-		EE5B9A761BAA7F3A00A23E35 /* WGCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGCoordinate.h; sourceTree = "<group>"; };
-		EE5B9A771BAA7F3A00A23E35 /* WhirlyGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyGeometry.h; sourceTree = "<group>"; };
-		EE5B9A781BAA7F3A00A23E35 /* WhirlyGlobe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyGlobe.h; sourceTree = "<group>"; };
-		EE5B9A791BAA7F3A00A23E35 /* WhirlyGlobeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyGlobeComponent.h; sourceTree = "<group>"; };
-		EE5B9A7A1BAA7F3A00A23E35 /* WhirlyGlobeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyGlobeViewController.h; sourceTree = "<group>"; };
-		EE5B9A7B1BAA7F3A00A23E35 /* WhirlyKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyKitView.h; sourceTree = "<group>"; };
-		EE5B9A7C1BAA7F3A00A23E35 /* WhirlyOctEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyOctEncoding.h; sourceTree = "<group>"; };
-		EE5B9A7D1BAA7F3A00A23E35 /* WhirlyVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhirlyVector.h; sourceTree = "<group>"; };
-		EE5B9A7E1BAA7F3A00A23E35 /* WideVectorDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WideVectorDrawable.h; sourceTree = "<group>"; };
-		EE5B9A7F1BAA7F3A00A23E35 /* WideVectorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WideVectorManager.h; sourceTree = "<group>"; };
-		EE5B9A801BAA7F5500A23E35 /* libWhirlyGlobe-MaplyComponent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libWhirlyGlobe-MaplyComponent.a"; sourceTree = "<group>"; };
-		EE5B9A811BAA7F5500A23E35 /* libWhirlyGlobeLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWhirlyGlobeLib.a; sourceTree = "<group>"; };
 		EE6A7BD41BBA33FE00922607 /* app_launch_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_launch_1.png; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
@@ -6242,7 +6060,6 @@
 			files = (
 				EE5B99741BAA6BFD00A23E35 /* libsqlite3.tbd in Frameworks */,
 				EE5B99721BAA6BF500A23E35 /* libxml2.tbd in Frameworks */,
-				EE5B9A821BAA7F5500A23E35 /* libWhirlyGlobe-MaplyComponent.a in Frameworks */,
 				EE5B99C61BAA7A0B00A23E35 /* libssl.a in Frameworks */,
 				EE5B99701BAA6BE400A23E35 /* libz.tbd in Frameworks */,
 				EE9F6CAA1BABB2B10006C8CF /* TencentOpenAPI.framework in Frameworks */,
@@ -6251,7 +6068,6 @@
 				EE2414A91B7D9BAF00B2C5B5 /* MediaPlayer.framework in Frameworks */,
 				EEE4223D1B68682100752EC6 /* SystemConfiguration.framework in Frameworks */,
 				EEE4223B1B68681700752EC6 /* CFNetwork.framework in Frameworks */,
-				EE5B9A831BAA7F5500A23E35 /* libWhirlyGlobeLib.a in Frameworks */,
 				EE9F6CA91BABB2B10006C8CF /* libSocialQQ.a in Frameworks */,
 				EE9F6CAC1BABB2B10006C8CF /* libSocialWechat.a in Frameworks */,
 				EE9F6CA61BABB2B10006C8CF /* libSocialSinaSSO.a in Frameworks */,
@@ -6259,6 +6075,7 @@
 				EE9F6CAD1BABB2B10006C8CF /* libWeChatSDK.a in Frameworks */,
 				EE9F6CA71BABB2B10006C8CF /* libWeiboSDK.a in Frameworks */,
 				EEE422371B68680400752EC6 /* OpenGLES.framework in Frameworks */,
+				EE418DBB1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework in Frameworks */,
 				EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */,
 				EE5B99C51BAA7A0B00A23E35 /* libcrypto.a in Frameworks */,
 				EE9F6C9C1BABB2B10006C8CF /* libUMSocial_Sdk_4.2.3.a in Frameworks */,
@@ -6321,9 +6138,7 @@
 		EE4CC3031BA913A4002D322E /* WhirlyGlobe-Maply */ = {
 			isa = PBXGroup;
 			children = (
-				EE5B9A801BAA7F5500A23E35 /* libWhirlyGlobe-MaplyComponent.a */,
-				EE5B9A811BAA7F5500A23E35 /* libWhirlyGlobeLib.a */,
-				EE5B99C91BAA7F3A00A23E35 /* usr */,
+				EE418DBA1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework */,
 			);
 			path = "WhirlyGlobe-Maply";
 			sourceTree = "<group>";
@@ -6425,209 +6240,6 @@
 				EE5B99C41BAA7A0B00A23E35 /* libssl.a */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		EE5B99C91BAA7F3A00A23E35 /* usr */ = {
-			isa = PBXGroup;
-			children = (
-				EE5B99CA1BAA7F3A00A23E35 /* local */,
-			);
-			path = usr;
-			sourceTree = "<group>";
-		};
-		EE5B99CA1BAA7F3A00A23E35 /* local */ = {
-			isa = PBXGroup;
-			children = (
-				EE5B99CB1BAA7F3A00A23E35 /* include */,
-			);
-			path = local;
-			sourceTree = "<group>";
-		};
-		EE5B99CB1BAA7F3A00A23E35 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				EE5B99CC1BAA7F3A00A23E35 /* ActiveModel.h */,
-				EE5B99CD1BAA7F3A00A23E35 /* AnimateRotation.h */,
-				EE5B99CE1BAA7F3A00A23E35 /* AnimateViewMomentum.h */,
-				EE5B99CF1BAA7F3A00A23E35 /* BaseInfo.h */,
-				EE5B99D01BAA7F3A00A23E35 /* BasicDrawable.h */,
-				EE5B99D11BAA7F3A00A23E35 /* BasicDrawableInstance.h */,
-				EE5B99D21BAA7F3A00A23E35 /* BigDrawable.h */,
-				EE5B99D31BAA7F3A00A23E35 /* BillboardDrawable.h */,
-				EE5B99D41BAA7F3A00A23E35 /* BillboardManager.h */,
-				EE5B99D51BAA7F3A00A23E35 /* BufferBuilder.h */,
-				EE5B99D61BAA7F3A00A23E35 /* CoordSystem.h */,
-				EE5B99D71BAA7F3A00A23E35 /* Cullable.h */,
-				EE5B99D81BAA7F3A00A23E35 /* DataLayer.h */,
-				EE5B99D91BAA7F3A00A23E35 /* DefaultShaderPrograms.h */,
-				EE5B99DA1BAA7F3A00A23E35 /* Drawable.h */,
-				EE5B99DB1BAA7F3A00A23E35 /* DynamicDrawableAtlas.h */,
-				EE5B99DC1BAA7F3A00A23E35 /* DynamicTextureAtlas.h */,
-				EE5B99DD1BAA7F3A00A23E35 /* EAGLView.h */,
-				EE5B99DE1BAA7F3A00A23E35 /* ElevationCesiumChunk.h */,
-				EE5B99DF1BAA7F3A00A23E35 /* ElevationCesiumFormat.h */,
-				EE5B99E01BAA7F3A00A23E35 /* ElevationChunk.h */,
-				EE5B99E11BAA7F3A00A23E35 /* FlatMath.h */,
-				EE5B99E21BAA7F3A00A23E35 /* FontTextureManager.h */,
-				EE5B99E31BAA7F3A00A23E35 /* Generator.h */,
-				EE5B99E41BAA7F3A00A23E35 /* GeometryManager.h */,
-				EE5B99E51BAA7F3A00A23E35 /* GeometryOBJReader.h */,
-				EE5B99E61BAA7F3A00A23E35 /* GlobeAnimateHeight.h */,
-				EE5B99E71BAA7F3A00A23E35 /* GlobeDoubleTapDelegate.h */,
-				EE5B99E81BAA7F3A00A23E35 /* GlobeDoubleTapDragDelegate.h */,
-				EE5B99E91BAA7F3A00A23E35 /* GlobeLayerViewWatcher.h */,
-				EE5B99EA1BAA7F3A00A23E35 /* GlobeMath.h */,
-				EE5B99EB1BAA7F3A00A23E35 /* GlobeScene.h */,
-				EE5B99EC1BAA7F3A00A23E35 /* GlobeTwoFingerTapDelegate.h */,
-				EE5B99ED1BAA7F3A00A23E35 /* GlobeView.h */,
-				EE5B99EE1BAA7F3A00A23E35 /* GLUtils.h */,
-				EE5B99EF1BAA7F3A00A23E35 /* GridClipper.h */,
-				EE5B99F01BAA7F3A00A23E35 /* Identifiable.h */,
-				EE5B99F11BAA7F3A00A23E35 /* LabelManager.h */,
-				EE5B99F21BAA7F3A00A23E35 /* LabelRenderer.h */,
-				EE5B99F31BAA7F3A00A23E35 /* LayerThread.h */,
-				EE5B99F41BAA7F3A00A23E35 /* LayerViewWatcher.h */,
-				EE5B99F51BAA7F3A00A23E35 /* LayoutLayer.h */,
-				EE5B99F61BAA7F3A00A23E35 /* LayoutManager.h */,
-				EE5B99F71BAA7F3A00A23E35 /* Lighting.h */,
-				EE5B99F81BAA7F3A00A23E35 /* LoadedTile.h */,
-				EE5B99F91BAA7F3A00A23E35 /* LoftManager.h */,
-				EE5B99FA1BAA7F3A00A23E35 /* LongPressDelegate.h */,
-				EE5B99FB1BAA7F3A00A23E35 /* MaplyActiveObject.h */,
-				EE5B99FC1BAA7F3A00A23E35 /* MaplyAnimateFlat.h */,
-				EE5B99FD1BAA7F3A00A23E35 /* MaplyAnimateTranslateMomentum.h */,
-				EE5B99FE1BAA7F3A00A23E35 /* MaplyAnimateTranslation.h */,
-				EE5B99FF1BAA7F3A00A23E35 /* MaplyAnimationTestTileSource.h */,
-				EE5B9A001BAA7F3A00A23E35 /* MaplyAnnotation.h */,
-				EE5B9A011BAA7F3A00A23E35 /* MaplyAtmosphere.h */,
-				EE5B9A021BAA7F3A00A23E35 /* MaplyBaseViewController.h */,
-				EE5B9A031BAA7F3A00A23E35 /* MaplyBillboard.h */,
-				EE5B9A041BAA7F3A00A23E35 /* MaplyBlankTileSource.h */,
-				EE5B9A051BAA7F3A00A23E35 /* MaplyComponent.h */,
-				EE5B9A061BAA7F3A00A23E35 /* MaplyComponentObject.h */,
-				EE5B9A071BAA7F3A00A23E35 /* MaplyCoordinate.h */,
-				EE5B9A081BAA7F3A00A23E35 /* MaplyCoordinateSystem.h */,
-				EE5B9A091BAA7F3A00A23E35 /* MaplyDoubleTapDelegate.h */,
-				EE5B9A0A1BAA7F3A00A23E35 /* MaplyDoubleTapDragDelegate.h */,
-				EE5B9A0B1BAA7F3A00A23E35 /* MaplyElevationDatabase.h */,
-				EE5B9A0C1BAA7F3A00A23E35 /* MaplyElevationSource.h */,
-				EE5B9A0D1BAA7F3A00A23E35 /* MaplyFlatView.h */,
-				EE5B9A0E1BAA7F3A00A23E35 /* MaplyGDALRetileSource.h */,
-				EE5B9A0F1BAA7F3A00A23E35 /* MaplyGeomModel.h */,
-				EE5B9A101BAA7F3A00A23E35 /* MaplyIconManager.h */,
-				EE5B9A111BAA7F3A00A23E35 /* MaplyImageTile.h */,
-				EE5B9A121BAA7F3A00A23E35 /* MaplyLabel.h */,
-				EE5B9A131BAA7F3A00A23E35 /* MaplyLayerViewWatcher.h */,
-				EE5B9A141BAA7F3A00A23E35 /* MaplyLight.h */,
-				EE5B9A151BAA7F3A00A23E35 /* MaplyMarker.h */,
-				EE5B9A161BAA7F3A00A23E35 /* MaplyMatrix.h */,
-				EE5B9A171BAA7F3A00A23E35 /* MaplyMBTileSource.h */,
-				EE5B9A181BAA7F3A00A23E35 /* MaplyMoon.h */,
-				EE5B9A191BAA7F3A00A23E35 /* MaplyMultiplexTileSource.h */,
-				EE5B9A1A1BAA7F3A00A23E35 /* MaplyPagingElevationTestTileSource.h */,
-				EE5B9A1B1BAA7F3A00A23E35 /* MaplyPagingVectorTestTileSource.h */,
-				EE5B9A1C1BAA7F3A00A23E35 /* MaplyPanDelegate.h */,
-				EE5B9A1D1BAA7F3A00A23E35 /* MaplyParticleSystem.h */,
-				EE5B9A1E1BAA7F3A00A23E35 /* MaplyPinchDelegate.h */,
-				EE5B9A1F1BAA7F3A00A23E35 /* MaplyQuadImageOfflineLayer.h */,
-				EE5B9A201BAA7F3A00A23E35 /* MaplyQuadImageTilesLayer.h */,
-				EE5B9A211BAA7F3A00A23E35 /* MaplyQuadPagingLayer.h */,
-				EE5B9A221BAA7F3A00A23E35 /* MaplyQuadTracker.h */,
-				EE5B9A231BAA7F3A00A23E35 /* MaplyRemoteTileElevationSource.h */,
-				EE5B9A241BAA7F3A00A23E35 /* MaplyRemoteTileSource.h */,
-				EE5B9A251BAA7F3A00A23E35 /* MaplyRotateDelegate.h */,
-				EE5B9A261BAA7F3A00A23E35 /* MaplyScene.h */,
-				EE5B9A271BAA7F3A00A23E35 /* MaplyScreenLabel.h */,
-				EE5B9A281BAA7F3A00A23E35 /* MaplyScreenMarker.h */,
-				EE5B9A291BAA7F3A00A23E35 /* MaplyScreenObject.h */,
-				EE5B9A2A1BAA7F3A00A23E35 /* MaplyShader.h */,
-				EE5B9A2B1BAA7F3A00A23E35 /* MaplyShape.h */,
-				EE5B9A2C1BAA7F3A00A23E35 /* MaplySharedAttributes.h */,
-				EE5B9A2D1BAA7F3A00A23E35 /* MaplySphericalQuadEarthWithTexGroup.h */,
-				EE5B9A2E1BAA7F3A00A23E35 /* MaplyStarsModel.h */,
-				EE5B9A2F1BAA7F3A00A23E35 /* MaplySticker.h */,
-				EE5B9A301BAA7F3A00A23E35 /* MaplySun.h */,
-				EE5B9A311BAA7F3A00A23E35 /* MaplyTapDelegate.h */,
-				EE5B9A321BAA7F3A00A23E35 /* MaplyTapMessage.h */,
-				EE5B9A331BAA7F3A00A23E35 /* MaplyTexture.h */,
-				EE5B9A341BAA7F3A00A23E35 /* MaplyTextureBuilder.h */,
-				EE5B9A351BAA7F3A00A23E35 /* MaplyTileSource.h */,
-				EE5B9A361BAA7F3A00A23E35 /* MaplyTouchCancelAnimationDelegate.h */,
-				EE5B9A371BAA7F3A00A23E35 /* MaplyTwoFingerTapDelegate.h */,
-				EE5B9A381BAA7F3A00A23E35 /* MaplyUpdateLayer.h */,
-				EE5B9A391BAA7F3A00A23E35 /* MaplyVectorObject.h */,
-				EE5B9A3A1BAA7F3A00A23E35 /* MaplyVertexAttribute.h */,
-				EE5B9A3B1BAA7F3A00A23E35 /* MaplyView.h */,
-				EE5B9A3C1BAA7F3A00A23E35 /* MaplyViewController.h */,
-				EE5B9A3D1BAA7F3A00A23E35 /* MaplyViewControllerLayer.h */,
-				EE5B9A3E1BAA7F3A00A23E35 /* MaplyViewTracker.h */,
-				EE5B9A3F1BAA7F3A00A23E35 /* MaplyWMSTileSource.h */,
-				EE5B9A401BAA7F3A00A23E35 /* MaplyZoomGestureDelegate.h */,
-				EE5B9A411BAA7F3A00A23E35 /* MaplyZoomGestureDelegate_private.h */,
-				EE5B9A421BAA7F3A00A23E35 /* MarkerManager.h */,
-				EE5B9A431BAA7F3A00A23E35 /* MBTileQuadSource.h */,
-				EE5B9A441BAA7F3A00A23E35 /* NetworkTileQuadSource.h */,
-				EE5B9A451BAA7F3A00A23E35 /* NSData+Zlib.h */,
-				EE5B9A461BAA7F3A00A23E35 /* NSDictionary+Stuff.h */,
-				EE5B9A471BAA7F3A00A23E35 /* NSDictionary+StyleRules.h */,
-				EE5B9A481BAA7F3A00A23E35 /* NSString+Stuff.h */,
-				EE5B9A491BAA7F3A00A23E35 /* OpenGLES2Program.h */,
-				EE5B9A4A1BAA7F3A00A23E35 /* PanDelegate.h */,
-				EE5B9A4B1BAA7F3A00A23E35 /* ParticleSystemDrawable.h */,
-				EE5B9A4C1BAA7F3A00A23E35 /* ParticleSystemLayer.h */,
-				EE5B9A4D1BAA7F3A00A23E35 /* ParticleSystemManager.h */,
-				EE5B9A4E1BAA7F3A00A23E35 /* PerformanceTimer.h */,
-				EE5B9A4F1BAA7F3A00A23E35 /* PinchDelegate.h */,
-				EE5B9A501BAA7F3A00A23E35 /* QuadDisplayLayer.h */,
-				EE5B9A511BAA7F3A00A23E35 /* Quadtree.h */,
-				EE5B9A521BAA7F3A00A23E35 /* RotateDelegate.h */,
-				EE5B9A531BAA7F3A00A23E35 /* Scene.h */,
-				EE5B9A541BAA7F3A00A23E35 /* SceneGraphManager.h */,
-				EE5B9A551BAA7F3A00A23E35 /* SceneRendererES.h */,
-				EE5B9A561BAA7F3A00A23E35 /* SceneRendererES2.h */,
-				EE5B9A571BAA7F3A00A23E35 /* SceneRendererES3.h */,
-				EE5B9A581BAA7F3A00A23E35 /* ScreenImportance.h */,
-				EE5B9A591BAA7F3A00A23E35 /* ScreenSpaceBuilder.h */,
-				EE5B9A5A1BAA7F3A00A23E35 /* ScreenSpaceDrawable.h */,
-				EE5B9A5B1BAA7F3A00A23E35 /* ScreenSpaceGenerator.h */,
-				EE5B9A5C1BAA7F3A00A23E35 /* SelectionManager.h */,
-				EE5B9A5D1BAA7F3A00A23E35 /* ShapeDrawableBuilder.h */,
-				EE5B9A5E1BAA7F3A00A23E35 /* ShapeManager.h */,
-				EE5B9A5F1BAA7F3A00A23E35 /* ShapeReader.h */,
-				EE5B9A601BAA7F3A00A23E35 /* SphericalEarthChunkLayer.h */,
-				EE5B9A611BAA7F3A00A23E35 /* SphericalEarthChunkManager.h */,
-				EE5B9A621BAA7F3A00A23E35 /* SphericalEarthLayer.h */,
-				EE5B9A631BAA7F3A00A23E35 /* SphericalEarthQuadLayer.h */,
-				EE5B9A641BAA7F3A00A23E35 /* SphericalMercator.h */,
-				EE5B9A651BAA7F3A00A23E35 /* sqlhelpers.h */,
-				EE5B9A661BAA7F3A00A23E35 /* SwipeDelegate.h */,
-				EE5B9A671BAA7F3A00A23E35 /* TapDelegate.h */,
-				EE5B9A681BAA7F3A00A23E35 /* TapMessage.h */,
-				EE5B9A691BAA7F3A00A23E35 /* Tesselator.h */,
-				EE5B9A6A1BAA7F3A00A23E35 /* Texture.h */,
-				EE5B9A6B1BAA7F3A00A23E35 /* TextureAtlas.h */,
-				EE5B9A6C1BAA7F3A00A23E35 /* TextureGroup.h */,
-				EE5B9A6D1BAA7F3A00A23E35 /* TileQuadLoader.h */,
-				EE5B9A6E1BAA7F3A00A23E35 /* TileQuadOfflineRenderer.h */,
-				EE5B9A6F1BAA7F3A00A23E35 /* UIColor+Stuff.h */,
-				EE5B9A701BAA7F3A00A23E35 /* UIImage+Stuff.h */,
-				EE5B9A711BAA7F3A00A23E35 /* UpdateDisplayLayer.h */,
-				EE5B9A721BAA7F3A00A23E35 /* VectorData.h */,
-				EE5B9A731BAA7F3A00A23E35 /* VectorDatabase.h */,
-				EE5B9A741BAA7F3A00A23E35 /* VectorManager.h */,
-				EE5B9A751BAA7F3A00A23E35 /* ViewPlacementGenerator.h */,
-				EE5B9A761BAA7F3A00A23E35 /* WGCoordinate.h */,
-				EE5B9A771BAA7F3A00A23E35 /* WhirlyGeometry.h */,
-				EE5B9A781BAA7F3A00A23E35 /* WhirlyGlobe.h */,
-				EE5B9A791BAA7F3A00A23E35 /* WhirlyGlobeComponent.h */,
-				EE5B9A7A1BAA7F3A00A23E35 /* WhirlyGlobeViewController.h */,
-				EE5B9A7B1BAA7F3A00A23E35 /* WhirlyKitView.h */,
-				EE5B9A7C1BAA7F3A00A23E35 /* WhirlyOctEncoding.h */,
-				EE5B9A7D1BAA7F3A00A23E35 /* WhirlyVector.h */,
-				EE5B9A7E1BAA7F3A00A23E35 /* WideVectorDrawable.h */,
-				EE5B9A7F1BAA7F3A00A23E35 /* WideVectorManager.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		EE9F6C2D1BABA4580006C8CF /* AFNetworking */ = {
@@ -13050,13 +12662,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/ThirdLibs/Bugly_libc++",
+					"$(PROJECT_DIR)/ThirdLibs/WhirlyGlobe-Maply",
 				);
 				GCC_PREFIX_HEADER = HelloEarth/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -13080,9 +12692,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
+				PROVISIONING_PROFILE = "b608ed33-5557-4c85-8430-9375782518d2";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -13091,13 +12703,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/ThirdLibs/Bugly_libc++",
+					"$(PROJECT_DIR)/ThirdLibs/WhirlyGlobe-Maply",
 				);
 				GCC_PREFIX_HEADER = HelloEarth/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -13121,9 +12733,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
+				PROVISIONING_PROFILE = "b608ed33-5557-4c85-8430-9375782518d2";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -200,22 +200,22 @@
             NSDate *endDate = [self.dateFormatter dateFromString:data[@"endtime"]];
             NSString *endDateString = [NSString stringWithFormat:@"%ld-%02ld-%02ld", (long)endDate.year, (long)endDate.month, (long)endDate.day];
             
-            NSString *temp_max = [[data[@"count"] firstObject] objectForKey:@"max"];
+            NSString *temp_max = [NSString stringWithFormat:@"%@", [[data[@"count"] firstObject] objectForKey:@"max"]];
             temp_max = [self formatShowText:temp_max ext:@"°C"];
             
-            NSString *temp_min = [[data[@"count"] firstObject] objectForKey:@"min"];
+            NSString *temp_min = [NSString stringWithFormat:@"%@", [[data[@"count"] firstObject] objectForKey:@"min"]];
             temp_min = [self formatShowText:temp_min ext:@"°C"];
             
-            NSString *wind_max = [[data[@"count"] lastObject] objectForKey:@"max"];
+            NSString *wind_max = [NSString stringWithFormat:@"%@", [[data[@"count"] lastObject] objectForKey:@"max"]];
             wind_max = [self formatShowText:wind_max ext:@"m/s"];
             
-            NSString *rain_max = [[data[@"count"] objectAtIndex:1] objectForKey:@"max"];
+            NSString *rain_max = [NSString stringWithFormat:@"%@", [[data[@"count"] objectAtIndex:1] objectForKey:@"max"]];
             rain_max = [self formatShowText:rain_max ext:@"mm"];
             
-            NSString *no_rain_count = data[@"no_rain_lx"];
+            NSString *no_rain_count = [NSString stringWithFormat:@"%@", data[@"no_rain_lx"]];
             no_rain_count = [self formatShowText:no_rain_count ext:@"天"];
             
-            NSString *mai_count = data[@"mai_lx"];
+            NSString *mai_count = [NSString stringWithFormat:@"%@", data[@"mai_lx"]];
             mai_count = [self formatShowText:mai_count ext:@"天"];
             
             htmlString = [NSString stringWithFormat:htmlString, startDateString, endDateString, temp_max, temp_min, wind_max, rain_max, no_rain_count,  mai_count];

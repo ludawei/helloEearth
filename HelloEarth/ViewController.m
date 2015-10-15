@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-//#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
-#import "WhirlyGlobeComponent.h"
+#import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
+//#import "WhirlyGlobeComponent.h"
 #import "MyRemoteTileInfo.h"
 #import "MyMaplyRemoteTileSource.h"
 #import "MapImagesManager.h"
@@ -717,9 +717,11 @@ NS_ENUM(NSInteger, MapAnimType)
                            MaplyScreenLabel *lbl1 = [self mapLabelWithName:@"北京" latlon:@"39.9049870000,116.4052810000"];
                            MaplyScreenLabel *lbl2 = [self mapLabelWithName:@"上海" latlon:@"31.2317070000,121.4726410000"];
                            self.cityLabelsObj = [weakSlef.theViewC addScreenLabels:@[lbl1, lbl2] desc:@{kMaplyTextOutlineSize: @(0.6),
-                                                                                                        kMaplyTextOutlineColor: [UIColor grayColor],
+                                                                                                        kMaplyTextOutlineColor: [UIColor blackColor],
                                                                                                         kMaplyFont: [UIFont systemFontOfSize:14.0],
                                                                                                         kMaplyDrawPriority: @(200),
+                                                                                                        kMaplyMaxVis:@1.8,
+                                                                                                        kMaplyMinVis:@0.0
                                                                                                         }];
                        }
                        
@@ -734,7 +736,8 @@ NS_ENUM(NSInteger, MapAnimType)
     MaplyScreenLabel *label = [[MaplyScreenLabel alloc] init];
     label.loc = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
 //    label.keepUpright = true;
-    label.layoutImportance = 2.0;
+//    label.layoutPlacement = kMaplyLayoutRight;
+    label.layoutImportance = 2;
     label.text = [@"•" stringByAppendingString:name];
 //    label.iconSize = CGSizeMake(15, 15);
 //    label.iconImage2 = [UIImage imageNamed:@"city_location"];
@@ -1491,27 +1494,12 @@ NS_ENUM(NSInteger, MapAnimType)
 
     MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
-//    tileLayer.enable = false;
     [self.theViewC addLayer:newLayer];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.theViewC removeLayer:tileLayer];
         tileLayer = nil;
         tileLayer = newLayer;
     });
-    
-//    MyRemoteTileInfo *myTileInfo = [[MyRemoteTileInfo alloc] initWithBaseURL:@"http://api.tiles.mapbox.com/v4/ludawei.nhje3ohm/" ext:@"png" minZoom:0 maxZoom:maxZoom];
-//    
-//    MaplyRemoteTileSource *tileSource = [[MaplyRemoteTileSource alloc] initWithInfo:myTileInfo];
-//    tileSource.cacheDir = aerialTilesCacheDir;
-//    MaplyQuadImageTilesLayer *layer = [[MaplyQuadImageTilesLayer alloc] initWithCoordSystem:tileSource.coordSys tileSource:tileSource];
-//    layer.handleEdges = false;
-//    layer.coverPoles = true;
-//    layer.maxTiles = 256;
-//    //    layer.animationPeriod = 6.0;
-//    //    layer.singleLevelLoading = true;
-//    //    layer.drawPriority = 0;
-//    
-//    tileLayer = layer;
 }
 
 -(void)locationed:(NSNotification *)noti
@@ -1585,7 +1573,9 @@ NS_ENUM(NSInteger, MapAnimType)
         }
         else if ([dataType isEqualToString:FILEMARK_TONGJI])
         {
+            [self.theViewC startChanges];
             [self.theViewC disableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
+            [self.theViewC endChanges];
             [self showTongJiMarkers];
         }
     }
