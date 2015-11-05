@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, CWDataType){
 
 @interface CWDataManager : NSObject
 
+@property (nonatomic,strong) NSMutableDictionary *productReqtimes;
+
 @property (readwrite) BOOL enablePushNotification;
 @property (readwrite) NSString *imageVersion;
 @property (readwrite) NSString *appVerison;

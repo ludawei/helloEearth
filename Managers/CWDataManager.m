@@ -48,6 +48,7 @@ static NSString *key_map_cloudImageList = @"map_cloudImageList";
         self.normalProducts = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_normalProducts]];
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.tongjiImageCache = [NSCache new];
+        self.productReqtimes = [NSMutableDictionary dictionary];
     }
     return self;
 }

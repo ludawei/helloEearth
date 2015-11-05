@@ -13,7 +13,7 @@
 
 @interface HESettingController ()
 {
-    
+    BOOL disableChangeMapLayer;
 }
 
 @property (nonatomic,weak) IBOutlet UISwitch *switch3D,*switchLight,*switchLocate;
@@ -104,10 +104,12 @@
         self.switchLight.on = self.setLight && sender.on;
         self.switchLight.enabled = sender.on;
         
+        disableChangeMapLayer = YES;
         sender.enabled = NO;
         self.loadingView.hidden = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             sender.enabled = YES;
+            disableChangeMapLayer = NO;
             self.loadingView.hidden = YES;
         });
     }
@@ -171,8 +173,28 @@
         return NO;
     }
     
+    if (disableChangeMapLayer && indexPath.item == 3) {
+        return NO;
+    }
+    
+    
     return YES;
 }
+
+//- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.item == 3) {
+//        if (disableChangeMapLayer) {
+//            return nil;
+//        }
+//        else
+//        {
+//            return indexPath;
+//        }
+//    }
+//    
+//    return indexPath;
+//}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

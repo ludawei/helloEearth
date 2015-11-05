@@ -113,6 +113,8 @@
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
 //                           kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
+                           kMaplySubdivType:kMaplySubdivGrid,
+                           kMaplySubdivEpsilon:@(0.01),
 //                           kMaplyDrawOffset: @(0),
                            //                           kMaplyLabelWidth : @(4.0),
                            };
@@ -232,6 +234,8 @@
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
+                           kMaplySubdivType:kMaplySubdivGrid,
+                           kMaplySubdivEpsilon:@(0.01),
                            kMaplyDrawOffset: @(0),
                            };
         }
@@ -292,6 +296,8 @@
                            kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
                            kMaplySelectable: @(true),
                            kMaplyFilled: @(true),
+                           kMaplySubdivType:kMaplySubdivGrid,
+                           kMaplySubdivEpsilon:@(0.01),
                            kMaplyDrawOffset: @(0),
                            };
         }

@@ -25,13 +25,16 @@ static char const *const heightKey = "Height";
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
+    CGFloat h = [[self myheight] floatValue];
     CGSize newSize = [super sizeThatFits:size];;
     
-    CGFloat h = [[self myheight] floatValue];
+    if (h == 0) {
+        return CGSizeMake(self.superview.bounds.size.width, 50.0);
+    }
+    
     if ([[self myheight] floatValue] != newSize.height) {
         newSize = CGSizeMake(self.superview.bounds.size.width, h);
     }
-    
     return newSize;
 }
 

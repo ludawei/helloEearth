@@ -323,8 +323,9 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)initTopViews
 {
     self.navigationItem.hidesBackButton = YES;
-    UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.bounds];
-//    self.topView = view;
+    CGRect rect = CGRectMake(0, 0, self.view.width, SELF_NAV_HEIGHT);
+    self.navigationController.navigationBar.bounds = rect;
+    UIView *view = [[UIView alloc] initWithFrame:rect];
     
     NSArray *images = @[@[@"产品－未选中", @"产品－选中"],
                         @[@"设置－未选中", @"设置－选中"],
@@ -516,6 +517,10 @@ NS_ENUM(NSInteger, MapAnimType)
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         [self setNeedsStatusBarAppearanceUpdate];
     }
+    
+    if (self.view.width != self.navigationController.navigationBar.width) {
+        [self initTopViews];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -554,6 +559,12 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // 初始显示 "雷达图"
+    if (!productType) {
+        productType = FILEMARK_RADAR;
+        productName = @"雷达图";
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -580,55 +591,81 @@ NS_ENUM(NSInteger, MapAnimType)
     
     self.titleLbl.text = productName;
     
-    [MBProgressHUD showHUDInView:self.view andText:nil];
-    NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
-    
-    [self.currentOperation cancel];
-    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        if (responseObject && [responseObject isKindOfClass:[NSArray class]]) {
-            if (isBottomFull) {
-                NSArray *types = [productType componentsSeparatedByString:@","];
-                if (types.count == [responseObject count]) {
-                    for (NSInteger i=0; i<types.count; i++) {
-                        [[CWDataManager sharedInstance] setMapdata:[responseObject objectAtIndex:i] fileMark:[types objectAtIndex:i]];
-                    }
-                }
-                
-                self.animType = MapAnimTypeData;
-                [self.mapDataAnimLogic showProductWithTypes:types withAge:productAge];
+    if ([[NSDate date] timeIntervalSince1970] - [[[CWDataManager sharedInstance].productReqtimes objectForKey:productName] doubleValue] <= 60*3) {
+        if (isBottomFull) {
+            NSArray *types = [productType componentsSeparatedByString:@","];
             
-                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            }
-            else
-            {
-                if ([[responseObject firstObject] count] == 0) {
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            self.animType = MapAnimTypeData;
+            [self.mapDataAnimLogic showProductWithTypes:types withAge:productAge];
+        }
+        else
+        {
+            self.comObjs = [self.mapDatas changeType:productType];
+            
+            // 设置时间
+            NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
+            NSString *time = [[[CWDataManager sharedInstance] mapdataByFileMark:productType] objectForKey:@"time"];
+            
+            long long timeInt = [time longLongValue];
+            NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
+            [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+            [self setTimeText:[dateFormatter stringFromDate:expirationDate]];
+        }
+    }
+    else
+    {
+        [MBProgressHUD showHUDInView:self.view andText:nil];
+        NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+        
+        [self.currentOperation cancel];
+        self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (responseObject && [responseObject isKindOfClass:[NSArray class]]) {
+                if (isBottomFull) {
+                    NSArray *types = [productType componentsSeparatedByString:@","];
+                    if (types.count == [responseObject count]) {
+                        for (NSInteger i=0; i<types.count; i++) {
+                            [[CWDataManager sharedInstance] setMapdata:[responseObject objectAtIndex:i] fileMark:[types objectAtIndex:i]];
+                            [[CWDataManager sharedInstance].productReqtimes setObject:@([[NSDate date] timeIntervalSince1970]) forKey:productName];
+                        }
+                    }
                     
-                    [MBProgressHUD showHUDNoteInView:self.view withText:@"没有数据"];
-                    LOG(@"%@", url);
+                    self.animType = MapAnimTypeData;
+                    [self.mapDataAnimLogic showProductWithTypes:types withAge:productAge];
+                    
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 }
                 else
                 {
-                    [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
-                    self.comObjs = [self.mapDatas changeType:productType];
-                    
-                    // 设置时间
-                    NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
-                    
-                    long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
-                    NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
-                    [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
-                    [self setTimeText:[dateFormatter stringFromDate:expirationDate]];
-                    
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    if ([[responseObject firstObject] count] == 0) {
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        
+                        [MBProgressHUD showHUDNoteInView:self.view withText:@"没有数据"];
+                        LOG(@"%@", url);
+                    }
+                    else
+                    {
+                        [[CWDataManager sharedInstance] setMapdata:[responseObject firstObject] fileMark:productType];
+                        [[CWDataManager sharedInstance].productReqtimes setObject:@([[NSDate date] timeIntervalSince1970]) forKey:productName];
+                        self.comObjs = [self.mapDatas changeType:productType];
+                        
+                        // 设置时间
+                        NSDateFormatter *dateFormatter = [CWDataManager sharedInstance].dateFormatter;
+                        
+                        long long timeInt = [[[responseObject firstObject] objectForKey:@"time"] longLongValue];
+                        NSDate* expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInt/1000];
+                        [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+                        [self setTimeText:[dateFormatter stringFromDate:expirationDate]];
+                        
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    }
                 }
             }
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    }];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        }];
+    }
 }
 
 -(void)resetMapUI
@@ -1448,7 +1485,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     show3D = flag;
     
-    [self resetMapUI];
+//    [self resetMapUI];
     [self makeMapViewAndDatas];
 }
 -(void)showMapLight:(BOOL)flag
@@ -1495,11 +1532,14 @@ NS_ENUM(NSInteger, MapAnimType)
     MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
     [self.theViewC addLayer:newLayer];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.theViewC removeLayer:tileLayer];
-        tileLayer = nil;
-        tileLayer = newLayer;
-    });
+    [self.theViewC removeLayer:tileLayer];
+    tileLayer = nil;
+    tileLayer = newLayer;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.theViewC removeLayer:tileLayer];
+//        tileLayer = nil;
+//        tileLayer = newLayer;
+//    });
 }
 
 -(void)locationed:(NSNotification *)noti
