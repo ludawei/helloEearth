@@ -23,9 +23,11 @@
 
 @property (nonatomic,strong) MaplyComponentObject *stickersObj;
 @property (nonatomic,weak) id<HEMapAnimLogicDelegate> delegate;
+@property (nonatomic,assign) BOOL hideHUD;
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 
+-(void)showImagesAnimation:(enum MapImageType)type hideHUD:(BOOL)hideHUD;
 -(void)showImagesAnimation:(enum MapImageType)type;
 -(void)changeProgress:(UISlider *)progressView;
 -(void)clickPlay;

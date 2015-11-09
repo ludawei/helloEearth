@@ -39,7 +39,9 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     
     if ([self.fileMark isEqualToString:FILEMARK_RADAR]) {
-        [self initViewWithData:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self initViewWithData:nil];
+        });
     }
     else
     {
@@ -302,6 +304,11 @@
         return self.contentView;
     }
     return [self.contentViews objectAtIndex:tableView.tag-100];
+}
+
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -564,6 +564,8 @@ NS_ENUM(NSInteger, MapAnimType)
     if (!productType) {
         productType = FILEMARK_RADAR;
         productName = @"雷达图";
+        
+        self.mapAnimLogic.hideHUD = YES;
     }
 }
 
@@ -1554,6 +1556,7 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)loadAnimFinished
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:noti_loadanim_ok object:nil];;
+    self.mapAnimLogic.hideHUD = NO;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[CWLocationManager sharedInstance] updateLocation];

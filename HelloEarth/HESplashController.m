@@ -182,25 +182,6 @@
         }];
         
         [self.view sendSubviewToBack:loadingBackView];
-        
-//        // 添加抖动
-//        CAKeyframeAnimation *rotation = [CAKeyframeAnimation animation];
-//        rotation.keyPath = @"transform.scale";
-//        rotation.duration = 1.0;
-//        rotation.autoreverses = YES;
-//        rotation.repeatCount = MAXFLOAT;
-//        rotation.removedOnCompletion = NO;
-//        rotation.fillMode = kCAFillModeBoth;
-//        rotation.values = @[@1, @1, @1, @1, @1, @1, @1, @1, @1, @1, @1, @1, @0.8, @1.2];
-////        rotation.timingFunctions = @[
-////                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-////                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear],
-////                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-////                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear],
-////                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]
-////                                     ];
-//        
-//        [introView.skipButton.layer addAnimation:rotation forKey:@"shakeAnimation"];
     }
 }
 

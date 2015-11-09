@@ -67,7 +67,10 @@
 
 -(void)requestImage:(enum MapImageType)type
 {
-    [MBProgressHUD showLoadingHUDAddedTo:[UIApplication sharedApplication].keyWindow];
+    if (!self.hideHUD) {
+        [MBProgressHUD showLoadingHUDAddedTo:[UIApplication sharedApplication].keyWindow];
+        self.hideHUD = NO;
+    }
     INIT_WEAK_SELF;
     [self.mapImagesManager requestImageList:type completed:^(enum MapImageDownloadType downloadType) {
         
