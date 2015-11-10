@@ -145,6 +145,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)preLoadMapView
 {
+    initMapHeight = -1;
     show3D = YES;
     showLight = NO;
     showLocation = YES;
@@ -206,12 +207,20 @@ NS_ENUM(NSInteger, MapAnimType)
     self.theViewC.view.layer.shadowColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
     [self addChildViewController:self.theViewC];
     
+#if 0
     if (!tileLayer) {
         tileLayer = [self createTileLayer];
     }
     [self.theViewC removeAllLayers];
     [self.theViewC addLayer:tileLayer];
+#else
+    MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
+    [self.theViewC addLayer:newLayer];
+    [self.theViewC removeLayer:tileLayer];
+    tileLayer = nil;
+    tileLayer = newLayer;
+#endif
     self.theViewC.frameInterval = 2;
     self.theViewC.threadPerLayer = true;
     
@@ -220,14 +229,20 @@ NS_ENUM(NSInteger, MapAnimType)
         [globeViewC getZoomLimitsMin:&minHeight max:&maxHeight];
         [globeViewC setZoomLimitsMin:minHeight max:3.0];
         
-        initMapHeight = globeViewC.height;
+        if (initMapHeight == -1) {
+            initMapHeight = globeViewC.height;
+        }
+        
     }
     else
     {
         mapViewC.heading = 0;
         mapViewC.height = M_PI/2;
         
-        initMapHeight = mapViewC.height;
+        if (initMapHeight == -1) {
+            initMapHeight = mapViewC.height;
+        }
+        
     }
     
     [self addCountry_china];
@@ -287,7 +302,6 @@ NS_ENUM(NSInteger, MapAnimType)
             }
             else
             {
-
                 [mapViewC animateToPosition:CHINA_CENTER_COOR height:initMapHeight time:0.3];
             }
             
