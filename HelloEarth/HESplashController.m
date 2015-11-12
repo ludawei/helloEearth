@@ -81,13 +81,13 @@
 -(void)showLoadingView
 {
     NSMutableArray *imgs = [NSMutableArray array];
-    for (NSInteger i=1; i<=30; i++) {
+    for (NSInteger i=1; i<=32; i++) {
         [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
     }
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
     
     [imgs addObject:[imgs lastObject]];
     [imgs addObject:[imgs lastObject]];

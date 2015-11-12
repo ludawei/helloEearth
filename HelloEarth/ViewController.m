@@ -102,7 +102,7 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic,strong) UISlider *progressView;
 @property (nonatomic,strong) UILabel *titleLbl, *timeLabel;
 
-@property (nonatomic,strong) UIControl *dimView;
+@property (nonatomic,strong) UIControl *dimView, *navDimView;
 @property (nonatomic,strong) UIView *logoPopView;
 
 // 统计
@@ -377,6 +377,12 @@ NS_ENUM(NSInteger, MapAnimType)
     }
     
     lastButton = nil;
+    
+    self.navDimView = [[UIControl alloc] initWithFrame:rect];
+    self.navDimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+    self.navDimView.hidden = YES;
+    [self.navDimView addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchDown];
+    [view addSubview:self.navDimView];
     
     self.navigationItem.titleView = view;
 //    [self.navigationController.navigationBar addSubview:view];
@@ -1076,9 +1082,12 @@ NS_ENUM(NSInteger, MapAnimType)
                 self.logoPopView.alpha = 1;
                 self.dimView.hidden = NO;
                 self.dimView.alpha = 0;
+                self.navDimView.hidden = NO;
+                self.navDimView.alpha = 0;
                 [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
                     self.logoPopView.transform = CGAffineTransformIdentity;
                     self.dimView.alpha = 1;
+                    self.navDimView.alpha = 1;
                 } completion:^(BOOL finished) {
                     
                 }];
@@ -1266,13 +1275,16 @@ NS_ENUM(NSInteger, MapAnimType)
     if (!self.logoPopView.hidden) {
         
         self.dimView.alpha = 1;
+        self.navDimView.alpha = 1;
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.logoPopView.transform = CGAffineTransformMakeScale(0.01, 0.01);
             self.logoPopView.alpha = 0;
             self.dimView.alpha = 0;
+            self.navDimView.alpha = 0;
         } completion:^(BOOL finished) {
             self.logoPopView.hidden = YES;
             self.dimView.hidden = YES;
+            self.navDimView.hidden = YES;
         }];
     }
 }
