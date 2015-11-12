@@ -25,7 +25,9 @@
     BOOL finishLoad;
 }
 //@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,strong) UIImageView *shareImageView;
 @property (nonatomic,strong) UIView *contentView,*shareView;
+@property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIControl *dimView;
 
 @end
@@ -107,12 +109,16 @@
         make.width.mas_equalTo(logo.image.size.width/logo.image.size.height * 60);
     }];
     
+    UIImage *disImage = [UIImage imageNamed:@"ipad"];
     UIImageView *shareImageView = [UIImageView new];
-    shareImageView.image = [UIImage imageNamed:@"手机"];
+    shareImageView.image = self.imageRotationAngle!=0?[disImage rotatedByDegrees:-90]:disImage;
     shareImageView.contentMode = UIViewContentModeScaleAspectFit;
     [topView addSubview:shareImageView];
     
-    CGFloat imgWidth = MIN(MIN(self.view.width, self.view.height)*0.55, 250);
+    CGFloat imgWidth = self.view.width * 0.5;
+    if (self.imageRotationAngle != 0) {
+        imgWidth = self.view.width * 0.7;
+    }
     CGSize imgSize = CGSizeMake(imgWidth, imgWidth*shareImageView.image.size.height/shareImageView.image.size.width);
     [shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(topView.mas_centerX);
@@ -121,15 +127,24 @@
         make.width.mas_lessThanOrEqualTo(imgSize.width);
         make.height.mas_lessThanOrEqualTo(imgSize.height);
     }];
+    self.shareImageView = shareImageView;
     
     UIImageView *inImageView = [UIImageView new];
-    inImageView.image = self.imageRotationAngle!=0?[self.image rotatedByDegrees:self.imageRotationAngle]:self.image;
+    inImageView.image = self.image;//self.imageRotationAngle!=0?[self.image rotatedByDegrees:self.imageRotationAngle]:self.image;
     [shareImageView addSubview:inImageView];
     [inImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(shareImageView.mas_centerX);
         make.centerY.mas_equalTo(shareImageView.mas_centerY);
-        make.width.mas_equalTo(shareImageView.mas_width).multipliedBy(0.9);
-        make.height.mas_equalTo(shareImageView.mas_height).multipliedBy(0.8);
+        
+        if (self.imageRotationAngle!=0) {
+            make.width.mas_equalTo(shareImageView.mas_width).multipliedBy(0.81);
+            make.height.mas_equalTo(shareImageView.mas_height).multipliedBy(0.9);
+        }
+        else
+        {
+            make.width.mas_equalTo(shareImageView.mas_width).multipliedBy(0.9);
+            make.height.mas_equalTo(shareImageView.mas_height).multipliedBy(0.81);
+        }
     }];
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -147,6 +162,7 @@
         make.width.mas_equalTo(topView.mas_width).multipliedBy(0.9);
         make.height.mas_greaterThanOrEqualTo(textHeight*([text size].height+10));
     }];
+    self.titleLabel = titleLabel;
     
     [topView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(titleLabel.mas_bottom).offset(10);
@@ -374,9 +390,8 @@
 
 -(void)shareWithType:(NSString *)type
 {
-    NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";//@"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
-    UIImage *shareImage = [self.contentView viewShot];//[[UIImageView sharedImageCache] cachedImageForRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]]];
-    
+    NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";
+    UIImage *shareImage = [self.contentView viewShot];
     NSString *appName = [DeviceUtil getSoftVersion:true];
     
     [UMSocialData defaultData].extConfig.qqData.title = [appName stringByAppendingString:@" 分享"];
@@ -390,17 +405,6 @@
     //设置分享到QQ/Qzone的应用Id，和分享url 链接
     [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:imageUrl];
     
-    //    [UMSocialSnsService presentSnsIconSheetView:self
-    //                                         appKey:UM_APP_KEY
-    //                                      shareText:@""//self.info.title
-    //                                     shareImage:shareImage
-    //                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToQzone,nil]
-    //                                       delegate:nil];
-    
-    
-//    [QQApiInterface isQQInstalled]
-//    [WXApi isWXAppInstalled];
-    
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[type]
                                                         content:[[SHARE_TEXT componentsSeparatedByString:@"，"] firstObject]//self.info.title
                                                           image:shareImage
@@ -412,5 +416,34 @@
                                                              LOG(@"分享成功！");
                                                          }
                                                      }];
+}
+
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if (self.titleLabel) {
+        [self.titleLabel removeFromSuperview];
+        self.titleLabel = nil;
+    }
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:10];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[@"      " stringByAppendingString:SHARE_TEXT]];
+    [text addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle } range:NSMakeRange(0, text.length)];
+    CGFloat textHeight = ceil([text size].width/(size.width*0.9));
+    
+    UILabel *titleLabel = [self createLabelWithFont:[Util modifyBoldSystemFontWithSize:16] text:text textColor:[UIColor colorWithRed:0.698 green:0.698 blue:0.702 alpha:1]];
+    [self.contentView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.shareImageView.mas_bottom).offset(20);
+        make.centerX.mas_equalTo(self.contentView.mas_centerX);
+        make.width.mas_equalTo(size.width * 0.9);
+        make.height.mas_greaterThanOrEqualTo(textHeight*([text size].height+10));
+    }];
+    [self.view layoutIfNeeded];
+    
+    titleLabel.width = 0.9 * size.width;
+    [titleLabel sizeToFit];
+    self.titleLabel = titleLabel;
+    
+    
 }
 @end

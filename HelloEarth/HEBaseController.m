@@ -18,14 +18,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (!UIDeviceOrientationIsPortrait(orientation)) {
-        [UIView setAnimationsEnabled:NO];
-        
-        // Stackoverflow #26357162 to force orientation
-        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    }
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+//    if (!UIDeviceOrientationIsPortrait(orientation)) {
+//        [UIView setAnimationsEnabled:NO];
+//        
+//        // Stackoverflow #26357162 to force orientation
+//        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+//        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,14 +48,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (!UIDeviceOrientationIsPortrait(orientation)) {
-        [UIView setAnimationsEnabled:NO];
-        
-        // Stackoverflow #26357162 to force orientation
-        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    }
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+//    if (!UIDeviceOrientationIsPortrait(orientation)) {
+//        [UIView setAnimationsEnabled:NO];
+//        
+//        // Stackoverflow #26357162 to force orientation
+//        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+//        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +67,7 @@
 {
     [super viewDidAppear:animated];
     
-    [UIView setAnimationsEnabled:YES];
+//    [UIView setAnimationsEnabled:YES];
 }
 
 @end

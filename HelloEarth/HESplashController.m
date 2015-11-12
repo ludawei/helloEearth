@@ -26,16 +26,6 @@
 
 @implementation HESplashController
 
--(BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -43,15 +33,7 @@
     self.preAnim = [HEPreAnim new];
     self.disAnim = [HEDisAnim new];
     
-    NSString *appVerison = [CWDataManager sharedInstance].appVerison;
-    NSString *appRealVerison = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    if (appVerison && [appVerison isEqualToString:appRealVerison]) {
-        [self showLoadingView];
-    }
-    else
-    {
-        [self showWecomeView];
-    }
+    [self showLoadingView];
 }
 
 -(void)showWecomeView
@@ -81,13 +63,13 @@
 -(void)showLoadingView
 {
     NSMutableArray *imgs = [NSMutableArray array];
-    for (NSInteger i=1; i<=30; i++) {
+    for (NSInteger i=1; i<=32; i++) {
         [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
     }
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
-    [imgs insertObject:[UIImage imageNamed:@"loading_11"] atIndex:10];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
     
     [imgs addObject:[imgs lastObject]];
     [imgs addObject:[imgs lastObject]];
@@ -97,7 +79,12 @@
     UIImageView *loadingBackView = [UIImageView new];
     //    loadingBackView.frame = self.view.bounds;
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
+    if (self.view.height > self.view.width) {
+        loadingBackView.image = [UIImage imageNamed:@"竖屏启动.png"];
+    }
+    else{
+        loadingBackView.image = [UIImage imageNamed:@"横屏启动.png"];
+    }
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);

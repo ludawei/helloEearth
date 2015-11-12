@@ -9,6 +9,7 @@
 #import "MyCollCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Util.h"
+#import "Masonry.h"
 
 @interface MyCollCell ()
 
@@ -24,30 +25,40 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        CGFloat lblHeight = self.frame.size.height*0.24;
+//        CGFloat lblHeight = self.frame.size.height*0.24;
         
-        UIView *imgBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+        UIView *imgBackView = [[UIView alloc] init];//WithFrame:CGRectMake(0, 0, self.width, self.height)];
         imgBackView.layer.cornerRadius = 5;
         imgBackView.layer.borderWidth = 2;
         imgBackView.layer.borderColor = [UIColor whiteColor].CGColor;
         imgBackView.clipsToBounds = YES;
         [self.contentView addSubview:imgBackView];
+        [imgBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
         self.imgBackView = imgBackView;
 
-        self.imageView = [[UIImageView alloc] initWithFrame:self.imgBackView.bounds];
+        self.imageView = [[UIImageView alloc] init];//WithFrame:self.imgBackView.bounds];
 //        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imgBackView.x+5, imgBackView.y+5, imgBackView.width-10, imgBackView.height-10)];
         self.imageView.clipsToBounds = YES;
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         //        self.imageView.clipsToBounds = YES;
         [self.imgBackView addSubview:self.imageView];
+        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(imgBackView);
+        }];
         
         self.lbl = [[UILabel alloc] init];
         self.lbl.font = [Util modifySystemFontWithSize:16];
-        self.lbl.frame = CGRectMake(0, self.imgBackView.height-lblHeight, self.imgBackView.width, lblHeight);
+//        self.lbl.frame = CGRectMake(0, self.imgBackView.height-lblHeight, self.imgBackView.width, lblHeight);
         self.lbl.textAlignment = NSTextAlignmentCenter;
         self.lbl.textColor = [UIColor whiteColor];
         self.lbl.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:0.9];
         [self.imgBackView addSubview:self.lbl];
+        [self.lbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.left.right.mas_equalTo(0);
+            make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
+        }];
         
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];

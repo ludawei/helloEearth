@@ -19,7 +19,8 @@
     UIImage *image;
     @autoreleasepool {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0.0);
-        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        
+        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
         
         image = UIGraphicsGetImageFromCurrentImageContext();
         

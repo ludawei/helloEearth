@@ -13,6 +13,9 @@
 #import "CWDataManager.h"
 
 @interface HEProductsController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+{
+    CGFloat margin;
+}
 
 @property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic,copy) NSArray *datas;
@@ -34,14 +37,19 @@
     [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
     
-    CGFloat margin = 15;
+    margin = 15;
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     //    flowLayout.headerReferenceSize = CGSizeMake(self.width, 150.0f);  //设置head大小
     flowLayout.minimumLineSpacing = margin;
     flowLayout.minimumInteritemSpacing = margin;
     flowLayout.sectionInset = UIEdgeInsetsMake(15, margin, margin, margin);
     
-    CGFloat itemWidth = (MIN(self.view.width, self.view.height)-margin*3)/2;
+    NSInteger col = 2;
+    if (self.view.width > self.view.height) {
+        col = 3;
+    }
+    CGFloat itemWidth = (self.view.width-margin*(col+1))/col;
     flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4);
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -71,12 +79,30 @@
     }];
 }
 
+- (void)viewWillLayoutSubviews;
+{
+    [super viewWillLayoutSubviews];
+    
+}
+
+
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
     
     CGFloat topHeight = STATUS_HEIGHT+SELF_NAV_HEIGHT;
     self.collView.frame = CGRectMake(0, topHeight, self.view.width, self.view.height-topHeight);
+    
+    UICollectionViewFlowLayout *flowLayout = (id)self.collView.collectionViewLayout;
+    
+    NSInteger col = 2;
+    if (self.view.width > self.view.height) {
+        col = 3;
+    }
+    CGFloat itemWidth = (self.view.width-margin*(col+1))/col;
+    flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4);
+    
+    [flowLayout invalidateLayout]; //force the elements to get laid out again with the new size
 }
 
 -(void)scrollToLocation
@@ -154,11 +180,13 @@
 //定义每个UICollectionView 的大小
 //- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 //{
-//    if ([self.type isEqualToString:@"product"]) {
-//        return CGSizeMake(self.width/2, self.width/2);
+//    NSInteger col = 2;
+//    if (self.view.width > self.view.height) {
+//        col = 3;
 //    }
-//    
-//    return CGSizeMake(self.width, 75);
+//    CGFloat itemWidth = (self.view.width-margin*(col+1))/col;
+//    return CGSizeMake(itemWidth, itemWidth*3/4);
+//
 //}
 //
 ////定义每个UICollectionView 的 margin

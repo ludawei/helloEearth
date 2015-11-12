@@ -44,7 +44,12 @@
     
     UIImageView *loadingBackView = [UIImageView new];
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
+    if (self.view.height > self.view.width) {
+        loadingBackView.image = [UIImage imageNamed:@"竖屏启动.png"];
+    }
+    else{
+        loadingBackView.image = [UIImage imageNamed:@"横屏启动.png"];
+    }
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
@@ -79,9 +84,6 @@
         return;
     }
     self.view.frame = [UIScreen mainScreen].bounds;
-//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-//    LOG(@"%td - %@ - %@", [UIDevice currentDevice].orientation, NSStringFromCGRect([self.view frame]), NSStringFromCGRect([UIScreen mainScreen].bounds));
-//    [self.view updateConstraints];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -115,24 +117,5 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    if ([self.topViewController isKindOfClass:[ViewController class]]){
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }
-    
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-//-(BOOL)shouldAutorotate
-//{
-//    return YES;
-//}
-
-//-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-//{
-//    return UIInterfaceOrientationPortrait;
-//}
 
 @end

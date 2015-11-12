@@ -13,11 +13,7 @@
 		EE2C4BC91BBBA5B00034D1B3 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */; };
 		EE2C4BCA1BBBA5B00034D1B3 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */; };
 		EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */; };
-		EE2C4BD21BBBACBE0034D1B3 /* 引导页-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */; };
-		EE2C4BD31BBBACBE0034D1B3 /* 引导页-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */; };
-		EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */; };
 		EE2E77691BCB86450038F1EE /* MyMaplyRemoteTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E77681BCB86450038F1EE /* MyMaplyRemoteTileSource.m */; };
-		EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */; };
 		EE418DBB1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE418DBA1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework */; };
 		EE47F8A21B71F6160000F066 /* star_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A11B71F6160000F066 /* star_background.png */; };
 		EE47F8A41B71F6330000F066 /* starcatalog_orig.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */; };
@@ -43,7 +39,6 @@
 		EE5B99741BAA6BFD00A23E35 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99731BAA6BFD00A23E35 /* libsqlite3.tbd */; };
 		EE5B99C51BAA7A0B00A23E35 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */; };
 		EE5B99C61BAA7A0B00A23E35 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C41BAA7A0B00A23E35 /* libssl.a */; };
-		EE6A7BD51BBA33FE00922607 /* app_launch_1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE6A7BD41BBA33FE00922607 /* app_launch_1.png */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE9F6C2C1BABA1720006C8CF /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */; };
@@ -163,12 +158,15 @@
 		EED8B78C1B74BE5D000EADC1 /* PLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7861B74BE5D000EADC1 /* PLBaseObject.m */; };
 		EED8B78D1B74BE5D000EADC1 /* WeatherData.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7881B74BE5D000EADC1 /* WeatherData.m */; };
 		EED8B78E1B74BE5D000EADC1 /* WindParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B78A1B74BE5D000EADC1 /* WindParticle.m */; };
+		EEDDF0BD1BF43AD2006C0BE7 /* Legend_radar.png in Resources */ = {isa = PBXBuildFile; fileRef = EEDDF0BC1BF43AD2006C0BE7 /* Legend_radar.png */; };
+		EEDDF0C01BF43FB9006C0BE7 /* 横屏启动.png in Resources */ = {isa = PBXBuildFile; fileRef = EEDDF0BE1BF43FB9006C0BE7 /* 横屏启动.png */; };
+		EEDDF0C11BF43FB9006C0BE7 /* 竖屏启动.png in Resources */ = {isa = PBXBuildFile; fileRef = EEDDF0BF1BF43FB9006C0BE7 /* 竖屏启动.png */; };
+		EEDDF0C41BF461D9006C0BE7 /* HELegendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDDF0C31BF461D9006C0BE7 /* HELegendCell.m */; };
 		EEE41E491B6743A700752EC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E481B6743A700752EC6 /* main.m */; };
 		EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4B1B6743A700752EC6 /* AppDelegate.m */; };
 		EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E4E1B6743A700752EC6 /* ViewController.m */; };
 		EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E501B6743A700752EC6 /* Main.storyboard */; };
 		EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E531B6743A700752EC6 /* Images.xcassets */; };
-		EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E551B6743A700752EC6 /* LaunchScreen.xib */; };
 		EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E621B6743A700752EC6 /* HelloEarthTests.m */; };
 		EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */; };
 		EEE422371B68680400752EC6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422361B68680400752EC6 /* OpenGLES.framework */; };
@@ -2929,12 +2927,8 @@
 		EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
 		EE2C4BCC1BBBAC910034D1B3 /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
 		EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
-		EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-1.jpg"; sourceTree = "<group>"; };
-		EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-2.jpg"; sourceTree = "<group>"; };
-		EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-3.jpg"; sourceTree = "<group>"; };
 		EE2E77671BCB86450038F1EE /* MyMaplyRemoteTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyRemoteTileSource.h; sourceTree = "<group>"; };
 		EE2E77681BCB86450038F1EE /* MyMaplyRemoteTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyRemoteTileSource.m; sourceTree = "<group>"; };
-		EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Legend_radar.png; sourceTree = "<group>"; };
 		EE418DBA1BCF6709001D2A37 /* WhirlyGlobeMaplyComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhirlyGlobeMaplyComponent.framework; sourceTree = "<group>"; };
 		EE47F8A11B71F6160000F066 /* star_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_background.png; sourceTree = "<group>"; };
 		EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = starcatalog_orig.txt; sourceTree = "<group>"; };
@@ -3048,7 +3042,6 @@
 		EE5B99C11BAA7A0B00A23E35 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		EE5B99C41BAA7A0B00A23E35 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		EE6A7BD41BBA33FE00922607 /* app_launch_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_launch_1.png; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -3303,6 +3296,11 @@
 		EED8B7881B74BE5D000EADC1 /* WeatherData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherData.m; sourceTree = "<group>"; };
 		EED8B7891B74BE5D000EADC1 /* WindParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindParticle.h; sourceTree = "<group>"; };
 		EED8B78A1B74BE5D000EADC1 /* WindParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindParticle.m; sourceTree = "<group>"; };
+		EEDDF0BC1BF43AD2006C0BE7 /* Legend_radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Legend_radar.png; sourceTree = "<group>"; };
+		EEDDF0BE1BF43FB9006C0BE7 /* 横屏启动.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "横屏启动.png"; path = "Images.xcassets/LaunchImage.launchimage/横屏启动.png"; sourceTree = "<group>"; };
+		EEDDF0BF1BF43FB9006C0BE7 /* 竖屏启动.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "竖屏启动.png"; path = "Images.xcassets/LaunchImage.launchimage/竖屏启动.png"; sourceTree = "<group>"; };
+		EEDDF0C21BF461D9006C0BE7 /* HELegendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HELegendCell.h; sourceTree = "<group>"; };
+		EEDDF0C31BF461D9006C0BE7 /* HELegendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HELegendCell.m; sourceTree = "<group>"; };
 		EEE41E431B6743A700752EC6 /* HelloEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEE41E471B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E481B6743A700752EC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -3312,7 +3310,6 @@
 		EEE41E4E1B6743A700752EC6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		EEE41E511B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEE41E531B6743A700752EC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EEE41E561B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloEarthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEE41E611B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E621B6743A700752EC6 /* HelloEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloEarthTests.m; sourceTree = "<group>"; };
@@ -6667,6 +6664,8 @@
 				EED8B7711B74BE3A000EADC1 /* PlayerView.m */,
 				EED8B7721B74BE3A000EADC1 /* TJPieView.h */,
 				EED8B7731B74BE3A000EADC1 /* TJPieView.m */,
+				EEDDF0C21BF461D9006C0BE7 /* HELegendCell.h */,
+				EEDDF0C31BF461D9006C0BE7 /* HELegendCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6742,7 +6741,6 @@
 				EE2E77681BCB86450038F1EE /* MyMaplyRemoteTileSource.m */,
 				EEE41E501B6743A700752EC6 /* Main.storyboard */,
 				EEE41E531B6743A700752EC6 /* Images.xcassets */,
-				EEE41E551B6743A700752EC6 /* LaunchScreen.xib */,
 				EEE41E461B6743A700752EC6 /* Supporting Files */,
 				EEAA18011B9E8B18009A3535 /* HEShareController.h */,
 				EEAA18021B9E8B18009A3535 /* HEShareController.m */,
@@ -6771,14 +6769,12 @@
 			children = (
 				EEFC2FEC1BCCAB260048F47D /* divdiv.nicggmmh */,
 				EEFC0F611BCC9E830048F47D /* divdiv.nicgc1ap */,
-				EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */,
-				EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */,
-				EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */,
-				EE6A7BD41BBA33FE00922607 /* app_launch_1.png */,
-				EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */,
+				EEDDF0BC1BF43AD2006C0BE7 /* Legend_radar.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
 				EE4CBCEA1BA6CD05002D322E /* 背景－2.jpg */,
+				EEDDF0BE1BF43FB9006C0BE7 /* 横屏启动.png */,
+				EEDDF0BF1BF43FB9006C0BE7 /* 竖屏启动.png */,
 				EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */,
 				EE47F8A31B71F6330000F066 /* starcatalog_orig.txt */,
 				EE47F8A11B71F6160000F066 /* star_background.png */,
@@ -9754,7 +9750,6 @@
 				EEFC16471BCC9E8D0048F47D /* default_5_10_5.png in Resources */,
 				EEFC18EE1BCC9E8D0048F47D /* default_5_30_10.png in Resources */,
 				EEFC39C51BCCAB310048F47D /* satellite_5_30_18.jpg in Resources */,
-				EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */,
 				EEFC16A51BCC9E8D0048F47D /* default_5_13_31.png in Resources */,
 				EEFC17D21BCC9E8D0048F47D /* default_5_22_14.png in Resources */,
 				EEFC391B1BCCAB300048F47D /* satellite_5_26_0.jpg in Resources */,
@@ -9838,7 +9833,6 @@
 				EEFC17AA1BCC9E8D0048F47D /* default_5_20_8.png in Resources */,
 				EEFC193D1BCC9E8D0048F47D /* default_5_3_24.png in Resources */,
 				EEFC17E91BCC9E8D0048F47D /* default_5_22_7.png in Resources */,
-				EE2C4BD31BBBACBE0034D1B3 /* 引导页-2.jpg in Resources */,
 				EEFC198F1BCC9E8D0048F47D /* default_5_6_11.png in Resources */,
 				EEFC3A9E1BCCAB310048F47D /* satellite_5_8_11.jpg in Resources */,
 				EEFC36741BCCAB300048F47D /* satellite_4_3_3.jpg in Resources */,
@@ -10293,6 +10287,7 @@
 				EEFC16C51BCC9E8D0048F47D /* default_5_14_31.png in Resources */,
 				EEFC39F41BCCAB310048F47D /* satellite_5_31_31.jpg in Resources */,
 				EEFC36EA1BCCAB300048F47D /* satellite_5_0_22.jpg in Resources */,
+				EEDDF0BD1BF43AD2006C0BE7 /* Legend_radar.png in Resources */,
 				EEFC17801BCC9E8D0048F47D /* default_5_1_27.png in Resources */,
 				EEFC3AA31BCCAB310048F47D /* satellite_5_8_16.jpg in Resources */,
 				EEFC16851BCC9E8D0048F47D /* default_5_12_31.png in Resources */,
@@ -10806,7 +10801,6 @@
 				EEFC38071BCCAB300048F47D /* satellite_5_18_2.jpg in Resources */,
 				EEFC38711BCCAB300048F47D /* satellite_5_20_29.jpg in Resources */,
 				EEFC385A1BCCAB300048F47D /* satellite_5_1_9.jpg in Resources */,
-				EE2C4BD21BBBACBE0034D1B3 /* 引导页-1.jpg in Resources */,
 				EEFC15471BCC9E8D0048F47D /* default_4_12_5.png in Resources */,
 				EEFC38DA1BCCAB300048F47D /* satellite_5_23_9.jpg in Resources */,
 				EEFC38111BCCAB300048F47D /* satellite_5_18_29.jpg in Resources */,
@@ -11054,7 +11048,6 @@
 				EEFC3A391BCCAB310048F47D /* satellite_5_4_8.jpg in Resources */,
 				EEFC19D21BCC9E8D0048F47D /* default_5_8_14.png in Resources */,
 				EEFC386E1BCCAB300048F47D /* satellite_5_20_26.jpg in Resources */,
-				EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */,
 				EEFC37431BCCAB300048F47D /* satellite_5_12_16.jpg in Resources */,
 				EEFC19DB1BCC9E8D0048F47D /* default_5_8_22.png in Resources */,
 				EEFC18AF1BCC9E8D0048F47D /* default_5_29_11.png in Resources */,
@@ -11182,6 +11175,7 @@
 				EEFC18B71BCC9E8D0048F47D /* default_5_29_19.png in Resources */,
 				EEFC150E1BCC9E8D0048F47D /* default_4_0_10.png in Resources */,
 				EEFC19471BCC9E8D0048F47D /* default_5_3_5.png in Resources */,
+				EEDDF0C01BF43FB9006C0BE7 /* 横屏启动.png in Resources */,
 				EEFC366E1BCCAB300048F47D /* satellite_4_3_11.jpg in Resources */,
 				EEFC19FC1BCC9E8D0048F47D /* default_5_9_23.png in Resources */,
 				EEFC16601BCC9E8D0048F47D /* default_5_11_27.png in Resources */,
@@ -11747,7 +11741,6 @@
 				EEFC37CE1BCCAB300048F47D /* satellite_5_16_26.jpg in Resources */,
 				EEFC38B31BCCAB300048F47D /* satellite_5_22_30.jpg in Resources */,
 				EEFC163C1BCC9E8D0048F47D /* default_5_10_23.png in Resources */,
-				EE3D21201BB3A74C0097DD94 /* Legend_radar.png in Resources */,
 				EEFC38C71BCCAB300048F47D /* satellite_5_23_2.jpg in Resources */,
 				EEFC18701BCC9E8D0048F47D /* default_5_27_12.png in Resources */,
 				EEFC35DE1BCCAB300048F47D /* satellite_4_0_11.jpg in Resources */,
@@ -12060,7 +12053,6 @@
 				EEFC3AB51BCCAB310048F47D /* satellite_5_8_4.jpg in Resources */,
 				EEFC38F31BCCAB300048F47D /* satellite_5_24_30.jpg in Resources */,
 				EEFC16261BCC9E8D0048F47D /* default_5_0_4.png in Resources */,
-				EE6A7BD51BBA33FE00922607 /* app_launch_1.png in Resources */,
 				EEFC155F1BCC9E8D0048F47D /* default_4_14_11.png in Resources */,
 				EEFC18BC1BCC9E8D0048F47D /* default_5_29_23.png in Resources */,
 				EEFC37711BCCAB300048F47D /* satellite_5_13_29.jpg in Resources */,
@@ -12088,6 +12080,7 @@
 				EEFC35BE1BCCAB300048F47D /* satellite_3_4_3.jpg in Resources */,
 				EEFC399A1BCCAB310048F47D /* satellite_5_29_9.jpg in Resources */,
 				EEFC38B91BCCAB300048F47D /* satellite_5_22_8.jpg in Resources */,
+				EEDDF0C11BF43FB9006C0BE7 /* 竖屏启动.png in Resources */,
 				EEFC371D1BCCAB300048F47D /* satellite_5_11_10.jpg in Resources */,
 				EEFC38E21BCCAB300048F47D /* satellite_5_24_15.jpg in Resources */,
 				EEFC36691BCCAB300048F47D /* satellite_4_2_8.jpg in Resources */,
@@ -12415,6 +12408,7 @@
 				EED8B6711B748BF5000EADC1 /* SDWebImageManager.m in Sources */,
 				EED8B7791B74BE3A000EADC1 /* CWMoviePlayView.m in Sources */,
 				EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */,
+				EEDDF0C41BF461D9006C0BE7 /* HELegendCell.m in Sources */,
 				EED8B6D51B748C71000EADC1 /* MKMapView+ZoomLevel.m in Sources */,
 				EED8B78E1B74BE5D000EADC1 /* WindParticle.m in Sources */,
 				EEAA17F41B9C3B3C009A3535 /* HEProduct.m in Sources */,
@@ -12564,14 +12558,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		EEE41E551B6743A700752EC6 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EEE41E561B6743A700752EC6 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -12662,6 +12648,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12695,7 +12682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -12703,6 +12690,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12736,7 +12724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

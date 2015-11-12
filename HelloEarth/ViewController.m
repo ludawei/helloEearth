@@ -379,13 +379,14 @@ NS_ENUM(NSInteger, MapAnimType)
     lastButton = nil;
     
     self.navigationItem.titleView = view;
+    [self.navigationController.view bringSubviewToFront:self.dimView];
 //    [self.navigationController.navigationBar addSubview:view];
 }
 
 -(void)initBottomViews
 {
     CGFloat buttonWidth = 35;
-    CGFloat margin = VIEW_MARGIN;
+    CGFloat margin = MIN(VIEW_MARGIN, 10);
 
     UIButton *expandButton = [self createButtonWithImg:[UIImage imageNamed:@"全屏－1"] selectImg:[UIImage imageNamed:@"非全屏－1"]];
     [expandButton addTarget:self action:@selector(clickExpand) forControlEvents:UIControlEventTouchUpInside];

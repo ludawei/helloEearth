@@ -11,14 +11,16 @@
 #import "Util.h"
 #import "PLHttpManager.h"
 #import "CWDataManager.h"
+#import "HELegendCell.h"
 
 @interface HELegendController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIPageControl *pageControl;
+@property (nonatomic,strong) UIView *sv_sub;
 
 @property (nonatomic,strong) UIView *contentView;
-@property (nonatomic,strong) NSMutableArray *contentViews;
+@property (nonatomic,strong) NSMutableArray *contentViews, *tables;
 @property (nonatomic,copy) NSArray *datas;
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -32,6 +34,8 @@
     // Do any additional setup after loading the view.
     
     self.title = @"图例";
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     UIButton *leftNavButton = [Util leftNavButtonWithSize:CGSizeMake(self.navigationController.navigationBar.height, self.navigationController.navigationBar.height)];
     [leftNavButton addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
@@ -65,13 +69,13 @@
     
     if (data) {
         
-        self.automaticallyAdjustsScrollViewInsets = NO;
         self.scrollView = [UIScrollView new];
         self.scrollView.pagingEnabled = YES;
         self.scrollView.delegate = self;
         [self.view addSubview:self.scrollView];
         [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self.view);
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(self.mas_topLayoutGuide);
         }];
         
         self.pageControl = [UIPageControl new];
@@ -98,10 +102,12 @@
             make.width.mas_equalTo(self.view.width*legends.count);
             make.height.mas_equalTo(self.view.height-1);
         }];
+        self.sv_sub = sv_sub;
         
         self.contentViews = [NSMutableArray arrayWithCapacity:legends.count];
+        self.tables = [NSMutableArray arrayWithCapacity:legends.count];
         for (NSInteger i=0; i<legends.count; i++) {
-            UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight)];
+            UIView *contentView = [[UIView alloc] init];//WithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendHeight)];
             
             NSDictionary *legend = [legends objectAtIndex:i];
             NSArray *colors = [legend objectForKey:@"colors"];
@@ -126,11 +132,11 @@
             }
             
             NSInteger minFontSize = 16;
-            for (NSInteger j=0; j<colors.count; j++) {
-                NSDictionary *colorData = [colors objectAtIndex:j];
-                NSInteger fontSize = [self binarySearchForFontSizeForText:[colorData objectForKey:@"text"] minFontSize:8 maxFontSize:minFontSize size:CGSizeMake(contentView.width/colors.count-10, legendHeight-titleLblHeight)];
-                minFontSize = MIN(minFontSize, fontSize);
-            }
+//            for (NSInteger j=0; j<colors.count; j++) {
+//                NSDictionary *colorData = [colors objectAtIndex:j];
+//                NSInteger fontSize = [self binarySearchForFontSizeForText:[colorData objectForKey:@"text"] minFontSize:8 maxFontSize:minFontSize size:CGSizeMake(contentView.width/colors.count-10, legendHeight-titleLblHeight)];
+//                minFontSize = MIN(minFontSize, fontSize);
+//            }
             
             UILabel *tempLbl;
             for (NSInteger j=0; j<colors.count; j++) {
@@ -139,7 +145,7 @@
                 UIColor *textColor = [Util colorFromRGBString:[colorData objectForKey:@"color_text"] alpha:1.0];
                 
                 UILabel *lbl = [self createLabelWithBackColor:backColor textColor:textColor text:[[[colorData objectForKey:@"text"] componentsSeparatedByString:@"-"] lastObject]];
-                lbl.font = [UIFont systemFontOfSize:minFontSize];//[Util modifySystemFontWithSize:16];
+                lbl.font = [UIFont systemFontOfSize:minFontSize];
                 [contentView addSubview:lbl];
                 [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
                     if (titleLbl) {
@@ -168,17 +174,25 @@
             UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight+vMargin*2)];
             headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
             [headerView addSubview:contentView];
+            [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(hMargin);
+                make.top.mas_equalTo(vMargin);
+                make.right.mas_equalTo(-hMargin);
+                make.bottom.mas_equalTo(-vMargin);
+            }];
+            
             [self.contentViews addObject:headerView];
             
             UITableView *tableView = [UITableView new];
             tableView.delegate = self;
             tableView.dataSource = self;
             tableView.backgroundColor = [UIColor clearColor];
-            tableView.estimatedRowHeight = 50;
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            tableView.rowHeight = 50;
             tableView.tag = 100+i;
             [sv_sub addSubview:tableView];
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(self.mas_topLayoutGuide);
+                make.top.mas_equalTo(0);
                 make.bottom.mas_equalTo(sv_sub);
                 make.width.mas_equalTo(self.view);
                 if (tempTable) {
@@ -191,6 +205,7 @@
             }];
             tableView.tableFooterView = [UIView new];
             tempTable = tableView;
+            [self.tables addObject:tableView];
         }
         
         self.pageControl.numberOfPages = legends.count;
@@ -202,23 +217,29 @@
         UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
         
         UIImageView *contentView = [[UIImageView alloc] initWithFrame:CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendImage.size.height*(self.view.width-hMargin*2)/legendImage.size.width)];
+        contentView.tag = 920;
+        contentView.contentMode = UIViewContentModeScaleAspectFit;
+//        contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         contentView.image = legendImage;
         
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, contentView.height+vMargin*2)];
-        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
+        headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:0.6];
         [headerView addSubview:contentView];
         self.contentView = headerView;
         
         UITableView *tableView = [UITableView new];
+//        tableView.translatesAutoresizingMaskIntoConstraints = NO;
         self.tableView = tableView;
         
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = [UIColor clearColor];
-        tableView.estimatedRowHeight = 50;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.rowHeight = 80;
         [self.view addSubview:tableView];
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self.view);
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(self.mas_topLayoutGuide);
         }];
         tableView.tableFooterView = [UIView new];
     }
@@ -257,7 +278,40 @@
     
     return lbl;
 }
-                   
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if (self.tableView) {
+        self.tableView.frame = CGRectMake(0, SELF_NAV_HEIGHT+STATUS_HEIGHT, self.view.width, self.view.height-(SELF_NAV_HEIGHT+STATUS_HEIGHT));
+        
+        UIView *contentImageView = [self.contentView viewWithTag:920];
+        
+        CGFloat hMargin=15,vMargin=10;
+        UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
+        contentImageView.frame = CGRectMake(hMargin, vMargin, self.view.width-hMargin*2, legendImage.size.height*(self.view.width-hMargin*2)/legendImage.size.width);
+        
+        self.contentView.frame = CGRectMake(0, 0, self.view.width, contentImageView.height+vMargin*2);
+        
+        [self.tableView reloadData];
+    }
+    else
+    {
+        self.scrollView.frame = CGRectMake(0, SELF_NAV_HEIGHT+STATUS_HEIGHT, self.view.width, self.view.height-(SELF_NAV_HEIGHT+STATUS_HEIGHT));
+        self.sv_sub.width = self.view.width*self.pageControl.numberOfPages;
+        self.sv_sub.height = self.scrollView.height;
+        
+        self.scrollView.contentSize = self.sv_sub.bounds.size;
+        self.scrollView.contentOffset = CGPointMake(self.view.width*self.pageControl.currentPage, 0);
+        
+        for (NSInteger i=0; i<self.tables.count; i++) {
+            
+            UIView *hdView = [self.contentViews objectAtIndex:i];
+            hdView.width = self.scrollView.width;
+        }
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -314,9 +368,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identify = @"legentCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    HELegendCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
+        cell = [[HELegendCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.textColor = [UIColor whiteColor];
@@ -354,6 +408,8 @@
         
         cell.detailTextLabel.text = [data lastObject];
     }
+    cell.textLabel.preferredMaxLayoutWidth = SCREEN_SIZE.width - 70;
+    [cell.textLabel sizeToFit];
     
     return cell;
 }
@@ -371,4 +427,5 @@
         self.pageControl.currentPage = page;
     }
 }
+
 @end
