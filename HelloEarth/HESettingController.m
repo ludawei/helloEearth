@@ -107,10 +107,14 @@
         disableChangeMapLayer = YES;
         sender.enabled = NO;
         self.loadingView.hidden = NO;
+        self.view.userInteractionEnabled = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             sender.enabled = YES;
             disableChangeMapLayer = NO;
             self.loadingView.hidden = YES;
+            
+            self.view.userInteractionEnabled = YES;
+            [self.navigationController popViewControllerAnimated:YES];
         });
     }
     else if (sender == self.switchLight)

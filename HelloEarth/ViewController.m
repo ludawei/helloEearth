@@ -63,7 +63,7 @@ NS_ENUM(NSInteger, MapAnimType)
     WhirlyGlobeViewController *globeViewC;
     MaplyViewController *mapViewC;
     
-    MaplyQuadImageTilesLayer *tileLayer;
+    MaplyQuadImageTilesLayer *tileLayer, *defaultTileLayer, *satelliteTileLayer;
     MaplyStarsModel *stars;
     
     // product data
@@ -207,20 +207,15 @@ NS_ENUM(NSInteger, MapAnimType)
     self.theViewC.view.layer.shadowColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
     [self addChildViewController:self.theViewC];
     
-#if 0
-    if (!tileLayer) {
-        tileLayer = [self createTileLayer];
-    }
-    [self.theViewC removeAllLayers];
-    [self.theViewC addLayer:tileLayer];
-#else
+    // 地图图层
+    tileLayer.enable = NO;
+    [self.theViewC removeLayer:tileLayer];
     MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
     [self.theViewC addLayer:newLayer];
-    [self.theViewC removeLayer:tileLayer];
-    tileLayer = nil;
     tileLayer = newLayer;
-#endif
+    tileLayer.enable = YES;
+    
     self.theViewC.frameInterval = 2;
     self.theViewC.threadPerLayer = true;
     
@@ -250,6 +245,16 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(MaplyQuadImageTilesLayer *)createTileLayer
 {
+    if ([mapDataType isEqualToString:@"默认地图"] && defaultTileLayer)
+    {
+        return defaultTileLayer;
+    }
+    
+    if ([mapDataType isEqualToString:@"卫星地图"] && satelliteTileLayer)
+    {
+        return satelliteTileLayer;
+    }
+    
     NSString *mapId = [[CWDataManager sharedInstance].mapDataTypes objectForKey:mapDataType];
     NSDictionary *mapImageInfo = [[CWDataManager sharedInstance].mapOfflineImageInfo objectForKey:mapDataType];
     
@@ -274,8 +279,16 @@ NS_ENUM(NSInteger, MapAnimType)
 //    layer.animationPeriod = 6.0;
 //    layer.drawPriority = 0;
 //    layer.waitLoad = true;
-    
+
 //    [tileLayer reset];
+    
+    if ([mapDataType isEqualToString:@"默认地图"]) {
+        defaultTileLayer = layer;
+    }
+    else if ([mapDataType isEqualToString:@"卫星地图"])
+    {
+        satelliteTileLayer = layer;
+    }
     
     return layer;
 }
@@ -1513,7 +1526,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     show3D = flag;
     
-//    [self resetMapUI];
+    [self resetMapUI];
     [self makeMapViewAndDatas];
 }
 -(void)showMapLight:(BOOL)flag
@@ -1557,17 +1570,13 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     mapDataType = mType;
 
+    tileLayer.enable = NO;
+    [self.theViewC removeLayer:tileLayer];
     MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
     [self.theViewC addLayer:newLayer];
-    [self.theViewC removeLayer:tileLayer];
-    tileLayer = nil;
     tileLayer = newLayer;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.theViewC removeLayer:tileLayer];
-//        tileLayer = nil;
-//        tileLayer = newLayer;
-//    });
+    tileLayer.enable = YES;
 }
 
 -(void)locationed:(NSNotification *)noti
