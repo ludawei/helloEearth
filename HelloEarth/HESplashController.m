@@ -80,30 +80,45 @@
 
 -(void)showLoadingView
 {
-    NSMutableArray *imgs = [NSMutableArray array];
-    for (NSInteger i=1; i<=32; i++) {
-        [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
-    }
-    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
-    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
-    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
-    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
-    
-    [imgs addObject:[imgs lastObject]];
-    [imgs addObject:[imgs lastObject]];
-    [imgs addObject:[imgs lastObject]];
-    [imgs addObject:[imgs lastObject]];
+//    NSMutableArray *imgs = [NSMutableArray array];
+//    for (NSInteger i=1; i<=32; i++) {
+//        [imgs addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%td", i]]];
+//    }
+//    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+//    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+//    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+//    [imgs insertObject:[UIImage imageNamed:@"loading_12"] atIndex:11];
+//    
+//    [imgs addObject:[imgs lastObject]];
+//    [imgs addObject:[imgs lastObject]];
+//    [imgs addObject:[imgs lastObject]];
+//    [imgs addObject:[imgs lastObject]];
     
     UIImageView *loadingBackView = [UIImageView new];
     //    loadingBackView.frame = self.view.bounds;
     loadingBackView.contentMode = UIViewContentModeScaleAspectFill;
-    loadingBackView.image = [UIImage imageNamed:@"app_launch_1"];
+    loadingBackView.image = [UIImage imageNamed:@"背景.jpg"];
     [self.view addSubview:loadingBackView];
     [loadingBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [act startAnimating];
+    [self.view addSubview:act];
+    [act mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.view.height*0.1);
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+#if 1
+        [[NSNotificationCenter defaultCenter] postNotificationName:noti_loadanim_ok object:nil userInfo:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [CWDataManager sharedInstance].loadingAnimationFinished = YES;
+            
+        }];
+#else
         loadingBackView.image = [UIImage imageNamed:@"背景.jpg"];
         
         UIImageView *loadingView = [UIImageView new];
@@ -131,6 +146,7 @@
                 });
             }
         }];
+#endif
         
     });
 }

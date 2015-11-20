@@ -14,6 +14,7 @@
 @interface HEAboutController ()
 
 @property (nonatomic,weak) IBOutlet UILabel *vesionLabel;
+@property (nonatomic,weak) IBOutlet UIImageView *logoView;
 
 @end
 
@@ -29,6 +30,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftNavButton];
     
     self.vesionLabel.text = [NSString stringWithFormat:@"版本号：V%@", [DeviceUtil getSoftVersion:false]];
+    self.logoView.layer.cornerRadius = 10;
 }
 
 - (void)didReceiveMemoryWarning {

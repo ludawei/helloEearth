@@ -38,11 +38,11 @@
     {
 //        NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Software Version Code"];
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
         if (version != nil)
             return version;
         else
-            return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+            return [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     }
 }
 

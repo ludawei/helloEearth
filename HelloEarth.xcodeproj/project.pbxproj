@@ -43,7 +43,6 @@
 		EE5B99741BAA6BFD00A23E35 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99731BAA6BFD00A23E35 /* libsqlite3.tbd */; };
 		EE5B99C51BAA7A0B00A23E35 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */; };
 		EE5B99C61BAA7A0B00A23E35 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C41BAA7A0B00A23E35 /* libssl.a */; };
-		EE6A7BD51BBA33FE00922607 /* app_launch_1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE6A7BD41BBA33FE00922607 /* app_launch_1.png */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
 		EE9F6C2C1BABA1720006C8CF /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */; };
@@ -3048,7 +3047,6 @@
 		EE5B99C11BAA7A0B00A23E35 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		EE5B99C31BAA7A0B00A23E35 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		EE5B99C41BAA7A0B00A23E35 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		EE6A7BD41BBA33FE00922607 /* app_launch_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_launch_1.png; sourceTree = "<group>"; };
 		EE75A1D21B9ECE9800B225E9 /* HENavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HENavController.h; sourceTree = "<group>"; };
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
@@ -6774,7 +6772,6 @@
 				EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */,
 				EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */,
 				EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */,
-				EE6A7BD41BBA33FE00922607 /* app_launch_1.png */,
 				EE3D211F1BB3A74C0097DD94 /* Legend_radar.png */,
 				EED685AA1BB2861B005E2763 /* china.json */,
 				EE4CBCEC1BA7A95E002D322E /* 背景.jpg */,
@@ -12060,7 +12057,6 @@
 				EEFC3AB51BCCAB310048F47D /* satellite_5_8_4.jpg in Resources */,
 				EEFC38F31BCCAB300048F47D /* satellite_5_24_30.jpg in Resources */,
 				EEFC16261BCC9E8D0048F47D /* default_5_0_4.png in Resources */,
-				EE6A7BD51BBA33FE00922607 /* app_launch_1.png in Resources */,
 				EEFC155F1BCC9E8D0048F47D /* default_4_14_11.png in Resources */,
 				EEFC18BC1BCC9E8D0048F47D /* default_5_29_23.png in Resources */,
 				EEFC37711BCCAB300048F47D /* satellite_5_13_29.jpg in Resources */,
@@ -12662,7 +12658,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12692,9 +12688,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
+				PROVISIONING_PROFILE = "474633a1-400a-4069-87bf-a7b1fe998fb3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -12703,7 +12699,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12733,9 +12729,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
+				PROVISIONING_PROFILE = "474633a1-400a-4069-87bf-a7b1fe998fb3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
