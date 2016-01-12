@@ -71,7 +71,7 @@
 
 + (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2 toRect:(CGRect)frame
 {
-    UIGraphicsBeginImageContext(image2.size);
+    UIGraphicsBeginImageContextWithOptions(image2.size, NO, 0.0f);
     
     // Draw image1
     [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];

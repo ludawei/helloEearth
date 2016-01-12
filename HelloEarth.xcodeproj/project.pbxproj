@@ -174,6 +174,8 @@
 		EEE422391B68681000752EC6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422381B68681000752EC6 /* MobileCoreServices.framework */; };
 		EEE4223B1B68681700752EC6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4223A1B68681700752EC6 /* CFNetwork.framework */; };
 		EEE4223D1B68682100752EC6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4223C1B68682100752EC6 /* SystemConfiguration.framework */; };
+		EEF1D86D1C44E2A80032272E /* HEShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1D86C1C44E2A80032272E /* HEShareView.m */; };
+		EEF1D86F1C44F3520032272E /* 寰宇分享.png in Resources */ = {isa = PBXBuildFile; fileRef = EEF1D86E1C44F3520032272E /* 寰宇分享.png */; };
 		EEFC14B71BCC9E8D0048F47D /* default_0_0_0.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0F621BCC9E830048F47D /* default_0_0_0.png */; };
 		EEFC14B81BCC9E8D0048F47D /* default_1_0_0.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0F631BCC9E830048F47D /* default_1_0_0.png */; };
 		EEFC14B91BCC9E8D0048F47D /* default_1_0_1.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0F641BCC9E830048F47D /* default_1_0_1.png */; };
@@ -3319,6 +3321,9 @@
 		EEE422381B68681000752EC6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EEE4223A1B68681700752EC6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		EEE4223C1B68682100752EC6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EEF1D86B1C44E2A80032272E /* HEShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEShareView.h; sourceTree = "<group>"; };
+		EEF1D86C1C44E2A80032272E /* HEShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEShareView.m; sourceTree = "<group>"; };
+		EEF1D86E1C44F3520032272E /* 寰宇分享.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "寰宇分享.png"; sourceTree = "<group>"; };
 		EEFC0F621BCC9E830048F47D /* default_0_0_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_0_0_0.png; sourceTree = "<group>"; };
 		EEFC0F631BCC9E830048F47D /* default_1_0_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_1_0_0.png; sourceTree = "<group>"; };
 		EEFC0F641BCC9E830048F47D /* default_1_0_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_1_0_1.png; sourceTree = "<group>"; };
@@ -6665,6 +6670,8 @@
 				EED8B7711B74BE3A000EADC1 /* PlayerView.m */,
 				EED8B7721B74BE3A000EADC1 /* TJPieView.h */,
 				EED8B7731B74BE3A000EADC1 /* TJPieView.m */,
+				EEF1D86B1C44E2A80032272E /* HEShareView.h */,
+				EEF1D86C1C44E2A80032272E /* HEShareView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6767,6 +6774,7 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEF1D86E1C44F3520032272E /* 寰宇分享.png */,
 				EEFC2FEC1BCCAB260048F47D /* divdiv.nicggmmh */,
 				EEFC0F611BCC9E830048F47D /* divdiv.nicgc1ap */,
 				EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */,
@@ -9796,6 +9804,7 @@
 				EEFC16A71BCC9E8D0048F47D /* default_5_13_5.png in Resources */,
 				EEFC35A91BCCAB300048F47D /* satellite_3_1_6.jpg in Resources */,
 				EEFC181B1BCC9E8D0048F47D /* default_5_24_22.png in Resources */,
+				EEF1D86F1C44F3520032272E /* 寰宇分享.png in Resources */,
 				EEFC18081BCC9E8D0048F47D /* default_5_23_6.png in Resources */,
 				EEFC373E1BCCAB300048F47D /* satellite_5_12_11.jpg in Resources */,
 				EEFC19EE1BCC9E8D0048F47D /* default_5_9_10.png in Resources */,
@@ -12471,6 +12480,7 @@
 				EE9F6C581BABA4580006C8CF /* AFSecurityPolicy.m in Sources */,
 				EED8B7781B74BE3A000EADC1 /* CustomAnnoView1.m in Sources */,
 				EEAA18031B9E8B18009A3535 /* HEShareController.m in Sources */,
+				EEF1D86D1C44E2A80032272E /* HEShareView.m in Sources */,
 				EED685971BB00063005E2763 /* NJKWebViewProgressView.m in Sources */,
 				EE4CBC931BA116B1002D322E /* HEFeedbackController.m in Sources */,
 				EED8B60C1B748B79000EADC1 /* CWDataManager.m in Sources */,
@@ -12658,7 +12668,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12688,9 +12698,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "474633a1-400a-4069-87bf-a7b1fe998fb3";
+				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -12699,7 +12709,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12729,9 +12739,9 @@
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/ThirdLibs/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "474633a1-400a-4069-87bf-a7b1fe998fb3";
+				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

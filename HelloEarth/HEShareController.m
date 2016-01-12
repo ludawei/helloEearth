@@ -89,6 +89,7 @@
     
     // top views
     UIView *topView = [UIView new];
+    topView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];
     [self.view addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(STATUS_HEIGHT+SELF_NAV_HEIGHT);
@@ -374,8 +375,8 @@
 
 -(void)shareWithType:(NSString *)type
 {
-    NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";//@"http://www.cma.gov.cn/2011xwzx/2011xgzdt/201508/t20150821_291102.html";
-    UIImage *shareImage = [self.contentView viewShot];//[[UIImageView sharedImageCache] cachedImageForRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]]];
+    NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";
+    UIImage *shareImage = [self.contentView viewShot];
     
     NSString *appName = [DeviceUtil getSoftVersion:true];
     

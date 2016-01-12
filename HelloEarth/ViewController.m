@@ -36,6 +36,8 @@
 #import "AlertViewBlocks.h"
 #import "NSDate+Utilities.h"
 
+#import "HEShareView.h"
+
 #define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
 
@@ -47,7 +49,7 @@ NS_ENUM(NSInteger, MapAnimType)
     MapAnimTypeData,
 };
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate>
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate, HEShareDelegate>
 {
     CGFloat globeHeight;
     
@@ -94,7 +96,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 // UI
 //@property (nonatomic,strong) UIView *topView;
-@property (nonatomic,strong) UIButton *logoButton;
+@property (nonatomic,strong) UIButton *shareButton, *logoButton;
 
 @property (nonatomic,strong) UIView *bottomView,*bottomContentView;
 
@@ -104,6 +106,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 @property (nonatomic,strong) UIControl *dimView, *navDimView;
 @property (nonatomic,strong) UIView *logoPopView;
+@property (nonatomic,strong) HEShareView *shareView;
 
 // 统计
 @property (nonatomic,copy) NSDictionary *markerDatas;
@@ -345,6 +348,8 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.dimView addTarget:self action:@selector(closeLogoView) forControlEvents:UIControlEventTouchDown];
     
     self.logoPopView.hidden = YES;
+    
+    self.shareView.hidden = YES;
 }
 
 -(void)initTopViews
@@ -386,6 +391,10 @@ NS_ENUM(NSInteger, MapAnimType)
         lastButton = button;
         if (i == 4) {
             self.logoButton = button;
+        }
+        
+        if (i == 2) {
+            self.shareButton = button;
         }
     }
     
@@ -554,6 +563,8 @@ NS_ENUM(NSInteger, MapAnimType)
     if (self.view.width != self.navigationController.navigationBar.width) {
         [self initTopViews];
     }
+    
+    self.shareButton.enabled = self.view.width < self.view.height;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -1062,19 +1073,31 @@ NS_ENUM(NSInteger, MapAnimType)
         case 2:
         {
             // share
-            HEShareController *next = [HEShareController new];
             UIImage *mapImage = [self.theViewC snapshot];
             self.theViewC.view.hidden = YES;
             UIImage *viewImage = [self.navigationController.view viewShot];
             self.theViewC.view.hidden = NO;
             
-            UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-            
-            if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-                next.imageRotationAngle = orientation == UIInterfaceOrientationLandscapeRight?90:-90;
+            UIImage *image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
+            if (self.shareView.hidden) {
+                self.shareView.shareImage = image;
+                [self.shareView show];
+                
+                self.theViewC.view.userInteractionEnabled = NO;
+                
+                self.dimView.hidden = NO;
+                self.dimView.alpha = 0;
+                self.navDimView.hidden = NO;
+                self.navDimView.alpha = 0;
+                [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
+                    self.dimView.alpha = 1;
+                    self.navDimView.alpha = 1;
+                    [self.navigationController.view layoutIfNeeded];
+                } completion:^(BOOL finished) {
+                    
+                }];
             }
-            next.image = [Util addImage:viewImage toImage:mapImage toRect:CGRectMake(0, 0, mapImage.size.width, mapImage.size.height)];
-            [self.navigationController pushViewController:next animated:YES];
+            
             break;
         }
         case 3:
@@ -1300,6 +1323,29 @@ NS_ENUM(NSInteger, MapAnimType)
             self.navDimView.hidden = YES;
         }];
     }
+    
+    if (!self.shareView.hidden) {
+        self.dimView.alpha = 1;
+        self.navDimView.alpha = 1;
+
+        [self.shareView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.view.mas_bottom);
+            make.left.right.mas_equalTo(self.navigationController.view);
+            make.height.mas_equalTo(200);
+        }];
+        
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            
+            self.dimView.alpha = 0;
+            self.navDimView.alpha = 0;
+            [self.navigationController.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            self.dimView.hidden = YES;
+            self.navDimView.hidden = YES;
+            
+            self.shareView.hidden = YES;
+        }];
+    }
 }
 
 -(void)clickSqView
@@ -1467,6 +1513,23 @@ NS_ENUM(NSInteger, MapAnimType)
     return _logoPopView;
 }
 
+-(HEShareView *)shareView
+{
+    if (!_shareView) {
+        _shareView = [[HEShareView alloc] init];
+        _shareView.delegate = self;
+        _shareView.backgroundColor = [UIColor colorWithRed:0.165 green:0.169 blue:0.173 alpha:1];
+        [self.navigationController.view addSubview:_shareView];
+        [_shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.view.mas_bottom);
+            make.left.right.mas_equalTo(self.navigationController.view);
+            make.height.mas_equalTo(200);
+        }];
+    }
+    
+    return _shareView;
+}
+
 #pragma mark - ViewConDelegate
 -(void)setPlayButtonSelect:(BOOL)select
 {
@@ -1603,6 +1666,12 @@ NS_ENUM(NSInteger, MapAnimType)
     });
 }
 
+#pragma mark - HEShareDelegate
+-(void)clickShareCancel
+{
+    [self closeLogoView];
+}
+
 #pragma mark - HEProductDelegate
 -(void)setData:(NSDictionary *)data
 {
@@ -1672,6 +1741,7 @@ NS_ENUM(NSInteger, MapAnimType)
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [self.statisticsView hide];
+    [self closeLogoView];
 }
 
 @end
