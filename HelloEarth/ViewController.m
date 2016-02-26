@@ -29,6 +29,7 @@
 #import "HELegendController.h"
 #import "HEProductsController.h"
 #import "HEMapDataAnimLogic.h"
+#import "HEMapAnimFlow.h"
 
 #import "MBProgressHUD+Extra.h"
 #import "HESplashController.h"
@@ -87,6 +88,7 @@ NS_ENUM(NSInteger, MapAnimType)
 @property (nonatomic,strong) HEMapDataAnimLogic *mapDataAnimLogic;
 
 @property (nonatomic,strong) HEMapAnimLogic *mapAnimLogic;
+@property (nonatomic,strong) HEMapAnimFlow *mapAnimFlow;
 @property (nonatomic,strong) MaplyComponentObject *markersObj,*markersTJ1,*markersTJ2,*markersTJ3;
 @property (nonatomic,strong) MaplyComponentObject *markerLocation;
 
@@ -171,6 +173,9 @@ NS_ENUM(NSInteger, MapAnimType)
     self.mapAnimLogic = nil;
     self.mapAnimLogic = [[HEMapAnimLogic alloc] initWithController:self.theViewC];
     self.mapAnimLogic.delegate = self;
+    
+    self.mapAnimFlow = nil;
+    self.mapAnimFlow = [[HEMapAnimFlow alloc] initWithController:self.theViewC];
 }
 
 -(void)initMapView
@@ -611,6 +616,12 @@ NS_ENUM(NSInteger, MapAnimType)
         
         self.mapAnimLogic.hideHUD = YES;
     }
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.mapAnimFlow show];
+    });
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated

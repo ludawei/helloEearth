@@ -45,6 +45,8 @@
 		EE5B99C61BAA7A0B00A23E35 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B99C41BAA7A0B00A23E35 /* libssl.a */; };
 		EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D31B9ECE9800B225E9 /* HENavController.m */; };
 		EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */; };
+		EE7C0F961C7AFB7400E0E9F4 /* HEMapAnimFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7C0F951C7AFB7400E0E9F4 /* HEMapAnimFlow.m */; };
+		EE7C0F9A1C7AFFC700E0E9F4 /* china_pros.json in Resources */ = {isa = PBXBuildFile; fileRef = EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */; };
 		EE9F6C2C1BABA1720006C8CF /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */; };
 		EE9F6C541BABA4580006C8CF /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6C2F1BABA4580006C8CF /* AFHTTPRequestOperation.m */; };
 		EE9F6C551BABA4580006C8CF /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9F6C311BABA4580006C8CF /* AFHTTPRequestOperationManager.m */; };
@@ -3053,6 +3055,9 @@
 		EE75A1D31B9ECE9800B225E9 /* HENavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HENavController.m; sourceTree = "<group>"; };
 		EE75A1D81B9EEC3300B225E9 /* WLMainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMainItem.h; sourceTree = "<group>"; };
 		EE75A1D91B9EEC3300B225E9 /* WLMainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMainItem.m; sourceTree = "<group>"; };
+		EE7C0F941C7AFB7400E0E9F4 /* HEMapAnimFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimFlow.h; sourceTree = "<group>"; };
+		EE7C0F951C7AFB7400E0E9F4 /* HEMapAnimFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapAnimFlow.m; sourceTree = "<group>"; };
+		EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = china_pros.json; sourceTree = "<group>"; };
 		EE9F6C2A1BABA1720006C8CF /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		EE9F6C2E1BABA4580006C8CF /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -6104,6 +6109,8 @@
 				EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */,
 				EE4CBCA41BA27241002D322E /* HEMapDataAnimLogic.h */,
 				EE4CBCA51BA27241002D322E /* HEMapDataAnimLogic.m */,
+				EE7C0F941C7AFB7400E0E9F4 /* HEMapAnimFlow.h */,
+				EE7C0F951C7AFB7400E0E9F4 /* HEMapAnimFlow.m */,
 			);
 			name = Logics;
 			sourceTree = "<group>";
@@ -6774,6 +6781,7 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */,
 				EEF1D86E1C44F3520032272E /* 寰宇分享.png */,
 				EEFC2FEC1BCCAB260048F47D /* divdiv.nicggmmh */,
 				EEFC0F611BCC9E830048F47D /* divdiv.nicgc1ap */,
@@ -9712,6 +9720,7 @@
 				EEFC39DB1BCCAB310048F47D /* satellite_5_31_0.jpg in Resources */,
 				EEFC17241BCC9E8D0048F47D /* default_5_17_30.png in Resources */,
 				EEFC38081BCCAB300048F47D /* satellite_5_18_20.jpg in Resources */,
+				EE7C0F9A1C7AFFC700E0E9F4 /* china_pros.json in Resources */,
 				EEFC157B1BCC9E8D0048F47D /* default_4_15_9.png in Resources */,
 				EEFC3A441BCCAB310048F47D /* satellite_5_5_17.jpg in Resources */,
 				EEFC39D41BCCAB310048F47D /* satellite_5_30_31.jpg in Resources */,
@@ -12412,6 +12421,7 @@
 			files = (
 				EED8B7771B74BE3A000EADC1 /* CustomAnnotationView.m in Sources */,
 				EE9F6C611BABA4580006C8CF /* UIImageView+AFNetworking.m in Sources */,
+				EE7C0F961C7AFB7400E0E9F4 /* HEMapAnimFlow.m in Sources */,
 				EED8B6AF1B748C58000EADC1 /* CWEncode.m in Sources */,
 				EE9F6C601BABA4580006C8CF /* UIButton+AFNetworking.m in Sources */,
 				EED8B6781B748BF5000EADC1 /* UIView+WebCacheOperation.m in Sources */,
@@ -12700,8 +12710,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "312eb833-b9df-4617-9018-ea9fadfe63d0";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -12741,8 +12751,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a849671e-da26-4e13-9443-9dc13917ae37";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "312eb833-b9df-4617-9018-ea9fadfe63d0";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

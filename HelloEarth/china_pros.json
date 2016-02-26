@@ -1,0 +1,867 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 41.04895776195184,
+        "width": 2.05414550126784,
+        "height": 1.60041400132917,
+        "left": 115.4165192599503
+      },
+      "cp": [
+        116.380943,
+        39.923615
+      ],
+      "title": "北京",
+      "cname": "北京",
+      "prov_code": 110000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        116.380943,
+        39.923615
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 40.24444176095761,
+        "width": 1.359176501221896,
+        "height": 1.671379000839522,
+        "left": 116.70439926077
+      },
+      "cp": [
+        117.203499,
+        39.131119
+      ],
+      "title": "天津",
+      "cname": "天津",
+      "prov_code": 120000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        117.203499,
+        39.131119
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 42.61761476348812,
+        "width": 6.36740900585653,
+        "height": 6.549949506292656,
+        "left": 113.4710692581511
+      },
+      "cp": [
+        114.489777,
+        38.045128
+      ],
+      "title": "河北",
+      "cname": "石家庄",
+      "prov_code": 130000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        114.489777,
+        38.045128
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 40.73158626148205,
+        "width": 4.289924504329704,
+        "height": 6.140888005141505,
+        "left": 110.2506407548961
+      },
+      "cp": [
+        112.569351,
+        37.871113
+      ],
+      "title": "山西",
+      "cname": "太原",
+      "prov_code": 140000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        112.569351,
+        37.871113
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 53.33116927342411,
+        "width": 28.88018802683119,
+        "height": 15.92298151424114,
+        "left": 97.17195124243324
+      },
+      "cp": [
+        111.6633,
+        40.820942
+      ],
+      "title": "内蒙古",
+      "cname": "呼和浩特",
+      "prov_code": 150000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        111.6633,
+        40.820942
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 43.4906427642324,
+        "width": 6.939819006791723,
+        "height": 4.769798504256748,
+        "left": 118.8475877630094
+      },
+      "cp": [
+        123.411682,
+        41.796616
+      ],
+      "title": "辽宁",
+      "cname": "沈阳",
+      "prov_code": 210000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        123.411682,
+        41.796616
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 46.29584126707459,
+        "width": 9.641555508594948,
+        "height": 5.427124004757445,
+        "left": 121.666366765938
+      },
+      "cp": [
+        125.31543,
+        43.892563
+      ],
+      "title": "吉林",
+      "cname": "长春",
+      "prov_code": 220000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        125.31543,
+        43.892563
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 53.55809427387634,
+        "width": 13.89141851253443,
+        "height": 10.15039450911546,
+        "left": 121.1928407654532
+      },
+      "cp": [
+        126.643341,
+        45.741493
+      ],
+      "title": "黑龙江",
+      "cname": "哈尔滨",
+      "prov_code": 230000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        126.643341,
+        45.741493
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 31.85027875383963,
+        "width": 1.039421000575217,
+        "height": 1.148649001207847,
+        "left": 120.8615037651361
+      },
+      "cp": [
+        121.469269,
+        31.238176
+      ],
+      "title": "上海",
+      "cname": "上海",
+      "prov_code": 310000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        121.469269,
+        31.238176
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 35.12480925629262,
+        "width": 5.534386005595692,
+        "height": 4.357624003498415,
+        "left": 116.3606947605238
+      },
+      "cp": [
+        118.772781,
+        32.047615
+      ],
+      "title": "江苏",
+      "cname": "南京",
+      "prov_code": 320000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        118.772781,
+        32.047615
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 31.18224525256516,
+        "width": 4.398323004496774,
+        "height": 4.013107503593176,
+        "left": 118.0341567620543
+      },
+      "cp": [
+        120.159248,
+        30.265995
+      ],
+      "title": "浙江",
+      "cname": "杭州",
+      "prov_code": 330000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        120.159248,
+        30.265995
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 34.64068975581546,
+        "width": 4.760658503816671,
+        "height": 5.245468004624289,
+        "left": 114.8753737594877
+      },
+      "cp": [
+        117.275703,
+        31.863255
+      ],
+      "title": "安徽",
+      "cname": "合肥",
+      "prov_code": 340000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        117.275703,
+        31.863255
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 28.29312875027341,
+        "width": 4.587204004928722,
+        "height": 4.717210504701882,
+        "left": 115.8482817598298
+      },
+      "cp": [
+        119.297813,
+        26.07859
+      ],
+      "title": "福建",
+      "cname": "福州",
+      "prov_code": 350000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        119.297813,
+        26.07859
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 30.07823175215179,
+        "width": 4.89852900456593,
+        "height": 5.591190505263345,
+        "left": 113.5742112579292
+      },
+      "cp": [
+        115.899918,
+        28.675991
+      ],
+      "title": "江西",
+      "cname": "南昌",
+      "prov_code": 360000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        115.899918,
+        28.675991
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 38.26009725950303,
+        "width": 7.896332006810766,
+        "height": 3.856563503609891,
+        "left": 114.8016662594627
+      },
+      "cp": [
+        117.0056,
+        36.667072
+      ],
+      "title": "山东",
+      "cname": "济南",
+      "prov_code": 370000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        117.0056,
+        36.667072
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 36.3600007574214,
+        "width": 6.280082505768746,
+        "height": 4.967201504519892,
+        "left": 110.3592987553341
+      },
+      "cp": [
+        113.650047,
+        34.757034
+      ],
+      "title": "河南",
+      "cname": "郑州",
+      "prov_code": 410000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        113.650047,
+        34.757034
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 33.26878725522567,
+        "width": 7.728286507247788,
+        "height": 4.233322004081121,
+        "left": 108.4013367532398
+      },
+      "cp": [
+        114.291939,
+        30.567514
+      ],
+      "title": "湖北",
+      "cname": "武汉",
+      "prov_code": 420000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        114.291939,
+        30.567514
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 30.12800575239254,
+        "width": 5.445564504942126,
+        "height": 5.493579505937305,
+        "left": 108.8057707533191
+      },
+      "cp": [
+        112.98127,
+        28.200825
+      ],
+      "title": "湖南",
+      "cname": "长沙",
+      "prov_code": 430000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        112.98127,
+        28.200825
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 25.51049024775381,
+        "width": 7.527519007475235,
+        "height": 5.276468004595586,
+        "left": 109.6625137543144
+      },
+      "cp": [
+        113.261429,
+        23.118912
+      ],
+      "title": "广东",
+      "cname": "广州",
+      "prov_code": 440000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        113.261429,
+        23.118912
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 26.37801574846043,
+        "width": 7.570183006423164,
+        "height": 5.349695504977433,
+        "left": 104.4839857498214
+      },
+      "cp": [
+        108.311768,
+        22.806543
+      ],
+      "title": "广西",
+      "cname": "南宁",
+      "prov_code": 450000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        108.311768,
+        22.806543
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 20.12845224297359,
+        "width": 2.422439502759644,
+        "height": 1.953552002055062,
+        "left": 108.616287252993
+      },
+      "cp": [
+        110.346512,
+        20.031794
+      ],
+      "title": "海南",
+      "cname": "海口",
+      "prov_code": 460000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        110.346512,
+        20.031794
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 32.2120437538411,
+        "width": 4.895820503819834,
+        "height": 4.040540503713945,
+        "left": 105.2905272506548
+      },
+      "cp": [
+        106.510338,
+        29.558176
+      ],
+      "title": "重庆",
+      "cname": "重庆",
+      "prov_code": 500000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        106.510338,
+        29.558176
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 34.31263725581653,
+        "width": 11.16638201047147,
+        "height": 8.265005007786783,
+        "left": 97.35762774263742
+      },
+      "cp": [
+        104.081757,
+        30.661057
+      ],
+      "title": "四川",
+      "cname": "成都",
+      "prov_code": 510000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        104.081757,
+        30.661057
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 29.19845775070609,
+        "width": 5.950493005066548,
+        "height": 4.574878504237457,
+        "left": 103.5997162488919
+      },
+      "cp": [
+        106.711372,
+        26.576874
+      ],
+      "title": "贵州",
+      "cname": "贵阳",
+      "prov_code": 520000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        106.711372,
+        26.576874
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 29.25111975097411,
+        "width": 8.638252508290918,
+        "height": 8.10459150749853,
+        "left": 97.53102874265653
+      },
+      "cp": [
+        102.704567,
+        25.043844
+      ],
+      "title": "云南",
+      "cname": "昆明",
+      "prov_code": 530000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        102.704567,
+        25.043844
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 36.48350925803259,
+        "width": 20.70899201937834,
+        "height": 9.623657509135789,
+        "left": 78.4033202249916
+      },
+      "cp": [
+        91.13205000000001,
+        29.657589
+      ],
+      "title": "西藏",
+      "cname": "拉萨",
+      "prov_code": 540000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        91.13205000000001,
+        29.657589
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 39.57358526085352,
+        "width": 5.712356504912634,
+        "height": 7.85945300743299,
+        "left": 105.4953537504743
+      },
+      "cp": [
+        108.949028,
+        34.261684
+      ],
+      "title": "陕西",
+      "cname": "西安",
+      "prov_code": 610000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        108.949028,
+        34.261684
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 42.79341876366072,
+        "width": 15.93545501456009,
+        "height": 10.19652550959961,
+        "left": 92.77091223864318
+      },
+      "cp": [
+        103.750053,
+        36.068039
+      ],
+      "title": "甘肃",
+      "cname": "兰州",
+      "prov_code": 620000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        103.750053,
+        36.068039
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 39.32727026051464,
+        "width": 13.62504551299268,
+        "height": 7.780755507612302,
+        "left": 89.40637973507887
+      },
+      "cp": [
+        101.787453,
+        36.609447
+      ],
+      "title": "青海",
+      "cname": "西宁",
+      "prov_code": 630000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        101.787453,
+        36.609447
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 39.37448876076672,
+        "width": 3.372673002896974,
+        "height": 4.139133504239965,
+        "left": 104.2790757497502
+      },
+      "cp": [
+        106.271942,
+        38.46801
+      ],
+      "title": "宁夏",
+      "cname": "银川",
+      "prov_code": 640000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        106.271942,
+        38.46801
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 49.17878727001255,
+        "width": 22.88122552050305,
+        "height": 14.84252151408191,
+        "left": 73.50316622106175
+      },
+      "cp": [
+        87.606117,
+        43.790939
+      ],
+      "title": "新疆",
+      "cname": "乌鲁木齐",
+      "prov_code": 650000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        87.606117,
+        43.790939
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 25.29741874738187,
+        "width": 2.525802501933185,
+        "height": 3.366268502649003,
+        "left": 119.4730607638116
+      },
+      "cp": [
+        121.514282,
+        25.049128
+      ],
+      "title": "台湾",
+      "cname": "台北",
+      "prov_code": 710000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        121.514282,
+        25.049128
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 22.5586527446593,
+        "width": 0.3918765003847966,
+        "height": 0.3645210002392218,
+        "left": 113.8604582580846
+      },
+      "cp": [
+        114.154404,
+        22.280685
+      ],
+      "title": "香港",
+      "cname": "香港",
+      "prov_code": 810000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        114.154404,
+        22.280685
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "srcSize": {
+        "top": 22.21607224496421,
+        "width": 0.03564450002831165,
+        "height": 0.1038420005693901,
+        "left": 113.5431822575203
+      },
+      "cp": [
+        113.550056,
+        22.200796
+      ],
+      "title": "澳门",
+      "cname": "澳门",
+      "prov_code": 820000
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        113.550056,
+        22.200796
+      ]
+    }
+  }
+],
+  "srcSize": {
+    "left": 73.5,
+    "top": 53.56,
+    "width": 61.59,
+    "height": 35.4
+  }
+}
