@@ -98,6 +98,7 @@
 		EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18191B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		EEAA18281B9EB485009A3535 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */; };
 		EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */; };
+		EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */; };
 		EED017D81BA01D07007235FA /* HESettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017D71BA01D07007235FA /* HESettingController.m */; };
 		EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017DA1BA02F7D007235FA /* CWLocationManager.m */; };
 		EED685901BB0002C005E2763 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6858F1BB0002C005E2763 /* WebController.m */; };
@@ -3174,6 +3175,8 @@
 		EEAA181C1B9EB485009A3535 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		EEAA181D1B9EB485009A3535 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		EEB2C2141C80550B00E58289 /* MyMaplyShapeSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeSphere.h; sourceTree = "<group>"; };
+		EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeSphere.m; sourceTree = "<group>"; };
 		EED017D61BA01D07007235FA /* HESettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HESettingController.h; sourceTree = "<group>"; };
 		EED017D71BA01D07007235FA /* HESettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HESettingController.m; sourceTree = "<group>"; };
 		EED017D91BA02F7D007235FA /* CWLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLocationManager.h; sourceTree = "<group>"; };
@@ -6709,6 +6712,8 @@
 				EED8B78A1B74BE5D000EADC1 /* WindParticle.m */,
 				EEAA17F21B9C3B3C009A3535 /* HEProduct.h */,
 				EEAA17F31B9C3B3C009A3535 /* HEProduct.m */,
+				EEB2C2141C80550B00E58289 /* MyMaplyShapeSphere.h */,
+				EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -12488,6 +12493,7 @@
 				EED8B6B31B748C58000EADC1 /* ZipStr.m in Sources */,
 				EED8B66B1B748BF5000EADC1 /* NSData+ImageContentType.m in Sources */,
 				EE9F6C581BABA4580006C8CF /* AFSecurityPolicy.m in Sources */,
+				EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */,
 				EED8B7781B74BE3A000EADC1 /* CustomAnnoView1.m in Sources */,
 				EEAA18031B9E8B18009A3535 /* HEShareController.m in Sources */,
 				EEF1D86D1C44E2A80032272E /* HEShareView.m in Sources */,

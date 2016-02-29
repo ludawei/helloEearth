@@ -7,13 +7,18 @@
 //
 
 #import "HEMapAnimFlow.h"
+#import "MyMaplyShapeSphere.h"
 
 @interface HEMapAnimFlow ()
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
 
-@property (nonatomic,strong) MaplyComponentObject *circleObj, *animObj;
-@property (nonatomic,strong) NSMutableArray *animShapes;
+@property (nonatomic,strong) MaplyComponentObject *makerObj, *circleObj, *animObj;
+@property (nonatomic,strong) NSMutableArray *circles;
+@property (nonatomic,strong) NSMutableDictionary *animShapes;
+@property (nonatomic,strong) NSTimer *timer;
+
+@property (nonatomic,copy) NSArray *animMakerImages;
 
 @end
 
@@ -28,6 +33,13 @@
 {
     if (self = [super init]) {
         self.theViewC = (MaplyBaseViewController *)theViewC;
+        
+        NSMutableArray *temp = [NSMutableArray array];
+        for (NSInteger i=1; i<11; i++) {
+            NSString *imageName = [NSString stringWithFormat:@"star_%td", i];
+            [temp addObject:[UIImage imageNamed:imageName]];
+        }
+        self.animMakerImages = temp;
     }
     
     return self;
@@ -35,10 +47,10 @@
 
 - (void)addGreatCircles:(NSArray *)locations desc:(NSDictionary *)desc
 {
-//    MaplyCoordinateSystem *coordSys = [[MaplySphericalMercator alloc] initWebStandard];
+    self.circles = [NSMutableArray array];
+    self.animShapes = [NSMutableDictionary dictionary];
+    NSMutableArray *annos = [NSMutableArray array];
     
-    NSMutableArray *circles = [[NSMutableArray alloc] init];
-    NSMutableArray *bills = [[NSMutableArray alloc] init];
     for (NSInteger i=0; i<locations.count; i++)
     {
         NSDictionary *dict = [[locations objectAtIndex:i] objectForKey:@"properties"];
@@ -59,78 +71,86 @@
         
         MaplyCoordinate startPt = MaplyCoordinateMakeWithDegrees([[loc0 lastObject] floatValue], [[loc0 firstObject] floatValue]);
         MaplyCoordinate endPt = MaplyCoordinateMakeWithDegrees([[loc1 lastObject] floatValue], [[loc1 firstObject] floatValue]);
+        
+        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+        anno.layoutImportance = MAXFLOAT;
+        anno.loc             = MaplyCoordinateMakeWithDegrees([[loc0 firstObject] floatValue], [[loc0 lastObject] floatValue]);
+        anno.size            = CGSizeMake(8, 8);
+        anno.images          = self.animMakerImages;
+        anno.period          = arc4random_uniform(3)+1;
+        [annos addObject:anno];
 
         CGFloat angle = MaplyGreatCircleDistance(startPt, endPt) / 6371000.0;
         CGFloat height = 0.4 * angle / M_PI;
-        int inNumCoords = 100;
+        NSInteger inNumCoords = 91;
         
         MaplyCoordinate3d *coords = (MaplyCoordinate3d *)malloc(sizeof(MaplyCoordinate3d)*inNumCoords);
-        for (int i=0; i<inNumCoords; i++) {
-            CGFloat r = 1.0 * i / (inNumCoords-1);
+        for (NSInteger ii=0; ii<inNumCoords; ii++) {
+            CGFloat r = 1.0 * ii / (inNumCoords-1);
             CGFloat x = (endPt.x - startPt.x)*r + startPt.x;
             CGFloat y = (endPt.y - startPt.y)*r + startPt.y;
             CGFloat z = 0;
             
             
-            if (i >= inNumCoords/2.0) {
+            if (ii >= inNumCoords/2.0) {
                 z = height * (1 - r) * (1.0 + r) * (1.0 + r) * (1.0 + r);
             }
             else
             {
                 z = height * r * (1.0 + 1.0 - r) * (1.0 + 1.0 - r) * (1.0 + 1.0 - r);
             }
-            coords[i] = MaplyCoordinate3dMake(y, x, z);
+            coords[ii] = MaplyCoordinate3dMake(y, x, z);
         }
         
-        MaplyShapeLinear *line = [[MaplyShapeLinear alloc] initWithCoords:coords numCoords:inNumCoords];
+        MaplyShapeLinear *line = [[MaplyShapeLinear alloc] initWithCoords:coords numCoords:(int)inNumCoords];
         line.lineWidth = 3.0;
-        [circles addObject:line];
-//        CGFloat centX = ([[loc1 firstObject] floatValue] + [[loc0 firstObject] floatValue])/2.0;//([[loc1 firstObject] floatValue] - [[loc0 firstObject] floatValue])/2.0 + [[loc0 firstObject] floatValue];
-//        CGFloat centY = ([[loc1 lastObject] floatValue] + [[loc0 lastObject] floatValue])/2.0;//([[loc1 lastObject] floatValue] - [[loc0 lastObject] floatValue])/2.0 + [[loc0 lastObject] floatValue];
-//        MaplyCoordinate centCoor = [self getCenterWithP0:greatCircle.startPt p1:greatCircle.endPt];//MaplyCoordinateMakeWithDegrees(centX, centY);
+        [self.circles addObject:line];
+        
+        MyMaplyShapeSphere *sphere = [[MyMaplyShapeSphere alloc] init];
+        sphere.center = MaplyCoordinateMake(coords[0].x, coords[0].y);
+        sphere.radius = 0.003;
+        sphere.height = coords[0].z;
+        sphere.speed = 2;//(int)(arc4random_uniform(2) + 2);
+        sphere.index = arc4random_uniform(45);
+        sphere.color = UIColorFromRGB(0xff83fb);
+        [self.animShapes setObject:sphere forKey:[NSString stringWithFormat:@"%td-0", i]];
+        
+        MyMaplyShapeSphere *sphere1 = [[MyMaplyShapeSphere alloc] init];
+        sphere1.center = MaplyCoordinateMake(coords[0].x, coords[0].y);
+        sphere1.radius = 0.003;
+        sphere1.height = -0.1;
+        sphere1.speed = 2;//(int)(arc4random_uniform(2) + 2);
+        sphere1.index = sphere.index - 45;
+        sphere1.color = UIColorFromRGB(0xff83fb);
+        [self.animShapes setObject:sphere1 forKey:[NSString stringWithFormat:@"%td-1", i]];
 
-//        MaplyBoundingBox boundingBox;
-//        boundingBox.ll = greatCircle.startPt;
-//        boundingBox.ur = greatCircle.endPt;
-        
-        
-//        MaplyShapeSphere *sphere = [[MaplyShapeSphere alloc] init];
-//        sphere.center = MaplyCoordinateMakeWithDegrees(certCoor.x, certCoor.y);
-//        sphere.radius = 0.0015;
-//        sphere.height = 0;
-//        sphere.color = [UIColor whiteColor];
-
-//        MaplyBillboard *bill = [[MaplyBillboard alloc] init];
-//        bill.center = MaplyCoordinate3dMake(centCoor.x, centCoor.y, greatCircle.height + 1);
-//        bill.selectable = false;
-//        bill.screenObj = [[MaplyScreenObject alloc] init];
-//        UIImage *moonImage = [UIImage imageNamed:@"star_background"];
-//        [bill.screenObj addImage:moonImage color:[UIColor whiteColor] size:CGSizeMake(0.05, 0.05)];
-//        [bills addObject:sphere];
-        
+        free(coords);
     }
     
-    self.circleObj = [self.theViewC addShapes:circles desc:desc];
-//    [self.theViewC addShapes:bills desc:desc];
-//    [self.theViewC addBillboards:bills desc:@{kMaplyDrawPriority: @(100000),
-//                                              kMaplyBillboardOrient: kMaplyBillboardOrientEye} mode:MaplyThreadCurrent];
+    NSArray *tempBills = [self.animShapes allValues];
+    
+    self.makerObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    self.circleObj = [self.theViewC addShapes:self.circles desc:desc];
+    [self.theViewC removeObject:self.animObj];
+    self.animObj = [self.theViewC addShapes:tempBills desc:@{kMaplyShader: kMaplyShaderDefaultLine,
+                                                             kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100001),
+                                                         }];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeFired) userInfo:nil repeats:YES];
 }
 
 -(void)show
 {
-    self.animShapes = [NSMutableArray array];
+    [self clear];
     
     NSString *fileName = [[NSBundle mainBundle] pathForResource:@"china_pros" ofType:@"json"];
     NSData *jsonData = [NSData dataWithContentsOfFile:fileName];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     NSArray *locations = [json objectForKey:@"features"];
     [self addGreatCircles:locations desc:@{kMaplyColor : UIColorFromRGB(0xff83fb),
-//                                           kMaplyFade: @(1.0),
                                            kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100000),
-//                                           kMaplyZBufferRead: @(NO),
 //                                           kMaplySubdivType:kMaplySubdivGreatCircle,
 //                                           kMaplySubdivEpsilon:@(0.00001),
-//                                           kMaplyDrawOffset:@0.0,
                                            }];
 }
 
@@ -139,13 +159,60 @@
     [self clear];
 }
 
+-(void)timeFired
+{
+    for (NSInteger i=0; i<self.circles.count; i++) {
+        MaplyShapeLinear *line = [self.circles objectAtIndex:i];
+        
+        MaplyCoordinate3d *coords;
+        [line getCoords:&coords];
+        
+        NSString *key = [NSString stringWithFormat:@"%td-0", i];
+        NSString *key1 = [NSString stringWithFormat:@"%td-1", i];
+        
+        [self modifySphereKey:key withCoors:coords];
+        [self modifySphereKey:key1 withCoors:coords];
+    }
+    
+    NSArray *tempBills = [self.animShapes allValues];
+    
+    [self.theViewC removeObject:self.animObj];
+    self.animObj = [self.theViewC addShapes:tempBills desc:@{kMaplyShader: kMaplyShaderDefaultLine,
+                                                       kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100001),
+                                                                   }];
+}
+
+-(void)modifySphereKey:(NSString *)key withCoors:(MaplyCoordinate3d *)coors
+{
+    MyMaplyShapeSphere *sphere = [self.animShapes objectForKey:key];
+    if (!sphere) {
+        return;
+    }
+    
+//    LOG(@"key:%@, %f, %f, %f", key, sphere.center.x, sphere.center.y, sphere.height);
+    NSInteger index = sphere.index + sphere.speed;
+    if (index > 90) {
+        index = 0;
+    }
+    if (index >= 0) {
+        sphere.center = MaplyCoordinateMake(coors[index].x, coors[index].y);
+        sphere.height = coors[index].z;
+    }
+    sphere.index = index;
+    
+//    LOG(@"key:%@, %f, %f, %f", key, sphere.center.x, sphere.center.y, sphere.height);
+    [self.animShapes setObject:sphere forKey:key];
+}
+
 -(void)clear
 {
+    [self.theViewC removeObject:self.makerObj];
     [self.theViewC removeObject:self.circleObj];
     [self.theViewC removeObject:self.animObj];
     
     self.circleObj = nil;
     self.animObj = nil;
+    self.circles = nil;
     [self.animShapes removeAllObjects];
 }
 @end
