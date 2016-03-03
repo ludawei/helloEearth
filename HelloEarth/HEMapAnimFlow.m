@@ -18,12 +18,11 @@
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
 
 @property (nonatomic,strong) MaplyComponentObject *makerObjAniming, *makerObjStart, *makerObjEnd;
-//@property (nonatomic,strong) NSMutableArray *circles;
-//@property (nonatomic,strong) NSMutableDictionary *animShapes;
 @property (nonatomic,strong) CADisplayLink *timer;
 
 @property (nonatomic,copy) NSArray *datas;
-@property (nonatomic,strong) NSMutableArray *randIndexs, *randMyLines, *animObjs;
+@property (nonatomic,strong) NSMutableArray *randIndexs, *randMyLines, *animObjs, *nextRandIndexs;
+@property (nonatomic,strong) NSMutableArray *nextRandMarkerObjs;
 
 @property (nonatomic,assign) NSTimeInterval reqestTime;
 
@@ -45,94 +44,10 @@
     return self;
 }
 
-//- (void)addGreatCircles:(NSArray *)locations desc:(NSDictionary *)desc
-//{
-//    self.circles = [NSMutableArray array];
-//    self.animShapes = [NSMutableDictionary dictionary];
-//    NSMutableArray *annos = [NSMutableArray array];
-//    
-//    for (NSInteger i=0; i<locations.count; i++)
-//    {
-//        NSDictionary *dict = [[locations objectAtIndex:i] objectForKey:@"properties"];
-//        if ([[dict objectForKey:@"cname"] isEqualToString:@"北京"]) {
-//            continue;
-//        }
-//        NSArray *loc0 = [dict objectForKey:@"cp"];
-//        NSArray *loc1 = @[@"116.380943", @"39.923615"];
-//        
-//        MaplyCoordinate startPt = MaplyCoordinateMakeWithDegrees([[loc0 lastObject] floatValue], [[loc0 firstObject] floatValue]);
-//        MaplyCoordinate endPt = MaplyCoordinateMakeWithDegrees([[loc1 lastObject] floatValue], [[loc1 firstObject] floatValue]);
-//        
-//        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
-//        anno.layoutImportance = MAXFLOAT;
-//        anno.loc             = MaplyCoordinateMakeWithDegrees([[loc0 firstObject] floatValue], [[loc0 lastObject] floatValue]);
-//        anno.size            = CGSizeMake(8, 8);
-//        anno.images          = self.animMakerImages;
-//        anno.period          = arc4random_uniform(3)+1;
-//        [annos addObject:anno];
-//
-//        CGFloat angle = MaplyGreatCircleDistance(startPt, endPt) / 6371000.0;
-//        CGFloat height = 0.4 * angle / M_PI;
-//        NSInteger inNumCoords = 91;
-//        
-//        MaplyCoordinate3d *coords = (MaplyCoordinate3d *)malloc(sizeof(MaplyCoordinate3d)*inNumCoords);
-//        for (NSInteger ii=0; ii<inNumCoords; ii++) {
-//            CGFloat r = 1.0 * ii / (inNumCoords-1);
-//            CGFloat x = (endPt.x - startPt.x)*r + startPt.x;
-//            CGFloat y = (endPt.y - startPt.y)*r + startPt.y;
-//            CGFloat z = 0;
-//            
-//            if (ii >= inNumCoords/2.0) {
-//                z = height * (1 - r) * (1.0 + r) * (1.0 + r) * (1.0 + r);
-//            }
-//            else
-//            {
-//                z = height * r * (1.0 + 1.0 - r) * (1.0 + 1.0 - r) * (1.0 + 1.0 - r);
-//            }
-//            coords[ii] = MaplyCoordinate3dMake(y, x, z);
-//        }
-//        
-//        MaplyShapeLinear *line = [[MaplyShapeLinear alloc] initWithCoords:coords numCoords:(int)inNumCoords];
-//        line.lineWidth = 5.0;
-//        [self.circles addObject:line];
-//        
-//        MyMaplyShapeSphere *sphere = [[MyMaplyShapeSphere alloc] init];
-//        sphere.center = MaplyCoordinateMake(coords[0].x, coords[0].y);
-//        sphere.radius = 0.003;
-//        sphere.height = coords[0].z;
-//        sphere.speed = 2;//(int)(arc4random_uniform(2) + 2);
-//        sphere.index = arc4random_uniform(45);
-//        sphere.color = UIColorFromRGB(0xff83fb);
-//        [self.animShapes setObject:sphere forKey:[NSString stringWithFormat:@"%td-0", i]];
-//        
-//        MyMaplyShapeSphere *sphere1 = [[MyMaplyShapeSphere alloc] init];
-//        sphere1.center = MaplyCoordinateMake(coords[0].x, coords[0].y);
-//        sphere1.radius = 0.003;
-//        sphere1.height = -0.1;
-//        sphere1.speed = 2;//(int)(arc4random_uniform(2) + 2);
-//        sphere1.index = sphere.index - 45;
-//        sphere1.color = UIColorFromRGB(0xff83fb);
-//        [self.animShapes setObject:sphere1 forKey:[NSString stringWithFormat:@"%td-1", i]];
-//
-//        free(coords);
-//    }
-//    
-//    NSArray *tempBills = [self.animShapes allValues];
-//    
-//    self.makerObj = [self.theViewC addScreenMarkers:annos desc:@{kMaplyFade: @(1.0), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
-//    self.circleObj = [self.theViewC addShapes:self.circles desc:desc];
-//    [self.theViewC removeObject:self.animObj];
-//    self.animObj = [self.theViewC addShapes:tempBills desc:@{kMaplyShader: kMaplyShaderDefaultLine,
-//                                                             kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100001),
-//                                                         }];
-//    
-////    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeFired) userInfo:nil repeats:YES];
-//}
-
 -(NSInteger)getRandomIndex
 {
     NSInteger rand = arc4random_uniform((int)self.datas.count);
-    if ([self.randIndexs containsObject:@(rand)]) {
+    if ([self.randIndexs containsObject:@(rand)] || [self.nextRandIndexs containsObject:@(rand)]) {
         rand = [self getRandomIndex];
     }
     
@@ -145,7 +60,7 @@
         return;
     }
     
-    NSInteger rand = [self getRandomIndex];
+    NSInteger rand = [[self.nextRandIndexs firstObject] integerValue];
     
     NSDictionary *d = [self.datas objectAtIndex:rand];
 
@@ -196,13 +111,16 @@
 #endif
  
     MyMaplyShapeLinear *line = [[MyMaplyShapeLinear alloc] initWithCoords:coords numCoords:(int)inNumCoords];
-    line.delayHideCount = 25;
+    line.delegate = self;
+    line.delayHideCount = 30;
     line.firstIndex = 0;
     line.pointCounts = pointCounts;
     line.points = locs;
-    line.delegate = self;
     
     free(coords);
+    
+    [self removeTheNextRandIndex:0];
+    [self addTheNextRandIndex];
     
     [self.randIndexs addObject:@(rand)];
     [self.randMyLines addObject:line];
@@ -269,14 +187,12 @@
             
             if (i == 0) {
                 totalCoords[ii + lastCount] = MaplyCoordinate3dMake(y, x, z);
-                
 //                LOG(@"%f, %f, %f -- %td -- %td", y, x, z, ii, ii + lastCount);
             }
             else
             {
                 if (ii > 0) {
                     totalCoords[ii - 1 + lastCount] = MaplyCoordinate3dMake(y, x, z);
-                    
 //                    LOG(@"%f, %f, %f -- %td -- %td", y, x, z, ii, ii - 1 + lastCount);
                 }
             }
@@ -299,13 +215,73 @@
     return totalCount;
 }
 
+-(void)addTheNextRandIndex
+{
+    NSInteger rand = [self getRandomIndex];
+    
+    NSDictionary *d = [self.datas objectAtIndex:rand];
+    
+    NSMutableArray *locs = [NSMutableArray array];
+    [locs addObject:[d objectForKey:@"from"]];
+    
+    NSDictionary *pass1 = [d objectForKey:@"pass1"];
+    if (pass1) {
+        [locs addObject:pass1];
+    }
+    
+    NSDictionary *pass2 = [d objectForKey:@"pass2"];
+    if (pass2) {
+        [locs addObject:pass2];
+    }
+    [locs addObject:[d objectForKey:@"to"]];
+    
+    NSMutableArray *marks = [NSMutableArray array];
+    for (NSInteger i=0; i<locs.count; i++) {
+        NSDictionary *point = [locs objectAtIndex:i];
+        
+        CGFloat sizeWidth = 8;
+        if (i < locs.count-1) {
+            sizeWidth = 9 - (locs.count - 1 - i) * 2;
+        }
+        
+        if (point) {
+            MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
+            anno.layoutImportance = MAXFLOAT;
+            anno.loc              = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
+            anno.size             = CGSizeMake(sizeWidth, sizeWidth);
+            anno.color            = UIColorFromRGB(0x005a12);
+            anno.image            = [UIImage imageNamed:@"city_data_mark"];
+            [marks addObject:anno];
+        }
+    }
+    MaplyComponentObject *obj = [self addAnimMarkers:marks];
+    [self.nextRandMarkerObjs addObject:obj];
+    
+    [self.nextRandIndexs addObject:@(rand)];
+}
+
+-(void)removeTheNextRandIndex:(NSInteger)index
+{
+    [self.nextRandIndexs removeObjectAtIndex:index];
+    
+    MaplyComponentObject *obj = [self.nextRandMarkerObjs objectAtIndex:index];
+    [self.theViewC removeObject:obj];
+    [self.nextRandMarkerObjs removeObjectAtIndex:index];
+}
+
 -(void)startAnim
 {
     [self clear];
     
     self.randIndexs = [NSMutableArray array];
     self.randMyLines = [NSMutableArray array];
+    self.nextRandIndexs = [NSMutableArray array];
+    self.nextRandMarkerObjs = [NSMutableArray array];
     self.animObjs = [NSMutableArray array];
+    
+    for (NSInteger i=0; i<5; i++) {
+        [self addTheNextRandIndex];
+    }
     
     for (NSInteger i=0; i<5; i++) {
         [self randomFun];
@@ -355,15 +331,10 @@
         MyMaplyShapeLinear *line = [self.randMyLines objectAtIndex:i];
         [line timeFired];
     }
-    
-    if (self.randMyLines.count < 5) {
-        [self randomFun];
-    }
 }
 
 -(void)clear
 {
-    
     NSMutableArray *temp = [NSMutableArray array];
     if (self.makerObjAniming) {
         [temp addObject:self.makerObjAniming];
@@ -381,12 +352,14 @@
         [self.theViewC removeObjects:self.animObjs];
     }
     
+    if (self.nextRandMarkerObjs.count > 0) {
+        [self.theViewC removeObjects:self.nextRandMarkerObjs];
+    }
+    
     self.makerObjAniming = nil;
     self.makerObjStart = nil;
     self.makerObjEnd = nil;
     [self.animObjs removeAllObjects];
-//    self.circles = nil;
-//    [self.animShapes removeAllObjects];
     
     [self.timer invalidate];
     self.timer = nil;
@@ -425,12 +398,14 @@
         [self.animObjs removeObject:lineObj];
     }
     
-    [self randomFun];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(arc4random_uniform(5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self randomFun];
+    });
 }
 
--(MaplyComponentObject *)addAnimMarker:(MaplyScreenMarker *)marker
+-(MaplyComponentObject *)addAnimMarkers:(NSArray *)markers
 {
-    return [self.theViewC addScreenMarkers:@[marker] desc:@{kMaplyFade: @(0.6), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    return [self.theViewC addScreenMarkers:markers desc:@{kMaplyFade: @(0.6), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
 }
 -(void)removeAnimMarker:(MaplyComponentObject *)markerObj
 {
