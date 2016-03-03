@@ -99,6 +99,7 @@
 		EEAA18281B9EB485009A3535 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */; };
 		EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */; };
 		EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */; };
+		EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */; };
 		EED017D81BA01D07007235FA /* HESettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017D71BA01D07007235FA /* HESettingController.m */; };
 		EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017DA1BA02F7D007235FA /* CWLocationManager.m */; };
 		EED685901BB0002C005E2763 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6858F1BB0002C005E2763 /* WebController.m */; };
@@ -3177,6 +3178,8 @@
 		EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		EEB2C2141C80550B00E58289 /* MyMaplyShapeSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeSphere.h; sourceTree = "<group>"; };
 		EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeSphere.m; sourceTree = "<group>"; };
+		EEB2C2171C85283F00E58289 /* MyMaplyShapeLinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeLinear.h; sourceTree = "<group>"; };
+		EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeLinear.m; sourceTree = "<group>"; };
 		EED017D61BA01D07007235FA /* HESettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HESettingController.h; sourceTree = "<group>"; };
 		EED017D71BA01D07007235FA /* HESettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HESettingController.m; sourceTree = "<group>"; };
 		EED017D91BA02F7D007235FA /* CWLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLocationManager.h; sourceTree = "<group>"; };
@@ -6714,6 +6717,8 @@
 				EEAA17F31B9C3B3C009A3535 /* HEProduct.m */,
 				EEB2C2141C80550B00E58289 /* MyMaplyShapeSphere.h */,
 				EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */,
+				EEB2C2171C85283F00E58289 /* MyMaplyShapeLinear.h */,
+				EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -12484,6 +12489,7 @@
 				EE9F6C641BABA4580006C8CF /* UIWebView+AFNetworking.m in Sources */,
 				EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */,
 				EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */,
 				EEAA18221B9EB485009A3535 /* MASConstraintMaker.m in Sources */,
 				EED8B78B1B74BE5D000EADC1 /* MyVector.m in Sources */,
 				EE4CBCF31BA7C787002D322E /* HEPreAnim.m in Sources */,
@@ -12716,7 +12722,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "312eb833-b9df-4617-9018-ea9fadfe63d0";
+				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -12757,7 +12763,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "312eb833-b9df-4617-9018-ea9fadfe63d0";
+				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
