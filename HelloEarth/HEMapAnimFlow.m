@@ -257,7 +257,7 @@
             anno.layoutImportance = MAXFLOAT;
             anno.loc              = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
             anno.size             = CGSizeMake(sizeWidth, sizeWidth);
-            anno.color            = UIColorFromRGB(0x005a12);
+            anno.color            = UIColorFromRGB(0x0f6c26);
             anno.image            = [UIImage imageNamed:@"city_data_mark"];
             [marks addObject:anno];
         }
