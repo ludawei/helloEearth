@@ -69,6 +69,11 @@
         currLine = nil;
     }
     
+    [self removeStaticMarkers];
+}
+
+-(void)removeStaticMarkers
+{
     if (staticMarkerObj) {
         [self.delegate removeAnimMarker:staticMarkerObj];
         staticMarkerObj = nil;

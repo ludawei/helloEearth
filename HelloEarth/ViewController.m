@@ -38,6 +38,7 @@
 #import "NSDate+Utilities.h"
 
 #import "HEShareView.h"
+#import "HEDataFlowBottomView.h"
 
 #define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
@@ -50,7 +51,7 @@ NS_ENUM(NSInteger, MapAnimType)
     MapAnimTypeData,
 };
 
-@interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate, HEShareDelegate>
+@interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate, HEShareDelegate, HEMapAnimFlowDelegate>
 {
     CGFloat globeHeight;
     
@@ -117,6 +118,8 @@ NS_ENUM(NSInteger, MapAnimType)
 // 请求
 @property (nonatomic,strong) AFHTTPRequestOperation *currentOperation;
 
+@property (nonatomic,strong) HEDataFlowBottomView *dataFlowBottomView;
+
 @end
 
 @implementation ViewController
@@ -176,6 +179,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     self.mapAnimFlow = nil;
     self.mapAnimFlow = [[HEMapAnimFlow alloc] initWithController:self.theViewC];
+    self.mapAnimFlow.delegate = self;
 }
 
 -(void)initMapView
@@ -616,12 +620,6 @@ NS_ENUM(NSInteger, MapAnimType)
         
         self.mapAnimLogic.hideHUD = YES;
     }
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.mapAnimFlow show];
-    });
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -1541,6 +1539,18 @@ NS_ENUM(NSInteger, MapAnimType)
     return _shareView;
 }
 
+-(UIView *)dataFlowBottomView
+{
+    if (!_dataFlowBottomView) {
+        CGFloat ht = 120 * SCREEN_SIZE.width/414.0 + 13;
+        _dataFlowBottomView = [[HEDataFlowBottomView alloc] initWithFrame:CGRectMake(5, self.view.height - ht - 5, self.view.width - 10, ht)];
+        _dataFlowBottomView.hidden = YES;
+        [self.view addSubview:_dataFlowBottomView];
+    }
+    
+    return _dataFlowBottomView;
+}
+
 #pragma mark - ViewConDelegate
 -(void)setPlayButtonSelect:(BOOL)select
 {
@@ -1653,6 +1663,11 @@ NS_ENUM(NSInteger, MapAnimType)
     tileLayer.enable = YES;
 }
 
+-(void)showDataFlow
+{
+    [self setData:@{@"fileMark":@"dataFlow", @"name":@"dataFlow"}];
+}
+
 -(void)locationed:(NSNotification *)noti
 {
     NSError *error = [noti.userInfo objectForKey:@"error"];
@@ -1683,6 +1698,12 @@ NS_ENUM(NSInteger, MapAnimType)
     [self closeLogoView];
 }
 
+#pragma mark - HEMapAnimFlowDelegate
+-(void)showFlowWeatherData:(NSDictionary *)data
+{
+    [self.dataFlowBottomView setupWithData:data];
+}
+
 #pragma mark - HEProductDelegate
 -(void)setData:(NSDictionary *)data
 {
@@ -1706,53 +1727,74 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self.theViewC enableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
     
-    self.animType = 0;
-    if ([dataType rangeOfString:@"local"].location != NSNotFound) {
-        isBottomFull = NO;
-        
+    [self.mapAnimFlow hide];
+    
+    if ([dataType isEqualToString:@"dataFlow"]) {
         [self resetMapUI];
-        self.titleLbl.text = dataName;
-        if ([dataType isEqualToString:FILEMARK_RADAR]) {
-            isBottomFull = YES;
-            self.animType = MapAnimTypeImage;
-            
-            [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
-        }
-        else if ([dataType isEqualToString:FILEMARK_CLOUD])
-        {
-            isBottomFull = YES;
-            self.animType = MapAnimTypeImage;
-            
-            [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
-        }
-        else if ([dataType isEqualToString:FILEMARK_NETEYE])
-        {
-            [self showNetEyesMarkers];
-        }
-        else if ([dataType isEqualToString:FILEMARK_TONGJI])
-        {
-            [self.theViewC startChanges];
-            [self.theViewC disableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
-            [self.theViewC endChanges];
-            [self showTongJiMarkers];
-        }
+        
+        self.bottomView.hidden = YES;
+        self.expandButton.hidden = YES;
+        self.dataFlowBottomView.hidden = NO;
+        
+        [self.mapAnimFlow show];
     }
     else
     {
-        isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
+        self.bottomView.hidden = NO;
+        self.expandButton.hidden = NO;
+        self.dataFlowBottomView.hidden = YES;
         
-        [self resetMapUI];
-        [self changeProduct_normal];
+        self.animType = 0;
+        if ([dataType rangeOfString:@"local"].location != NSNotFound) {
+            isBottomFull = NO;
+            
+            [self resetMapUI];
+            self.titleLbl.text = dataName;
+            if ([dataType isEqualToString:FILEMARK_RADAR]) {
+                isBottomFull = YES;
+                self.animType = MapAnimTypeImage;
+                
+                [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+            }
+            else if ([dataType isEqualToString:FILEMARK_CLOUD])
+            {
+                isBottomFull = YES;
+                self.animType = MapAnimTypeImage;
+                
+                [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+            }
+            else if ([dataType isEqualToString:FILEMARK_NETEYE])
+            {
+                [self showNetEyesMarkers];
+            }
+            else if ([dataType isEqualToString:FILEMARK_TONGJI])
+            {
+                [self.theViewC startChanges];
+                [self.theViewC disableObjects:@[self.cityLabelsObj] mode:MaplyThreadAny];
+                [self.theViewC endChanges];
+                [self showTongJiMarkers];
+            }
+        }
+        else
+        {
+            isBottomFull = [dataType rangeOfString:@","].location != NSNotFound;
+            
+            [self resetMapUI];
+            [self changeProduct_normal];
+        }
+        
+        [self resetLocationToInit];
+        self.indexButton.hidden = ![[CWDataManager sharedInstance].indexDict objectForKey:dataType];
     }
-    
-    [self resetLocationToInit];
-    self.indexButton.hidden = ![[CWDataManager sharedInstance].indexDict objectForKey:dataType];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [self.statisticsView hide];
     [self closeLogoView];
+    if (self.dataFlowBottomView) {
+        [self.dataFlowBottomView changeRotationToSize:size];
+    }
 }
 
 @end

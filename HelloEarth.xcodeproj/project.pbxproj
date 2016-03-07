@@ -36,6 +36,7 @@
 		EE4CBCF31BA7C787002D322E /* HEPreAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF21BA7C787002D322E /* HEPreAnim.m */; };
 		EE4CBCF61BA7C863002D322E /* HEDisAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF51BA7C863002D322E /* HEDisAnim.m */; };
 		EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */; };
+		EE55ADC31C892BE7003544ED /* HEDataFlowBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55ADC21C892BE7003544ED /* HEDataFlowBottomView.m */; };
 		EE5B996C1BAA6BD000A23E35 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */; };
 		EE5B996E1BAA6BDC00A23E35 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */; };
 		EE5B99701BAA6BE400A23E35 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996F1BAA6BE400A23E35 /* libz.tbd */; };
@@ -2971,6 +2972,8 @@
 		EE4CBCF51BA7C863002D322E /* HEDisAnim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEDisAnim.m; sourceTree = "<group>"; };
 		EE4CBD1D1BA82119002D322E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
 		EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
+		EE55ADC11C892BE7003544ED /* HEDataFlowBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEDataFlowBottomView.h; sourceTree = "<group>"; };
+		EE55ADC21C892BE7003544ED /* HEDataFlowBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEDataFlowBottomView.m; sourceTree = "<group>"; };
 		EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996F1BAA6BE400A23E35 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -6685,6 +6688,8 @@
 				EED8B7731B74BE3A000EADC1 /* TJPieView.m */,
 				EEF1D86B1C44E2A80032272E /* HEShareView.h */,
 				EEF1D86C1C44E2A80032272E /* HEShareView.m */,
+				EE55ADC11C892BE7003544ED /* HEDataFlowBottomView.h */,
+				EE55ADC21C892BE7003544ED /* HEDataFlowBottomView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -12479,6 +12484,7 @@
 				EE9F6C631BABA4580006C8CF /* UIRefreshControl+AFNetworking.m in Sources */,
 				EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */,
 				EED8B6751B748BF5000EADC1 /* UIImage+MultiFormat.m in Sources */,
+				EE55ADC31C892BE7003544ED /* HEDataFlowBottomView.m in Sources */,
 				EED8B6701B748BF5000EADC1 /* SDWebImageDownloaderOperation.m in Sources */,
 				EED8B77A1B74BE3A000EADC1 /* CWMyMotionStreakView.m in Sources */,
 				EE9F6CB21BAFF3150006C8CF /* HEAboutController.m in Sources */,

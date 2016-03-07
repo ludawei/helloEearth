@@ -24,7 +24,8 @@
 @property (nonatomic,strong) NSMutableArray *randIndexs, *randMyLines, *animObjs, *nextRandIndexs;
 @property (nonatomic,strong) NSMutableArray *nextRandMarkerObjs;
 
-@property (nonatomic,assign) NSTimeInterval reqestTime;
+@property (nonatomic,assign) NSTimeInterval reqestTime, weatherUpdateTime;
+@property (nonatomic,assign) BOOL isShow;
 
 @end
 
@@ -129,6 +130,13 @@
     }
     if (self.randMyLines.count > 5) {
         [self.randMyLines removeObjectAtIndex:0];
+    }
+    
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    if (now - self.weatherUpdateTime > 3.0) {
+        self.weatherUpdateTime = now;
+        
+        [self.delegate showFlowWeatherData:d];
     }
 }
 
@@ -262,11 +270,16 @@
 
 -(void)removeTheNextRandIndex:(NSInteger)index
 {
-    [self.nextRandIndexs removeObjectAtIndex:index];
+    if (index < self.nextRandIndexs.count) {
+        [self.nextRandIndexs removeObjectAtIndex:index];
+    }
     
-    MaplyComponentObject *obj = [self.nextRandMarkerObjs objectAtIndex:index];
-    [self.theViewC removeObject:obj];
-    [self.nextRandMarkerObjs removeObjectAtIndex:index];
+    if (index < self.nextRandMarkerObjs.count) {
+        MaplyComponentObject *obj = [self.nextRandMarkerObjs objectAtIndex:index];
+        [self.theViewC removeObject:obj];
+        [self.nextRandMarkerObjs removeObjectAtIndex:index];
+    }
+    
 }
 
 -(void)startAnim
@@ -290,6 +303,8 @@
     self.timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(timeFired)];
     self.timer.frameInterval = 2;
     [self.timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    self.isShow = YES;
 }
 
 -(void)show
@@ -322,6 +337,7 @@
 
 -(void)hide
 {
+    self.isShow = NO;
     [self clear];
 }
 
@@ -354,12 +370,18 @@
     
     if (self.nextRandMarkerObjs.count > 0) {
         [self.theViewC removeObjects:self.nextRandMarkerObjs];
+        [self.nextRandMarkerObjs removeAllObjects];
+    }
+    
+    for (MyMaplyShapeLinear *line in self.randMyLines) {
+        [line removeStaticMarkers];
     }
     
     self.makerObjAniming = nil;
     self.makerObjStart = nil;
     self.makerObjEnd = nil;
     [self.animObjs removeAllObjects];
+    [self.randMyLines removeAllObjects];
     
     [self.timer invalidate];
     self.timer = nil;
@@ -376,7 +398,7 @@
     
     MaplyComponentObject *obj = [self.theViewC addShapes:@[line]
                                desc:@{//kMaplyShader: kMaplyShaderDefaultLine,
-                                      //       kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100000),
+                                      kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100000),
                                       kMaplyColor : UIColorFromRGB(0x00ff00),
                                       kMaplySubdivEpsilon:@(0.00001),
                                       }
@@ -399,13 +421,15 @@
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(arc4random_uniform(5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self randomFun];
+        if (self.isShow) {
+            [self randomFun];
+        }
     });
 }
 
 -(MaplyComponentObject *)addAnimMarkers:(NSArray *)markers
 {
-    return [self.theViewC addScreenMarkers:markers desc:@{kMaplyFade: @(0.6), kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+200)}];
+    return [self.theViewC addScreenMarkers:markers desc:@{kMaplyFade: @(0.6), kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault+10000)}];
 }
 -(void)removeAnimMarker:(MaplyComponentObject *)markerObj
 {

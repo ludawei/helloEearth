@@ -9,7 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <WhirlyGlobeMaplyComponent/WhirlyGlobeComponent.h>
 
+@protocol HEMapAnimFlowDelegate <NSObject>
+
+-(void)showFlowWeatherData:(NSDictionary *)data;
+
+@end
+
 @interface HEMapAnimFlow : NSObject
+
+@property (nonatomic,weak) id<HEMapAnimFlowDelegate> delegate;
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 

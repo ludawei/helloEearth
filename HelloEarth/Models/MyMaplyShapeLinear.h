@@ -24,6 +24,7 @@
 -(id)initWithCoords:(MaplyCoordinate3d *)coords numCoords:(int)numCoords;
 //-(MaplyShapeLinear *)updateLine;
 -(void)timeFired;
+-(void)removeStaticMarkers;
 
 @end
 

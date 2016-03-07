@@ -14,6 +14,7 @@
 -(void)showMapLight:(BOOL)flag;
 -(void)showLocation:(BOOL)flag;
 -(void)changeMapType:(NSString *)mapDataType;
+-(void)showDataFlow;
 
 @end
 
