@@ -79,6 +79,8 @@ NS_ENUM(NSInteger, MapAnimType)
     UIImageView *loadingIV;
     
     NSString *mapDataType;
+    
+    BOOL autoRotate;
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -1546,9 +1548,25 @@ NS_ENUM(NSInteger, MapAnimType)
         _dataFlowBottomView = [[HEDataFlowBottomView alloc] initWithFrame:CGRectMake(5, self.view.height - ht - 5, self.view.width - 10, ht)];
         _dataFlowBottomView.hidden = YES;
         [self.view addSubview:_dataFlowBottomView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDataFlowBottomView)];
+        [_dataFlowBottomView addGestureRecognizer:tap];
     }
     
     return _dataFlowBottomView;
+}
+
+-(void)tapDataFlowBottomView
+{
+    if (autoRotate) {
+        [globeViewC setAutoRotateInterval:0 degrees:0];
+        autoRotate = NO;
+    }
+    else
+    {
+        [globeViewC setAutoRotateInterval:0.1 degrees:20];
+        autoRotate = YES;
+    }
 }
 
 #pragma mark - ViewConDelegate

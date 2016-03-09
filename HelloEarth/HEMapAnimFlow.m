@@ -18,7 +18,7 @@
 
 @interface HEMapAnimFlow ()<MyMaplyShapeLinearDelegate, HEWorldRandItemDelegate>
 {
-//    NSArray *worldCitys;
+
 }
 
 @property (nonatomic,strong) MaplyBaseViewController *theViewC;
@@ -32,7 +32,7 @@
 
 @property (nonatomic,strong) HEWorldRandItem *worldRandItem;
 
-@property (nonatomic,assign) NSTimeInterval reqestTime, weatherUpdateTime;//, worldRandTime;
+@property (nonatomic,assign) NSTimeInterval reqestTime, weatherUpdateTime;
 @property (nonatomic,assign) BOOL isShow;
 
 @end
@@ -45,7 +45,6 @@
     
     self.worldRandItem.delegate = nil;
     self.worldRandItem = nil;
-//    worldCitys = nil;
 }
 
 -(instancetype)initWithController:(UIViewController *)theViewC
@@ -55,9 +54,6 @@
         
         self.worldRandItem = [[HEWorldRandItem alloc] init];
         self.worldRandItem.delegate = self;
-//        NSString *path = [[NSBundle mainBundle] pathForResource:@"world_cities" ofType:@"txt"];
-//        NSString *fileData = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-//        worldCitys = [fileData componentsSeparatedByString:@"\r\n"];
     }
     
     return self;
@@ -275,7 +271,6 @@
             anno.layoutImportance = MAXFLOAT;
             anno.loc              = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
             anno.size             = CGSizeMake(sizeWidth, sizeWidth);
-//            anno.color            = UIColorFromRGB(0x0f6c26);
             anno.image            = [UIImage imageNamed:@"city_data_mark1"];
             [marks addObject:anno];
         }
@@ -309,9 +304,6 @@
     self.nextRandIndexs = [NSMutableArray array];
     self.nextRandMarkerObjs = [NSMutableArray array];
     self.animObjs = [NSMutableArray array];
-    
-//    self.randWorldIndexs = [NSMutableArray array];
-//    self.randWorldObjs = [NSMutableArray array];
     
     for (NSInteger i=0; i<ANIM_COUNT; i++) {
         [self addTheNextRandIndex];
@@ -370,13 +362,6 @@
         MyMaplyShapeLinear *line = [self.randMyLines objectAtIndex:i];
         [line timeFired];
     }
-    
-//    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-//    if (now - self.worldRandTime > 3.0) {
-//        self.worldRandTime = now;
-//        
-//        [self showWorldLocations];
-//    }
 }
 
 -(void)clear
@@ -407,14 +392,6 @@
         [line removeStaticMarkers];
     }
     
-//    if (self.randWorldObjs.count > 0) {
-//        for (NSArray *arr in self.randWorldObjs) {
-//            [self .theViewC removeObjects:@[arr.firstObject, arr.lastObject]];
-//        }
-//        [self.theViewC removeObjects:self.randWorldObjs];
-////        [self.randWorldObjs removeAllObjects];
-//    }
-    
     self.makerObjAniming = nil;
     self.makerObjStart = nil;
     self.makerObjEnd = nil;
@@ -426,74 +403,6 @@
     [self.timer invalidate];
     self.timer = nil;
 }
-
-//-(void)showWorldLocations
-//{
-//    
-//    NSInteger index = 0;
-//    if (self.randWorldIndexs.count > 0) {
-//        index = ([self.randWorldIndexs.lastObject integerValue] + 500)%worldCitys.count;
-//    }
-//    else
-//    {
-//        index = arc4random_uniform((int)worldCitys.count);
-//    }
-//    
-//    NSString *loc = [worldCitys objectAtIndex:index];
-//    NSArray *items = [loc componentsSeparatedByString:@","];
-//    if (items.count == 3) {
-//        NSString *name = [items firstObject];
-//        NSString *lat = [items objectAtIndex:1];
-//        NSString *lon = [items lastObject];
-//        
-//        MaplyScreenLabel *label = [[MaplyScreenLabel alloc] init];
-//        label.loc = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
-////        label.keepUpright = true;
-////        label.layoutPlacement = kMaplyLayoutRight;
-//        label.layoutImportance = 2;
-//        label.offset = CGPointMake(3, 3);
-//        label.text = name;//[@"•" stringByAppendingString:name];
-//        MaplyComponentObject *labelObj = [self.theViewC addScreenLabels:@[label]
-//                                                                   desc:@{kMaplyTextOutlineSize: @(0.6),
-//                                                                          kMaplyTextOutlineColor: [UIColor blackColor],
-//                                                                          kMaplyFont: [UIFont systemFontOfSize:10.0],
-//                                                                          kMaplyDrawPriority: @(200),
-//                                                                          kMaplyMaxVis:@1.8,
-//                                                                          kMaplyMinVis:@0.0,
-//                                                                          kMaplyFade: @(0.6),
-//                                                                          }];
-//        
-//        NSInteger randSizeWidth = arc4random_uniform(4);
-//        MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
-//        anno.layoutImportance   = MAXFLOAT;
-//        anno.loc                = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
-//        anno.size               = CGSizeMake(10-randSizeWidth, 10-randSizeWidth);
-//        anno.image              = [UIImage imageNamed:@"city_data_mark1"];
-//        
-//        MaplyScreenMarker *animAnno = [[MaplyScreenMarker alloc] init];
-//        animAnno.layoutImportance   = MAXFLOAT;
-//        animAnno.loc                = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
-//        animAnno.size               = CGSizeMake(35 - randSizeWidth * 3, 35 - randSizeWidth * 3);
-//        animAnno.images             = @[[UIImage imageNamed:@"国外－1"], [UIImage imageNamed:@"国外－2"], [UIImage imageNamed:@"国外－3"]];
-//        animAnno.period             = 0.8;
-//        MaplyComponentObject *annoObj =[self addAnimMarkers:@[anno, animAnno]];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            
-//        });
-//        
-//        [self.randWorldIndexs addObject:@(index)];
-//        [self.randWorldObjs addObject:@[labelObj, annoObj]];
-//        
-//        if (self.randWorldIndexs.count > 10) {
-//            [self.randWorldIndexs removeObjectAtIndex:0];
-//        }
-//        if (self.randWorldObjs.count > 10) {
-//            NSArray *temp = [self.randWorldObjs firstObject];
-//            [self.theViewC removeObjects:@[temp.firstObject, temp.lastObject]];
-//            [self.randWorldObjs removeObjectAtIndex:0];
-//        }
-//    }
-//}
 
 #pragma mark - MyMaplyShapeLinearDelegate
 -(MaplyComponentObject *)updateWithLine:(MaplyShapeLinear *)line lineObj:(MaplyComponentObject *)lineObj
