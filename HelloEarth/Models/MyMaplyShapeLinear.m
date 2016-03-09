@@ -75,7 +75,7 @@
 -(void)removeStaticMarkers
 {
     if (staticMarkerObj) {
-        [self.delegate removeAnimMarker:staticMarkerObj];
+        [self.delegate removeAnimMarkers:@[staticMarkerObj]];
         staticMarkerObj = nil;
     }
 }
@@ -88,7 +88,7 @@
             
             lineObj = [self.delegate updateWithLine:currLine lineObj:lineObj];
             if (staticMarkerObj) {
-                [self.delegate removeAnimMarker:staticMarkerObj];
+                [self.delegate removeAnimMarkers:@[staticMarkerObj]];
                 staticMarkerObj = nil;
             }
         }
@@ -118,7 +118,7 @@
             anno.period          = 0.8;
             MaplyComponentObject *obj =[self.delegate addAnimMarkers:@[anno]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.delegate removeAnimMarker:obj];
+                [self.delegate removeAnimMarkers:@[obj]];
             });
         }
         

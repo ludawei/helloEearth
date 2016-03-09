@@ -37,6 +37,8 @@
 		EE4CBCF61BA7C863002D322E /* HEDisAnim.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBCF51BA7C863002D322E /* HEDisAnim.m */; };
 		EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */; };
 		EE55ADC31C892BE7003544ED /* HEDataFlowBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55ADC21C892BE7003544ED /* HEDataFlowBottomView.m */; };
+		EE55ADD01C8EAF18003544ED /* world_cities.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE55ADCF1C8EAF18003544ED /* world_cities.txt */; };
+		EE55ADD51C8FB1C6003544ED /* HEWorldRandItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55ADD41C8FB1C6003544ED /* HEWorldRandItem.m */; };
 		EE5B996C1BAA6BD000A23E35 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */; };
 		EE5B996E1BAA6BDC00A23E35 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */; };
 		EE5B99701BAA6BE400A23E35 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B996F1BAA6BE400A23E35 /* libz.tbd */; };
@@ -2974,6 +2976,9 @@
 		EE4CBD1E1BA82119002D322E /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
 		EE55ADC11C892BE7003544ED /* HEDataFlowBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEDataFlowBottomView.h; sourceTree = "<group>"; };
 		EE55ADC21C892BE7003544ED /* HEDataFlowBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEDataFlowBottomView.m; sourceTree = "<group>"; };
+		EE55ADCF1C8EAF18003544ED /* world_cities.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = world_cities.txt; sourceTree = "<group>"; };
+		EE55ADD31C8FB1C6003544ED /* HEWorldRandItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEWorldRandItem.h; sourceTree = "<group>"; };
+		EE55ADD41C8FB1C6003544ED /* HEWorldRandItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEWorldRandItem.m; sourceTree = "<group>"; };
 		EE5B996B1BAA6BD000A23E35 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996D1BAA6BDC00A23E35 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EE5B996F1BAA6BE400A23E35 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -6724,6 +6729,8 @@
 				EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */,
 				EEB2C2171C85283F00E58289 /* MyMaplyShapeLinear.h */,
 				EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */,
+				EE55ADD31C8FB1C6003544ED /* HEWorldRandItem.h */,
+				EE55ADD41C8FB1C6003544ED /* HEWorldRandItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6796,6 +6803,7 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE55ADCF1C8EAF18003544ED /* world_cities.txt */,
 				EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */,
 				EEF1D86E1C44F3520032272E /* 寰宇分享.png */,
 				EEFC2FEC1BCCAB260048F47D /* divdiv.nicggmmh */,
@@ -10854,6 +10862,7 @@
 				EEFC361B1BCCAB300048F47D /* satellite_4_13_0.jpg in Resources */,
 				EEFC1A051BCC9E8D0048F47D /* default_5_9_31.png in Resources */,
 				EEFC371F1BCCAB300048F47D /* satellite_5_11_12.jpg in Resources */,
+				EE55ADD01C8EAF18003544ED /* world_cities.txt in Resources */,
 				EEFC19FD1BCC9E8D0048F47D /* default_5_9_24.png in Resources */,
 				EEFC16F71BCC9E8D0048F47D /* default_5_16_19.png in Resources */,
 				EEFC16711BCC9E8D0048F47D /* default_5_12_13.png in Resources */,
@@ -12491,6 +12500,7 @@
 				EEAA18261B9EB485009A3535 /* NSArray+MASAdditions.m in Sources */,
 				EED8B7811B74BE3A000EADC1 /* TJPieView.m in Sources */,
 				EED8B6B11B748C58000EADC1 /* encode.c in Sources */,
+				EE55ADD51C8FB1C6003544ED /* HEWorldRandItem.m in Sources */,
 				EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */,
 				EE9F6C641BABA4580006C8CF /* UIWebView+AFNetworking.m in Sources */,
 				EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */,

@@ -34,7 +34,7 @@
 -(void)removeMyLine:(MyMaplyShapeLinear *)myLine lineObj:(MaplyComponentObject *)lineObj;
 
 -(MaplyComponentObject *)addAnimMarkers:(NSArray *)markers;
--(void)removeAnimMarker:(MaplyComponentObject *)markerObj;
+-(void)removeAnimMarkers:(NSArray *)markerObjs;
 
 
 @end
