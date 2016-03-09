@@ -50,8 +50,7 @@
                 anno.layoutImportance = MAXFLOAT;
                 anno.loc             = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
                 anno.size            = CGSizeMake(sizeWidth, sizeWidth);
-//                anno.color           = [Util colorFromRGBString:@"#00ff00" alpha:1.0];
-                anno.image           = [UIImage imageNamed:@"city_data_mark"];
+                anno.image           = [UIImage imageNamed:[NSString stringWithFormat:@"配色-%td-亮", self.colorFlag.integerValue]];
                 [marks addObject:anno];
             }
         }
@@ -114,7 +113,9 @@
             anno.layoutImportance = MAXFLOAT;
             anno.loc             = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
             anno.size            = CGSizeMake(sizeWidth, sizeWidth);
-            anno.images          = @[[UIImage imageNamed:@"国内－1"], [UIImage imageNamed:@"国内－2"], [UIImage imageNamed:@"国内－3"]];
+            anno.images          = @[[UIImage imageNamed:[NSString stringWithFormat:@"配色-%td-1", self.colorFlag.integerValue]],
+                                     [UIImage imageNamed:[NSString stringWithFormat:@"配色-%td-2", self.colorFlag.integerValue]],
+                                     [UIImage imageNamed:[NSString stringWithFormat:@"配色-%td-3", self.colorFlag.integerValue]]];
             anno.period          = 0.8;
             MaplyComponentObject *obj =[self.delegate addAnimMarkers:@[anno]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -134,10 +135,17 @@
     
     MaplyShapeLinear *line = [[MaplyShapeLinear alloc] initWithCoords:currCoords numCoords:(int)self.firstIndex];
     line.lineWidth = 2.0;
+    line.color = [self lineColor];
     currLine = line;
     
     free(currCoords);
     
     lineObj = [self.delegate updateWithLine:currLine lineObj:lineObj];
+}
+
+-(UIColor *)lineColor
+{
+    NSArray *colors = @[@"#FFC749", @"#18CFEF", @"#4CCD7A", @"#ADD149"];
+    return [Util colorFromRGBString:colors[self.colorFlag.integerValue-1] alpha:1];
 }
 @end

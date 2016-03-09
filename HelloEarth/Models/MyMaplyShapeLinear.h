@@ -18,6 +18,8 @@
 @property (nonatomic,copy) NSArray *pointCounts;
 @property (nonatomic,copy) NSArray *points;
 
+@property (nonatomic,copy) NSNumber *colorFlag;
+
 
 @property (nonatomic,weak) id<MyMaplyShapeLinearDelegate> delegate;
 

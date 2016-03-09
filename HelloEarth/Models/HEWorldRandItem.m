@@ -59,7 +59,7 @@
         anno.layoutImportance   = MAXFLOAT;
         anno.loc                = MaplyCoordinateMakeWithDegrees(lon.floatValue, lat.floatValue);
         anno.size               = CGSizeMake(10-randSizeWidth, 10-randSizeWidth);
-        anno.image              = [UIImage imageNamed:@"city_data_mark1"];
+        anno.image              = [UIImage imageNamed:@"city_data_mark2"];
         MaplyComponentObject *annoObj = [self.delegate addAnimMarkers:@[anno]];
         
         MaplyScreenMarker *animAnno = [[MaplyScreenMarker alloc] init];

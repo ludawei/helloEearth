@@ -62,7 +62,12 @@
 -(NSInteger)getRandomIndex
 {
     NSInteger rand = arc4random_uniform((int)self.datas.count);
-    if ([self.randIndexs containsObject:@(rand)] || [self.nextRandIndexs containsObject:@(rand)]) {
+    
+    NSArray *tempRandIndexs = [self.randIndexs valueForKey:@"index"];
+    NSArray *tempNextRandIndexs = [self.nextRandIndexs valueForKey:@"index"];
+    
+    if ([tempRandIndexs containsObject:@(rand)] || [tempNextRandIndexs containsObject:@(rand)])
+    {
         rand = [self getRandomIndex];
     }
     
@@ -75,7 +80,8 @@
         return;
     }
     
-    NSInteger rand = [[self.nextRandIndexs firstObject] integerValue];
+    NSDictionary *randDict = [self.nextRandIndexs firstObject];
+    NSInteger rand = [[randDict objectForKey:@"index"] integerValue];
     
     NSDictionary *d = [self.datas objectAtIndex:rand];
 
@@ -129,6 +135,7 @@
     line.delegate = self;
     line.delayHideCount = 30;
     line.firstIndex = 0;
+    line.colorFlag = [randDict objectForKey:@"color"];
     line.pointCounts = pointCounts;
     line.points = locs;
     
@@ -137,7 +144,7 @@
     [self removeTheNextRandIndex:0];
     [self addTheNextRandIndex];
     
-    [self.randIndexs addObject:@(rand)];
+    [self.randIndexs addObject:randDict];
     [self.randMyLines addObject:line];
     if (self.randIndexs.count > ANIM_COUNT) {
         [self.randIndexs removeObjectAtIndex:0];
@@ -240,6 +247,7 @@
 -(void)addTheNextRandIndex
 {
     NSInteger rand = [self getRandomIndex];
+    NSInteger colorFlag = arc4random_uniform(4)+1;
     
     NSDictionary *d = [self.datas objectAtIndex:rand];
     
@@ -271,14 +279,14 @@
             anno.layoutImportance = MAXFLOAT;
             anno.loc              = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"longitude"] floatValue], [[point objectForKey:@"latitude"] floatValue]);
             anno.size             = CGSizeMake(sizeWidth, sizeWidth);
-            anno.image            = [UIImage imageNamed:@"city_data_mark1"];
+            anno.image            = [UIImage imageNamed:[NSString stringWithFormat:@"配色-%td-暗", colorFlag]];
             [marks addObject:anno];
         }
     }
     MaplyComponentObject *obj = [self addAnimMarkers:marks];
     [self.nextRandMarkerObjs addObject:obj];
     
-    [self.nextRandIndexs addObject:@(rand)];
+    [self.nextRandIndexs addObject:@{@"index":@(rand), @"color":@(colorFlag)}];
 }
 
 -(void)removeTheNextRandIndex:(NSInteger)index
@@ -416,7 +424,7 @@
     MaplyComponentObject *obj = [self.theViewC addShapes:@[line]
                                desc:@{//kMaplyShader: kMaplyShaderDefaultLine,
                                       kMaplyDrawPriority: @(kMaplyShapeDrawPriorityDefault + 100000),
-                                      kMaplyColor : UIColorFromRGB(0x00ff00),
+//                                      kMaplyColor : UIColorFromRGB(0x00ff00),
                                       kMaplySubdivEpsilon:@(0.00001),
                                       }
                                mode:MaplyThreadCurrent];
