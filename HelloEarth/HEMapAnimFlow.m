@@ -59,6 +59,13 @@
     return self;
 }
 
+-(void)setIsShow:(BOOL)isShow
+{
+    _isShow = isShow;
+    
+    self.worldRandItem.isShow = isShow;
+}
+
 -(NSInteger)getRandomIndex
 {
     NSInteger rand = arc4random_uniform((int)self.datas.count);
@@ -353,7 +360,7 @@
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [MBProgressHUD hideAllHUDsForView:self.theViewC.view animated:YES];
-            [MBProgressHUD showHUDInView:self.theViewC.view andText:@"数据请求失败"];
+            [MBProgressHUD showHUDInView:self.theViewC.view withText:@"数据请求失败"];
         }];
     }
 }

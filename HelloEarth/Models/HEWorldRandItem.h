@@ -20,6 +20,7 @@
 
 @interface HEWorldRandItem : NSObject
 
+@property (nonatomic,assign) BOOL isShow;
 @property (nonatomic,weak) id<HEWorldRandItemDelegate> delegate;
 
 -(void)show;

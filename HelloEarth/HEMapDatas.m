@@ -104,7 +104,6 @@
             points[i] = MaplyCoordinateMakeWithDegrees([[point objectForKey:@"x"] doubleValue], [[point objectForKey:@"y"] doubleValue]);
         }
         
-        
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"c"]) {
             UIColor *color = [Util colorFromRGBString:[area objectForKey:@"c"] alpha:COLOR_APHLE];
@@ -116,7 +115,7 @@
                            kMaplySubdivType:kMaplySubdivGrid,
                            kMaplySubdivEpsilon:@(0.01),
 //                           kMaplyDrawOffset: @(0),
-                           //                           kMaplyLabelWidth : @(4.0),
+//                           kMaplyLabelWidth : @(4.0),
                            };
         }
         

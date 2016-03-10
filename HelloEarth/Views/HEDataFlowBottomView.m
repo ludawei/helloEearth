@@ -50,7 +50,7 @@
         [self.backView addSubview:tipLabel];
         
         self.addrLabel = [self createLabelWithFrame:CGRectMake(CGRectGetMaxX(tipLabel.frame) + 10, 3, 200, lblHeight) color:color font:[Util modifyBoldSystemFontWithSize:15]];
-        self.addrLabel.text = @"贵州";
+//        self.addrLabel.text = @"-";
         [self.backView addSubview:self.addrLabel];
         
         self.timeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 0, 0)];
@@ -79,7 +79,7 @@
             [view addSubview:imageView];
             
             UILabel *lbl = [self createLabelWithFrame:CGRectMake(view.width/2 - view.width * 0.05, 0, view.width/2, view.height) color:[UIColor colorWithWhite:1 alpha:0.6] font:[Util modifySystemFontWithSize:15]];
-            lbl.text = [NSString stringWithFormat:@"%td-%td", i, i];
+//            lbl.text = @"-";
             lbl.tag = 100 + i;
             [view addSubview:lbl];
             

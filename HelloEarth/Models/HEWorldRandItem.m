@@ -88,8 +88,11 @@
                 
                 CGFloat randTime3 = randTime/10.0 * 5 + 0.5;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(randTime3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    NSInteger index = [self getRandomIndex];
-                    [self addPointWithIndex:index];
+                    
+                    if (self.isShow) {
+                        NSInteger index = [self getRandomIndex];
+                        [self addPointWithIndex:index];
+                    }
                 });
             });
         });
