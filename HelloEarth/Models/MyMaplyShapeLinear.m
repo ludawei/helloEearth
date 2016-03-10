@@ -145,7 +145,7 @@
 
 -(UIColor *)lineColor
 {
-    NSArray *colors = @[@"#FFC749", @"#18CFEF", @"#4CCD7A", @"#ADD149"];
+    NSArray *colors = @[@"#FFC749", @"#18CFEF", @"#4CCD7A", @"#ADD149", @"#DE3F5B"];
     return [Util colorFromRGBString:colors[self.colorFlag.integerValue-1] alpha:1];
 }
 @end

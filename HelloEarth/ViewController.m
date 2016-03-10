@@ -833,6 +833,7 @@ NS_ENUM(NSInteger, MapAnimType)
 //    label.layoutPlacement = kMaplyLayoutRight;
     label.layoutImportance = 2;
     label.text = [@"•" stringByAppendingString:name];
+    label.offset = CGPointMake(-3, 3);
 //    label.iconSize = CGSizeMake(15, 15);
 //    label.iconImage2 = [UIImage imageNamed:@"city_location"];
 //    label.userObject = [NSString stringWithFormat:@"%s",location->name];
@@ -1672,11 +1673,12 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     mapDataType = mType;
 
+    MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
+    [self.theViewC addLayer:newLayer];
+    
     tileLayer.enable = NO;
     [self.theViewC removeLayer:tileLayer];
-    MaplyQuadImageTilesLayer *newLayer = [self createTileLayer];
     
-    [self.theViewC addLayer:newLayer];
     tileLayer = newLayer;
     tileLayer.enable = YES;
 }

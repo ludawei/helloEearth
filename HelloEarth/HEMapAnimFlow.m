@@ -247,7 +247,7 @@
 -(void)addTheNextRandIndex
 {
     NSInteger rand = [self getRandomIndex];
-    NSInteger colorFlag = arc4random_uniform(4)+1;
+    NSInteger colorFlag = arc4random_uniform(5)+1;
     
     NSDictionary *d = [self.datas objectAtIndex:rand];
     
