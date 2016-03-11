@@ -1685,7 +1685,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)showDataFlow
 {
-    [self setData:@{@"fileMark":@"dataFlow", @"name":@"dataFlow"}];
+    [self setData:@{@"fileMark":FILEMARK_DATAFLOW, @"name":@"数据流向"}];
 }
 
 -(void)locationed:(NSNotification *)noti
@@ -1749,7 +1749,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self.mapAnimFlow hide];
     
-    if ([dataType isEqualToString:@"dataFlow"]) {
+    if ([dataType isEqualToString:FILEMARK_DATAFLOW]) {
         [self resetMapUI];
         
         self.bottomView.hidden = YES;

@@ -12,6 +12,7 @@
 @interface Util : NSObject
 
 +(UIImage *) createImageWithColor: (UIColor *) color width:(CGFloat)width height:(CGFloat)height;
++ (UIImage *)imageChangedWithColor:(UIColor *)color image:(UIImage *)image;
 + (UIImage *) drawText:(NSString*)text inImage:(UIImage*)image font:(UIFont *)font textColor:(UIColor *)color;
 + (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2 toRect:(CGRect)frame;
 +(UIButton *)leftNavButtonWithSize:(CGSize)size;

@@ -112,6 +112,8 @@
                 return NSOrderedAscending;
             }];
             
+            BOOL isStripe = [[legend objectForKey:@"is_stripe"] integerValue] == 1;
+            
             NSString *title = [[legend objectForKey:@"val"] objectForKey:@"n"];
             UILabel *titleLbl;
             if (![Util isEmpty:title]) {
@@ -160,10 +162,32 @@
                     make.height.mas_equalTo(legendHeight-titleLblHeight);
                     make.width.mas_equalTo(contentView.mas_width).multipliedBy(1.0/colors.count);
                 }];
+                
+                
+                if (isStripe) {
+                    UIImage *image = [[UIImage imageNamed:@"图例_stripe.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                    UIImageView *imgView = [UIImageView new];
+                    imgView.clipsToBounds = YES;
+                    imgView.backgroundColor = [UIColor whiteColor];
+                    imgView.image = image;
+                    imgView.tintColor = backColor;
+                    imgView.contentMode = UIViewContentModeScaleAspectFill;
+                    [contentView addSubview:imgView];
+                    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.edges.mas_equalTo(lbl);
+                    }];
+                    
+                    lbl.backgroundColor = [UIColor clearColor];
+                    [contentView sendSubviewToBack:imgView];
+                }
+                else
+                {
+                    lbl.backgroundColor = backColor;
+                }
+                
                 tempLbl = lbl;
             }
             tempLbl = nil;
-            
             
             UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, legendHeight+vMargin*2)];
             headerView.backgroundColor = [UIColor colorWithRed:0.188 green:0.212 blue:0.263 alpha:1];

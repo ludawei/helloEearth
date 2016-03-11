@@ -25,6 +25,22 @@
     return theImage;
 }
 
++ (UIImage *)imageChangedWithColor:(UIColor *)color image:(UIImage *)image
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [color setFill];
+    CGContextTranslateCTM(context, 0, image.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextClipToMask(context, CGRectMake(0, 0, image.size.width, image.size.height), [image CGImage]);
+    CGContextFillRect(context, CGRectMake(0, 0, image.size.width, image.size.height));
+    
+    UIImage *coloredImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return coloredImg;
+}
+
 + (UIImage *) drawText:(NSString*)text inImage:(UIImage*)image font:(UIFont *)font textColor:(UIColor *)color
 {
     if ([UIScreen instancesRespondToSelector:@selector(scale)]) {

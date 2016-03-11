@@ -102,6 +102,8 @@
     [dataArr insertObject:@{@"name": @"云图", @"fileMark":FILEMARK_CLOUD} atIndex:0];
     [dataArr insertObject:@{@"name": @"雷达图", @"fileMark":FILEMARK_RADAR} atIndex:0];
     
+    [dataArr addObject:@{@"name":@"数据流向", @"fileMark":FILEMARK_DATAFLOW}];
+    
     return dataArr;
 }
 

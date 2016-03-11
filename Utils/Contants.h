@@ -28,6 +28,7 @@
 #define FILEMARK_CLOUD @"local_cloud"
 #define FILEMARK_NETEYE @"local_neteye"
 #define FILEMARK_TONGJI @"local_tongji"
+#define FILEMARK_DATAFLOW @"local_dataFlow"
 
 
 static NSString *weather_appId = @"6f688d62594549a2";

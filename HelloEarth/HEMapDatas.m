@@ -107,16 +107,36 @@
         NSDictionary *vectorDict = nil;
         if ([area objectForKey:@"c"]) {
             UIColor *color = [Util colorFromRGBString:[area objectForKey:@"c"] alpha:COLOR_APHLE];
-            vectorDict = @{
-                           kMaplyColor: color,
-                           kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
-//                           kMaplySelectable: @(true),
-                           kMaplyFilled: @(true),
-                           kMaplySubdivType:kMaplySubdivGrid,
-                           kMaplySubdivEpsilon:@(0.01),
-//                           kMaplyDrawOffset: @(0),
-//                           kMaplyLabelWidth : @(4.0),
-                           };
+            
+//            BOOL isStripe = [[area objectForKey:@"is_stripe"] integerValue] == 1;
+//            if (isStripe) {
+//                
+//                UIImage *image = [UIImage imageNamed:@"图例_stripe"];
+//                image = [Util imageChangedWithColor:color image:image];
+//                MaplyTexture *imageTex = [self.theViewC addTexture:image imageFormat:MaplyImageUShort5551 wrapFlags:0 mode:MaplyThreadAny];
+//                
+//                vectorDict = @{
+////                               kMaplyColor: color,
+//                               kMaplyFilled: @(true),
+//                               kMaplyVecTexture: imageTex,
+//                               kMaplyVecTextureProjection:kMaplyProjectionScreen,
+//                               kMaplyVecTexScaleX:@(10.0/image.size.width),
+//                               kMaplyVecTexScaleY:@(10.0/image.size.width),
+//                               kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
+//                               kMaplySubdivType:kMaplySubdivGrid,
+//                               kMaplySubdivEpsilon:@(0.01),
+//                               };
+//            }
+//            else
+            {
+                vectorDict = @{
+                               kMaplyColor: color,
+                               kMaplyDrawPriority: @(kMaplyLoftedPolysDrawPriorityDefault+index),
+                               kMaplyFilled: @(true),
+                               kMaplySubdivType:kMaplySubdivGrid,
+                               kMaplySubdivEpsilon:@(0.01),
+                               };
+            }
         }
         
         MaplyVectorObject *vect = [[MaplyVectorObject alloc] initWithAreal:points numCoords:(int)items.count attributes:nil];

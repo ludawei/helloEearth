@@ -103,6 +103,8 @@
 		EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */; };
 		EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */; };
 		EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */; };
+		EECD595B1C916B0600EC7E2F /* 数据流.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EECD595A1C916B0600EC7E2F /* 数据流.jpg */; };
+		EECD595F1C91747200EC7E2F /* 图例_stripe.png in Resources */ = {isa = PBXBuildFile; fileRef = EECD595E1C91747200EC7E2F /* 图例_stripe.png */; };
 		EED017D81BA01D07007235FA /* HESettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017D71BA01D07007235FA /* HESettingController.m */; };
 		EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017DA1BA02F7D007235FA /* CWLocationManager.m */; };
 		EED685901BB0002C005E2763 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6858F1BB0002C005E2763 /* WebController.m */; };
@@ -3188,6 +3190,8 @@
 		EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeSphere.m; sourceTree = "<group>"; };
 		EEB2C2171C85283F00E58289 /* MyMaplyShapeLinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeLinear.h; sourceTree = "<group>"; };
 		EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeLinear.m; sourceTree = "<group>"; };
+		EECD595A1C916B0600EC7E2F /* 数据流.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "数据流.jpg"; sourceTree = "<group>"; };
+		EECD595E1C91747200EC7E2F /* 图例_stripe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图例_stripe.png"; sourceTree = "<group>"; };
 		EED017D61BA01D07007235FA /* HESettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HESettingController.h; sourceTree = "<group>"; };
 		EED017D71BA01D07007235FA /* HESettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HESettingController.m; sourceTree = "<group>"; };
 		EED017D91BA02F7D007235FA /* CWLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLocationManager.h; sourceTree = "<group>"; };
@@ -6803,6 +6807,8 @@
 		EEE41E461B6743A700752EC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EECD595E1C91747200EC7E2F /* 图例_stripe.png */,
+				EECD595A1C916B0600EC7E2F /* 数据流.jpg */,
 				EE55ADCF1C8EAF18003544ED /* world_cities.txt */,
 				EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */,
 				EEF1D86E1C44F3520032272E /* 寰宇分享.png */,
@@ -11517,6 +11523,7 @@
 				EEFC36B01BCCAB300048F47D /* satellite_4_7_13.jpg in Resources */,
 				EEFC37EB1BCCAB300048F47D /* satellite_5_17_23.jpg in Resources */,
 				EEFC192F1BCC9E8D0048F47D /* default_5_3_11.png in Resources */,
+				EECD595B1C916B0600EC7E2F /* 数据流.jpg in Resources */,
 				EEFC18B81BCC9E8D0048F47D /* default_5_29_2.png in Resources */,
 				EEFC160D1BCC9E8D0048F47D /* default_5_0_1.png in Resources */,
 				EEFC19DF1BCC9E8D0048F47D /* default_5_8_26.png in Resources */,
@@ -11597,6 +11604,7 @@
 				EEFC381B1BCCAB300048F47D /* satellite_5_19_0.jpg in Resources */,
 				EEFC18241BCC9E8D0048F47D /* default_5_24_30.png in Resources */,
 				EEFC362E1BCCAB300048F47D /* satellite_4_14_11.jpg in Resources */,
+				EECD595F1C91747200EC7E2F /* 图例_stripe.png in Resources */,
 				EEFC19751BCC9E8D0048F47D /* default_5_5_17.png in Resources */,
 				EEFC368B1BCCAB300048F47D /* satellite_4_5_0.jpg in Resources */,
 				EEFC15631BCC9E8D0048F47D /* default_4_14_15.png in Resources */,
@@ -12739,7 +12747,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -12780,7 +12788,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

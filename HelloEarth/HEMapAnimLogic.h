@@ -27,7 +27,6 @@
 
 -(instancetype)initWithController:(UIViewController *)theViewC;
 
--(void)showImagesAnimation:(enum MapImageType)type hideHUD:(BOOL)hideHUD;
 -(void)showImagesAnimation:(enum MapImageType)type;
 -(void)changeProgress:(UISlider *)progressView;
 -(void)clickPlay;

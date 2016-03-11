@@ -76,10 +76,10 @@
     self.layerImageView.layer.cornerRadius = self.layerImageView.width/2;
     self.layerImageView.clipsToBounds = YES;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"数据流向"
-                                                                              style:UIBarButtonItemStyleDone
-                                                                             target:self
-                                                                             action:@selector(clickRightNav)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"数据流向"
+//                                                                              style:UIBarButtonItemStyleDone
+//                                                                             target:self
+//                                                                             action:@selector(clickRightNav)];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -146,7 +146,6 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 -(void)clickRightNav
 {
