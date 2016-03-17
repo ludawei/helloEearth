@@ -112,7 +112,7 @@
                 return NSOrderedAscending;
             }];
             
-            BOOL isStripe = [[legend objectForKey:@"is_stripe"] integerValue] == 1;
+//            BOOL isStripe = [[legend objectForKey:@"is_stripe"] integerValue] == 1;
             
             NSString *title = [[legend objectForKey:@"val"] objectForKey:@"n"];
             UILabel *titleLbl;
@@ -164,23 +164,23 @@
                 }];
                 
                 
-                if (isStripe) {
-                    UIImage *image = [[UIImage imageNamed:@"图例_stripe.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-                    UIImageView *imgView = [UIImageView new];
-                    imgView.clipsToBounds = YES;
-                    imgView.backgroundColor = [UIColor whiteColor];
-                    imgView.image = image;
-                    imgView.tintColor = backColor;
-                    imgView.contentMode = UIViewContentModeScaleAspectFill;
-                    [contentView addSubview:imgView];
-                    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.edges.mas_equalTo(lbl);
-                    }];
-                    
-                    lbl.backgroundColor = [UIColor clearColor];
-                    [contentView sendSubviewToBack:imgView];
-                }
-                else
+//                if (isStripe) {
+//                    UIImage *image = [[UIImage imageNamed:@"图例_stripe.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//                    UIImageView *imgView = [UIImageView new];
+//                    imgView.clipsToBounds = YES;
+//                    imgView.backgroundColor = [UIColor whiteColor];
+//                    imgView.image = image;
+//                    imgView.tintColor = backColor;
+//                    imgView.contentMode = UIViewContentModeScaleAspectFill;
+//                    [contentView addSubview:imgView];
+//                    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                        make.edges.mas_equalTo(lbl);
+//                    }];
+//                    
+//                    lbl.backgroundColor = [UIColor clearColor];
+//                    [contentView sendSubviewToBack:imgView];
+//                }
+//                else
                 {
                     lbl.backgroundColor = backColor;
                 }
