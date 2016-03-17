@@ -622,6 +622,8 @@ NS_ENUM(NSInteger, MapAnimType)
         
         self.mapAnimLogic.hideHUD = YES;
     }
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -632,6 +634,13 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.statisticsView hide];
 //    [self closeLogoView];
     
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
