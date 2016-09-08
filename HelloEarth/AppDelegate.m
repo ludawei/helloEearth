@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
+#import "MapImagesManager.h"
 //#import <Bugly/CrashReporter.h>
 
 @interface AppDelegate ()
@@ -33,7 +34,31 @@
 //    [[CrashReporter sharedInstance] installWithAppId:@"900010224"];
     [UMSocialData setAppKey:UM_APP_KEY];
     
+//    NSString *dictPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSArray *files = [fileManager subpathsAtPath:dictPath];
+//    NSString *filesSizeStr = [NSString stringWithFormat:@"%.1fM", [self fileSizeAtDirectory:dictPath]/(1024.0*1024.0)];
+    
     return YES;
+}
+
+-(long long)fileSizeAtDirectory:(NSString *)directoryPath
+{
+    //    NSString *filePath = [[WLDataManager sharedInstance] localFilesPath];
+    long long directorySize = 0.0f;
+    
+    NSFileManager* manager = [NSFileManager defaultManager];
+    NSArray *files = [manager subpathsAtPath:directoryPath];
+    for (NSString *fileName in files) {
+        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+        if ([manager fileExistsAtPath:filePath]){
+            
+            directorySize += [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
+        }
+    }
+    
+    return directorySize;
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -44,6 +69,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [MapImagesManager clearAllImagesFromDiskWithTime:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -56,6 +82,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MapImagesManager clearAllImagesFromDiskWithTime:NO];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {

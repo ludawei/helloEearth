@@ -17,6 +17,7 @@
 #import "PLHttpManager.h"
 #import "SDImageCache.h"
 #import "SDWebImageDownloader.h"
+#import "UIImage+Extra.h"
 
 @interface MapImagesManager ()
 
@@ -24,6 +25,7 @@
 @property (nonatomic,strong) MBProgressHUD *hud;
 @property (nonatomic,strong) NSMutableArray *operations;
 @property (nonatomic) int netWithoutWifiStatus;
+@property (nonatomic,assign) BOOL isCloud;
 
 @end
 
@@ -43,7 +45,6 @@
 {
     if (self = [super init]) {
         self.client = [[PLHttpManager sharedInstance] manager];
-        self.isQuanGuo = YES;
         
         self.netWithoutWifiStatus = 0;
     }
@@ -205,6 +206,7 @@
             imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:type==MapImageTypeCloud];
         }
         
+        self.isCloud = type==MapImageTypeCloud;
         INIT_WEAK_SELF;
         [self downloadImage:imageUrl completed:^(UIImage *image) {
             if (image) {
@@ -238,7 +240,8 @@
 
 -(void)downloadImageWithUrl:(NSString *)url type:(enum MapImageType)type completed:(void (^)(UIImage *image))block
 {
-    NSString *imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:type==MapImageTypeCloud];
+    self.isCloud = type==MapImageTypeCloud;
+    NSString *imageUrl = [self getFinalUrl:url date:[NSDate date] isCloud:self.isCloud];
     
     [self downloadImage:imageUrl completed:^(UIImage *image) {
         block(image);
@@ -327,12 +330,12 @@
 -(NSString *)imagePathForUrl:(NSString *)url
 {
     NSString *_path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    if (self.isQuanGuo) {
-        _path = [_path stringByAppendingPathComponent:@"mapImagesQuanGuo"];
+    if (self.isCloud) {
+        _path = [_path stringByAppendingPathComponent:@"mapImagesCloud"];
     }
     else
     {
-        _path = [_path stringByAppendingPathComponent:@"mapImages"];
+        _path = [_path stringByAppendingPathComponent:@"mapImagesRadar"];
     }
     
     [self ensurePathExists:_path];
@@ -358,6 +361,9 @@
 {
     NSString *imagePath = [self imagePathForUrl:url];
     
+    if (image.size.width > 1000) {
+        image = [image scaleToSize:CGSizeMake(1000, image.size.height/image.size.width * 1000)];
+    }
     NSData *imageData = UIImagePNGRepresentation(image);
     [imageData writeToFile:imagePath atomically:YES];
 }
@@ -379,12 +385,12 @@
 -(void)clearImagesFromDisk
 {
     NSString *_path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    if (self.isQuanGuo) {
-        _path = [_path stringByAppendingPathComponent:@"mapImagesQuanGuo"];
+    if (self.isCloud) {
+        _path = [_path stringByAppendingPathComponent:@"mapImagesCloud"];
     }
     else
     {
-        _path = [_path stringByAppendingPathComponent:@"mapImages"];
+        _path = [_path stringByAppendingPathComponent:@"mapImagesRadar"];
     }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -394,32 +400,48 @@
     }
 }
 
-+(void)clearAllImagesFromDisk
++(void)clearAllImagesFromDiskWithTime:(BOOL)withTime
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        double currTime = [[NSDate date] timeIntervalSince1970];
+        // 清理多余的文件
         double lastTime = [[NSUserDefaults standardUserDefaults] doubleForKey:@"mapImages_lastClearTime"];
-        if (!lastTime) {
-            [[NSUserDefaults standardUserDefaults] setDouble:[[NSDate date] timeIntervalSince1970] forKey:@"mapImages_lastClearTime"];
+        if (lastTime) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mapImages_lastClearTime"];
         }
-        else if (currTime - lastTime > 24*3600)
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *dictPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path_old = [dictPath stringByAppendingPathComponent:@"mapImagesQuanGuo"];
+        if([fileManager fileExistsAtPath:path_old])
         {
-            NSString *dictPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-            NSString *quanGuoPath = [dictPath stringByAppendingPathComponent:@"mapImagesQuanGuo"];
-            NSString *path = [dictPath stringByAppendingPathComponent:@"mapImages"];
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if([fileManager fileExistsAtPath:quanGuoPath])
+            [fileManager removeItemAtPath:path_old error:nil];
+        }
+        path_old = [dictPath stringByAppendingPathComponent:@"mapImages"];
+        if([fileManager fileExistsAtPath:path_old])
+        {
+            [fileManager removeItemAtPath:path_old error:nil];
+        }
+        
+        double currTime = [[NSDate date] timeIntervalSince1970];
+        // 删除过期的雷达图
+        NSString *lastTime_rain = [[CWDataManager sharedInstance].mapRainData objectForKey:@"time"];
+        if (!withTime || (lastTime_rain && currTime - [lastTime_rain doubleValue] >= 10*60)) {
+            NSString *path = [dictPath stringByAppendingPathComponent:@"mapImagesRadar"];
+            if([fileManager fileExistsAtPath:path])
             {
-                [fileManager removeItemAtPath:quanGuoPath error:nil];
+                [fileManager removeItemAtPath:path error:nil];
             }
+        }
+        
+        // 删除过期的云图
+        NSString *lastTime_cloud = [[CWDataManager sharedInstance].mapCloudData objectForKey:@"time"];
+        if (!withTime || (lastTime_cloud && currTime - [lastTime_cloud doubleValue] >= 10*60)) {
+            NSString *path = [dictPath stringByAppendingPathComponent:@"mapImagesCloud"];
             
             if([fileManager fileExistsAtPath:path])
             {
                 [fileManager removeItemAtPath:path error:nil];
             }
-            
-            [[NSUserDefaults standardUserDefaults] setDouble:[[NSDate date] timeIntervalSince1970] forKey:@"mapImages_lastClearTime"];
         }
     });
 }

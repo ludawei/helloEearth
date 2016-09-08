@@ -177,7 +177,6 @@
 		EEE41E521B6743A700752EC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E501B6743A700752EC6 /* Main.storyboard */; };
 		EEE41E541B6743A700752EC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E531B6743A700752EC6 /* Images.xcassets */; };
 		EEE41E571B6743A700752EC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE41E551B6743A700752EC6 /* LaunchScreen.xib */; };
-		EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE41E621B6743A700752EC6 /* HelloEarthTests.m */; };
 		EEE4222D1B6866BC00752EC6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */; };
 		EEE422371B68680400752EC6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422361B68680400752EC6 /* OpenGLES.framework */; };
 		EEE422391B68681000752EC6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE422381B68681000752EC6 /* MobileCoreServices.framework */; };
@@ -2917,16 +2916,6 @@
 		EEFC3ADA1BCCAB310048F47D /* satellite_5_9_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EEFC35631BCCAB300048F47D /* satellite_5_9_9.jpg */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EEE41E5D1B6743A700752EC6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EEE41E3B1B6743A700752EC6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EEE41E421B6743A700752EC6;
-			remoteInfo = HelloEarth;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		EE2414A21B7D7F6800B2C5B5 /* HEMapDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapDatas.h; sourceTree = "<group>"; };
 		EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapDatas.m; sourceTree = "<group>"; };
@@ -3336,7 +3325,6 @@
 		EEE41E511B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEE41E531B6743A700752EC6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EEE41E561B6743A700752EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloEarthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEE41E611B6743A700752EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEE41E621B6743A700752EC6 /* HelloEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloEarthTests.m; sourceTree = "<group>"; };
 		EEE4222C1B6866BC00752EC6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -6108,13 +6096,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEE41E591B6743A700752EC6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -6757,7 +6738,6 @@
 			isa = PBXGroup;
 			children = (
 				EEE41E431B6743A700752EC6 /* HelloEarth.app */,
-				EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -9612,24 +9592,6 @@
 			productReference = EEE41E431B6743A700752EC6 /* HelloEarth.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EEE41E5B1B6743A700752EC6 /* HelloEarthTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EEE41E691B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarthTests" */;
-			buildPhases = (
-				EEE41E581B6743A700752EC6 /* Sources */,
-				EEE41E591B6743A700752EC6 /* Frameworks */,
-				EEE41E5A1B6743A700752EC6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EEE41E5E1B6743A700752EC6 /* PBXTargetDependency */,
-			);
-			name = HelloEarthTests;
-			productName = HelloEarthTests;
-			productReference = EEE41E5C1B6743A700752EC6 /* HelloEarthTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -9641,10 +9603,9 @@
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					EEE41E5B1B6743A700752EC6 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = EEE41E421B6743A700752EC6;
+						DevelopmentTeam = 36XQGB4H92;
+						DevelopmentTeamName = "Beijing Huafeng Innovation Network Company Limited";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -9664,7 +9625,6 @@
 			projectRoot = "";
 			targets = (
 				EEE41E421B6743A700752EC6 /* HelloEarth */,
-				EEE41E5B1B6743A700752EC6 /* HelloEarthTests */,
 			);
 		};
 /* End PBXProject section */
@@ -12437,13 +12397,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEE41E5A1B6743A700752EC6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -12580,23 +12533,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEE41E581B6743A700752EC6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EEE41E631B6743A700752EC6 /* HelloEarthTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		EEE41E5E1B6743A700752EC6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EEE41E421B6743A700752EC6 /* HelloEarth */;
-			targetProxy = EEE41E5D1B6743A700752EC6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EE9F6C671BABB2B10006C8CF /* UMSocialLocalizable.strings */ = {
@@ -12715,6 +12652,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 36XQGB4H92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12746,7 +12685,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -12756,6 +12696,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 36XQGB4H92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12787,38 +12729,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d9f45349-490c-466a-af7c-f1e9296a8bfe";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		EEE41E6A1B6743A700752EC6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HelloEarthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.weather.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloEarth.app/HelloEarth";
-			};
-			name = Debug;
-		};
-		EEE41E6B1B6743A700752EC6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = HelloEarthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.weather.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloEarth.app/HelloEarth";
 			};
 			name = Release;
 		};
@@ -12839,15 +12752,6 @@
 			buildConfigurations = (
 				EEE41E671B6743A700752EC6 /* Debug */,
 				EEE41E681B6743A700752EC6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EEE41E691B6743A700752EC6 /* Build configuration list for PBXNativeTarget "HelloEarthTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EEE41E6A1B6743A700752EC6 /* Debug */,
-				EEE41E6B1B6743A700752EC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

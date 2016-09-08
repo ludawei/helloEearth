@@ -23,7 +23,6 @@ typedef NS_ENUM(NSInteger, MapImageDownloadType){
 
 //+ (MapImagesManager *)sharedInstance;
 
-@property (nonatomic) BOOL isQuanGuo;
 @property (nonatomic,strong) UIView *hudView;
 
 -(void)requestImageList:(enum MapImageType)type completed:(void (^)(enum MapImageDownloadType downloadType))block;
@@ -33,5 +32,5 @@ typedef NS_ENUM(NSInteger, MapImageDownloadType){
 
 -(UIImage *)imageFromDiskForUrl:(NSString *)url;
 
-+(void)clearAllImagesFromDisk;
++(void)clearAllImagesFromDiskWithTime:(BOOL)withTime;
 @end

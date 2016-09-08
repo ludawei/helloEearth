@@ -151,6 +151,9 @@ NS_ENUM(NSInteger, MapAnimType)
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationed:) name:noti_update_location object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAnimFinished) name:noti_loadanim_ok object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
 }
 
 -(void)preLoadMapView
@@ -642,6 +645,26 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
+
+-(void)willEnterForeground
+{
+    if ([productType isEqualToString:FILEMARK_RADAR]) {
+        isBottomFull = YES;
+        self.animType = MapAnimTypeImage;
+        [self.mapAnimLogic showImagesAnimation:MapImageTypeRain];
+    }
+    else if ([productType isEqualToString:FILEMARK_CLOUD])
+    {
+        isBottomFull = YES;
+        self.animType = MapAnimTypeImage;
+        [self.mapAnimLogic showImagesAnimation:MapImageTypeCloud];
+    }
+}
+
+//-(void)didEnterBackground
+//{
+//
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
