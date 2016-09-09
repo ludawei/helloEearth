@@ -9603,7 +9603,7 @@
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 36XQGB4H92;
+						DevelopmentTeam = V6654Q78C4;
 						DevelopmentTeamName = "Beijing Huafeng Innovation Network Company Limited";
 						ProvisioningStyle = Automatic;
 					};
@@ -12653,7 +12653,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 36XQGB4H92;
+				DEVELOPMENT_TEAM = V6654Q78C4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12697,7 +12697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 36XQGB4H92;
+				DEVELOPMENT_TEAM = V6654Q78C4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
