@@ -12,9 +12,7 @@
 #import "Masonry.h"
 #import "WLMainItem.h"
 
-#import "UMSocial.h"
-#import "UMSocialWechatHandler.h"
-#import "UMSocialQQHandler.h"
+#import <UMSocialCore/UMSocialCore.h>
 #import "WXApi.h"
 #import "UIImage+Extra.h"
 #import "DeviceUtil.h"
@@ -39,13 +37,13 @@
         }];
         
         //设置微信AppId、appSecret，分享url
-        [UMSocialWechatHandler setWXAppId:WX_APP_ID appSecret:WX_APP_SECRET url:@""];
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WX_APP_ID appSecret:WX_APP_SECRET redirectURL:@""];
         
-        //设置分享到QQ/Qzone的应用Id，和分享url 链接
-        [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:@""];
+        //设置分享到QQ互联的appKey和appSecret
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQ_APP_ID  appSecret:QQ_APP_KEY redirectURL:@""];
         
         NSMutableArray *images = [NSMutableArray array];
-        if ([QQApiInterface isQQInstalled])
+//        if ([QQApiInterface isQQInstalled])
         {
             [images addObject:@[@"QQ", @"qq"]];
         }
@@ -171,25 +169,25 @@
         case 0:
         {
             // qq分享
-            [self shareWithType:UMShareToQQ];
+            [self shareWithType:UMSocialPlatformType_QQ];
             break;
         }
         case 1:
         {
             // 微信
-            [self shareWithType:UMShareToWechatSession];
+            [self shareWithType:UMSocialPlatformType_WechatSession];
             break;
         }
         case 2:
         {
             // 朋友圈
-            [self shareWithType:UMShareToWechatTimeline];
+            [self shareWithType:UMSocialPlatformType_WechatTimeLine];
             break;
         }
         case 3:
         {
             // 新浪
-            [self shareWithType:UMShareToSina];
+            [self shareWithType:UMSocialPlatformType_Sms];
             break;
         }
         default:
@@ -197,14 +195,14 @@
     }
 }
 
--(void)shareWithType:(NSString *)type
+-(void)shareWithType:(UMSocialPlatformType)type
 {
     NSString *imageUrl = @"https://itunes.apple.com/us/app/lanp-huan-yu/id1044915755?l=zh&ls=1&mt=8";
     UIImage *shareImage;
-    if ([type isEqualToString:UMShareToWechatTimeline]) {
-        shareImage = [self addimageWidth:MIN(375.0, self.shareImage.size.width) withImage:self.shareImage];
-    }
-    else
+//    if ([type isEqualToString:UMShareToWechatTimeline]) {
+//        shareImage = [self addimageWidth:MIN(375.0, self.shareImage.size.width) withImage:self.shareImage];
+//    }
+//    else
     {
         shareImage = [self addimageWidth:self.shareImage.size.width withImage:self.shareImage];
     }
@@ -212,26 +210,32 @@
     NSString *appName = [DeviceUtil getSoftVersion:true];
     
     //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:WX_APP_ID appSecret:WX_APP_SECRET url:imageUrl];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WX_APP_ID appSecret:WX_APP_SECRET redirectURL:imageUrl];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:WX_APP_ID appSecret:WX_APP_SECRET redirectURL:imageUrl];
+    //设置分享到QQ互联的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQ_APP_ID  appSecret:QQ_APP_KEY redirectURL:imageUrl];
     
-    //设置分享到QQ/Qzone的应用Id，和分享url 链接
-    [UMSocialQQHandler setQQWithAppId:QQ_APP_ID appKey:QQ_APP_KEY url:imageUrl];
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    messageObject.text = [NSString stringWithFormat:@"%@分享", appName];
     
-    [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeImage;
-    [UMSocialData defaultData].extConfig.wechatTimelineData.wxMessageType = UMSocialWXMessageTypeImage;
-    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeImage;
+    //创建图片内容对象
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //如果有缩略图，则设置缩略图
+    shareObject.thumbImage = shareImage;
+    [shareObject setShareImage:UIImageJPEGRepresentation(shareImage, 1.0)];
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[type]
-                                                        content:[NSString stringWithFormat:@"%@分享", appName]
-                                                          image:UIImageJPEGRepresentation(shareImage, 1.0)
-                                                       location:nil
-                                                    urlResource:nil
-                                            presentedController:nil
-                                                     completion:^(UMSocialResponseEntity *response){
-                                                         if (response.responseCode == UMSResponseCodeSuccess) {
-                                                             LOG(@"分享成功！");
-                                                         }
-                                                     }];
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:type messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
 }
 
 -(UIImage *)addimageWidth:(CGFloat)width withImage:(UIImage *)image

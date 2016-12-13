@@ -7,7 +7,7 @@
 //
 
 #import "PLHttpManager.h"
-#import "AFNetworkActivityIndicatorManager.h"
+//#import "AFNetworkActivityIndicatorManager.h"
 #import "CWHttpCmdWeather.h"
 #import "DecStr.h"
 #import "ZipStr.h"
@@ -20,7 +20,7 @@ NSString * const pLBaseURLString = @"";
 
 @interface PLHttpManager ()
 
-@property (nonatomic,strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic,strong) AFHTTPSessionManager *manager;
 
 @end
 
@@ -45,10 +45,10 @@ NSString * const pLBaseURLString = @"";
         return nil;
     }
     
-    _manager = [AFHTTPRequestOperationManager manager];
+    _manager = [AFHTTPSessionManager manager];
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"application/octet-stream",@"multipart/form-data", @"text/html; charset=ISO-8859-1", @"application/javascript",nil];
 //    [(AFJSONResponseSerializer *)self.manager.responseSerializer setReadingOptions:NSJSONReadingAllowFragments];
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+//    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     return self;
 }
@@ -92,43 +92,15 @@ NSString * const pLBaseURLString = @"";
         }
     }
     
-    AFHTTPRequestOperation *operation = [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        if ([cmd isKindOfClass:[CWHttpCmdWeather class]]) {
-            responseObject = operation.responseData;
-            
-            NSString *multipartLength = [[operation.response allHeaderFields] objectForKey:@"lengthn"];
-            if([responseObject isKindOfClass:[NSData class]] &&
-               multipartLength)
-            {
-                responseObject = [self splitMultiWeather:responseObject andLength:multipartLength];
-            }
-        }
-        
-        if ([cmd isResponseZipped]) {
-            responseObject = [self decodeResponseZippedData:operation.responseData];
-        }
-        
-        [cmd didSuccess:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([cmd isResponseZipped]) {
-           id responseObject = [self decodeResponseZippedData:operation.responseData];
-            LOG(@"%@",responseObject);
-            if (responseObject) {
-                [cmd didSuccess:responseObject];
-            }
-            else
-            {
-                [cmd didFailed:operation];
-            }
+    [[self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (!error) {
+            [cmd didSuccess:responseObject];
         }
         else
         {
-            [cmd didFailed:operation];
+            [cmd didFailed:nil];
         }
-    }];
-    
-    [self.manager.operationQueue addOperation:operation];
+    }] resume];
 }
 
 
@@ -197,7 +169,7 @@ NSString * const pLBaseURLString = @"";
     return jsonObject;
 }
 
--(AFHTTPRequestOperationManager *)manager
+-(AFHTTPSessionManager *)manager
 {
     return _manager;
 }

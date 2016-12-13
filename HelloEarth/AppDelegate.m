@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "UMSocial.h"
-#import "UMSocialSinaSSOHandler.h"
 #import "MapImagesManager.h"
-//#import <Bugly/CrashReporter.h>
+#import <UMSocialCore/UMSocialCore.h>
+#import <Bugly/Bugly.h>
+#import "Contants.h"
 
 @interface AppDelegate ()
 
@@ -21,18 +21,18 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return  [UMSocialSnsService handleOpenURL:url];
-}
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    return  [UMSocialSnsService handleOpenURL:url];
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    [[CrashReporter sharedInstance] installWithAppId:@"900010224"];
-    [UMSocialData setAppKey:UM_APP_KEY];
+    [Bugly startWithAppId:@"900010224"];
+    [[UMSocialManager defaultManager] setUmSocialAppkey:UM_APP_KEY];
     
 //    NSString *dictPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -42,24 +42,24 @@
     return YES;
 }
 
--(long long)fileSizeAtDirectory:(NSString *)directoryPath
-{
-    //    NSString *filePath = [[WLDataManager sharedInstance] localFilesPath];
-    long long directorySize = 0.0f;
-    
-    NSFileManager* manager = [NSFileManager defaultManager];
-    NSArray *files = [manager subpathsAtPath:directoryPath];
-    for (NSString *fileName in files) {
-        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-        if ([manager fileExistsAtPath:filePath]){
-            
-            directorySize += [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
-        }
-    }
-    
-    return directorySize;
-    
-}
+//-(long long)fileSizeAtDirectory:(NSString *)directoryPath
+//{
+//    //    NSString *filePath = [[WLDataManager sharedInstance] localFilesPath];
+//    long long directorySize = 0.0f;
+//    
+//    NSFileManager* manager = [NSFileManager defaultManager];
+//    NSArray *files = [manager subpathsAtPath:directoryPath];
+//    for (NSString *fileName in files) {
+//        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+//        if ([manager fileExistsAtPath:filePath]){
+//            
+//            directorySize += [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
+//        }
+//    }
+//    
+//    return directorySize;
+//    
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

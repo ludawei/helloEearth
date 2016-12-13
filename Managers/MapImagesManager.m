@@ -21,7 +21,7 @@
 
 @interface MapImagesManager ()
 
-@property (nonatomic,strong) AFHTTPRequestOperationManager *client;
+@property (nonatomic,strong) AFHTTPSessionManager *client;
 @property (nonatomic,strong) MBProgressHUD *hud;
 @property (nonatomic,strong) NSMutableArray *operations;
 @property (nonatomic) int netWithoutWifiStatus;

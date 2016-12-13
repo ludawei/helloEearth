@@ -64,7 +64,7 @@
     NSString *imageUrl = [NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/img/%@_%@.jpg", data[@"fileMark"], imgVersion];
 #endif
     if ([FILEMARK_DATAFLOW isEqualToString:data[@"fileMark"]]) {
-        [self.imageView setImageWithURL:nil placeholderImage:nil];
+        [self.imageView setImageWithURL:[NSURL URLWithString:@""] placeholderImage:nil];
         [self.imageView setImage:[UIImage imageNamed:@"数据流.jpg"]];
     }
     else

@@ -11,7 +11,6 @@
 #import "Util.h"
 #import "UINavigationBar+CustomHeight.h"
 #import "Masonry.h"
-#import "UIImageView+AnimationCompletion.h"
 #import "HESplashController.h"
 #import "CWDataManager.h"
 

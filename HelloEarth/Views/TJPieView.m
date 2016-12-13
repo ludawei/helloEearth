@@ -8,7 +8,7 @@
 
 #import "TJPieView.h"
 
-@interface TJPieView ()
+@interface TJPieView ()<CAAnimationDelegate>
 
 //@property (nonatomic) CGFloat currentPer;
 @property (nonatomic,strong) NSArray *datas;

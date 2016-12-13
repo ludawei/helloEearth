@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "CWDataManager.h"
 
+#define AFHTTPRequestOperation NSURLSessionDataTask
+
 typedef void (^HCHttpCmdSuccess)(id object);
 typedef void (^HCHttpCmdFailed)(AFHTTPRequestOperation *response);
 

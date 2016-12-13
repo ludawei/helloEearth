@@ -23,7 +23,6 @@
 #import "HEMapAnimLogic.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-#import "HEShareController.h"
 #import "HESettingController.h"
 #import "CWLocationManager.h"
 #import "HELegendController.h"
@@ -33,7 +32,6 @@
 
 #import "MBProgressHUD+Extra.h"
 #import "HESplashController.h"
-#import "UIImageView+AnimationCompletion.h"
 #import "AlertViewBlocks.h"
 #import "NSDate+Utilities.h"
 

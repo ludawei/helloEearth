@@ -19,5 +19,5 @@
 - (NSString *)finalImagePath:(NSString *)imgUrl;
 
 - (void)parserRequest:(PLHttpCmd *)cmd;
--(AFHTTPRequestOperationManager *)manager;
+-(AFHTTPSessionManager *)manager;
 @end
