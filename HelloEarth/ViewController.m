@@ -1305,7 +1305,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)setHalfBottomLayout
 {
-    CGFloat modifyHeight = self.bottomView.height-(self.expandButton.height+EXPAND_MARGIN*2)+5;
+    CGFloat modifyHeight = MAX(self.bottomView.height-(self.expandButton.height+EXPAND_MARGIN*2)+5, 0);
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(modifyHeight);
 
