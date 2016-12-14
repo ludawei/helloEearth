@@ -250,7 +250,9 @@
         }
         // And a random rotation
         //        sticker.rotation = 2*M_PI * drand48();
-        [self.theViewC removeObject:self.stickersObj];
+        if (self.stickersObj) {
+            [self.theViewC removeObject:self.stickersObj];
+        }
         self.stickersObj = [self.theViewC addStickers:@[sticker] desc:@{kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+100)}];
         
         NSString *timeTxt = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l1"];
@@ -346,6 +348,9 @@
     [self setTimeLabelText:[[self.allUrls firstObject] objectForKey:@"l1"]];
     self.mapImagesManager = nil;
     isClear = YES;
-    [self.theViewC removeObject:self.stickersObj];
+    
+    if (self.stickersObj) {
+        [self.theViewC removeObject:self.stickersObj];
+    }
 }
 @end

@@ -391,7 +391,9 @@
     if (self.makerObjEnd) {
         [temp addObject:self.makerObjEnd];
     }
-    [self.theViewC removeObjects:temp];
+    if (temp.count>0) {
+        [self.theViewC removeObjects:temp];
+    }
     temp = nil;
     
     if (self.animObjs.count > 0) {
@@ -465,7 +467,9 @@
 }
 -(void)removeAnimMarkers:(NSArray *)markerObjs
 {
-    [self.theViewC removeObjects:markerObjs];
+    if (markerObjs && markerObjs.count) {
+        [self.theViewC removeObjects:markerObjs];
+    }
 }
 
 #pragma mark - HEWorldRandItemDelegate

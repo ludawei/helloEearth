@@ -761,11 +761,15 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.currentOperation cancel];
     
     [self.mapDataAnimLogic clear];
-    [self.theViewC removeObjects:self.comObjs];
+    if (self.comObjs && self.comObjs.count>0) {
+        [self.theViewC removeObjects:self.comObjs];
+    }
     self.comObjs = nil;
     
     [self.mapAnimLogic clear];
-    [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
+    if (self.mapAnimLogic.stickersObj) {
+        [self.theViewC removeObject:self.mapAnimLogic.stickersObj];
+    }
     self.mapAnimLogic.stickersObj = nil;
     
     [self clearMarkerObjs];
@@ -1651,7 +1655,9 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)clearObjs
 {
-    [self.theViewC removeObjects:self.comObjs];
+    if (self.comObjs && self.comObjs.count>0) {
+        [self.theViewC removeObjects:self.comObjs];
+    }
     self.comObjs = nil;
 }
 

@@ -91,7 +91,8 @@
     NSString *areaId = [[stationid componentsSeparatedByString:@"-"] lastObject];
 
     self.hidden = NO;
-    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.and.height.mas_equalTo(self.superview);
         make.top.mas_equalTo(0);
     }];
     
