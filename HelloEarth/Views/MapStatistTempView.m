@@ -21,7 +21,6 @@
 
 @property (nonatomic,copy) NSString *stationId;
 @property (nonatomic,strong) UIView *contentView;
-@property (nonatomic,strong) NSDateFormatter *dateFormatter;
 @property (nonatomic,strong) UIActivityIndicatorView *actView;
 
 @property (nonatomic,strong) CWChartView *chartView;

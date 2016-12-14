@@ -11,6 +11,8 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <Bugly/Bugly.h>
 #import "Contants.h"
+#import "CWDataManager.h"
+#import "UIAlertController+Blocks.h"
 
 @interface AppDelegate ()
 
@@ -33,6 +35,15 @@
     
     [Bugly startWithAppId:@"900010224"];
     [[UMSocialManager defaultManager] setUmSocialAppkey:UM_APP_KEY];
+
+    // 使用日期20161230
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([[NSDate date] timeIntervalSince1970] >= 1483027200) {
+            [UIAlertController showAlertInViewController:self.window.rootViewController withTitle:@"提示" message:@"试用期已过，请安装正式版本！" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+                exit(0);
+            }];
+        }
+    });
     
 //    NSString *dictPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];

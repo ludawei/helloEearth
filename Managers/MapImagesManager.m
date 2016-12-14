@@ -12,7 +12,6 @@
 #import "CWEncode.h"
 #import "MBProgressHUD+Extra.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "AlertViewBlocks.h"
 
 #import "PLHttpManager.h"
 #import "SDImageCache.h"

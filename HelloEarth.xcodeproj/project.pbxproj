@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5FABCD84676E96FB722DECC6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DF4E6DBC9BA6AB4734E5B9 /* libPods.a */; };
+		EE03F2A41E00EAD000E01AEA /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EE03F2A31E00EAD000E01AEA /* UIAlertController+Blocks.m */; };
 		EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */; };
 		EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */; };
 		EE2414A91B7D9BAF00B2C5B5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */; };
@@ -123,14 +124,12 @@
 		EED8B6B11B748C58000EADC1 /* encode.c in Sources */ = {isa = PBXBuildFile; fileRef = EED8B69B1B748C58000EADC1 /* encode.c */; };
 		EED8B6B21B748C58000EADC1 /* UtilConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B69E1B748C58000EADC1 /* UtilConstants.m */; };
 		EED8B6B31B748C58000EADC1 /* ZipStr.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6A01B748C58000EADC1 /* ZipStr.m */; };
-		EED8B6D01B748C71000EADC1 /* AlertViewBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6B61B748C71000EADC1 /* AlertViewBlocks.m */; };
 		EED8B6D11B748C71000EADC1 /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6B81B748C71000EADC1 /* CLLocation+Sino.m */; };
 		EED8B6D31B748C71000EADC1 /* DeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6BD1B748C71000EADC1 /* DeviceUtil.m */; };
 		EED8B6D41B748C71000EADC1 /* MBProgressHUD+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6BF1B748C71000EADC1 /* MBProgressHUD+Extra.m */; };
 		EED8B6D51B748C71000EADC1 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6C11B748C71000EADC1 /* MKMapView+ZoomLevel.m */; };
 		EED8B6D61B748C71000EADC1 /* MyOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6C31B748C71000EADC1 /* MyOverlay.m */; };
 		EED8B6D81B748C71000EADC1 /* NSObject+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6C71B748C71000EADC1 /* NSObject+Log.m */; };
-		EED8B6D91B748C71000EADC1 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6C91B748C71000EADC1 /* UIActionSheet+Blocks.m */; };
 		EED8B6DA1B748C71000EADC1 /* UIView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6CB1B748C71000EADC1 /* UIView+Extra.m */; };
 		EED8B6DC1B748C71000EADC1 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6CF1B748C71000EADC1 /* Util.m */; };
 		EED8B6E11B748E56000EADC1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6E01B748E56000EADC1 /* MBProgressHUD.m */; };
@@ -139,7 +138,6 @@
 		EED8B7761B74BE3A000EADC1 /* CWChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B75D1B74BE3A000EADC1 /* CWChartView.m */; };
 		EED8B7771B74BE3A000EADC1 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B75F1B74BE3A000EADC1 /* CustomAnnotationView.m */; };
 		EED8B7781B74BE3A000EADC1 /* CustomAnnoView1.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7611B74BE3A000EADC1 /* CustomAnnoView1.m */; };
-		EED8B7791B74BE3A000EADC1 /* CWMoviePlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7631B74BE3A000EADC1 /* CWMoviePlayView.m */; };
 		EED8B77A1B74BE3A000EADC1 /* CWMyMotionStreakView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7651B74BE3A000EADC1 /* CWMyMotionStreakView.m */; };
 		EED8B77B1B74BE3A000EADC1 /* CWWindMapBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7671B74BE3A000EADC1 /* CWWindMapBottomView.m */; };
 		EED8B77C1B74BE3A000EADC1 /* DrawPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7691B74BE3A000EADC1 /* DrawPathView.m */; };
@@ -2900,6 +2898,8 @@
 		46C84D9B39BCBAFD52482611 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		85DF4E6DBC9BA6AB4734E5B9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D81FCF66BDE36AD5C5EB673A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EE03F2A21E00EAD000E01AEA /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
+		EE03F2A31E00EAD000E01AEA /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		EE2414A21B7D7F6800B2C5B5 /* HEMapDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapDatas.h; sourceTree = "<group>"; };
 		EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapDatas.m; sourceTree = "<group>"; };
 		EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimLogic.h; sourceTree = "<group>"; };
@@ -3181,8 +3181,6 @@
 		EED8B69E1B748C58000EADC1 /* UtilConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilConstants.m; sourceTree = "<group>"; };
 		EED8B69F1B748C58000EADC1 /* ZipStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipStr.h; sourceTree = "<group>"; };
 		EED8B6A01B748C58000EADC1 /* ZipStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipStr.m; sourceTree = "<group>"; };
-		EED8B6B51B748C71000EADC1 /* AlertViewBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewBlocks.h; sourceTree = "<group>"; };
-		EED8B6B61B748C71000EADC1 /* AlertViewBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewBlocks.m; sourceTree = "<group>"; };
 		EED8B6B71B748C71000EADC1 /* CLLocation+Sino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+Sino.h"; sourceTree = "<group>"; };
 		EED8B6B81B748C71000EADC1 /* CLLocation+Sino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+Sino.m"; sourceTree = "<group>"; };
 		EED8B6BB1B748C71000EADC1 /* Contants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contants.h; sourceTree = "<group>"; };
@@ -3196,8 +3194,6 @@
 		EED8B6C31B748C71000EADC1 /* MyOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOverlay.m; sourceTree = "<group>"; };
 		EED8B6C61B748C71000EADC1 /* NSObject+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Log.h"; sourceTree = "<group>"; };
 		EED8B6C71B748C71000EADC1 /* NSObject+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Log.m"; sourceTree = "<group>"; };
-		EED8B6C81B748C71000EADC1 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
-		EED8B6C91B748C71000EADC1 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		EED8B6CA1B748C71000EADC1 /* UIView+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extra.h"; sourceTree = "<group>"; };
 		EED8B6CB1B748C71000EADC1 /* UIView+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extra.m"; sourceTree = "<group>"; };
 		EED8B6CE1B748C71000EADC1 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -3215,8 +3211,6 @@
 		EED8B75F1B74BE3A000EADC1 /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
 		EED8B7601B74BE3A000EADC1 /* CustomAnnoView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnoView1.h; sourceTree = "<group>"; };
 		EED8B7611B74BE3A000EADC1 /* CustomAnnoView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnoView1.m; sourceTree = "<group>"; };
-		EED8B7621B74BE3A000EADC1 /* CWMoviePlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWMoviePlayView.h; sourceTree = "<group>"; };
-		EED8B7631B74BE3A000EADC1 /* CWMoviePlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWMoviePlayView.m; sourceTree = "<group>"; };
 		EED8B7641B74BE3A000EADC1 /* CWMyMotionStreakView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWMyMotionStreakView.h; sourceTree = "<group>"; };
 		EED8B7651B74BE3A000EADC1 /* CWMyMotionStreakView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWMyMotionStreakView.m; sourceTree = "<group>"; };
 		EED8B7661B74BE3A000EADC1 /* CWWindMapBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWWindMapBottomView.h; sourceTree = "<group>"; };
@@ -6439,12 +6433,12 @@
 		EED8B6B41B748C71000EADC1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EE03F2A21E00EAD000E01AEA /* UIAlertController+Blocks.h */,
+				EE03F2A31E00EAD000E01AEA /* UIAlertController+Blocks.m */,
 				EED685A71BB2526A005E2763 /* UIImage+Extra.h */,
 				EED685A81BB2526A005E2763 /* UIImage+Extra.m */,
 				EE9F6C2A1BABA1720006C8CF /* NSDate+Utilities.h */,
 				EE9F6C2B1BABA1720006C8CF /* NSDate+Utilities.m */,
-				EED8B6B51B748C71000EADC1 /* AlertViewBlocks.h */,
-				EED8B6B61B748C71000EADC1 /* AlertViewBlocks.m */,
 				EED8B6B71B748C71000EADC1 /* CLLocation+Sino.h */,
 				EED8B6B81B748C71000EADC1 /* CLLocation+Sino.m */,
 				EED8B6BB1B748C71000EADC1 /* Contants.h */,
@@ -6458,8 +6452,6 @@
 				EED8B6C31B748C71000EADC1 /* MyOverlay.m */,
 				EED8B6C61B748C71000EADC1 /* NSObject+Log.h */,
 				EED8B6C71B748C71000EADC1 /* NSObject+Log.m */,
-				EED8B6C81B748C71000EADC1 /* UIActionSheet+Blocks.h */,
-				EED8B6C91B748C71000EADC1 /* UIActionSheet+Blocks.m */,
 				EED8B6CA1B748C71000EADC1 /* UIView+Extra.h */,
 				EED8B6CB1B748C71000EADC1 /* UIView+Extra.m */,
 				EED8B6CE1B748C71000EADC1 /* Util.h */,
@@ -6524,8 +6516,6 @@
 				EED8B75F1B74BE3A000EADC1 /* CustomAnnotationView.m */,
 				EED8B7601B74BE3A000EADC1 /* CustomAnnoView1.h */,
 				EED8B7611B74BE3A000EADC1 /* CustomAnnoView1.m */,
-				EED8B7621B74BE3A000EADC1 /* CWMoviePlayView.h */,
-				EED8B7631B74BE3A000EADC1 /* CWMoviePlayView.m */,
 				EED8B7641B74BE3A000EADC1 /* CWMyMotionStreakView.h */,
 				EED8B7651B74BE3A000EADC1 /* CWMyMotionStreakView.m */,
 				EED8B7661B74BE3A000EADC1 /* CWWindMapBottomView.h */,
@@ -9472,7 +9462,7 @@
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = V6654Q78C4;
+						DevelopmentTeam = 36XQGB4H92;
 						DevelopmentTeamName = "Beijing Huafeng Innovation Network Company Limited";
 						ProvisioningStyle = Automatic;
 					};
@@ -12318,7 +12308,6 @@
 				EED8B6AF1B748C58000EADC1 /* CWEncode.m in Sources */,
 				EE9853811DFF8198006F7DDF /* SDWebImageDecoder.m in Sources */,
 				EED8B6DC1B748C71000EADC1 /* Util.m in Sources */,
-				EED8B7791B74BE3A000EADC1 /* CWMoviePlayView.m in Sources */,
 				EE4A98D31B6A16DD00891970 /* MyRemoteTileInfo.m in Sources */,
 				EED8B6D51B748C71000EADC1 /* MKMapView+ZoomLevel.m in Sources */,
 				EED8B78E1B74BE5D000EADC1 /* WindParticle.m in Sources */,
@@ -12336,19 +12325,18 @@
 				EED8B60F1B748B79000EADC1 /* PLHttpManager.m in Sources */,
 				EED8B7761B74BE3A000EADC1 /* CWChartView.m in Sources */,
 				EE98538A1DFF8198006F7DDF /* UIImageView+WebCache.m in Sources */,
-				EED8B6D91B748C71000EADC1 /* UIActionSheet+Blocks.m in Sources */,
 				EEA58B791DFEA083005022E8 /* UMShareMenuItem.m in Sources */,
 				EE2E77691BCB86450038F1EE /* MyMaplyRemoteTileSource.m in Sources */,
 				EEA58B7C1DFEA083005022E8 /* UMSocialUIManager.m in Sources */,
 				EED8B60E1B748B79000EADC1 /* MapImagesManager.m in Sources */,
 				EED8B6AC1B748C58000EADC1 /* PLHttpCmd.m in Sources */,
 				EED8B77F1B74BE3A000EADC1 /* NewMapCoverView.m in Sources */,
+				EE03F2A41E00EAD000E01AEA /* UIAlertController+Blocks.m in Sources */,
 				EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */,
 				EED8B6E11B748E56000EADC1 /* MBProgressHUD.m in Sources */,
 				EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */,
 				EED8B77B1B74BE3A000EADC1 /* CWWindMapBottomView.m in Sources */,
 				EE98538B1DFF8198006F7DDF /* UIView+WebCacheOperation.m in Sources */,
-				EED8B6D01B748C71000EADC1 /* AlertViewBlocks.m in Sources */,
 				EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */,
 				EEA58B7B1DFEA083005022E8 /* UMSocialShareScrollView.m in Sources */,
 				EE9853851DFF8198006F7DDF /* SDWebImagePrefetcher.m in Sources */,
@@ -12538,8 +12526,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = V6654Q78C4;
-				ENABLE_BITCODE = YES;
+				DEVELOPMENT_TEAM = 36XQGB4H92;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -12567,7 +12555,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12582,8 +12570,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V6654Q78C4;
-				ENABLE_BITCODE = YES;
+				DEVELOPMENT_TEAM = 36XQGB4H92;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -12611,7 +12599,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

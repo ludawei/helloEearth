@@ -32,7 +32,7 @@
 
 #import "MBProgressHUD+Extra.h"
 #import "HESplashController.h"
-#import "AlertViewBlocks.h"
+#import "UIAlertController+Blocks.h"
 #import "NSDate+Utilities.h"
 
 #import "HEShareView.h"
@@ -1397,9 +1397,8 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)clickSqView
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"保存图片到相册?" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert showAlerViewFromButtonAction:nil animated:YES handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex != alertView.cancelButtonIndex) {
+    [UIAlertController showAlertInViewController:self withTitle:@"" message:@"保存图片到相册?" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+        if (buttonIndex != controller.cancelButtonIndex) {
             UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"qrcode_for_gh_9eb43db17ffb_430.jpg"], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         }
     }];
