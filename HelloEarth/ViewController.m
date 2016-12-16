@@ -923,12 +923,22 @@ NS_ENUM(NSInteger, MapAnimType)
         
         location = [location locationMarsFromEarth];
         
+        NSString *title = [CWLocationManager sharedInstance].plackMark.locality;
+        if (!title) {
+            title = @"未知位置";
+        }
+        
+        NSString *subTitle = [CWLocationManager sharedInstance].plackMark.name;
+        if (!subTitle) {
+            subTitle = @"-";
+        }
+        
         UIImage *img = [UIImage imageNamed:@"map_anni_point"];
         MaplyScreenMarker *anno = [[MaplyScreenMarker alloc] init];
         anno.loc             = MaplyCoordinateMakeWithDegrees(location.coordinate.longitude, location.coordinate.latitude);
         anno.offset          = CGPointMake(0, img.size.height/2);
         anno.size            = img.size;//CGSizeMake(30, 30);
-        anno.userObject      = @{@"type": @"userLocation", @"title": [CWLocationManager sharedInstance].plackMark.locality, @"subTitle": [CWLocationManager sharedInstance].plackMark.name };
+        anno.userObject      = @{@"type": @"userLocation", @"title": title, @"subTitle": subTitle };
         anno.image = img;
         anno.layoutImportance = MAXFLOAT;
         
