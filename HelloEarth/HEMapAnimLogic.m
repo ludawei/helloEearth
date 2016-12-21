@@ -269,7 +269,7 @@
 
 -(void)setTimeLabelText:(NSString *)text
 {
-    if ([Util isEmpty:text]) {
+    if (!text || ![text isKindOfClass:[NSString class]] || text.length == 0) {
         return;
     }
     
@@ -284,7 +284,7 @@
     else
     {
         [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-        NSDate* expirationDate = [dateFormatter dateFromString: text];
+        NSDate* expirationDate = [dateFormatter dateFromString:text];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //        self.timeLabel.text = [dateFormatter stringFromDate:expirationDate];
         [self.delegate setTimeText:[dateFormatter stringFromDate:expirationDate]];
