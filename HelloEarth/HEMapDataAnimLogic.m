@@ -45,14 +45,16 @@
 {
     [self.delegate clearObjs];
     
-    NSString *type = [self.types objectAtIndex:self.currentPlayIndex];
-    id data = [[CWDataManager sharedInstance] mapdataByFileMark:type];
-    if ([data objectForKey:@"time"]) {
-        [self setTimeLabelText:[data objectForKey:@"time"]];
+    if (self.currentPlayIndex >=0 && self.currentPlayIndex < self.types.count) {
+        NSString *type = [self.types objectAtIndex:self.currentPlayIndex];
+        id data = [[CWDataManager sharedInstance] mapdataByFileMark:type];
+        if ([data objectForKey:@"time"]) {
+            [self setTimeLabelText:[data objectForKey:@"time"]];
+        }
+        
+        NSArray *comObjs = [self.mapDatas changeType:type];
+        [self.delegate changeObjs:comObjs];
     }
-    
-    NSArray *comObjs = [self.mapDatas changeType:type];
-    [self.delegate changeObjs:comObjs];
 }
 
 -(void)showProductWithTypes:(NSArray *)types withAge:(NSString *)age

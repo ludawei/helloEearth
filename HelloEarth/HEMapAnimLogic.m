@@ -255,8 +255,11 @@
         }
         self.stickersObj = [self.theViewC addStickers:@[sticker] desc:@{kMaplyDrawPriority: @(kMaplyModelDrawPriorityDefault+100)}];
         
-        NSString *timeTxt = [[self.allUrls objectAtIndex:self.allUrls.count-self.currentPlayIndex-1] objectForKey:@"l1"];
-        [self setTimeLabelText:timeTxt];
+        NSInteger tmpIndex = self.allUrls.count-self.currentPlayIndex-1;
+        if (tmpIndex >=0 && tmpIndex < self.allUrls.count) {
+            NSString *timeTxt = [[self.allUrls objectAtIndex:tmpIndex] objectForKey:@"l1"];
+            [self setTimeLabelText:timeTxt];
+        }
         
         //    LOG(@"%d, %ld", self.currentPlayIndex, self.allImages.count);
         //        self.progressView.progress = 1.0*(self.currentPlayIndex+1)/self.allImages.count;
