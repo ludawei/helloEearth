@@ -7,7 +7,7 @@
 //
 
 #import "Util.h"
-#import "CWEncode.h"
+#include <CommonCrypto/CommonHMAC.h>
 #import "CWDataManager.h"
 
 @implementation Util
@@ -238,22 +238,64 @@
     NSString *now = [formatter stringFromDate:[NSDate date]];
     
     NSString *public_key = [NSString stringWithFormat:@"%@date=%@&appid=%@", url, now, appId];
-    NSString *key = [CWEncode encodeByPublicKey:public_key privateKey:priKey];
-    NSString *finalUrl = [NSString stringWithFormat:@"%@date=%@&appid=%@&key=%@", url, now, [appId substringToIndex:6], [Util AFPercentEscapedQueryStringPairMemberFromString:key encoding:NSUTF8StringEncoding]];
+    NSString *key = [self encodeByPublicKey:public_key privateKey:priKey];
+    key = AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(key);
+    NSString *finalUrl = [NSString stringWithFormat:@"%@date=%@&appid=%@&key=%@", url, now, [appId substringToIndex:6], key];
     
     return finalUrl;
 }
 
-+ (NSString *)AFPercentEscapedQueryStringPairMemberFromString:(NSString *)string encoding:(NSStringEncoding)edcoding
++(NSString *)encodeByPublicKey:(NSString *)public_key privateKey:(NSString *)private_key
 {
-    return AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(string, edcoding);
+    const char *cKey  = [private_key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [public_key cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    //sha1
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+    
+    NSString *hash = [HMAC base64EncodedStringWithOptions:0];//将加密结果进行一次BASE64编码。
+    
+    return hash;
 }
 
-static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
-    static NSString * const kAFCharactersToBeEscaped = @":/?&=;+!@#$()',*";
-    static NSString * const kAFCharactersToLeaveUnescaped = @"[].";
+NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NSString *string)
+{
+    static NSString * const kAFCharactersGeneralDelimitersToEncode = @":/?#[]@"; // does not include "?" or "/" due to RFC 3986 - Section 3.4
+    static NSString * const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
     
-    return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescaped, (__bridge CFStringRef)kAFCharactersToBeEscaped, CFStringConvertNSStringEncodingToEncoding(encoding));
+    NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+    [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
+    
+    // FIXME: https://github.com/AFNetworking/AFNetworking/pull/3028
+    // return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+    
+    static NSUInteger const batchSize = 50;
+    
+    NSUInteger index = 0;
+    NSMutableString *escaped = @"".mutableCopy;
+    
+    while (index < string.length) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu"
+        NSUInteger length = MIN(string.length - index, batchSize);
+#pragma GCC diagnostic pop
+        NSRange range = NSMakeRange(index, length);
+        
+        // To avoid breaking up character sequences such as 👴🏻👮🏽
+        range = [string rangeOfComposedCharacterSequencesForRange:range];
+        
+        NSString *substring = [string substringWithRange:range];
+        NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+        [escaped appendString:encoded];
+        
+        index += range.length;
+    }
+    
+    return escaped;
 }
 
 +(UIColor *)colorFromRGBString:(NSString *)rbgString alpha:(CGFloat)a
@@ -348,4 +390,5 @@ static NSString * AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(NS
     NSDate* date = [dateFormat dateFromString: dateValue];
     return date;
 }
+
 @end

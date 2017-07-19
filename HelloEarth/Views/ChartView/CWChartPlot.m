@@ -2,7 +2,7 @@
 //  CWChartPlot.m
 //  ChinaWeather
 //
-//  Created by 曹 君平 on 7/17/13.
+//  Created by ludawei on 7/17/13.
 //  Copyright (c) 2013 Platomix. All rights reserved.
 //
 

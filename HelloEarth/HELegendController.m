@@ -47,7 +47,7 @@
     {
         NSString *newFileMark = [[self.fileMark componentsSeparatedByString:@","] firstObject];
         NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapslegend?fileMark=%@&", newFileMark] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
-        [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (responseObject) {
                 [self initViewWithData:responseObject];

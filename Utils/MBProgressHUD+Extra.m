@@ -2,7 +2,7 @@
 //  MBProgressHUD+Extra.m
 //  Ituji
 //
-//  Created by 曹 君平 on 9/16/12.
+//  Created by ludawei on 9/16/12.
 //
 //
 

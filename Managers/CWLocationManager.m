@@ -81,7 +81,7 @@
              mapName = plmark.name;
              
              LOG(@"1:%@2:%@3:%@4:%@",  plmark.locality, plmark.subLocality,plmark.thoroughfare,plmark.subThoroughfare);
-             [self logToServer:[NSString stringWithFormat:@"1:%@2:%@3:%@4:%@",  plmark.locality, plmark.subLocality,plmark.thoroughfare,plmark.subThoroughfare]];
+//             [self logToServer:[NSString stringWithFormat:@"1:%@2:%@3:%@4:%@",  plmark.locality, plmark.subLocality,plmark.thoroughfare,plmark.subThoroughfare]];
              
              self.plackMark = plmark;
              
@@ -106,7 +106,7 @@
                            @"uid":@"2528",
                            @"content":txt
                            };
-    [[PLHttpManager sharedInstance].manager POST:@"https://decision-admin.tianqi.cn/home/test/log" parameters:data success:nil failure:nil];
+    [[PLHttpManager sharedInstance] POST:@"https://decision-admin.tianqi.cn/home/test/log" parameters:data success:nil failure:nil];
 }
 
 @end

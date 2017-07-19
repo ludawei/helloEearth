@@ -706,7 +706,7 @@ NS_ENUM(NSInteger, MapAnimType)
         NSString *url = [Util requestEncodeWithString:[NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/micapsfile?fileMark=%@&isChina=true&", productType] appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
         
         [self.currentOperation cancel];
-        self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.currentOperation = [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (responseObject && [responseObject isKindOfClass:[NSArray class]]) {
                 if (isBottomFull) {
@@ -1201,7 +1201,7 @@ NS_ENUM(NSInteger, MapAnimType)
 {
     [self.currentOperation cancel];
     [MBProgressHUD showHUDInView:self.view andText:nil];
-    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    self.currentOperation = [[PLHttpManager sharedInstance] GET:@"http://decision.tianqi.cn//data/video/videoweather.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (responseObject) {
@@ -1221,7 +1221,7 @@ NS_ENUM(NSInteger, MapAnimType)
     
     [self.currentOperation cancel];
     [MBProgressHUD showHUDInView:self.view andText:nil];
-    self.currentOperation = [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    self.currentOperation = [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (responseObject) {

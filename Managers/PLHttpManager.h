@@ -20,4 +20,8 @@
 
 - (void)parserRequest:(PLHttpCmd *)cmd;
 -(AFHTTPSessionManager *)manager;
+-(NSURLSessionDataTask *)GET:(NSString *)url parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+   failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+-(NSURLSessionDataTask *)POST:(NSString *)url parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+    failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 @end

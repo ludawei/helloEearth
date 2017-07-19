@@ -2,14 +2,14 @@
 //  CWHttpCmdFeedback.m
 //  ChinaWeather
 //
-//  Created by 曹 君平 on 7/19/13.
+//  Created by ludawei on 7/19/13.
 //  Copyright (c) 2013 Platomix. All rights reserved.
 //
 
 #import "CWHttpCmdFeedback.h"
-#import "AuthorizeUtil.h"
-
-// http://app.weather.com.cn/second/feedback/upload
+#import "DeviceUtil.h"
+#import "Util.h"
+#import "PLHttpManager.h"
 
 @implementation CWHttpCmdFeedback
 
@@ -20,41 +20,27 @@
 
 - (NSString *)path
 {
-    return @"http://app.weather.com.cn/second/feedback/upload";
+    return @"http://decision-admin.tianqi.cn/Home/work/request";
 }
 
--(BOOL)isResponseZipped
-{
-    return YES;
-}
-
-- (NSData *)data
+-(void)startRequest
 {
     NSString* content = self.content ? self.content : @"";
     NSString* email = self.email ? self.email : @"";
     NSString* tel = self.tel ? self.tel : @"";
-
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if (!version){
-        version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    }
     
-    NSMutableDictionary *queryJson = [NSMutableDictionary dictionary];
-    [queryJson setValue: [AuthorizeUtil getAppKey] forKey: @"appKey"];
-
     NSMutableDictionary* data = [NSMutableDictionary dictionary];
-    [data setValue: @"3d-earth" forKey: @"userId"];
-    [data setValue: @"" forKey: @"uId"];
-    [data setValue: [NSString stringWithFormat: @"ios_%@", [[UIDevice currentDevice] systemVersion]] forKey: @"osVersion"];
-    [data setValue: version forKey: @"softVersion"];
+    [data setValue: @"23" forKey: @"appid"];
+    [data setValue: @"蓝PI.寰宇" forKey: @"uid"];
     [data setValue: content forKey: @"content"];
     [data setValue: email forKey: @"email"];
-    [data setValue: tel forKey: @"tel"];
+    [data setValue: tel forKey: @"mobile"];
     
-    [queryJson setValue: data forKey: @"data"];
-    
-    return [NSJSONSerialization dataWithJSONObject:queryJson options:0 error:nil];
+    [[PLHttpManager sharedInstance] POST:self.path parameters:data success:^(NSURLSessionDataTask *operation, id responseObject) {
+        [self didSuccess:responseObject];
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self didFailed:operation];
+    }];
 }
 
 @end

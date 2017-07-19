@@ -347,7 +347,7 @@
         NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/fromto?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
         
         [MBProgressHUD showHUDInView:self.theViewC.view andText:nil];
-        [[PLHttpManager sharedInstance].manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             self.reqestTime = [[NSDate date] timeIntervalSince1970];
             

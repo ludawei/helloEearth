@@ -24,7 +24,6 @@
 + (NSString *)parseWindForce:(NSString *)code;
 
 + (NSString *)requestEncodeWithString:(NSString *)url appId:(NSString *)appId privateKey:(NSString *)priKey;
-+ (NSString *)AFPercentEscapedQueryStringPairMemberFromString:(NSString *)string encoding:(NSStringEncoding)edcoding;
 
 +(UIColor *)colorFromRGBString:(NSString *)rbgString alpha:(CGFloat)a;
 +(UIFont *)modifyFontWithName:(NSString *)name size:(CGFloat)size;
@@ -38,4 +37,5 @@
 + (NSArray*) Str2JSONArray: (NSString*) str;
 + (NSInteger) randomInt;
 + (NSDate*) Str2date: (NSString*) dateValue;
++(NSString *)encodeByPublicKey:(NSString *)public_key privateKey:(NSString *)private_key;
 @end

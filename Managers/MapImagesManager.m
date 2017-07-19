@@ -9,18 +9,17 @@
 #import "MapImagesManager.h"
 #import "AFNetworking.h"
 #import "CWDataManager.h"
-#import "CWEncode.h"
+#import "Util.h"
 #import "MBProgressHUD+Extra.h"
 #import <CommonCrypto/CommonDigest.h>
 
 #import "PLHttpManager.h"
-#import "SDImageCache.h"
-#import "SDWebImageDownloader.h"
+#import <SDWebImage/SDImageCache.h>
+#import <SDWebImage/SDWebImageDownloader.h>
 #import "UIImage+Extra.h"
 
 @interface MapImagesManager ()
 
-@property (nonatomic,strong) AFHTTPSessionManager *client;
 @property (nonatomic,strong) MBProgressHUD *hud;
 @property (nonatomic,strong) NSMutableArray *operations;
 @property (nonatomic) int netWithoutWifiStatus;
@@ -43,7 +42,6 @@
 -(instancetype)init
 {
     if (self = [super init]) {
-        self.client = [[PLHttpManager sharedInstance] manager];
         
         self.netWithoutWifiStatus = 0;
     }
@@ -83,7 +81,7 @@
     }
     if (!lastTime || nowTime - [lastTime doubleValue] >= 10*60) {
         // 获取降雨图
-        [self.client GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[PLHttpManager sharedInstance] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             id json = responseObject;//[NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
                 
@@ -303,7 +301,7 @@
     NSString *myUrl = [url stringByAppendingString:[NSString stringWithFormat:@"&appid=%@", [weather_appId substringToIndex:6]]];
     url = [url stringByAppendingString:[NSString stringWithFormat:@"&appid=%@", weather_appId]];
     
-    NSString *key = [CWEncode encodeByPublicKey:url privateKey:weather_priKey];
+    NSString *key = [Util encodeByPublicKey:url privateKey:weather_priKey];
     //    key = AFPercentEscapedQueryStringPairMemberFromStringWithEncoding(key, NSASCIIStringEncoding);
     
     myUrl = [myUrl stringByAppendingString:[NSString stringWithFormat:@"&key=%@", key]];
