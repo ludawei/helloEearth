@@ -37,6 +37,7 @@
 
 #import "HEShareView.h"
 #import "HEDataFlowBottomView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define VIEW_MARGIN self.view.width*0.04
 #define EXPAND_MARGIN 12
@@ -73,6 +74,7 @@ NS_ENUM(NSInteger, MapAnimType)
     NSString *productType;
     NSString *productName;
     NSString *productAge;
+    NSString *productTuli;
     
     UIImageView *loadingIV;
     
@@ -103,6 +105,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 @property (nonatomic,strong) UIView *bottomView,*bottomContentView;
 
+@property (nonatomic,strong) UIImageView *indexImageView;
 @property (nonatomic,strong) UIButton *playButton, *indexButton, *expandButton;
 @property (nonatomic,strong) UISlider *progressView;
 @property (nonatomic,strong) UILabel *titleLbl, *timeLabel;
@@ -448,6 +451,17 @@ NS_ENUM(NSInteger, MapAnimType)
     [self.view bringSubviewToFront:expandButton];
     self.bottomView = bottomView;
     
+    self.indexImageView = [UIImageView new];
+    self.indexImageView.backgroundColor = [UIColor grayColor];
+    self.indexImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.indexImageView.hidden = YES;
+    [self.bottomView addSubview:self.indexImageView];
+    [self.indexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(margin);
+        make.right.mas_equalTo(-margin);
+        make.bottom.mas_equalTo(self.bottomView.mas_top);
+    }];
+    
     UIView *view = [UIView new];
     [bottomView addSubview:view];
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -618,8 +632,23 @@ NS_ENUM(NSInteger, MapAnimType)
     
     // 初始显示 "雷达图"
     if (!productType) {
-        productType = FILEMARK_RADAR;
-        productName = @"雷达图";
+        NSString *url = @"http://decision-admin.tianqi.cn/Home/extra/getHuanyuProducts";
+        [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *data = [[responseObject objectForKey:@"array"] firstObject];
+                
+                productType = [data objectForKey:@"fileMark"];FILEMARK_RADAR;
+                productName = [data objectForKey:@"name"];
+                productAge = [data objectForKey:@"timeValid"];
+                productTuli = [data objectForKey:@"jc_img"];
+                
+                [self refreshDataAndUI];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
         
         self.mapAnimLogic.hideHUD = YES;
     }
@@ -1355,9 +1384,23 @@ NS_ENUM(NSInteger, MapAnimType)
 
 -(void)clickLegend
 {
-    HELegendController *next = [HELegendController new];
-    next.fileMark = productType;
-    [self.navigationController pushViewController:next animated:YES];
+//    HELegendController *next = [HELegendController new];
+//    next.fileMark = productType;
+//    [self.navigationController pushViewController:next animated:YES];
+    if (self.indexImageView.hidden) {
+        __weak typeof(self) weakSelf = self;
+        [self.indexImageView sd_setImageWithURL:[NSURL URLWithString:productTuli] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [weakSelf.indexImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(image.size.height/image.size.width*weakSelf.indexImageView.width);
+            }];
+        }];
+        self.indexImageView.hidden = NO;
+    }
+    else
+    {
+        self.indexImageView.image = nil;
+        self.indexImageView.hidden = YES;
+    }
 }
 
 -(void)closeLogoView
@@ -1773,12 +1816,10 @@ NS_ENUM(NSInteger, MapAnimType)
 #pragma mark - HEProductDelegate
 -(void)setData:(NSDictionary *)data
 {
-    NSString *dataType = [data objectForKey:@"fileMark"];
-    NSString *dataName = [data objectForKey:@"name"];
-    
-    productType = dataType;
-    productName = dataName;
+    productType = [data objectForKey:@"fileMark"];
+    productName = [data objectForKey:@"name"];
     productAge = [data objectForKey:@"timeValid"];
+    productTuli = [data objectForKey:@"jc_img"];
     [self refreshDataAndUI];
 }
 
@@ -1850,7 +1891,7 @@ NS_ENUM(NSInteger, MapAnimType)
         }
         
         [self resetLocationToInit];
-        self.indexButton.hidden = ![[CWDataManager sharedInstance].indexDict objectForKey:dataType];
+        self.indexButton.hidden = !productTuli;
     }
 }
 

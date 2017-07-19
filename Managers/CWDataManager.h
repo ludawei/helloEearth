@@ -37,7 +37,6 @@ typedef NS_ENUM(NSInteger, CWDataType){
 -(NSDictionary *)mapdataByFileMark:(NSString *)fileMark;
 
 
--(NSDictionary *)indexDict;
 -(NSDictionary *)mapDataTypes;
 -(NSDictionary *)mapOfflineImageInfo;
 

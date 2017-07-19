@@ -83,7 +83,7 @@
             make.height.mas_equalTo(15);
         }];
         
-        self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
+        self.datas = @[];//[[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
         
         UITableView *tempTable;
         
@@ -221,7 +221,7 @@
     }
     else
     {
-        self.datas = [[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
+        self.datas = @[];//[[CWDataManager sharedInstance].indexDict objectForKey:self.fileMark];
         
         UIImage *legendImage = [UIImage imageNamed:@"Legend_radar.png"];
         

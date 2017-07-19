@@ -58,22 +58,10 @@
 
 -(void)setupData:(NSDictionary *)data selectFileMark:(NSString *)fileMark imageVersion:(NSString *)imgVersion
 {
-#if 0
-    NSString *imageUrl = [NSString stringWithFormat:@"http://7xn1l2.com1.z0.glb.clouddn.com/3d_earth_%@.jpg", data[@"fileMark"]];
-#else
-    NSString *imageUrl = [NSString stringWithFormat:@"http://scapi.weather.com.cn/weather/img/%@_%@.jpg", data[@"fileMark"], imgVersion];
-#endif
-    if ([FILEMARK_DATAFLOW isEqualToString:data[@"fileMark"]]) {
-        [self.imageView setImageWithURL:[NSURL URLWithString:@""] placeholderImage:nil];
-        [self.imageView setImage:[UIImage imageNamed:@"数据流.jpg"]];
-    }
-    else
-    {
-        [self.imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
-    }
-   
-    self.lbl.text = data[@"name"];
+    NSString *imageUrl = [data objectForKey:@"img"];
+    [self.imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
     
+    self.lbl.text = data[@"name"];
     [self setSelected:[fileMark isEqualToString:data[@"fileMark"]]];
 }
 

@@ -54,11 +54,12 @@
     [self.collView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
     [self.view addSubview:self.collView];
     
-    NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/getmicapsproductlist?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+//    NSString *url = [Util requestEncodeWithString:@"http://scapi.weather.com.cn/weather/getmicapsproductlist?" appId:@"f63d329270a44900" privateKey:@"sanx_data_99"];
+    NSString *url = @"http://decision-admin.tianqi.cn/Home/extra/getHuanyuProducts";
     [[PLHttpManager sharedInstance] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
-            self.datas = [self formatDatasFromArray:[responseObject objectForKey:@"array"]];
+            self.datas = [responseObject objectForKey:@"array"];
             self.imageVersion = [responseObject objectForKey:@"version"];
             [self.collView reloadData];
             
@@ -92,19 +93,6 @@
         }
         [self.collView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
     }
-}
-
--(NSArray *)formatDatasFromArray:(NSArray *)datas
-{
-    NSMutableArray *dataArr = [NSMutableArray arrayWithArray:datas];
-    [dataArr insertObject:@{@"name": @"天气统计", @"fileMark":FILEMARK_TONGJI} atIndex:0];
-    [dataArr insertObject:@{@"name": @"天气网眼", @"fileMark":FILEMARK_NETEYE} atIndex:0];
-    [dataArr insertObject:@{@"name": @"云图", @"fileMark":FILEMARK_CLOUD} atIndex:0];
-    [dataArr insertObject:@{@"name": @"雷达图", @"fileMark":FILEMARK_RADAR} atIndex:0];
-    
-    [dataArr addObject:@{@"name":@"数据流向", @"fileMark":FILEMARK_DATAFLOW}];
-    
-    return dataArr;
 }
 
 -(void)viewWillAppear:(BOOL)animated

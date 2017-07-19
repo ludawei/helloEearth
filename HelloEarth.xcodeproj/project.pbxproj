@@ -84,7 +84,6 @@
 		EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */; };
 		EECC420B1DFEA3F300AD0B6E /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EECC420A1DFEA3F300AD0B6E /* Bugly.framework */; };
 		EECC426D1DFEB0D800AD0B6E /* WhirlyGlobeMaplyComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EECC426C1DFEB0D800AD0B6E /* WhirlyGlobeMaplyComponent.framework */; };
-		EECD595B1C916B0600EC7E2F /* 数据流.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EECD595A1C916B0600EC7E2F /* 数据流.jpg */; };
 		EECD595F1C91747200EC7E2F /* 图例_stripe.png in Resources */ = {isa = PBXBuildFile; fileRef = EECD595E1C91747200EC7E2F /* 图例_stripe.png */; };
 		EED017D81BA01D07007235FA /* HESettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017D71BA01D07007235FA /* HESettingController.m */; };
 		EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EED017DA1BA02F7D007235FA /* CWLocationManager.m */; };
@@ -3004,7 +3003,6 @@
 		EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeLinear.m; sourceTree = "<group>"; };
 		EECC420A1DFEA3F300AD0B6E /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		EECC426C1DFEB0D800AD0B6E /* WhirlyGlobeMaplyComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WhirlyGlobeMaplyComponent.framework; sourceTree = "<group>"; };
-		EECD595A1C916B0600EC7E2F /* 数据流.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "数据流.jpg"; sourceTree = "<group>"; };
 		EECD595E1C91747200EC7E2F /* 图例_stripe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图例_stripe.png"; sourceTree = "<group>"; };
 		EED017D61BA01D07007235FA /* HESettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HESettingController.h; sourceTree = "<group>"; };
 		EED017D71BA01D07007235FA /* HESettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HESettingController.m; sourceTree = "<group>"; };
@@ -6324,7 +6322,6 @@
 			isa = PBXGroup;
 			children = (
 				EECD595E1C91747200EC7E2F /* 图例_stripe.png */,
-				EECD595A1C916B0600EC7E2F /* 数据流.jpg */,
 				EE55ADCF1C8EAF18003544ED /* world_cities.txt */,
 				EE7C0F991C7AFFC700E0E9F4 /* china_pros.json */,
 				EEF1D86E1C44F3520032272E /* 寰宇分享.png */,
@@ -9142,7 +9139,7 @@
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = V6654Q78C4;
+						DevelopmentTeam = 36XQGB4H92;
 						DevelopmentTeamName = "Beijing Huafeng Innovation Network Company Limited";
 						ProvisioningStyle = Automatic;
 					};
@@ -11014,7 +11011,6 @@
 				EEFC36B01BCCAB300048F47D /* satellite_4_7_13.jpg in Resources */,
 				EEFC37EB1BCCAB300048F47D /* satellite_5_17_23.jpg in Resources */,
 				EEFC192F1BCC9E8D0048F47D /* default_5_3_11.png in Resources */,
-				EECD595B1C916B0600EC7E2F /* 数据流.jpg in Resources */,
 				EEFC18B81BCC9E8D0048F47D /* default_5_29_2.png in Resources */,
 				EEFC160D1BCC9E8D0048F47D /* default_5_0_1.png in Resources */,
 				EEFC19DF1BCC9E8D0048F47D /* default_5_8_26.png in Resources */,
@@ -12182,7 +12178,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = V6654Q78C4;
+				DEVELOPMENT_TEAM = 36XQGB4H92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12199,7 +12195,7 @@
 					/usr/include/libxml2/,
 				);
 				INFOPLIST_FILE = HelloEarth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12209,11 +12205,11 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -12224,7 +12220,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V6654Q78C4;
+				DEVELOPMENT_TEAM = 36XQGB4H92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12241,7 +12237,7 @@
 					/usr/include/libxml2/,
 				);
 				INFOPLIST_FILE = HelloEarth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12251,11 +12247,11 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

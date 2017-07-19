@@ -269,9 +269,12 @@
     }
 }
 
-
 -(void)setTimeLabelText:(NSString *)text
 {
+    if ([text isKindOfClass:[NSNumber class]]) {
+        text = [(NSNumber *)text stringValue];
+    }
+    
     if (!text || ![text isKindOfClass:[NSString class]] || text.length == 0) {
         return;
     }
