@@ -452,7 +452,6 @@ NS_ENUM(NSInteger, MapAnimType)
     self.bottomView = bottomView;
     
     self.indexImageView = [UIImageView new];
-    self.indexImageView.backgroundColor = [UIColor grayColor];
     self.indexImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.indexImageView.hidden = YES;
     [self.bottomView addSubview:self.indexImageView];
