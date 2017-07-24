@@ -1893,6 +1893,7 @@ NS_ENUM(NSInteger, MapAnimType)
         [self resetLocationToInit];
         self.indexButton.hidden = !productTuli;
     }
+    [self.indexImageView sd_setImageWithURL:[NSURL URLWithString:productTuli]];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

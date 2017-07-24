@@ -9139,7 +9139,7 @@
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 36XQGB4H92;
+						DevelopmentTeam = V6654Q78C4;
 						DevelopmentTeamName = "Beijing Huafeng Innovation Network Company Limited";
 						ProvisioningStyle = Automatic;
 					};
@@ -12178,7 +12178,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 36XQGB4H92;
+				DEVELOPMENT_TEAM = V6654Q78C4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12205,7 +12205,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12220,7 +12220,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Huafeng Innovation Network Company Limited (V6654Q78C4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 36XQGB4H92;
+				DEVELOPMENT_TEAM = V6654Q78C4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12247,7 +12247,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
