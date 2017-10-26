@@ -13,7 +13,7 @@
 #import "MyMaplyRemoteTileSource.h"
 #import "MapImagesManager.h"
 #import "CWDataManager.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "Util.h"
 #import "PLHttpManager.h"
 #import "MapStatisticsBottomView.h"
@@ -33,7 +33,6 @@
 #import "MBProgressHUD+Extra.h"
 #import "HESplashController.h"
 #import "UIAlertController+Blocks.h"
-#import "NSDate+Utilities.h"
 
 #import "HEShareView.h"
 #import "HEDataFlowBottomView.h"
@@ -52,10 +51,7 @@ NS_ENUM(NSInteger, MapAnimType)
 
 @interface ViewController ()<WhirlyGlobeViewControllerDelegate, MaplyViewControllerDelegate, HEMapAnimLogicDelegate, HEMapDataAnimDelegate, HESettingDelegate, HEProductDelegate, HEShareDelegate, HEMapAnimFlowDelegate>
 {
-    CGFloat globeHeight;
-    
     CGFloat initMapHeight;
-    NSArray *locPoints;
     
     MaplyAtmosphere *atmosObj;
     
@@ -397,7 +393,7 @@ NS_ENUM(NSInteger, MapAnimType)
                 make.left.mas_equalTo(0);
             }
             make.top.mas_equalTo(SELF_NAV_HEIGHT*0.12);
-            make.bottom.mas_equalTo(-SELF_NAV_HEIGHT*0.12);
+            make.bottom.mas_equalTo(SELF_NAV_HEIGHT*0.22);
 //            make.height.mas_equalTo(view.mas_height).multipliedBy(0.8);
             make.width.mas_equalTo(view.mas_width).multipliedBy(0.2);
         }];
@@ -749,6 +745,7 @@ NS_ENUM(NSInteger, MapAnimType)
                     self.animType = MapAnimTypeData;
                     [self.mapDataAnimLogic showProductWithTypes:types withAge:productAge];
                     
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 }
                 else

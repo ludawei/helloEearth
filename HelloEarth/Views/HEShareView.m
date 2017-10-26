@@ -9,7 +9,7 @@
 #import "HEShareView.h"
 
 #import "Util.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "WLMainItem.h"
 
 #import <UMSocialCore/UMSocialCore.h>

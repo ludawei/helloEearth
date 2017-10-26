@@ -12,9 +12,6 @@
 		EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A31B7D7F6800B2C5B5 /* HEMapDatas.m */; };
 		EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */; };
 		EE2414A91B7D9BAF00B2C5B5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */; };
-		EE2C4BC91BBBA5B00034D1B3 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */; };
-		EE2C4BCA1BBBA5B00034D1B3 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */; };
-		EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */; };
 		EE2C4BD21BBBACBE0034D1B3 /* 引导页-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */; };
 		EE2C4BD31BBBACBE0034D1B3 /* 引导页-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */; };
 		EE2C4BD41BBBACBE0034D1B3 /* 引导页-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */; };
@@ -70,16 +67,6 @@
 		EEA58B7C1DFEA083005022E8 /* UMSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA58B6C1DFEA083005022E8 /* UMSocialUIManager.m */; };
 		EEAA17F41B9C3B3C009A3535 /* HEProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA17F31B9C3B3C009A3535 /* HEProduct.m */; };
 		EEAA17F61B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */; };
-		EEAA18201B9EB485009A3535 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18071B9EB485009A3535 /* MASCompositeConstraint.m */; };
-		EEAA18211B9EB485009A3535 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA180A1B9EB485009A3535 /* MASConstraint.m */; };
-		EEAA18221B9EB485009A3535 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA180C1B9EB485009A3535 /* MASConstraintMaker.m */; };
-		EEAA18231B9EB485009A3535 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA180E1B9EB485009A3535 /* MASLayoutConstraint.m */; };
-		EEAA18241B9EB485009A3535 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18121B9EB485009A3535 /* MASViewAttribute.m */; };
-		EEAA18251B9EB485009A3535 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18141B9EB485009A3535 /* MASViewConstraint.m */; };
-		EEAA18261B9EB485009A3535 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18161B9EB485009A3535 /* NSArray+MASAdditions.m */; };
-		EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA18191B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		EEAA18281B9EB485009A3535 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */; };
-		EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */; };
 		EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */; };
 		EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB2C2181C85283F00E58289 /* MyMaplyShapeLinear.m */; };
 		EECC420B1DFEA3F300AD0B6E /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EECC420A1DFEA3F300AD0B6E /* Bugly.framework */; };
@@ -105,7 +92,6 @@
 		EED8B6D81B748C71000EADC1 /* NSObject+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6C71B748C71000EADC1 /* NSObject+Log.m */; };
 		EED8B6DA1B748C71000EADC1 /* UIView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6CB1B748C71000EADC1 /* UIView+Extra.m */; };
 		EED8B6DC1B748C71000EADC1 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6CF1B748C71000EADC1 /* Util.m */; };
-		EED8B6E11B748E56000EADC1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B6E01B748E56000EADC1 /* MBProgressHUD.m */; };
 		EED8B7741B74BE3A000EADC1 /* CWChartAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B7591B74BE3A000EADC1 /* CWChartAxis.m */; };
 		EED8B7751B74BE3A000EADC1 /* CWChartPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B75B1B74BE3A000EADC1 /* CWChartPlot.m */; };
 		EED8B7761B74BE3A000EADC1 /* CWChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8B75D1B74BE3A000EADC1 /* CWChartView.m */; };
@@ -2878,12 +2864,6 @@
 		EE2414A51B7D868500B2C5B5 /* HEMapAnimLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEMapAnimLogic.h; sourceTree = "<group>"; };
 		EE2414A61B7D868500B2C5B5 /* HEMapAnimLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEMapAnimLogic.m; sourceTree = "<group>"; };
 		EE2414A81B7D9BAF00B2C5B5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		EE2C4BC51BBBA5B00034D1B3 /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
-		EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
-		EE2C4BC71BBBA5B00034D1B3 /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
-		EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
-		EE2C4BCC1BBBAC910034D1B3 /* EARestrictedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EARestrictedScrollView.h; sourceTree = "<group>"; };
-		EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EARestrictedScrollView.m; sourceTree = "<group>"; };
 		EE2C4BCF1BBBACBE0034D1B3 /* 引导页-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-1.jpg"; sourceTree = "<group>"; };
 		EE2C4BD01BBBACBE0034D1B3 /* 引导页-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-2.jpg"; sourceTree = "<group>"; };
 		EE2C4BD11BBBACBE0034D1B3 /* 引导页-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引导页-3.jpg"; sourceTree = "<group>"; };
@@ -2972,31 +2952,6 @@
 		EEAA17F21B9C3B3C009A3535 /* HEProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEProduct.h; sourceTree = "<group>"; };
 		EEAA17F31B9C3B3C009A3535 /* HEProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HEProduct.m; sourceTree = "<group>"; };
 		EEAA17F51B9C483D009A3535 /* qrcode_for_gh_9eb43db17ffb_430.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = qrcode_for_gh_9eb43db17ffb_430.jpg; sourceTree = "<group>"; };
-		EEAA18061B9EB485009A3535 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
-		EEAA18071B9EB485009A3535 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
-		EEAA18081B9EB485009A3535 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
-		EEAA18091B9EB485009A3535 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
-		EEAA180A1B9EB485009A3535 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
-		EEAA180B1B9EB485009A3535 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
-		EEAA180C1B9EB485009A3535 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
-		EEAA180D1B9EB485009A3535 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
-		EEAA180E1B9EB485009A3535 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
-		EEAA180F1B9EB485009A3535 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
-		EEAA18101B9EB485009A3535 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
-		EEAA18111B9EB485009A3535 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
-		EEAA18121B9EB485009A3535 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
-		EEAA18131B9EB485009A3535 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
-		EEAA18141B9EB485009A3535 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
-		EEAA18151B9EB485009A3535 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		EEAA18161B9EB485009A3535 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		EEAA18171B9EB485009A3535 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		EEAA18181B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		EEAA18191B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		EEAA181A1B9EB485009A3535 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
-		EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
-		EEAA181C1B9EB485009A3535 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		EEAA181D1B9EB485009A3535 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		EEB2C2141C80550B00E58289 /* MyMaplyShapeSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeSphere.h; sourceTree = "<group>"; };
 		EEB2C2151C80550B00E58289 /* MyMaplyShapeSphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMaplyShapeSphere.m; sourceTree = "<group>"; };
 		EEB2C2171C85283F00E58289 /* MyMaplyShapeLinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaplyShapeLinear.h; sourceTree = "<group>"; };
@@ -3045,8 +3000,6 @@
 		EED8B6CE1B748C71000EADC1 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		EED8B6CF1B748C71000EADC1 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		EED8B6DD1B748D47000EADC1 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		EED8B6DF1B748E56000EADC1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		EED8B6E01B748E56000EADC1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		EED8B7581B74BE3A000EADC1 /* CWChartAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWChartAxis.h; sourceTree = "<group>"; };
 		EED8B7591B74BE3A000EADC1 /* CWChartAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWChartAxis.m; sourceTree = "<group>"; };
 		EED8B75A1B74BE3A000EADC1 /* CWChartPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWChartPlot.h; sourceTree = "<group>"; };
@@ -5897,27 +5850,6 @@
 			name = Logics;
 			sourceTree = "<group>";
 		};
-		EE2C4BC41BBBA5B00034D1B3 /* EAIntroView */ = {
-			isa = PBXGroup;
-			children = (
-				EE2C4BCB1BBBAC910034D1B3 /* EARestrictedScrollView */,
-				EE2C4BC51BBBA5B00034D1B3 /* EAIntroPage.h */,
-				EE2C4BC61BBBA5B00034D1B3 /* EAIntroPage.m */,
-				EE2C4BC71BBBA5B00034D1B3 /* EAIntroView.h */,
-				EE2C4BC81BBBA5B00034D1B3 /* EAIntroView.m */,
-			);
-			path = EAIntroView;
-			sourceTree = "<group>";
-		};
-		EE2C4BCB1BBBAC910034D1B3 /* EARestrictedScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				EE2C4BCC1BBBAC910034D1B3 /* EARestrictedScrollView.h */,
-				EE2C4BCD1BBBAC910034D1B3 /* EARestrictedScrollView.m */,
-			);
-			path = EARestrictedScrollView;
-			sourceTree = "<group>";
-		};
 		EE4CBCF71BA81D44002D322E /* UIimage+libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -6025,38 +5957,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		EEAA18041B9EB485009A3535 /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				EEAA18061B9EB485009A3535 /* MASCompositeConstraint.h */,
-				EEAA18071B9EB485009A3535 /* MASCompositeConstraint.m */,
-				EEAA18081B9EB485009A3535 /* MASConstraint+Private.h */,
-				EEAA18091B9EB485009A3535 /* MASConstraint.h */,
-				EEAA180A1B9EB485009A3535 /* MASConstraint.m */,
-				EEAA180B1B9EB485009A3535 /* MASConstraintMaker.h */,
-				EEAA180C1B9EB485009A3535 /* MASConstraintMaker.m */,
-				EEAA180D1B9EB485009A3535 /* MASLayoutConstraint.h */,
-				EEAA180E1B9EB485009A3535 /* MASLayoutConstraint.m */,
-				EEAA180F1B9EB485009A3535 /* Masonry.h */,
-				EEAA18101B9EB485009A3535 /* MASUtilities.h */,
-				EEAA18111B9EB485009A3535 /* MASViewAttribute.h */,
-				EEAA18121B9EB485009A3535 /* MASViewAttribute.m */,
-				EEAA18131B9EB485009A3535 /* MASViewConstraint.h */,
-				EEAA18141B9EB485009A3535 /* MASViewConstraint.m */,
-				EEAA18151B9EB485009A3535 /* NSArray+MASAdditions.h */,
-				EEAA18161B9EB485009A3535 /* NSArray+MASAdditions.m */,
-				EEAA18171B9EB485009A3535 /* NSArray+MASShorthandAdditions.h */,
-				EEAA18181B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.h */,
-				EEAA18191B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m */,
-				EEAA181A1B9EB485009A3535 /* View+MASAdditions.h */,
-				EEAA181B1B9EB485009A3535 /* View+MASAdditions.m */,
-				EEAA181C1B9EB485009A3535 /* View+MASShorthandAdditions.h */,
-				EEAA181D1B9EB485009A3535 /* ViewController+MASAdditions.h */,
-				EEAA181E1B9EB485009A3535 /* ViewController+MASAdditions.m */,
-			);
-			path = Masonry;
-			sourceTree = "<group>";
-		};
 		EECC426B1DFEB0D800AD0B6E /* WhirlyGlobeMaplyComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -6096,11 +5996,8 @@
 			children = (
 				EECC426B1DFEB0D800AD0B6E /* WhirlyGlobeMaplyComponent */,
 				EEA58B491DFEA083005022E8 /* UMSocial */,
-				EE2C4BC41BBBA5B00034D1B3 /* EAIntroView */,
 				EED685911BB00063005E2763 /* NJKWebViewProgress */,
 				EE4CBCF71BA81D44002D322E /* UIimage+libs */,
-				EEAA18041B9EB485009A3535 /* Masonry */,
-				EED8B6DE1B748E56000EADC1 /* MBProgressHUD */,
 			);
 			path = ThirdLibs;
 			sourceTree = "<group>";
@@ -6152,15 +6049,6 @@
 				EE4CBCF51BA7C863002D322E /* HEDisAnim.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		EED8B6DE1B748E56000EADC1 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				EED8B6DF1B748E56000EADC1 /* MBProgressHUD.h */,
-				EED8B6E01B748E56000EADC1 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		EED8B7341B748FD3000EADC1 /* framework */ = {
@@ -9134,7 +9022,7 @@
 		EEE41E3B1B6743A700752EC6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = weather;
 				TargetAttributes = {
 					EEE41E421B6743A700752EC6 = {
@@ -11933,9 +11821,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HelloEarth/Pods-HelloEarth-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/EAIntroView/EAIntroView.framework",
+				"${BUILT_PRODUCTS_DIR}/EARestrictedScrollView/EARestrictedScrollView.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EAIntroView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EARestrictedScrollView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -11948,13 +11849,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HelloEarth-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E5A2E1A598DACE2CBFDAA60C /* [CP] Copy Pods Resources */ = {
@@ -11986,12 +11890,8 @@
 				EED8B6D51B748C71000EADC1 /* MKMapView+ZoomLevel.m in Sources */,
 				EED8B78E1B74BE5D000EADC1 /* WindParticle.m in Sources */,
 				EEAA17F41B9C3B3C009A3535 /* HEProduct.m in Sources */,
-				EEAA18231B9EB485009A3535 /* MASLayoutConstraint.m in Sources */,
-				EEAA18251B9EB485009A3535 /* MASViewConstraint.m in Sources */,
-				EEAA18281B9EB485009A3535 /* View+MASAdditions.m in Sources */,
 				EED8B6D11B748C71000EADC1 /* CLLocation+Sino.m in Sources */,
 				EE4CBCB11BA67F2F002D322E /* UINavigationBar+CustomHeight.m in Sources */,
-				EEAA18201B9EB485009A3535 /* MASCompositeConstraint.m in Sources */,
 				EE75A1DA1B9EEC3300B225E9 /* WLMainItem.m in Sources */,
 				EED8B7801B74BE3A000EADC1 /* PlayerView.m in Sources */,
 				EED8B6D61B748C71000EADC1 /* MyOverlay.m in Sources */,
@@ -12005,29 +11905,22 @@
 				EED8B77F1B74BE3A000EADC1 /* NewMapCoverView.m in Sources */,
 				EE03F2A41E00EAD000E01AEA /* UIAlertController+Blocks.m in Sources */,
 				EE4CBD1F1BA82119002D322E /* UIImage+Tint.m in Sources */,
-				EED8B6E11B748E56000EADC1 /* MBProgressHUD.m in Sources */,
 				EEE41E4F1B6743A700752EC6 /* ViewController.m in Sources */,
 				EED8B77B1B74BE3A000EADC1 /* CWWindMapBottomView.m in Sources */,
 				EE4CBCA31BA18F04002D322E /* MyCollCell.m in Sources */,
 				EEA58B7B1DFEA083005022E8 /* UMSocialShareScrollView.m in Sources */,
-				EE2C4BC91BBBA5B00034D1B3 /* EAIntroPage.m in Sources */,
-				EE2C4BCE1BBBAC910034D1B3 /* EARestrictedScrollView.m in Sources */,
 				EE55ADC31C892BE7003544ED /* HEDataFlowBottomView.m in Sources */,
 				EED8B77A1B74BE3A000EADC1 /* CWMyMotionStreakView.m in Sources */,
 				EE9F6CB21BAFF3150006C8CF /* HEAboutController.m in Sources */,
-				EEAA18261B9EB485009A3535 /* NSArray+MASAdditions.m in Sources */,
 				EE5151611F1EF4C7009A82B5 /* Base64.m in Sources */,
 				EED8B7811B74BE3A000EADC1 /* TJPieView.m in Sources */,
 				EE55ADD51C8FB1C6003544ED /* HEWorldRandItem.m in Sources */,
 				EE4CBC9A1BA178C2002D322E /* CWHttpCmdFeedback.m in Sources */,
 				EE4CBCA61BA27241002D322E /* HEMapDataAnimLogic.m in Sources */,
-				EEAA18271B9EB485009A3535 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				EEB2C2191C85283F00E58289 /* MyMaplyShapeLinear.m in Sources */,
-				EEAA18221B9EB485009A3535 /* MASConstraintMaker.m in Sources */,
 				EED8B78B1B74BE5D000EADC1 /* MyVector.m in Sources */,
 				EE4CBCF31BA7C787002D322E /* HEPreAnim.m in Sources */,
 				EED8B7741B74BE3A000EADC1 /* CWChartAxis.m in Sources */,
-				EEAA18211B9EB485009A3535 /* MASConstraint.m in Sources */,
 				EED8B7751B74BE3A000EADC1 /* CWChartPlot.m in Sources */,
 				EEB2C2161C80550B00E58289 /* MyMaplyShapeSphere.m in Sources */,
 				EED8B7781B74BE3A000EADC1 /* CustomAnnoView1.m in Sources */,
@@ -12044,7 +11937,6 @@
 				EED685A61BB24DD0005E2763 /* HEBaseController.m in Sources */,
 				EEE41E4C1B6743A700752EC6 /* AppDelegate.m in Sources */,
 				EE2414A71B7D868500B2C5B5 /* HEMapAnimLogic.m in Sources */,
-				EE2C4BCA1BBBA5B00034D1B3 /* EAIntroView.m in Sources */,
 				EEE41E491B6743A700752EC6 /* main.m in Sources */,
 				EE4CBC9D1BA1827E002D322E /* HELegendController.m in Sources */,
 				EE4CBCF01BA7BA92002D322E /* HESplashController.m in Sources */,
@@ -12054,13 +11946,11 @@
 				EED8B6D41B748C71000EADC1 /* MBProgressHUD+Extra.m in Sources */,
 				EED8B78D1B74BE5D000EADC1 /* WeatherData.m in Sources */,
 				EE2414A41B7D7F6800B2C5B5 /* HEMapDatas.m in Sources */,
-				EEAA18291B9EB485009A3535 /* ViewController+MASAdditions.m in Sources */,
 				EED8B77E1B74BE3A000EADC1 /* MapStatistTempView.m in Sources */,
 				EE4CBCA01BA18E55002D322E /* HEProductsController.m in Sources */,
 				EEA58B7A1DFEA083005022E8 /* UMShareMenuSelectionView.m in Sources */,
 				EE75A1D41B9ECE9800B225E9 /* HENavController.m in Sources */,
 				EED017DB1BA02F7D007235FA /* CWLocationManager.m in Sources */,
-				EEAA18241B9EB485009A3535 /* MASViewAttribute.m in Sources */,
 				EE4CBCF61BA7C863002D322E /* HEDisAnim.m in Sources */,
 				EED685901BB0002C005E2763 /* WebController.m in Sources */,
 				EED8B78C1B74BE5D000EADC1 /* PLBaseObject.m in Sources */,
@@ -12090,14 +11980,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -12138,14 +12034,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -12204,7 +12106,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/SMS",
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -12246,7 +12148,7 @@
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/SMS",
 					"$(PROJECT_DIR)/ThirdLibs/UMSocial/SocialLibraries/WeChat",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weather.3dEarth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

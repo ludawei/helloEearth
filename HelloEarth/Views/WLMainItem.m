@@ -7,7 +7,7 @@
 //
 
 #import "WLMainItem.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 @interface WLMainItem ()
 

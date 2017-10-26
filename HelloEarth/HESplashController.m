@@ -7,11 +7,11 @@
 //
 
 #import "HESplashController.h"
-#import "Masonry.h"
 #import "HEPreAnim.h"
 #import "HEDisAnim.h"
 #import "CWDataManager.h"
-#import "EAIntroView.h"
+#import <EAIntroView/EAIntroView.h>
+#import <Masonry/Masonry.h>
 
 @interface HESplashController ()<EAIntroDelegate>
 
@@ -123,7 +123,7 @@
 }
 
 #pragma mark - EAIntroDelegate
-- (void)introDidFinish:(EAIntroView *)introView
+- (void)introDidFinish:(EAIntroView *)introView wasSkipped:(BOOL)wasSkipped
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:noti_loadanim_ok object:nil userInfo:nil];
     [self dismissViewControllerAnimated:YES completion:^{

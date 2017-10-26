@@ -8,7 +8,7 @@
 
 #import "HEMapAnimLogic.h"
 #import "CWDataManager.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "Util.h"
 #import "PLHttpManager.h"
 #import "UIImage+Tint.h"

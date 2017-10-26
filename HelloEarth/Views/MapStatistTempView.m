@@ -12,8 +12,7 @@
 #import "Util.h"
 #import "NSDate+Utilities.h"
 #import "CWChartView.h"
-
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 #define BOTTOM_HEIGHT 220
 

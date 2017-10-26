@@ -10,7 +10,7 @@
 #import "ViewController.h"
 #import "Util.h"
 #import "UINavigationBar+CustomHeight.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "HESplashController.h"
 #import "CWDataManager.h"
 
@@ -50,23 +50,22 @@
     }];
     loadingIV = loadingBackView;
     
-    INIT_WEAK_SELF;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSlef showLoadingView];
+        [self showLoadingView];
     });
 }
 
 -(void)showLoadingView
 {
+    ViewController *next1 = [ViewController new];
+    [self pushViewController:next1 animated:NO];
+    
     HESplashController *next = [HESplashController new];
     next.transitioningDelegate = next;
     [self presentViewController:next animated:YES completion:^{
         [loadingIV removeFromSuperview];
         loadingIV = nil;
     }];
-    
-    ViewController *next1 = [ViewController new];
-    [self pushViewController:next1 animated:NO];
 }
 
 // 转屏加载时，布局乱了*** 在这里修正！

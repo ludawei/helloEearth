@@ -7,7 +7,7 @@
 //
 
 #import "HELegendController.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "Util.h"
 #import "PLHttpManager.h"
 #import "CWDataManager.h"
