@@ -1613,6 +1613,7 @@ NS_ENUM(NSInteger, MapAnimType)
     if (!_shareView) {
         _shareView = [[HEShareView alloc] init];
         _shareView.delegate = self;
+        _shareView.controller = self;
         _shareView.backgroundColor = [UIColor colorWithRed:0.165 green:0.169 blue:0.173 alpha:1];
         [self.navigationController.view addSubview:_shareView];
         [_shareView mas_makeConstraints:^(MASConstraintMaker *make) {

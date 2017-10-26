@@ -13,7 +13,6 @@
 #import "WLMainItem.h"
 
 #import <UMSocialCore/UMSocialCore.h>
-#import "WXApi.h"
 #import "UIImage+Extra.h"
 #import "DeviceUtil.h"
 
@@ -43,11 +42,11 @@
         [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQ_APP_ID  appSecret:QQ_APP_KEY redirectURL:@""];
         
         NSMutableArray *images = [NSMutableArray array];
-//        if ([QQApiInterface isQQInstalled])
+        if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ])
         {
             [images addObject:@[@"QQ", @"qq"]];
         }
-        if ([WXApi isWXAppInstalled])
+        if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession])
         {
             [images addObject:@[@"微信", @"微信"]];
             [images addObject:@[@"朋友圈", @"朋友圈"]];
@@ -229,7 +228,7 @@
     messageObject.shareObject = shareObject;
     
     //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:type messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+    [[UMSocialManager defaultManager] shareToPlatform:type messageObject:messageObject currentViewController:self.controller completion:^(id data, NSError *error) {
         if (error) {
             NSLog(@"************Share fail with error %@*********",error);
         }else{

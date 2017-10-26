@@ -14,6 +14,7 @@
 
 @property (nonatomic,weak) id<HEShareDelegate> delegate;
 @property (nonatomic,strong) UIImage *shareImage;
+@property (nonatomic,strong) UIViewController *controller;
 
 -(void)show;
 -(void)hide;

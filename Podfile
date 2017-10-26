@@ -8,4 +8,9 @@ target 'HelloEarth' do
     pod 'Masonry'
     pod 'EAIntroView'
     pod 'MBProgressHUD'
+    
+    pod 'UMengUShare/UI'
+    pod 'UMengUShare/Social/ReducedWeChat'
+    pod 'UMengUShare/Social/ReducedQQ'
+    pod 'UMengUShare/Social/ReducedSina'
 end
