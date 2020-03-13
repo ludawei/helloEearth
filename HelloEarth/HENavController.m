@@ -62,6 +62,7 @@
     
     HESplashController *next = [HESplashController new];
     next.transitioningDelegate = next;
+    next.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:next animated:YES completion:^{
         [loadingIV removeFromSuperview];
         loadingIV = nil;

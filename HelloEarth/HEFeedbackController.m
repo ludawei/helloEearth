@@ -264,6 +264,7 @@
     [mailCompose setToRecipients:@[FEEDBACK_EMAILBOX]];
     
     // 弹出邮件发送视图
+    mailCompose.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mailCompose animated:YES completion:nil];
 }
 
